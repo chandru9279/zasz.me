@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Raven.Client.Document;
 
 namespace zasz.me
 {
@@ -35,6 +36,9 @@ namespace zasz.me
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            var documentStore = new DocumentStore { Url = "http://localhost:8080/" };
+            documentStore.Initialize();
         }
     }
 }
