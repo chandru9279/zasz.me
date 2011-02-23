@@ -1,4 +1,4 @@
-﻿<script type="text/javascript" src="../../Integration/ckeditor/ckeditor.js"></script>
+﻿<script type="text/javascript" src="@Url.Content("~/Integration/ckeditor/ckeditor.js")"></script>
 
 <p>
 <textarea rows="10" name="theEditor" id="theEditor" cols="80" style="display: none;"> Write... </textarea>
@@ -10,20 +10,20 @@
 
                         extraPlugins : 'autogrow',
             	    	autoGrow_maxHeight : 800,
+            	    	uiColor: '#FF9070',
+            	    	defaultLanguage: 'en',
+                        language: 'en',
+            	    	baseHref: '@Url.Content("~/Integration/")',
+
 
 					    /*
 					    * Style sheet for the contents
 					    */
-					    contentsCss: 'assets/output_xhtml.css',
-
-					    /*
-					    * Core styles.
-					    */
+            	    	contentsCss: '@Url.Content("~/Integration/ckeditor/output_xhtml.css")',
 					    coreStyles_bold: { element: 'span', attributes: { 'class': 'Bold'} },
 					    coreStyles_italic: { element: 'span', attributes: { 'class': 'Italic'} },
 					    coreStyles_underline: { element: 'span', attributes: { 'class': 'Underline'} },
 					    coreStyles_strike: { element: 'span', attributes: { 'class': 'StrikeThrough' }, overrides: 'strike' },
-
 					    coreStyles_subscript: { element: 'span', attributes: { 'class': 'Subscript' }, overrides: 'sub' },
 					    coreStyles_superscript: { element: 'span', attributes: { 'class': 'Superscript' }, overrides: 'sup' },
 

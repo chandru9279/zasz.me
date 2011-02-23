@@ -3,3 +3,4 @@ zasz.me/bin/
 *.suo
 *.cache
 packages/
+*.db
