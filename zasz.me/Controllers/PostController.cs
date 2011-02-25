@@ -19,7 +19,7 @@ namespace zasz.me.Controllers
         //
         // GET: /Post/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Details(FormCollection slug)
         {
             return View();
         }
@@ -35,14 +35,13 @@ namespace zasz.me.Controllers
         //
         // POST: /Post/Create
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return View("Post", collection);
             }
             catch
             {

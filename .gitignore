@@ -4,3 +4,4 @@ zasz.me/bin/
 *.cache
 packages/
 *.db
+Uploads/

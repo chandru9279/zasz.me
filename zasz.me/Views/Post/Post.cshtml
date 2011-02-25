@@ -1,0 +1,12 @@
+﻿@section Head{
+    <link href="@Url.Content("~/Integration/ckeditor/output_xhtml.css")" rel="stylesheet" type="text/css" />
+}
+
+@{
+    ViewBag.Title = "Post";
+}
+
+<h2>Post</h2>
+
+@Html.Raw(Model["theEditor"])
+

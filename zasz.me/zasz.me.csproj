@@ -92,10 +92,12 @@
   <ItemGroup>
     <Compile Include="Areas\Fun\FunAreaRegistration.cs" />
     <Compile Include="Areas\Work\WorkAreaRegistration.cs" />
+    <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Integration\UploadsConfig.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Stored.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -267,7 +269,9 @@
     <Content Include="Integration\ckeditor\skins\v2\skin.js" />
     <Content Include="Integration\ckeditor\skins\v2\templates.css" />
     <Content Include="Integration\ckeditor\themes\default\theme.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -298,12 +302,15 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\Fun\Controllers\" />
     <Folder Include="Areas\Fun\Models\" />
     <Folder Include="Areas\Fun\Views\Shared\" />
     <Folder Include="Areas\Work\Controllers\" />
     <Folder Include="Areas\Work\Models\" />
     <Folder Include="Areas\Work\Views\Shared\" />
+    <Folder Include="Uploads\Files\" />
+    <Folder Include="Uploads\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -316,6 +323,16 @@
     <Content Include="Areas\Fun\Views\Web.config" />
     <Content Include="Views\Shared\_CKEditor.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Post\Post.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Uploads\Upload.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Uploads\Docs\ZZZZZZZ.docx" />
+    <Content Include="Views\Uploads\Browse.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
