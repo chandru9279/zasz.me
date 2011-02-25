@@ -35,6 +35,33 @@ namespace zasz.me.Integration
             { this["deniedExts"] = value; }
         }
 
+        [ConfigurationProperty("thumbHeight", DefaultValue = 100)]
+        public int ThumbHeight
+        {
+            get
+            { return (int)this["thumbHeight"]; }
+            set
+            { this["thumbHeight"] = value; }
+        }
+
+        [ConfigurationProperty("thumbWidth", DefaultValue = 100)]
+        public int ThumbWidth
+        {
+            get
+            { return (int)this["thumbWidth"]; }
+            set
+            { this["thumbWidth"] = value; }
+        }
+
+        [ConfigurationProperty("thumbsDir", IsRequired = true)]
+        public String ThumbsDir
+        {
+            get
+            { return (String)this["thumbsDir"]; }
+            set
+            { this["thumbsDir"] = value; }
+        }
+
         [ConfigurationProperty("organization", IsRequired = true), ConfigurationCollection(typeof(Mapping))]
         public Organization Mappings
         {

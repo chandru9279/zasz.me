@@ -16,22 +16,28 @@ namespace zasz.me.Controllers
 
         public UploadsController()
         {
-            settings = WebConfigurationManager.GetWebApplicationSection("KCFinder") as UploadsConfig;
+            settings = WebConfigurationManager.GetWebApplicationSection("Uploads") as UploadsConfig;
             uploadsDir = AppDomain.CurrentDomain.BaseDirectory + settings.UploadDir;
-            if(!Directory.Exists(uploadsDir)) Directory.CreateDirectory(uploadsDir);
-            uploadsDir += @"\";
+            if (!Directory.Exists(uploadsDir)) Directory.CreateDirectory(uploadsDir);
+            uploadsDir += "\\";
         }
 
         /* Url that hits this : http://localhost:2654/Uploads/Browse?CKEditor=editor1&CKEditorFuncNum=1&langCode=en */
 
         public ActionResult Browse(string id, string CKEditor, int CKEditorFuncNum, string langCode)
         {
-            Directory.GetDirectories(uploadsDir).ToList<string>().ForEach(new Action<string>() { });
-            return View();
+            var ViewModel = new BrowseViewModel();
+            ViewModel.CKEditorFuncNum = CKEditorFuncNum;
+            if (Directory.GetDirectories(uploadsDir).Any(it => it.EndsWith(id)))
+                foreach(string rootedPath in Directory.GetFiles(uploadsDir + id, "*", SearchOption.TopDirectoryOnly))
+                    ViewModel.Add(Url.Content("~/" + settings.UploadDir + "/" + id + "/" + Path.GetFileName(rootedPath)));
+            else
+                ViewModel.Message = "Folder does not exist!";
+            return View(ViewModel);
         }
 
         /* Url that hits this : http://localhost:2654/Uploads/Upload/Images?CKEditor=theEditor&CKEditorFuncNum=4&langCode=en */
-                                
+
         [HttpPost]
         public ActionResult Upload(string id, string CKEditor, int CKEditorFuncNum, string langCode)
         {
@@ -90,13 +96,19 @@ namespace zasz.me.Controllers
         {
             if (String.IsNullOrEmpty(ExtensionList)) return true;
             var Extensions = ExtensionList.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            return Extensions.Contains(Extension.ToLower().Remove(0,1));
+            return Extensions.Contains(Extension.ToLower().Remove(0, 1));
         }
 
         public class UploadViewModel
         {
             public int CKEditorFuncNum { get; set; }
             public string Url { get; set; }
+            public string Message { get; set; }
+        }
+
+        public class BrowseViewModel : List<string>
+        {
+            public int CKEditorFuncNum { get; set; }
             public string Message { get; set; }
         }
     }
