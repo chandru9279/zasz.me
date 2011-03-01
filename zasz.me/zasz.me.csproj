@@ -36,8 +36,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncCtpLibrary">
-      <HintPath>..\packages\RavenDB.1.0.0.283\lib\4.0\AsyncCtpLibrary.dll</HintPath>
+    <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\AsyncCtpLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\Unity.2.0\lib\20\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -54,17 +57,17 @@
     <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
       <HintPath>..\packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="MissingBitsFromClientProfile">
-      <HintPath>..\packages\RavenDB.1.0.0.283\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
+    <Reference Include="MissingBitsFromClientProfile, Version=0.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\RavenDB.1.0.0.283\lib\4.0\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions">
-      <HintPath>..\packages\RavenDB.1.0.0.283\lib\4.0\Raven.Abstractions.dll</HintPath>
+    <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Raven.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Client.Lightweight">
-      <HintPath>..\packages\RavenDB.1.0.0.283\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
+    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages" />
@@ -92,18 +95,98 @@
   <ItemGroup>
     <Compile Include="Areas\Fun\FunAreaRegistration.cs" />
     <Compile Include="Areas\Work\WorkAreaRegistration.cs" />
+    <Compile Include="Controllers\Handy.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UnlockerController.cs" />
     <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Integration\ElmahIntegration.cs" />
+    <Compile Include="Integration\RavenDB\ErrorLogs.cs" />
+    <Compile Include="Integration\RavenDB\Posts.cs" />
+    <Compile Include="Integration\RavenDB\RepoBase.cs" />
+    <Compile Include="Integration\RavenDB\Vault.cs" />
+    <Compile Include="Integration\HugeBox.cs" />
+    <Compile Include="Integration\UnityIntegration.cs" />
     <Compile Include="Integration\UploadsConfig.cs" />
+    <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\Passphrase.cs" />
     <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\Stored.cs" />
+    <Compile Include="Models\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BlueprintReset.css" />
+    <Content Include="Content\Thumbnails\.image.png" />
+    <Content Include="Content\Thumbnails\avi.png" />
+    <Content Include="Content\Thumbnails\bat.png" />
+    <Content Include="Content\Thumbnails\bmp.png" />
+    <Content Include="Content\Thumbnails\bz2.png" />
+    <Content Include="Content\Thumbnails\ccd.png" />
+    <Content Include="Content\Thumbnails\cgi.png" />
+    <Content Include="Content\Thumbnails\com.png" />
+    <Content Include="Content\Thumbnails\csh.png" />
+    <Content Include="Content\Thumbnails\cue.png" />
+    <Content Include="Content\Thumbnails\deb.png" />
+    <Content Include="Content\Thumbnails\dll.png" />
+    <Content Include="Content\Thumbnails\doc.png" />
+    <Content Include="Content\Thumbnails\docx.png" />
+    <Content Include="Content\Thumbnails\exe.png" />
+    <Content Include="Content\Thumbnails\fla.png" />
+    <Content Include="Content\Thumbnails\flv.png" />
+    <Content Include="Content\Thumbnails\fon.png" />
+    <Content Include="Content\Thumbnails\gif.png" />
+    <Content Include="Content\Thumbnails\gz.png" />
+    <Content Include="Content\Thumbnails\htm.png" />
+    <Content Include="Content\Thumbnails\html.png" />
+    <Content Include="Content\Thumbnails\ini.png" />
+    <Content Include="Content\Thumbnails\iso.png" />
+    <Content Include="Content\Thumbnails\jar.png" />
+    <Content Include="Content\Thumbnails\java.png" />
+    <Content Include="Content\Thumbnails\jpeg.png" />
+    <Content Include="Content\Thumbnails\jpg.png" />
+    <Content Include="Content\Thumbnails\js.png" />
+    <Content Include="Content\Thumbnails\mds.png" />
+    <Content Include="Content\Thumbnails\mdx.png" />
+    <Content Include="Content\Thumbnails\mid.png" />
+    <Content Include="Content\Thumbnails\midi.png" />
+    <Content Include="Content\Thumbnails\mkv.png" />
+    <Content Include="Content\Thumbnails\mov.png" />
+    <Content Include="Content\Thumbnails\mp3.png" />
+    <Content Include="Content\Thumbnails\mpeg.png" />
+    <Content Include="Content\Thumbnails\mpg.png" />
+    <Content Include="Content\Thumbnails\nfo.png" />
+    <Content Include="Content\Thumbnails\notfound.png" />
+    <Content Include="Content\Thumbnails\nrg.png" />
+    <Content Include="Content\Thumbnails\ogg.png" />
+    <Content Include="Content\Thumbnails\pdf.png" />
+    <Content Include="Content\Thumbnails\php.png" />
+    <Content Include="Content\Thumbnails\phps.png" />
+    <Content Include="Content\Thumbnails\pl.png" />
+    <Content Include="Content\Thumbnails\pm.png" />
+    <Content Include="Content\Thumbnails\png.png" />
+    <Content Include="Content\Thumbnails\ppt.png" />
+    <Content Include="Content\Thumbnails\pptx.png" />
+    <Content Include="Content\Thumbnails\qt.png" />
+    <Content Include="Content\Thumbnails\rpm.png" />
+    <Content Include="Content\Thumbnails\rtf.png" />
+    <Content Include="Content\Thumbnails\sh.png" />
+    <Content Include="Content\Thumbnails\srt.png" />
+    <Content Include="Content\Thumbnails\sub.png" />
+    <Content Include="Content\Thumbnails\swf.png" />
+    <Content Include="Content\Thumbnails\tgz.png" />
+    <Content Include="Content\Thumbnails\tif.png" />
+    <Content Include="Content\Thumbnails\tiff.png" />
+    <Content Include="Content\Thumbnails\torrent.png" />
+    <Content Include="Content\Thumbnails\ttf.png" />
+    <Content Include="Content\Thumbnails\txt.png" />
+    <Content Include="Content\Thumbnails\wav.png" />
+    <Content Include="Content\Thumbnails\wma.png" />
+    <Content Include="Content\Thumbnails\xls.png" />
+    <Content Include="Content\Thumbnails\xlsx.png" />
+    <Content Include="Content\Thumbnails\zip.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\ForHtmlHelpers.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
@@ -302,7 +385,6 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Fun\Controllers\" />
     <Folder Include="Areas\Fun\Models\" />
     <Folder Include="Areas\Fun\Views\Shared\" />
@@ -333,6 +415,8 @@
   <ItemGroup>
     <None Include="Uploads\Docs\ZZZZZZZ.docx" />
     <Content Include="Views\Uploads\Browse.cshtml" />
+    <Content Include="Views\Unlocker\Unlock.cshtml" />
+    <Content Include="Views\Home\Show.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

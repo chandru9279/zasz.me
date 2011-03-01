@@ -2,6 +2,8 @@ zasz.me/obj/
 zasz.me/bin/
 *.suo
 *.cache
+*.user
 packages/
 *.db
-Uploads/
+zasz.me/Uploads/
+_ReSharper.zasz.me/

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Configuration;
 using Raven.Client.Document;
+using zasz.me.Integration;
 
 namespace zasz.me
 {
@@ -13,16 +13,17 @@ namespace zasz.me
 
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        public static void RegisterGlobalFilters(GlobalFilterCollection Filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            Filters.Add(new HandleErrorAttribute());
         }
 
-        public static void RegisterRoutes(RouteCollection routes)
+        public static void RegisterRoutes(RouteCollection Routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            Routes.IgnoreRoute("{CustomEndpoint}.axd");
 
-            routes.MapRoute(
+            Routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
@@ -33,12 +34,27 @@ namespace zasz.me
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            var documentStore = new DocumentStore { Url = "http://localhost:8080/" };
-            documentStore.Initialize();
+            UseUnityDIForControllers();
+            UseRavenDB();
+        }
+
+        private static void UseUnityDIForControllers()
+        {
+            var BigBox = new UnityContainer();
+            var Section = ConfigurationManager.GetSection("Unity") as UnityConfigurationSection;
+            if (Section != null) Section.Configure(BigBox, "BigBox");
+            ControllerBuilder.Current.SetControllerFactory(new UnityControllerBuilder(BigBox));
+            HugeBox.Swallow(BigBox);
+        }
+
+        private static void UseRavenDB()
+        {
+            var DocumentStore = new DocumentStore { ConnectionStringName = "RavenConnection" };
+            DocumentStore.Initialize();
+            HugeBox.Swallow(DocumentStore);
         }
     }
 }

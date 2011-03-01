@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Unlock";
+}
+
+<h2>Unlock</h2>
+
+<form action="@Url.Action("Unlock", "Unlocker")" method="post">
+<input type="hidden" name="Controller" id="Controller" value="@ViewBag.Controller" />
+<input type="hidden" name="Action" id="Action" value="@ViewBag.Action" />
+<label for="PassPhrase">Passphrase : </label>
+<input id="PassPhrase" name="PassPhrase" type="text" value="Manage" />
+<input type="submit" value="Manage" />
+</form>
