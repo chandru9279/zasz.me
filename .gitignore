@@ -7,3 +7,4 @@ packages/
 *.db
 zasz.me/Uploads/
 _ReSharper.zasz.me/
+Raven.ravendb
