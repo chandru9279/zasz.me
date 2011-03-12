@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
 
-namespace zasz.me.Controllers
+namespace zasz.me.Controllers.Utils
 {
     public static class Handy
     {
@@ -26,10 +25,6 @@ namespace zasz.me.Controllers
             {
                 
             }
-
-
-
-
         }
     }
 }

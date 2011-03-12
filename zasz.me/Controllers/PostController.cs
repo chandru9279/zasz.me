@@ -1,73 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using zasz.me.Models;
 
 namespace zasz.me.Controllers
 {
     public class PostController : Controller
     {
-        //
-        // GET: /Post/
+        private readonly IPostRepository Posts;
 
-        public ActionResult Index()
+        public PostController(IPostRepository Posts)
         {
-            return View();
+            this.Posts = Posts;
         }
-
-        //
-        // GET: /Post/Details/5
-
-        public ActionResult Details(FormCollection slug)
-        {
-            return View();
-        }
-
-        //
-        // GET: /Post/Create
 
         public ActionResult Create()
         {
-            return View();
-        } 
-
-        //
-        // POST: /Post/Create
-
-        [ValidateInput(false)]
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                return View("Post", collection);
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        
-        //
-        // GET: /Post/Edit/5
- 
-        public ActionResult Edit(int id)
-        {
+            ViewBag.EditorName = "PostContent";
             return View();
         }
 
-        //
-        // POST: /Post/Edit/5
-
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Create(string PostContent, string Title, string Tags, Area Area, string Slug)
         {
             try
             {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
+                Post Entry = new Post();
+                Entry.Title = Title;
+                Entry.Content = PostContent;
+                Entry.Tags = new List<string>(Tags.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries));
+                Entry.Area = Area;
+                Entry.Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug;
+                Entry.Permalink = "http://" + Models.Areas.Url(Area);
+                Posts.Save(Entry);
+                return View("Post", Entry);
             }
             catch
             {
@@ -75,30 +41,9 @@ namespace zasz.me.Controllers
             }
         }
 
-        //
-        // GET: /Post/Delete/5
- 
-        public ActionResult Delete(int id)
+        private string GetSlug(string Title)
         {
-            return View();
-        }
-
-        //
-        // POST: /Post/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            throw new NotImplementedException();
         }
     }
 }

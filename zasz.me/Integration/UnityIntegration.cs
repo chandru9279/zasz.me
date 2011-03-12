@@ -17,17 +17,19 @@ namespace zasz.me.Integration
 
         #region IControllerFactory Members
 
-        public IController CreateController(RequestContext requestContext, string controllerName)
+        public IController CreateController(RequestContext requestContext, string ControllerName)
         {
-            controllerName = "zasz.me.Controllers." + controllerName + "Controller";
-            if (String.IsNullOrWhiteSpace(controllerName)) throw new ArgumentException("Controller name was NULL");
-            var ControllerType = Type.GetType(controllerName);
+            var AreaName = (string) requestContext.RouteData.DataTokens["area"];
+            string Area = String.IsNullOrEmpty(AreaName) ? "" : "Areas." + AreaName + ".";
+            ControllerName = String.Format("zasz.me.{0}Controllers.{1}Controller", Area, ControllerName);
+            if (String.IsNullOrWhiteSpace(ControllerName)) throw new ArgumentException("Controller name was NULL");
+            var ControllerType = Type.GetType(ControllerName);
 
             if (null == ControllerType) throw new ArgumentException("Controller type not found");
-            if (!(typeof(IController).IsAssignableFrom(ControllerType))) throw new ArgumentException("The type requested is not a controller");
-            var Controller = BigBox.Resolve(Type.GetType(controllerName)) as IController;
+            if (!(typeof (IController).IsAssignableFrom(ControllerType))) throw new ArgumentException("The type requested is not a controller");
+            var Controller = BigBox.Resolve(Type.GetType(ControllerName)) as IController;
 
-            if (null == Controller) throw new ArgumentException("Unity could not resolve the controller : " + controllerName);
+            if (null == Controller) throw new ArgumentException("Unity could not resolve the controller : " + ControllerName);
             return Controller;
         }
 

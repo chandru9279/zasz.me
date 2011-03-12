@@ -1,17 +1,19 @@
 ﻿using System.Configuration;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Raven.Client.Document;
 using zasz.me.Integration;
+using zasz.me.Models;
 
 namespace zasz.me
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection Filters)
         {
@@ -24,11 +26,10 @@ namespace zasz.me
             Routes.IgnoreRoute("{CustomEndpoint}.axd");
 
             Routes.MapRoute(
-                "Default", // Route name
+                "Indirection", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            );
-
+                new {controller = "Indirection", action = "Indirect", id = UrlParameter.Optional} // Parameter defaults
+                );
         }
 
         protected void Application_Start()
@@ -52,8 +53,14 @@ namespace zasz.me
 
         private static void UseRavenDB()
         {
-            var DocumentStore = new DocumentStore { ConnectionStringName = "RavenConnection" };
+            var DocumentStore = new DocumentStore {ConnectionStringName = "RavenConnection"};
             DocumentStore.Initialize();
+            DocumentStore.Conventions.FindIdentityProperty =
+                Property =>
+                    {
+                        var IdAttributes = Property.GetCustomAttributes(typeof (IDAttribute), false) as IDAttribute[];
+                        return IdAttributes != null && IdAttributes.Length > 0;
+                    };
             HugeBox.Swallow(DocumentStore);
         }
     }

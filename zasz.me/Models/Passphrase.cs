@@ -4,8 +4,7 @@
 
     public class Passphrase
     {
-        public string Id { get; set; }
-
+        [ID]
         public string PhraseDigest { get; set; }
 
         public string Name { get; set; }

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity.Utility;
+using zasz.me.Controllers.Utils;
 using zasz.me.Integration;
 
 namespace zasz.me.Controllers
@@ -35,7 +36,7 @@ namespace zasz.me.Controllers
                     var ThumbFile = _ThumbsDirRooted + Path.GetFileName(File);
                     if (System.IO.File.Exists(ThumbFile)) System.IO.File.Delete(ThumbFile);
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     return new HttpStatusCodeResult(408);
                 }

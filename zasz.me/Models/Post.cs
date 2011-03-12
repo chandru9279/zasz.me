@@ -5,12 +5,13 @@ namespace zasz.me.Models
 {
     public class Post
     {
-        public string Id { get; set; }
-
-        public string Area { get; set; }
+        public Area Area { get; set; }
 
         public string Permalink { get; set; }
 
+        public string Title { get; set; }
+
+        [ID]
         public string Slug { get; set; }
 
         public string Content { get; set; }

@@ -1,11 +1,11 @@
 ﻿<script type="text/javascript" src="@Url.Content("~/Integration/ckeditor/ckeditor.js")"></script>
 
 <p>
-<textarea rows="10" name="theEditor" id="theEditor" cols="80" style="display: none;"> Write... </textarea>
+<textarea rows="10" name="@ViewBag.EditorName" id="@ViewBag.EditorName" cols="80" style="display: none;">  </textarea>
 <script type="text/javascript">
 //<![CDATA[
 
-    CKEDITOR.replace('theEditor',
+    CKEDITOR.replace('@ViewBag.EditorName',
 					{
 
                         extraPlugins : 'autogrow',

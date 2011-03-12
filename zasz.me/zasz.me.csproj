@@ -36,11 +36,17 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AntiXSSLibrary">
+      <HintPath>..\packages\AntiXSS.4.0.1\lib\net35\AntiXSSLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\AsyncCtpLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlSanitizationLibrary">
+      <HintPath>..\packages\AntiXSS.4.0.1\lib\net35\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\Unity.2.0\lib\20\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -93,13 +99,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Fun\FunAreaRegistration.cs" />
-    <Compile Include="Areas\Work\WorkAreaRegistration.cs" />
-    <Compile Include="Controllers\Handy.cs" />
+    <Compile Include="Models\Area.cs" />
+    <Compile Include="Areas\Pro\ProAreaRegistration.cs" />
+    <Compile Include="Areas\Rest\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Rest\RestAreaRegistration.cs" />
+    <Compile Include="Controllers\Utils\Handy.cs" />
+    <Compile Include="Areas\Pro\Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndirectionController.cs" />
     <Compile Include="Controllers\UnlockerController.cs" />
     <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\Utils\TransferResult.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -111,6 +122,7 @@
     <Compile Include="Integration\HugeBox.cs" />
     <Compile Include="Integration\UnityIntegration.cs" />
     <Compile Include="Integration\UploadsConfig.cs" />
+    <Compile Include="Models\IDAttribute.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Passphrase.cs" />
     <Compile Include="Models\Post.cs" />
@@ -119,6 +131,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BlueprintReset.css" />
+    <Content Include="Content\favicon.png" />
+    <Content Include="Content\Pro\bgpuzzle.png" />
+    <Content Include="Content\Pro\header-texture.png" />
+    <Content Include="Content\Pro\shadow-right.png" />
+    <Content Include="Content\Pro\shadow-top.png" />
+    <Content Include="Content\Pro\shadow-topright.png" />
     <Content Include="Content\Thumbnails\.image.png" />
     <Content Include="Content\Thumbnails\avi.png" />
     <Content Include="Content\Thumbnails\bat.png" />
@@ -379,18 +397,17 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\Pro\Views\Shared\_ProLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Fun\Controllers\" />
-    <Folder Include="Areas\Fun\Models\" />
-    <Folder Include="Areas\Fun\Views\Shared\" />
-    <Folder Include="Areas\Work\Controllers\" />
-    <Folder Include="Areas\Work\Models\" />
-    <Folder Include="Areas\Work\Views\Shared\" />
+    <Folder Include="Areas\Pro\Models\" />
+    <Folder Include="Areas\Rest\Models\" />
+    <Folder Include="Content\Rest\" />
     <Folder Include="Uploads\Files\" />
     <Folder Include="Uploads\Images\" />
   </ItemGroup>
@@ -401,8 +418,6 @@
     <Content Include="Views\Post\_DisqusComments.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Work\Views\Web.config" />
-    <Content Include="Areas\Fun\Views\Web.config" />
     <Content Include="Views\Shared\_CKEditor.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
   </ItemGroup>
@@ -413,9 +428,18 @@
     <Content Include="Views\Uploads\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Pro\Views\Web.config" />
+    <Content Include="Areas\Rest\Views\Web.config" />
+    <Content Include="Areas\Pro\Views\Shared\_StackOverflowFlair.cshtml" />
+    <Content Include="Areas\Rest\Views\Home\Show.cshtml" />
+    <Content Include="Areas\Rest\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Pro\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Rest\Views\Shared\_RestLayout.cshtml" />
     <None Include="Uploads\Docs\ZZZZZZZ.docx" />
     <Content Include="Views\Uploads\Browse.cshtml" />
     <Content Include="Views\Unlocker\Unlock.cshtml" />
+    <Content Include="Areas\Pro\Views\Home\Show.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Home\Show.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
