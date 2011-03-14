@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -52,8 +52,14 @@ namespace zasz.me.Controllers
 
         public static string GetSlug(string Title)
         {
-            Title = HttpUtility.HtmlDecode(Title).Replace("&", "and");
-            return string.Join("-", Regex.Matches(@"[a-zA-Z0-9.-]+", Title));
+            string DecodedTitle = HttpUtility.HtmlDecode(Title).ToLower();
+            string NearlySlug = Constants.GoWords().Aggregate
+                (
+                    DecodedTitle,
+                    (Current, Pair) => Current.Replace(Pair.Key, " " + Pair.Value + " ")
+                );
+            var Sluglets = (from object Match in Regex.Matches(NearlySlug, @"[a-zA-Z0-9.-]+") select Match.ToString()).ToList();
+            return string.Join("-", Sluglets);
         }
     }
 }

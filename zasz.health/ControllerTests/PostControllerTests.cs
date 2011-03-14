@@ -1,9 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Web;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using zasz.health.Utils;
 using zasz.me.Controllers;
 using zasz.me.Models;
 
-namespace zasz.health
+namespace zasz.health.ControllerTests
 {
     [TestClass]
     public class PostControllerTests
@@ -19,11 +22,14 @@ namespace zasz.health
         }
 
         [TestMethod]
-        public void TestMoq()
+        public void TestSlugger()
         {
-            _PostRepository.Setup(Repo => Repo.FromSlug("example-slug")).Returns(new Post {Title = "Example Post!"});
-            Assert.AreEqual("Example Post!", _PostRepository.Object.FromSlug("example-slug").Title);
-            _Controller.GetSlug("zzz");
+            Func<string, string> Try = PostController.GetSlug;
+            Assert.AreEqual("detail-id-equals-2190", Try("detail?id=2190"));
+            Assert.AreEqual("func-percent-20-gnome", Try("func%20&nbsp;gnome"));
+            Assert.AreEqual("c-sharp-rocks", Try("C# Rocks!"));
+            Assert.AreEqual("using-di-or-dependency-injection", Try(HttpUtility.HtmlEncode("using DI/Dependency Injection")));
+            Assert.AreEqual("using-di-or-dependency-injection", Try("using DI/Dependency Injection"));
         }
     }
 }    
