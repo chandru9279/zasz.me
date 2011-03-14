@@ -3,7 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.me", "zasz.me\zasz.me.csproj", "{B652A23D-604D-40F7-9D13-984EEAD99B68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.health", "zasz.health\zasz.health.csproj", "{AC97B18E-27FE-4B35-B757-3E361D073839}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28CD5063-E426-4DA9-A077-B2BB25BDF407}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		zasz.me.vsmdi = zasz.me.vsmdi
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = zasz.me.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -13,6 +24,10 @@ Global
 		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC97B18E-27FE-4B35-B757-3E361D073839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC97B18E-27FE-4B35-B757-3E361D073839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC97B18E-27FE-4B35-B757-3E361D073839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC97B18E-27FE-4B35-B757-3E361D073839}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

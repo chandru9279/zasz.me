@@ -16,6 +16,7 @@ namespace zasz.me.Controllers
         private readonly UploadsConfig _Settings;
         private readonly string _ThumbsDirRooted;
         private readonly string _UploadsDirRooted;
+        readonly Func<string, string, bool> _DoesExtensionMatch = (Extension, ExtensionList) => Handy.Shred(ExtensionList).Contains(Extension.ToLower().Remove(0, 1));
 
         public UploadsController()
         {
@@ -110,7 +111,7 @@ namespace zasz.me.Controllers
             string Extension = Path.GetExtension(FileName);
             for (int I = 0; I < _Settings.Mappings.Count; I++)
             {
-                if (Handy.DoesExtensionMatch(Extension, _Settings.Mappings[I].FileExtensions))
+                if (_DoesExtensionMatch(_Settings.Mappings[I].FileExtensions, Extension))
                     return _Settings.Mappings[I].Folder;
             }
             return "Files";
@@ -119,7 +120,7 @@ namespace zasz.me.Controllers
         private bool CheckUploadedFile(string FileName)
         {
             string Extension = Path.GetExtension(FileName);
-            if (Handy.DoesExtensionMatch(Extension, _Settings.DeniedExts))
+            if (_DoesExtensionMatch(Extension, _Settings.DeniedExts))
                 return false; // Disallow files with denied extensions
             return !FileName.StartsWith("."); // Disallow linux hidden files
         }

@@ -1,10 +1,14 @@
-zasz.me/obj/
-zasz.me/bin/
+*/obj/
+*/bin/
+
 *.suo
 *.cache
 *.user
-packages/
 *.db
+
+packages/
+TestResults/
 zasz.me/Uploads/
 _ReSharper.zasz.me/
 Raven.ravendb
+.metadata/

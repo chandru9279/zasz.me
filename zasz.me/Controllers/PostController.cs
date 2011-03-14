@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
+using zasz.me.Controllers.Utils;
 using zasz.me.Models;
 
 namespace zasz.me.Controllers
@@ -21,17 +25,22 @@ namespace zasz.me.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string PostContent, string Title, string Tags, Area Area, string Slug)
+        public ActionResult Create(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
         {
             try
             {
-                Post Entry = new Post();
-                Entry.Title = Title;
-                Entry.Content = PostContent;
-                Entry.Tags = new List<string>(Tags.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries));
-                Entry.Area = Area;
-                Entry.Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug;
-                Entry.Permalink = "http://" + Models.Areas.Url(Area);
+                var Entry = new Post
+                                {
+                                    Title = Title,
+                                    Content = PostContent,
+                                    Tags =
+                                        new List<string>(Tags.Split(Constants.Shredders,
+                                                                    StringSplitOptions.RemoveEmptyEntries)),
+                                    Site = Site.WithName(ChosenSite),
+                                    Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug,
+                                    Timestamp = DateTime.Now
+                                };
+                Entry.Permalink = string.Format("http://{0}/{1}/post/{2}", Entry.Site.Host, Entry.Site.Name, Entry.Slug);
                 Posts.Save(Entry);
                 return View("Post", Entry);
             }
@@ -41,9 +50,10 @@ namespace zasz.me.Controllers
             }
         }
 
-        private string GetSlug(string Title)
+        public static string GetSlug(string Title)
         {
-            throw new NotImplementedException();
+            Title = HttpUtility.HtmlDecode(Title).Replace("&", "and");
+            return string.Join("-", Regex.Matches(@"[a-zA-Z0-9.-]+", Title));
         }
     }
 }

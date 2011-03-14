@@ -17,8 +17,8 @@ namespace zasz.me.Areas.Pro
                 "Pro/{controller}/{action}/{id}",
                 new {controller = "Home", action = "Show", id = UrlParameter.Optional}
                 );
-            Models.Areas.Add(Area.Pro, "chandruon.net", AreaName);
-            Models.Areas.Add(Area.Pro, "localhost", AreaName);
+            Site.Register("chandruon.net", AreaName);
+            Site.Register("localhost", AreaName);
         }
     }
 }
