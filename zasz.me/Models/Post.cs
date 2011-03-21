@@ -5,7 +5,7 @@ namespace zasz.me.Models
 {
     public class Post
     {
-        public Area Area { get; set; }
+        public Site Site { get; set; }
 
         public string Permalink { get; set; }
 
@@ -25,8 +25,8 @@ namespace zasz.me.Models
     {
         Post FromSlug(string Slug);
 
-        List<Post> RecentPosts(int howMany);
+        List<Post> RecentPosts(int HowMany);
 
-        List<Post> FromTag(string tag);
+        List<Post> FromTag(string Tag);
     }
 }

@@ -99,7 +99,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Area.cs" />
+    <Compile Include="Controllers\Utils\Constants.cs" />
+    <Compile Include="Models\Site.cs" />
     <Compile Include="Areas\Pro\ProAreaRegistration.cs" />
     <Compile Include="Areas\Rest\Controllers\HomeController.cs" />
     <Compile Include="Areas\Rest\RestAreaRegistration.cs" />
@@ -128,8 +129,11 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IFilesService.cs" />
+    <Compile Include="Services\Pairs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ColdStorage\raven-data.ico" />
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.png" />
     <Content Include="Content\Pro\bgpuzzle.png" />
@@ -435,6 +439,10 @@
     <Content Include="Areas\Rest\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Pro\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Rest\Views\Shared\_RestLayout.cshtml" />
+    <None Include="App_Data\ColdStorage\desktop.ini" />
+    <None Include="App_Data\Setup\Build.bat" />
+    <None Include="App_Data\Setup\Packages.bat" />
+    <Content Include="App_Data\Setup\Raven.Server.exe.config" />
     <None Include="Uploads\Docs\ZZZZZZZ.docx" />
     <Content Include="Views\Uploads\Browse.cshtml" />
     <Content Include="Views\Unlocker\Unlock.cshtml" />

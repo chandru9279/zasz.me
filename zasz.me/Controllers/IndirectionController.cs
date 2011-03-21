@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using zasz.me.Controllers.Utils;
+using zasz.me.Models;
 
 namespace zasz.me.Controllers
 {
@@ -7,7 +8,7 @@ namespace zasz.me.Controllers
     {
         public ActionResult Indirect()
         {
-            return new TransferResult(Models.Areas.Url(Request.Url.Host));
+            return new TransferResult(Site.WithHost(Request.Url.Host).VirtualPath);
         }
     }
 }
