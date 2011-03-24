@@ -10,5 +10,10 @@ namespace zasz.me.Controllers
         {
             return new TransferResult(Site.WithHost(Request.Url.Host).VirtualPath);
         }
+
+        public ActionResult Favicon()
+        {
+            return new FilePathResult("~/Content/favicon.png", "image/png");
+        }
     }
 }

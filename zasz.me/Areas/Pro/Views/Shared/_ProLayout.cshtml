@@ -9,29 +9,31 @@
     <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
     @RenderSection("Head", false)
     <style type="text/css">
-       
         .Pro
         {
             background-image: url('../../../../Content/Pro/bgpuzzle.png');
-            background-repeat: repeat-y;
+            background-repeat: repeat;
             background-position: center top;
             background-color: #3A3A3A;
             width: 100%;
+            color: #FF5400;
+            font-family: Terminal;
         }
         
         .Site-In-Center
         {
             display:block;            
-            width: 941px;
+            width: 960px;
             margin: 40px auto;
             background-color: #3A3A3A;
         }
         
         .Elevated
         {
+            border: 2px solid #FFAE7F;
             min-height : 1500px;
-            width: 921px;
             background-color: #FFFFFF;
+            width: 940px;
         }
         
         .Elevated-Top-Shadow
@@ -39,7 +41,7 @@
             background-image:url('../../../../Content/Pro/shadow-top.png');
             background-repeat:repeat-x;
             height: 20px;
-            width: 926px;
+            width: 925px;
             display: block;
             float: left;
         }
@@ -65,16 +67,31 @@
         .Elevated-TopLeft-Padding
         {
             width: 15px;
-            height: 15px;
+            height: 20px;
+            background: none;
+        }
+        
+        .Header-Left
+        {
+            width: 700px;
+            display: block;
+            float:left;
+        }
+        
+        .Header-Right
+        {
+            width: 234px;
+            background-color: #FFEBE0;
+            border-left: 2px solid #FFAE7F;
+            height: 300px;
+            display: block;
+            float:left;
         }
           
         .Header
         {
-            background-image:url('../../../../Content/Pro/header-texture.png');
-            background-repeat:repeat-x;
             width: 100%;
             height : 300px;
-            color: #FFFFFF;
             font-family: Bookman Old Style;
             font-size: 30px;
             display: block;
@@ -95,6 +112,39 @@
             background-color: #FFFFFF;
         }
             
+        .Site-Name
+        {
+            font-size:62px;
+            margin-left:75px;
+            margin-top:30px;
+            margin-bottom:10px;
+        }    
+        
+        .Site-Sub
+        {
+            font-size:25px;
+            margin-left:150px;
+            width: 350px;
+            font-style:oblique;
+            text-align: center;
+        }
+        
+        .Main-Menu
+        {
+            width: 640px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top:10px;   
+        }
+        
+        .Main-Menu-Item
+        {
+            text-align: center;
+            font-size: 22px;
+            display: inline-block;
+            width: 120px;
+        }
+        
     </style>
 
 </head>
@@ -114,6 +164,20 @@
         <tr>
             <td class="Elevated" colspan="2">
             <div class="Header">
+                    <div class="Header-Left">
+                        <div class="Site-Name">ChandruOn.NET</div>  
+                        <div class="Site-Sub">My name is T Chandirasekar I share my thoughts here</div>  
+                        <ul class="Main-Menu">
+                            <li class="Main-Menu-Item">Home</li>
+                            <li class="Main-Menu-Item">Writings</li>
+                            <li class="Main-Menu-Item">Portfolio</li>
+                            <li class="Main-Menu-Item">About</li>
+                            <li class="Main-Menu-Item">Contact</li>
+                        </ul>
+                    </div>
+
+                    <div class="Header-Right">
+                    </div>
             </div>
             <div>
                 @RenderBody()

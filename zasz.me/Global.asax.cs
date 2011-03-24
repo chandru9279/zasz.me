@@ -24,11 +24,13 @@ namespace zasz.me
         {
             Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             Routes.IgnoreRoute("{CustomEndpoint}.axd");
-
+            Routes.IgnoreRoute("Content/");
+            Routes.MapRoute("Favicon", "favicon.ico", new { Controller = "Indirection", Action = "Favicon"});
+            
             Routes.MapRoute(
                 "Indirection", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new {controller = "Indirection", action = "Indirect", id = UrlParameter.Optional} // Parameter defaults
+                "{Controller}/{Action}/{ID}", // URL with parameters
+                new {Controller = "Indirection", Action = "Indirect", ID = UrlParameter.Optional} // Parameter defaults
                 );
         }
 
