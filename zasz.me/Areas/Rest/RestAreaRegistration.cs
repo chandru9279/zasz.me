@@ -18,7 +18,8 @@ namespace zasz.me.Areas.Rest
                 new {Controller = "Home", action = "Show", id = UrlParameter.Optional}
                 );
             Site.Register("zasz.me", AreaName);
-            Site.Register("Manage", "Admin", "~/Home/Show");
+            Site.Register("AnyHost", "Admin", "~/Home/Show");
+            Site.Register("AnyHost", "Both", "~/Home/Show");
         }
     }
 }

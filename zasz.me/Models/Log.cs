@@ -5,13 +5,13 @@ namespace zasz.me.Models
     public class Log
     {
         [ID]
-        public string Id { get; set; }
+        public string ID { get; set; }
 
         public Error Error { get; set; }
 
-        public Log(string Id, Error Error)
+        public Log(string ID, Error Error)
         {
-            this.Id = Id;
+            this.ID = ID;
             this.Error = Error;
         }
     }

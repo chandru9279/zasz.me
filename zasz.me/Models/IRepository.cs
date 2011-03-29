@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace zasz.me.Models
 {
@@ -8,9 +8,9 @@ namespace zasz.me.Models
 
         Model Get(string ID);
 
-        void Delete(int ID);
+        void Delete(Model Entity);
 
-        IQueryable<Model> All();
+        List<Model> All();
 
         long Count();
     }

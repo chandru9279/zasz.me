@@ -1,0 +1,15 @@
+﻿@model zasz.me.Models.Post
+
+<h2>@Model.Title</h2>
+<p>@Microsoft.Security.Application.Sanitizer.GetSafeHtml(HModel.Content) </p>
+
+<ul>
+@foreach (string Tag in Model.Tags)
+{
+    <li>@Tag</li>
+}
+</ul>
+
+<br />
+<div style="border: 1px solid black;"></div>
+<br />

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace zasz.me.Models
 {
     public class Post
     {
-        public Site Site { get; set; }
+        private List<string> _Tags = new List<string>();
 
-        public string Permalink { get; set; }
+        [JsonConverter(typeof(Site.SiteJsonConverter))]
+        public Site Site { get; set; }
 
         public string Title { get; set; }
 
@@ -16,9 +18,19 @@ namespace zasz.me.Models
 
         public string Content { get; set; }
 
-        public List<string> Tags { get; set; }
+        public List<string> Tags
+        {
+            get { return _Tags ?? (_Tags = new List<string>()); }
+            set { _Tags = value; }
+        }
 
         public DateTime Timestamp { get; set; }
+
+        [JsonIgnore]
+        public string Permalink
+        {
+            get { return string.Format("http://{0}/{1}/post/{2}", Site.Host, Site.Name, Slug); }
+        }
     }
 
     public interface IPostRepository : IRepository<Post>

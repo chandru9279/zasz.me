@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Raven.Client.Document;
+using Raven.Client;
 using Raven.Client.Indexes;
 using zasz.me.Models;
 
@@ -8,16 +8,19 @@ namespace zasz.me.Integration.RavenDB
 {
     public class Posts : RepoBase<Post>, IPostRepository
     {
-        public Posts(DocumentStore Store)
+        public Posts(IDocumentStore Store)
             : base(Store)
         {
-            if (null == _Store.DatabaseCommands.GetIndex("PostSlugIndex"))
+            if (null == _Store.DatabaseCommands.GetIndex("On-Slug"))
                 _Store.DatabaseCommands.PutIndex(
                     "PostSlugIndex",
                     new IndexDefinition<Post>
                         {
                             Map = Posts => from EachPost in Posts
-                                           select EachPost.Slug
+                                           select new
+                                                      {
+                                                          EachPost.Slug
+                                                      }
                         });
         }
 

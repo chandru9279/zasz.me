@@ -1,14 +1,15 @@
-﻿using System.Linq;
-using Raven.Client.Document;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Raven.Client;
 using zasz.me.Models;
 
 namespace zasz.me.Integration.RavenDB
 {
     public class RepoBase<Model> : IRepository<Model>
     {
-        protected readonly DocumentStore _Store;
+        protected readonly IDocumentStore _Store;
 
-        public RepoBase(DocumentStore Store)
+        public RepoBase(IDocumentStore Store)
         {
             _Store = Store;
         }
@@ -32,20 +33,20 @@ namespace zasz.me.Integration.RavenDB
             }
         }
 
-        public void Delete(int ID)
+        public void Delete(Model Entity)
         {
             using (var Session = _Store.OpenSession())
             {
-                Session.Delete(ID);
+                Session.Delete(Entity);
                 Session.SaveChanges();
             }
         }
 
-        public IQueryable<Model> All()
+        public List<Model> All()
         {
             using (var Session = _Store.OpenSession())
             {
-                return Session.Load<Model>().AsQueryable();
+                return Session.Query<Model>().ToList();
             }
         }
 

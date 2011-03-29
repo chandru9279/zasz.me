@@ -13,7 +13,7 @@ namespace zasz.me
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : HttpApplication
+    public class ZaszDotMe : HttpApplication
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection Filters)
         {
@@ -39,7 +39,8 @@ namespace zasz.me
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
             UseUnityDIForControllers();
             UseRavenDB();
         }
@@ -47,7 +48,7 @@ namespace zasz.me
         private static void UseUnityDIForControllers()
         {
             var BigBox = new UnityContainer();
-            var Section = ConfigurationManager.GetSection("Unity") as UnityConfigurationSection;
+            var Section = ConfigurationManager.GetSection("unity") as UnityConfigurationSection;
             if (Section != null) Section.Configure(BigBox, "BigBox");
             ControllerBuilder.Current.SetControllerFactory(new UnityControllerBuilder(BigBox));
             HugeBox.Swallow(BigBox);

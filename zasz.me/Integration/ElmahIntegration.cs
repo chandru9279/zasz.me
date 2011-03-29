@@ -18,13 +18,13 @@ namespace zasz.me.Integration
         {
             var ALog = new Log(null, Error);
             _Repo.Save(ALog);
-            return ALog.Id;
+            return ALog.ID;
         }
 
         public override ErrorLogEntry GetError(string Id)
         {
             Log TheLog = _Repo.Get(Id);
-            return new ErrorLogEntry(this, TheLog.Id, TheLog.Error);
+            return new ErrorLogEntry(this, TheLog.ID, TheLog.Error);
         }
 
         public override int GetErrors(int PageIndex, int PageSize, IList ErrorEntryList)

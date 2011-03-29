@@ -2,190 +2,61 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
+    
     <link href="@Url.Content("~/Content/ForHtmlHelpers.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/BlueprintReset.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>    
-    <meta name="robots" content="noindex, nofollow" />
+    <link href="@Url.Content("~/Content/Pro/Pro.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <meta name="robots" content="index, follow" />
     <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
+    
+    <!-- For Visual Studio IntelliSense -->
+    @if (false) { <script src="~/Scripts/jquery-1.4.4-vsdoc.js" type="text/javascript"></script> }
+
     @RenderSection("Head", false)
-    <style type="text/css">
-        
-        div
-        {
-            overflow: hidden;
+   
+    <script type="text/javascript">
+        $(document).ready(function () {
+            AttachClickHandlers();
+        });
+
+        var StatusExpanded = false;
+        var BodyClickedHandlers = new Array();
+
+        function AttachClickHandlers() {
+
+            $('body').click(BodyClicked)
+            $('#Status-History-Expand-Button').click(ExpandStatus);
         }
-        
-        .Pro
-        {
-            background-image: url('../../../../Content/Pro/bgpuzzle.png');
-            background-repeat: repeat;
-            background-position: center top;
-            width: 100%;
-            color: #FF5400;
-            font-family: Terminal;
+
+
+        function BodyClicked() {
+            jQuery.each(BodyClickedHandlers, function () {
+                this();
+            })
         }
-        
-        .Site-In-Center
-        {
-            display:block;            
-            width: 960px;
-            margin: 40px auto;
+
+        function ExpandStatus() {
+            if (StatusExpanded)
+                CloseStatus();
+            else {
+                BodyClickedHandlers.push(CloseStatus);
+                $('#Status-History').toggleClass('Status-History Status-History-Expanded')
+                StatusExpanded = true;
+            }
+            return false;
         }
-        
-        .Clear
-        {
-            clear: both;
+
+        function CloseStatus() {
+            if (StatusExpanded) {
+                $('#Status-History').removeClass('Status-History-Expanded')
+                $('#Status-History').addClass('Status-History')
+                StatusExpanded = false;
+            }
         }
-        
-        .Elevated-Right-Shadow
-        {
-            background-image:url('../../../../Content/Pro/shadow-right.png');
-            background-repeat:repeat-y;
-            background-position:right;
-            width: 960px;
-            float: left;
-        }
-        
-        .Elevated
-        {
-            border: 2px solid #FFAE7F;
-            border-bottom-width: 0px;
-            min-height : 1500px;
-            background-color: #FFFFFF;
-            width: 936px;
-            float: left;
-        }
-        
-        .Elevated-Top-Shadow
-        {
-            background-image:url('../../../../Content/Pro/shadow-top.png');
-            background-repeat:repeat-x;
-            height: 20px;
-            width: 925px;
-            float: left;
-        }
-        
-         
-        .Elevated-TopRight-Shadow
-        {
-            background-image:url('../../../../Content/Pro/shadow-topright.png');
-            background-repeat:no-repeat;
-            height: 20px;
-            width: 20px;
-            float: left;
-        }
-        
-        .Elevated-TopLeft-Padding
-        {
-            width: 15px;
-            height: 20px;
-            background: none;
-            float: left;
-        }
-          
-        .Header
-        {
-            width: 100%;
-            height : 300px;
-            font-family: Bookman Old Style;
-            font-size: 30px;
-            display: block;
-            float: left;
-        }
-        
-        .Header-Left
-        {
-            width: 700px;
-            display: block;
-            float:left;
-        }
-        
-        .Header-Right
-        {
-            width: 234px;
-            background-color: #FFEBE0;
-            border-left: 2px solid #FFAE7F;
-            padding-top: 55px;
-            height: 300px;
-            display: block;
-            float:left;
-        }
-        
-        .Sub-Header
-        {
-            color: #FFFFFF;
-            font-family: Bookman Old Style;
-            font-size: 25px;
-        }
-            
-        .Site-Name
-        {
-            font-size:62px;
-            margin-left:75px;
-            margin-top:30px;
-            margin-bottom:10px;
-        }    
-        
-        .Site-Sub
-        {
-            font-size:25px;
-            margin-left:150px;
-            width: 350px;
-            font-style:oblique;
-            text-align: center;
-        }
-        
-        .Main-Menu
-        {
-            width: 640px;
-            margin-left: 30px;
-            margin-right: 30px;
-            margin-top:10px;   
-        }
-        
-        .Main-Menu-Item
-        {
-            text-align: center;
-            font-size: 22px;
-            display: inline-block;
-            width: 120px;
-        }
-        
-        .Pro-Body
-        {
-            width: 921px;
-            background-color: #FFFFFF;
-        }
-        
-        .Status-History
-        {
-            height: 54px;
-        }
-        
-        .Focus-Description
-        {
-            color: #FF5400;
-            font-size: 24px;
-        }
-        
-        .Description
-        {
-            color: #333333;
-            text-align: center;
-            font-size: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .Bottom-Shadowless
-        {
-            width: 936px;
-            border: 2px solid #FFAE7F;
-            border-top-width: 0px;
-            height : 15px;
-            background-color: #FFFFFF;
-            float: left;
-        }
-    </style>
+
+    </script>
 
 </head>
 
@@ -216,7 +87,8 @@
                             <div class="Description">I'm a <div class="Focus-Description">Consultant</div></div>
                             <div class="Description">I often play <div class="Focus-Description">Developer</div></div>
                             <div class="Description">
-                                <ul class="Status-History">
+                                <div class="Status-History-Expand-Button" id="Status-History-Expand-Button"></div>
+                                <ul class="Status-History" id="Status-History">
                                     <li>I work at <div class="Focus-Description">ThoughtWorks</div></li>
                                     <li>I graduated an Engineer at <div class="Focus-Description">Anna University</div></li>
                                     <li>I hung around <div class="Focus-Description">Aveo Infotech</div></li>

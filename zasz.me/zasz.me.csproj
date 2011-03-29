@@ -136,10 +136,12 @@
     <Content Include="App_Data\ColdStorage\raven-data.ico" />
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.png" />
-    <Content Include="Content\Pro\bgpuzzle.png" />
-    <Content Include="Content\Pro\shadow-right.png" />
-    <Content Include="Content\Pro\shadow-top.png" />
-    <Content Include="Content\Pro\shadow-topright.png" />
+    <Content Include="Content\Pro\Images\bgpuzzle.png" />
+    <Content Include="Content\Pro\Images\expand-down.png" />
+    <Content Include="Content\Pro\Images\shadow-right.png" />
+    <Content Include="Content\Pro\Images\shadow-top.png" />
+    <Content Include="Content\Pro\Images\shadow-topright.png" />
+    <Content Include="Content\Pro\Pro.css" />
     <Content Include="Content\Thumbnails\.image.png" />
     <Content Include="Content\Thumbnails\avi.png" />
     <Content Include="Content\Thumbnails\bat.png" />
@@ -210,20 +212,20 @@
     <Content Include="Content\Thumbnails\zip.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\ForHtmlHelpers.css" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jQuery-UI\jQuery-UI.css" />
+    <Content Include="Content\jQuery-UI\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\jQuery-UI\Images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Integration\ckeditor\ckeditor.js" />
     <Content Include="Integration\ckeditor\config.js" />
     <Content Include="Integration\ckeditor\contents.css" />
@@ -410,7 +412,7 @@
   <ItemGroup>
     <Folder Include="Areas\Pro\Models\" />
     <Folder Include="Areas\Rest\Models\" />
-    <Folder Include="Content\Rest\" />
+    <Folder Include="Content\Rest\Images\" />
     <Folder Include="Uploads\Files\" />
     <Folder Include="Uploads\Images\" />
   </ItemGroup>
@@ -448,6 +450,8 @@
     <Content Include="Areas\Pro\Views\Home\Show.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Home\Show.cshtml" />
+    <Content Include="Views\Post\List.cshtml" />
+    <Content Include="Views\Post\_PostShortView.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

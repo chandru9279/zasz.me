@@ -1,0 +1,14 @@
+﻿@model List<zasz.me.Models.Post>
+
+@{
+    ViewBag.Title = "My Writings";
+}
+
+<div style="margin: 20px auto; font-size: 24px;">My Writings</div>
+
+@foreach (var Post in Model)
+{
+    <div style="margin: 20px auto;">
+        @Html.Partial("_PostShortView", Post)
+    </div>
+}

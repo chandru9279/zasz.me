@@ -1,12 +1,12 @@
 ﻿using System;
-using Raven.Client.Document;
+using Raven.Client;
 using zasz.me.Models;
 
 namespace zasz.me.Integration.RavenDB
 {
     public class Vault : RepoBase<Passphrase>, IPassphraseRepository
     {
-        public Vault(DocumentStore Store) : base(Store)
+        public Vault(IDocumentStore Store) : base(Store)
         {
         }
 

@@ -11,11 +11,17 @@ namespace zasz.me.Controllers
 {
     public class PostController : Controller
     {
-        private readonly IPostRepository Posts;
+        private readonly IPostRepository _Posts;
 
         public PostController(IPostRepository Posts)
         {
-            this.Posts = Posts;
+            _Posts = Posts;
+        }
+
+        public ActionResult List()
+        {
+            List<Post> ViewName = _Posts.All();
+            return View(ViewName);
         }
 
         public ActionResult Create()
@@ -33,15 +39,13 @@ namespace zasz.me.Controllers
                                 {
                                     Title = Title,
                                     Content = PostContent,
-                                    Tags =
-                                        new List<string>(Tags.Split(Constants.Shredders,
+                                    Tags = new List<string>(Tags.Split(Constants.Shredders,
                                                                     StringSplitOptions.RemoveEmptyEntries)),
                                     Site = Site.WithName(ChosenSite),
                                     Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug,
                                     Timestamp = DateTime.Now
                                 };
-                Entry.Permalink = string.Format("http://{0}/{1}/post/{2}", Entry.Site.Host, Entry.Site.Name, Entry.Slug);
-                Posts.Save(Entry);
+                _Posts.Save(Entry);
                 return View("Post", Entry);
             }
             catch
