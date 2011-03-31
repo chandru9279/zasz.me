@@ -1,11 +1,26 @@
 ﻿using System;
+using System.Configuration;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.SessionState;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Configuration;
 
 namespace zasz.me.Integration
 {
+    public class UnityIntegration
+    {
+        public static void Bootstrap()
+        {
+            var BigBox = new UnityContainer();
+            var Section = ConfigurationManager.GetSection("unity") as UnityConfigurationSection;
+            if (Section != null) Section.Configure(BigBox, "BigBox");
+            ControllerBuilder.Current.SetControllerFactory(new UnityControllerBuilder(BigBox));
+            HugeBox.Swallow(BigBox);
+        }
+    }
+
     public class UnityControllerBuilder : IControllerFactory
     {
         private readonly UnityContainer BigBox;
@@ -44,5 +59,46 @@ namespace zasz.me.Integration
         }
 
         #endregion
+    }
+
+
+    public class SingletonPerRequest : LifetimeManager, IDisposable
+    {
+        private readonly string _Name;
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            RemoveValue();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// This is a Lifetime Manager that maintains a singleton instance per web request. For example
+        /// A DB Session can be managed by this manager - you have one session instance for the whole 
+        /// Request
+        /// </summary>
+        /// <param name="Name"></param>
+        public SingletonPerRequest(string Name)
+        {
+            _Name = Name;
+        }
+
+        public override object GetValue()
+        {
+            return HttpContext.Current.Items[_Name];
+        }
+
+        public override void RemoveValue()
+        {
+            HttpContext.Current.Items.Remove(_Name);
+        }
+
+        public override void SetValue(object newValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

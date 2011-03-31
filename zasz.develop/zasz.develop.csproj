@@ -38,20 +38,20 @@
     <StartupObject>zasz.develop.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncCtpLibrary">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\AsyncCtpLibrary.dll</HintPath>
+    <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\AsyncCtpLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="MissingBitsFromClientProfile">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
+    <Reference Include="MissingBitsFromClientProfile, Version=0.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Raven.Abstractions.dll</HintPath>
+    <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Raven.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Client.Lightweight">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
+    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

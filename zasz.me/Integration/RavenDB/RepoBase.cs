@@ -37,6 +37,7 @@ namespace zasz.me.Integration.RavenDB
         {
             using (var Session = _Store.OpenSession())
             {
+                _Store.Conventions.GetIdentityProperty(typeof(Model)).GetValue(Entity)
                 Session.Delete(Entity);
                 Session.SaveChanges();
             }

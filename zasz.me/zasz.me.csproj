@@ -40,7 +40,7 @@
       <HintPath>..\packages\AntiXSS.4.0.1\lib\net35\AntiXSSLibrary.dll</HintPath>
     </Reference>
     <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\AsyncCtpLibrary.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\AsyncCtpLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
@@ -64,17 +64,18 @@
       <HintPath>..\packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="MissingBitsFromClientProfile, Version=0.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Raven.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.289\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages" />
     <Reference Include="System.Web.Helpers" />
@@ -100,6 +101,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Utils\Constants.cs" />
+    <Compile Include="Integration\RavenDB\Indexes\Post_BySlug.cs" />
+    <Compile Include="Integration\RavenDB\RavenIntegration.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Areas\Pro\ProAreaRegistration.cs" />
     <Compile Include="Areas\Rest\Controllers\HomeController.cs" />

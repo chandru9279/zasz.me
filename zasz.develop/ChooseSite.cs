@@ -15,7 +15,7 @@ namespace zasz.develop
             if (MapSites == null)
                 MapSites = new Pairs<string, DialogResult>(
                     new[] {"Pro", "Rest", "Both"},
-                    new[] {DialogResult.Ignore, DialogResult.Abort, DialogResult.None}
+                    new[] {DialogResult.Ignore, DialogResult.Abort, DialogResult.Retry}
                     );
         }
 

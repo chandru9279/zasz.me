@@ -1,12 +1,8 @@
-﻿using System.Configuration;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using Raven.Client.Document;
 using zasz.me.Integration;
-using zasz.me.Models;
+using zasz.me.Integration.RavenDB;
 
 namespace zasz.me
 {
@@ -41,30 +37,8 @@ namespace zasz.me
             RegisterRoutes(RouteTable.Routes);
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
-            UseUnityDIForControllers();
-            UseRavenDB();
-        }
-
-        private static void UseUnityDIForControllers()
-        {
-            var BigBox = new UnityContainer();
-            var Section = ConfigurationManager.GetSection("unity") as UnityConfigurationSection;
-            if (Section != null) Section.Configure(BigBox, "BigBox");
-            ControllerBuilder.Current.SetControllerFactory(new UnityControllerBuilder(BigBox));
-            HugeBox.Swallow(BigBox);
-        }
-
-        private static void UseRavenDB()
-        {
-            var DocumentStore = new DocumentStore {ConnectionStringName = "RavenConnection"};
-            DocumentStore.Initialize();
-            DocumentStore.Conventions.FindIdentityProperty =
-                Property =>
-                    {
-                        var IdAttributes = Property.GetCustomAttributes(typeof (IDAttribute), false) as IDAttribute[];
-                        return IdAttributes != null && IdAttributes.Length > 0;
-                    };
-            HugeBox.Swallow(DocumentStore);
+            UnityIntegration.Bootstrap();
+            RavenIntegration.Bootstrap();
         }
     }
 }
