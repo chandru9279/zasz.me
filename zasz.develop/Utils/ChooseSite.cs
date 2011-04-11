@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using zasz.me.Services;
 
-namespace zasz.develop
+namespace zasz.develop.Utils
 {
     public partial class ChooseSite : Form
     {

@@ -39,21 +39,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\AsyncCtpLibrary.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\AsyncCtpLibrary.dll</HintPath>
     </Reference>
     <Reference Include="MissingBitsFromClientProfile, Version=0.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Raven.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.309\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
+      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -66,25 +67,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChooseSite.cs">
+    <Compile Include="Utils\ChooseSite.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChooseSite.Designer.cs">
+    <Compile Include="Utils\ChooseSite.Designer.cs">
       <DependentUpon>ChooseSite.cs</DependentUpon>
     </Compile>
-    <Compile Include="Death.cs" />
-    <Compile Include="DevUtil.cs">
+    <Compile Include="Utils\Death.cs" />
+    <Compile Include="Utils\DevUtil.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DevUtil.Designer.cs">
+    <Compile Include="Utils\DevUtil.Designer.cs">
       <DependentUpon>DevUtil.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ChooseSite.resx">
+    <Compile Include="SampleData\PostsData.cs" />
+    <EmbeddedResource Include="Utils\ChooseSite.resx">
       <DependentUpon>ChooseSite.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DevUtil.resx">
+    <EmbeddedResource Include="Utils\DevUtil.resx">
       <DependentUpon>DevUtil.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -115,6 +117,57 @@
       <Name>zasz.me</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="SampleData\Posts\065cdf31-bd43-46c9-aa9e-31264658b366.xml" />
+    <Content Include="SampleData\Posts\0ccc302f-1db5-4444-bf6b-bab6392d5c9e.xml" />
+    <Content Include="SampleData\Posts\1265d1a3-fb37-478d-aa59-216d48e8b1e3.xml" />
+    <Content Include="SampleData\Posts\14beb1c0-1d20-4215-a57c-f6bd6630067b.xml" />
+    <Content Include="SampleData\Posts\155c12a5-df59-47b4-9f51-4c5700369e78.xml" />
+    <Content Include="SampleData\Posts\16518d0d-3ab3-4684-9a75-bab643453da3.xml" />
+    <Content Include="SampleData\Posts\19cbf839-fa7c-4467-9d82-bf510b2486e3.xml" />
+    <Content Include="SampleData\Posts\1ee76f56-2744-4d52-9c90-a49b7cefd72c.xml" />
+    <Content Include="SampleData\Posts\276054c1-75e3-45e2-bb8a-a1ee7d3cf9d3.xml" />
+    <Content Include="SampleData\Posts\2e4005b2-1aa5-42c3-869d-8133539aeb6a.xml" />
+    <Content Include="SampleData\Posts\3a0dd490-a2d2-4a59-aa99-273996e0b716.xml" />
+    <Content Include="SampleData\Posts\3bc35c11-2ed6-43e0-be28-934e60e10fda.xml" />
+    <Content Include="SampleData\Posts\400d4db8-3b29-408a-b904-ced8b1002b90.xml" />
+    <Content Include="SampleData\Posts\4a62035e-a8a0-464a-b943-a32fc508e278.xml" />
+    <Content Include="SampleData\Posts\50cb9115-e160-4f1f-bdb3-6a5cc631100b.xml" />
+    <Content Include="SampleData\Posts\58b554e7-1790-4ac2-95c7-952640db033e.xml" />
+    <Content Include="SampleData\Posts\5d26c9bd-1620-4a99-9b5d-2a44cc3d8bad.xml" />
+    <Content Include="SampleData\Posts\60f5e969-74ed-414a-98aa-231a14419821.xml" />
+    <Content Include="SampleData\Posts\6dd12a9e-5a40-4cb9-adfb-87c39a33811f.xml" />
+    <Content Include="SampleData\Posts\70b70e74-f503-4f36-b1e6-8fe25f5d3687.xml" />
+    <Content Include="SampleData\Posts\77b7a5d9-2065-446d-9557-1afb4e2a4cd1.xml" />
+    <Content Include="SampleData\Posts\78490c16-6006-4f9e-aa2e-3d9aa5a3b2cf.xml" />
+    <Content Include="SampleData\Posts\7b0d3d1f-a572-4149-9e9c-2ada9aacff6b.xml" />
+    <Content Include="SampleData\Posts\7cc9fe4e-9f38-4868-903b-97d8bdd6ef2e.xml" />
+    <Content Include="SampleData\Posts\86f3f7bb-d1dd-4f42-b853-161f6548a216.xml" />
+    <Content Include="SampleData\Posts\88093131-55ac-4f81-80e9-ed786cf229a5.xml" />
+    <Content Include="SampleData\Posts\92ceda47-29ab-40a3-835a-48f6d05196e9.xml" />
+    <Content Include="SampleData\Posts\9e661b2c-c172-48b1-9f11-e810d5656bb7.xml" />
+    <Content Include="SampleData\Posts\9f136e4e-788e-42ca-bb39-fb54802801c4.xml" />
+    <Content Include="SampleData\Posts\a4f774fa-5b01-46d6-b3fc-6665b29c4a02.xml" />
+    <Content Include="SampleData\Posts\a6f2de4d-97cc-406e-8296-19710d36389e.xml" />
+    <Content Include="SampleData\Posts\affca817-2d62-4e53-9026-7d003f6d6f5c.xml" />
+    <Content Include="SampleData\Posts\b8cacbd9-4c25-4733-8663-0c753d13c3fe.xml" />
+    <Content Include="SampleData\Posts\bca027d2-b173-4586-8a5c-39ae749787d1.xml" />
+    <Content Include="SampleData\Posts\c3b491e5-59ac-4f6a-81e5-27e971b903ed.xml" />
+    <Content Include="SampleData\Posts\cde1c7ac-1ec7-40fa-985f-6889f27e8c50.xml" />
+    <Content Include="SampleData\Posts\cfa0b717-b88b-4d02-8df7-ba852191ba49.xml" />
+    <Content Include="SampleData\Posts\d9611b71-b407-4f75-9235-33952e78a307.xml" />
+    <Content Include="SampleData\Posts\db760e2a-5a47-4489-9a6d-b9954e994520.xml" />
+    <Content Include="SampleData\Posts\ded0ba79-b060-41eb-ae70-901121155666.xml" />
+    <Content Include="SampleData\Posts\e509252b-4443-4fa9-ad43-5aaf016909cc.xml" />
+    <Content Include="SampleData\Posts\e5b91a87-c644-46d9-adb6-13845d4f5237.xml" />
+    <Content Include="SampleData\Posts\e6792200-28f9-4188-9175-d7b07e77eeea.xml" />
+    <Content Include="SampleData\Posts\eace5234-ab47-4d8b-969d-dc724f3dd06c.xml" />
+    <Content Include="SampleData\Posts\f1618144-2004-45d3-a2f3-34f5dd8487b1.xml" />
+    <Content Include="SampleData\Posts\f1b3f226-fbfd-45ce-a4ee-fd00818ce8ca.xml" />
+    <Content Include="SampleData\Posts\f480e5cc-b112-499c-adc5-0abbb44fce40.xml" />
+    <Content Include="SampleData\Posts\f58cb294-cafe-4b33-baeb-88eae59a729e.xml" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,4 +1,4 @@
-﻿namespace zasz.develop
+﻿namespace zasz.develop.Utils
 {
     partial class ChooseSite
     {
@@ -78,7 +78,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(261, 127);
+            this.ClientSize = new System.Drawing.Size(254, 128);
             this.Controls.Add(this.Title);
             this.Controls.Add(this.Both);
             this.Controls.Add(this.Rest);
@@ -88,6 +88,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ChooseSite";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChooseSite";
             this.Load += new System.EventHandler(this.ChooseSite_Load);
             this.ResumeLayout(false);

@@ -111,6 +111,7 @@
                 <div class="thumbnail">
                     <img src="@Pair.First" alt="@Pair.First" onclick="returnFile('@Pair.Second');" />
                 </div>
+                <div>@Path.GetFileName(Model.ThumbsAndFiles[i].Other)</div>
                 <a class="delete" href="javascript:void(0);" onclick="deleteFile('@Pair.Second','item-@i')"> Delete</a>
             </div>
         }

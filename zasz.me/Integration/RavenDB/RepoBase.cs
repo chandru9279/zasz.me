@@ -5,58 +5,49 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.RavenDB
 {
-    public class RepoBase<Model> : IRepository<Model>
+    public abstract class RepoBase<Model> : IRepository<Model> where Model : IModel
     {
-        protected readonly IDocumentStore _Store;
+        protected readonly IDocumentSession _Session;
 
-        public RepoBase(IDocumentStore Store)
+        protected RepoBase(IDocumentSession Session)
         {
-            _Store = Store;
+            _Session = Session;
         }
 
         #region IRepository<Model> Members
 
         public void Save(Model Instance)
         {
-            using (var Session = _Store.OpenSession())
-            {
-                Session.Store(Instance);
-                Session.SaveChanges();
-            }
+            _Session.Store(Instance);
         }
 
         public Model Get(string ID)
         {
-            using (var Session = _Store.OpenSession())
-            {
-                return Session.Load<Model>(ID);
-            }
+            return _Session.Load<Model>(ID);
         }
 
         public void Delete(Model Entity)
         {
-            using (var Session = _Store.OpenSession())
-            {
-                _Store.Conventions.GetIdentityProperty(typeof(Model)).GetValue(Entity)
-                Session.Delete(Entity);
-                Session.SaveChanges();
-            }
+            _Session.Delete(Entity);
         }
 
-        public List<Model> All()
+        public List<Model> Page(int PageNumber, int PageSize)
         {
-            using (var Session = _Store.OpenSession())
-            {
-                return Session.Query<Model>().ToList();
-            }
+            return _Session.Load<Model>().Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
         public long Count()
         {
-            using (var Session = _Store.OpenSession())
-            {
-                return Session.Query<Model>().Count();
-            }
+            return _Session.Load<Model>().Count();
+        }
+
+        /// <summary>
+        /// Calling Flush in any repository is the same thing as calling flush for the whole Web Request.
+        /// It saves changes to all Models, Not only for this specific Model.
+        /// </summary>
+        public void Flush()
+        {
+            _Session.SaveChanges();
         }
 
         #endregion

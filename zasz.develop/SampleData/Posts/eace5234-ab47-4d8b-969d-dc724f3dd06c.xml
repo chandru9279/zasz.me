@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>Zasz</author>
+  <title>ReBlog : Has Google Blundered with the Gmail Beta?</title>
+  <description />
+  <content>&lt;p class="content"&gt;
+The traditional business model of webmail providers worked by squeezing the storage quotas of the free users of the webmail service, and forcing users to upgrade to a premium service. Someone at Google realized that earning money from webmail by selling premium services was always going to be a tough ask, and an alternative business model was needed. The idea he/she came up was to focus on pushing targeted ads to the users of the webmail service. The idea is brilliant in its simplicity. All an email provider needs to do is to scan the message the user has asked to be displayed for keywords, and display some relevant ads along with it; the ad clicks come automatically. 
+&lt;/p&gt;
+&lt;p class="content"&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p class="content"&gt;
+While developing this idea the Google people also realized that the new business model did not depend on squeezing the storage quotas of the users. The people at Google calculated that storage quotas of 1GB and more can be offered without an inordinate amount of expense. A whole Gigabyte of storage space for webmail was almost unthinkable at the time Google conceived of the idea. It would have been a massive marketing coup for Google&amp;#39;s new webmail service had the company offered such a storage quota to the mainstream user. Google did combine the two big insights it had, and several other innovations into its Gmail service. Gmail seems to be everything the users want. It offers users a large storage quota, has excellent email search capabilities, and incorporates a number of usability enhancements such as threaded discussions, and labels for grouping emails. Unfortunately, Gmail is still in beta and the average person can&amp;#39;t sign up for the service. 
+&lt;/p&gt;
+&lt;p class="content"&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p class="content"&gt;
+While Gmail is in beta its competitors are busy copying its features. The massive storage quota of Gmail must have really scared Yahoo and Hotmail, so this was the first thing they copied. As of now Yahoo is offering 100 MB quotas on its free email accounts, and Hotmail is offering 250 MB. This is quite a big change from the paltry 4 MB and 2 MB quotas Yahoo and Hotmail were offering previously. Gmail&amp;#39;s competition is not trying to beat Gmail, but is only interested in avoiding a mass exodus of users. The well-established webmail players understand that switching a primary email address is a non-trivial task for any user. A user has to inform all of his/her contacts of the new email address, and even after doing that email just keeps on coming at the old email address. By offering larger quotas Gmail&amp;#39;s competition is trying to reduce the incentive of users to switch to Gmail. Gmail&amp;#39;s competitors certainly won&amp;#39;t stop at storage quotas; it is safe to assume that most of Gmail&amp;#39;s innovations will be incorporated into competing webmail services even before Gmail comes out of beta. 
+&lt;/p&gt;
+&lt;p class="content"&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p class="content"&gt;
+Gmail&amp;#39;s beta was most likely a poorly planned exercise in market research. Google was interested in monitoring the behavior of Gmail users, and collecting data about ad click rates, searching habits, storage use, etc. Unfortunately, all of Google&amp;#39;s data collection will be useless, as the typical Gmail beta-tester is likely to be much more loyal to Gmail than the typical user which signs up after the beta. When Gmail finally comes out of the beta, users will certainly sign up in droves, but many of these users will only use Gmail as just another email account. With all the catching up Gmail&amp;#39;s competition is doing, users simply won&amp;#39;t have sufficient incentive to make Gmail their primary email address. This will translate into less ad clicks, lower revenue, and less profitability for Gmail. Had Google introduced Gmail without giving Gmail&amp;#39;s competitors time to clone Gmail&amp;#39;s functionality, a big fraction of web-mail users would have switched wholesale to Gmail. Gmail&amp;#39;s competitors would have been caught unprepared. Many of them would have panicked and done stupid things to stem the exodus of users to Gmail. Fortunately for them, Gmail&amp;#39;s beta gave everyone ample breathing room. 
+&lt;/p&gt;
+&lt;p class="content"&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p class="content"&gt;
+Companies do betas because they expect a beta-tested product to yield more profits: better products typically lead to more sales and revenue. Unfortunately, Gmail&amp;#39;s beta has done more harm than good to Gmail&amp;#39;s prospects, and thus has been contradictory to the goals of a beta. Public betas are always a compromise between increasing the robustness of a product/service, and divulging product functionality and business plans. In some situations public betas are unavoidable. Microsoft has to release betas of Windows to developers, and a wide userbase in order to produce a usable version of Windows. By doing alphas and betas Microsoft is inviting its competitors to copy upcoming Windows functionality. In case of Longhorn, Linux developers are certainly picking and choosing functionality. A lengthy beta makes sense for Longhorn as Linux developers will not be able to clone all of Longhorn&amp;#39;s core functionality before Microsoft releases a final version. However, Gmail just doesn&amp;#39;t have the kind of sophisticated functionality which requires years of development effort to duplicate. If Hotmail&amp;#39;s creators had done what Google has done, there would be no Hotmail today. Other companies would have seen Hotmail&amp;#39;s potential and introduced competing web-mail services to snag users before Hotmail could. 
+&lt;/p&gt;
+&lt;p class="content"&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p class="content"&gt;
+The most sensible course of action for Google was to do no beta or a very short beta. A couple of weeks of beta-testing would have sufficed for the level of functionality Gmail is offering. For market research, the company should have relied on some alternative means or preferably skipped the market research altogether. After all there aren&amp;#39;t many startups who would delay their product 6 months to collect some questionable statistics. Another option for Google was to do a limited beta, but do it in a way to mislead its competition. Google could have started the beta with a 10 MB storage quota for Gmail with the final release version of the service offering 1 GB. Of course, no one outside of Google was to be told of Google&amp;#39;s intent to offer 1 GB in the final version of the service. 
+&lt;/p&gt;
+&lt;p class="content"&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p class="content"&gt;
+Unfortunately, the damage has been done, and these options are irrelevant to Google. Google can try to surprise its competitors by introducing significant new functionality in the final release of Gmail. But, the company seems to have played its best cards, and a radical revision of Gmail is unlikely. Gmail has certainly transformed the web-mail scene, and it will be a definite success. However, Gmail could have done much much better, and there are some important lessons to be learned. Companies must keep in mind that there are drawbacks to betas and ignoring the drawbacks can have disastrous consequences.&amp;nbsp;
+&lt;/p&gt;
+&lt;p class="content"&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Based on views by&amp;nbsp;&lt;a href="http://www.techuser.net/about.html"&gt;Usman Latif&lt;/a&gt;&amp;nbsp; [Aug 28, 2004] 
+&lt;/p&gt;
+</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-08-29 15:38:00</pubDate>
+  <lastModified>2008-08-29 15:44:54</lastModified>
+  <raters>1</raters>
+  <rating>4</rating>
+  <slug>ReBlog--Has-Google-Blundered-with-the-Gmail-Beta</slug>
+  <tags>
+    <tag>web</tag>
+  </tags>
+  <comments>
+    <comment id="d63a9f34-6733-4a49-82d0-41b08751f974" approved="True">
+      <date>2009-10-31 15:31:09</date>
+      <author>fast personal loans</author>
+      <email>jlosca1582@aol.com</email>
+      <ip>79.116.139.196</ip>
+      <website>http://fastloansus.com/</website>
+      <content>Searching for this for some time now - i guess luck is more advanced than search engines :)</content>
+    </comment>
+    <comment id="dbf75346-16a0-4457-a77d-fc148249856b" approved="True">
+      <date>2009-11-28 00:14:34</date>
+      <author>payday loans</author>
+      <email>jimf@charter.net</email>
+      <ip>79.116.136.52</ip>
+      <website>http://www.usapaydayloan.net/</website>
+      <content>Like your writing! Still you can do some things to improve it.</content>
+    </comment>
+    <comment id="6b730c3e-4f71-4b43-a325-543de7c7d5a9" approved="True">
+      <date>2010-06-25 11:56:31</date>
+      <author>wow gold</author>
+      <email>PrunellaVertefeuille@gamehehe.com</email>
+      <ip>118.249.147.98</ip>
+      <website>http://www.gamehehe.com/</website>
+      <content>Hello webmaster, good day. Superb post. You have gained a new fan. Please keep up the good work and I look forward to more of your great posts. Have a nice day,</content>
+    </comment>
+    <comment id="aa7620b9-0571-4e21-8484-f1ec69ca9094" approved="True">
+      <date>2010-06-25 12:42:00</date>
+      <author>wow gold</author>
+      <email>GeoffreyGendron@wowgold365.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.com/</website>
+      <content>Hi. I read a few of your other posts and i wanted to say thank you for the informative posts.</content>
+    </comment>
+    <comment id="82800bae-957b-445a-8df6-8533ccc48551" approved="True">
+      <date>2010-06-25 13:51:49</date>
+      <author>wow gold</author>
+      <email>elodieTheberge@wowgolders.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgolders.com/</website>
+      <content>You made tremendous great ideas here. I done a research on the subject and learnt most peoples will agree with your blog.</content>
+    </comment>
+    <comment id="faacb522-a104-4a6c-9daa-db97b09aedc4" approved="True">
+      <date>2010-06-26 13:55:18</date>
+      <author>wow gold</author>
+      <email>VeroniqueHervieux@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.fr/</website>
+      <content>Valuable information and excellent design you got here! I would like to thank you for sharing your thoughts and time into the stuff you post!! Thumbs up</content>
+    </comment>
+    <comment id="b0e474c4-a5a3-478a-aabb-456daf34644a" approved="True">
+      <date>2010-06-26 14:04:49</date>
+      <author>wow gold</author>
+      <email>AlexandrieFoucault@gamesgoldsale.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gamesgoldsale.com/</website>
+      <content>There are certainly a lot of details like that to take into consideration. That?s a great point to bring up. I offer the thoughts above as general inspiration but clearly there are questions like the one you bring up where the most important thing will be working in honest good faith. I don?t know if best practices have emerged around things like that, but I am sure that your job is clearly identified as a fair game.</content>
+    </comment>
+    <comment id="317b30e9-98c0-4e92-a8f9-65228c994f31" approved="True">
+      <date>2010-06-26 15:21:21</date>
+      <author>ffxiv gil</author>
+      <email>ArletteGaillou@gil4ffxiv.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gil4ffxiv.com/</website>
+      <content>As a Noob, I am always seeking online for articles that can help me. Thank you</content>
+    </comment>
+    <comment id="d5f6724d-4ad1-463e-b646-0623fcfca333" approved="True">
+      <date>2010-06-26 15:45:47</date>
+      <author>Wow Gold gratuit</author>
+      <email>JosephRicher@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.yoyo-gold.com/</website>
+      <content>This article gives the light in which we can observe the reality. this is very nice one and gives indepth information. thanks for this nice article</content>
+    </comment>
+    <comment id="2d43d7bf-8637-400d-a770-007541071f0e" approved="True">
+      <date>2010-06-28 07:23:03</date>
+      <author>wow gold</author>
+      <email>EtoileRobillard@gmail.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.co.uk/</website>
+      <content>I keep listening to the news speak about getting free online grant applications so I have been looking around for the best site to get one.</content>
+    </comment>
+    <comment id="74ec02cb-896f-49bf-bc4b-d3c883603f00" approved="True">
+      <date>2010-06-28 07:33:26</date>
+      <author>wow gold</author>
+      <email>TylerSkillen@wowgold365.de</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.de/</website>
+      <content>Hi, can you look at my new site please and also see what you think  I let visitors see how to get  free dvds  Thank you  www.whatiwantforfree.info</content>
+    </comment>
+    <comment id="b39aa022-889c-47c5-b330-889b7409ab11" approved="True">
+      <date>2010-06-28 08:56:04</date>
+      <author>wow gold</author>
+      <email>AmirSayyidMoghadam@cataclysm-wowgold.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.cataclysm-wowgold.com/</website>
+      <content>Please tell me that youre going to keep this up!  Its so good and so important.  I cant wait to read more from you.  I just feel like you know so much and know how to make people listen to what you have to say.  This blog is just too cool to be missed.  Great stuff, really.  Please, PLEASE keep it up!</content>
+    </comment>
+    <comment id="389b5578-bf78-4e7d-9425-0236508269e5" approved="True">
+      <date>2010-06-29 10:02:27</date>
+      <author>wow gold</author>
+      <email>MelodieTheberge@wowgoldsale.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgoldsale.fr/</website>
+      <content>Im not going to say what everyone else has already said, but I do want to comment on your knowledge of the topic.  Youre truly well-informed.  I cant believe how much of this I just wasnt aware of.  Thank you for bringing more information to this topic for me.  Im truly grateful and really impressed.</content>
+    </comment>
+    <comment id="7e0c5128-d8ac-4c89-a1fa-a598c25a10d4" approved="True">
+      <date>2010-06-29 10:32:27</date>
+      <author>wow gold</author>
+      <email>Ad����leRobert@gamehehe.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gamehehe.fr/</website>
+      <content>Wow and wow! Thank you! I always wished to write in my site something like that.</content>
+    </comment>
+    <comment id="7b4c57e6-b0a1-4193-8b79-8da06fd50dd5" approved="True">
+      <date>2010-06-30 06:41:23</date>
+      <author>wow gold</author>
+      <email>FerragusMose@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visongold.com/</website>
+      <content>The next time I read a blog, I hope that it doesnt disappoint me as much as this one.  I mean, I know it was my choice to read, but I actually thought youd have something interesting to say.  All I hear is a bunch of whining about something that you could fix if you werent too busy looking for attention.</content>
+    </comment>
+    <comment id="85c35eca-5f9d-4706-b28b-1851cc138b17" approved="True">
+      <date>2010-06-30 06:50:50</date>
+      <author>wow gold 1000g</author>
+      <email>ManvilleLamoureux@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ffxigilnet.com/</website>
+      <content>This article gives the light in which we can observe the reality. this is very nice one and gives indepth information. thanks for this nice article</content>
+    </comment>
+    <comment id="2748dc3b-3654-4328-a22d-69910434b07c" approved="True">
+      <date>2010-07-28 13:40:59</date>
+      <author>Timberland boots</author>
+      <email>373751851@qq.com</email>
+      <ip>59.58.175.242</ip>
+      <website>http://www.timberlandshoesonline.com/</website>
+      <content>I have read your article, I think this is very good!I'm in love with this piece!It's so cool~! You can check me in http://www.timberlandshoesonline.com and give me some advises.</content>
+    </comment>
+    <comment id="8d2b41ec-a618-45b3-989a-f4ea6738ad12" approved="True">
+      <date>2010-08-04 13:27:37</date>
+      <author>Timberland boots</author>
+      <email>373751851@qq.com</email>
+      <ip>59.58.175.242</ip>
+      <website>http://www.timberlandshoesonline.com/</website>
+      <content>I had just finished reading your articles，and this is very good! timberland boots uk Being a comprehensive trade solution provider offering sale services with free shipping to international buyers who are interested in shopping online.The products here are timberland boots outlet, timberland roll top boots and men timberland boots. As an online business platform mainly retailing, waterproof boots we provide our buyers with an efficient and manageable procurement process covering every phase of the international supply chain and streamlining trade channels. Also welcome wholesaling, feedback now!</content>
+    </comment>
+    <comment id="5a974292-e024-456b-9746-5b2aa56d5979" approved="True">
+      <date>2010-08-19 19:21:53</date>
+      <author>cheap wow gold</author>
+      <email>AubineHughes@goldteamsale.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold-com.com/</website>
+      <content>I can see that you are an expert at your field! I am launching a website soon, and your information will be very useful for me.. Thanks for all your help and wishing you all the success in your business.</content>
+    </comment>
+    <comment id="c7e2c076-4e29-43b5-9ba7-250b1798c8ae" approved="True">
+      <date>2010-08-19 20:22:33</date>
+      <author>ffxiv gil</author>
+      <email>NoemiBourque@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ffxivgil-couk.com/</website>
+      <content>Fantastic blog!  I dont think Ive seen all the angles of this subject the way youve pointed them out.  Youre a true star, a rock star man.  Youve got so much to say and know so much about the subject that I think you should just teach a class about it...HaHa!</content>
+    </comment>
+    <comment id="76fc85fc-ae0a-477e-834b-b98d117328ff" approved="True">
+      <date>2010-08-19 21:22:51</date>
+      <author>world of warcraft gold EU</author>
+      <email>EugeniaBedard@cheapgold4wow.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.blizzard-news.com/</website>
+      <content>When you begin writing, it's important to note you shouldn't make it sound like you're selling anything at all, merely sharing some information with others on the web who might be interested in it.</content>
+    </comment>
+    <comment id="8ed59347-c9c0-45cd-b2f8-e5c3e8860839" approved="True">
+      <date>2010-08-20 22:27:33</date>
+      <author>First Person Shooting</author>
+      <email>SafiyaSamarahSafar@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.small-game-online.com/</website>
+      <content>Hey - nice blog, just looking around some blogs, seems a pretty nice platform you are using. I'm currently using Wordpress for a few of my sites but looking to change one of them over to a platform similar to yours as a trial run. Anything in particular you would recommend about it?</content>
+    </comment>
+    <comment id="2375dccc-72f4-46fb-a37b-bb388a89fa62" approved="True">
+      <date>2010-08-20 23:13:30</date>
+      <author>ffxiv gold</author>
+      <email>MarveilleVeronneau@buy-ffxiv-gils.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ffxivgoldsaler.com/</website>
+      <content>Nice to be visiting your blog again, it has been months for me. Well this article that i've been waited for so long. I need this article to complete my assignment in the college, and it has same topic with your article. Thanks, great share.</content>
+    </comment>
+    <comment id="74c6bb51-7333-4e08-830d-5d6c97bf44e8" approved="True">
+      <date>2010-08-28 17:23:12</date>
+      <author>2010 game</author>
+      <email>BurrellBourgeau@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.2010gamer.com/</website>
+      <content>Really nice read thanks, I have added this to my Mixx bookmarks</content>
+    </comment>
+    <comment id="36da51f7-a0c4-42dc-9439-6064f442d807" approved="True">
+      <date>2010-08-28 19:11:57</date>
+      <author>Cheap necklace</author>
+      <email>PrewittLaforest@buycheapworldofwarcraftgold.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visonnecklace.com/</website>
+      <content>What a big fuss about nothing!  Surely it makes sense what the poster above me has said and that should be the end of it!</content>
+    </comment>
+    <comment id="4d490f4b-833b-4fcb-992b-f68d9d82954d" approved="True">
+      <date>2010-08-30 11:53:34</date>
+      <author>swim spa pools</author>
+      <email>swimspapools@sfyh.com</email>
+      <ip>216.83.63.50</ip>
+      <website>http://www.sfyh.com/swim-spa-pools_ss</website>
+      <content>Thank you for sharing
+</content>
+    </comment>
+    <comment id="6c47a127-678f-4d15-84b1-efd50864abf5" approved="True">
+      <date>2010-09-05 14:59:50</date>
+      <author>Billiards snooker</author>
+      <email>elisabethBoulanger@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.siluoker.com/</website>
+      <content>The Kreg Jig takes advantage of a technique called Kreg Joinery. Unlike other techniques, Kreg Jig requires no glue, no complicated math, and no small army of clamps to make wood joints that will last.</content>
+    </comment>
+    <comment id="e8329c32-b535-45d1-bff0-06fab932a910" approved="True">
+      <date>2010-09-05 15:55:59</date>
+      <author>wow gold</author>
+      <email>LaetitiaPichette@gil4ff14.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold-dk.com/</website>
+      <content>Super-Duper site! I am loving it!! Will bookmark it�C taking you feeds also, Regards</content>
+    </comment>
+    <comment id="72c19795-ac4e-4c12-9b13-0832b3d044de" approved="True">
+      <date>2010-09-08 20:54:27</date>
+      <author>chinese game news</author>
+      <email>HarcourtRacine@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.iooigame.com/</website>
+      <content>Hello webmaster, good day. Superb post. You have gained a new fan. Please keep up the good work and I look forward to more of your great posts. Have a nice day,</content>
+    </comment>
+    <comment id="111d485a-ed49-4510-943f-3939e7b0249e" approved="True">
+      <date>2010-09-08 22:00:07</date>
+      <author>wow gold</author>
+      <email>MethenaDesforges@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgolders.com/</website>
+      <content>Without readers there won't be any writers..What better way to celebrate their presence.</content>
+    </comment>
+    <comment id="d6a7dbd1-3218-4852-abb1-c44f70cade5f" approved="True">
+      <date>2010-09-20 11:21:45</date>
+      <author>Breitling Emergency Watches</author>
+      <email>jfosi@hotmail.com</email>
+      <ip>222.79.19.187</ip>
+      <website>http://www.replica-watches-all.com/Replica-professional-collection-emergency_c2370</website>
+      <content>towardward [url=http://www.replicawatchessuper.com/Replica-Blancpain-Collection-Blancpain-Women-Chronographe-Flyback---Rattrapante-3485F-1130-97B-Watch-women_l483]Blancpain Women Chronographe Flyback &amp;#224; Rattrapante[/url], you cylsecretder identify titanic asas a resultrtment of [url=http://www.replicawatchessuper.com/Replica-chopard-your-hour-watches_v196]Chopard Your Hour watches[/url] alby top ofg by [url=http://www.replica-watches-net.com/Replica-burberry-watches_g1679]Replica Burberry Watches[/url] which are assist architect commodities for ladies among men. our [url=http://www.buyhangbag.com/Hermes-Kelly-32cm-Togo-Leather-Gold-Gold-Hardware-Hardware-HandB-amsNJ32lan_n1379]Hermes Kelly 32cm Togo Leather Gold Gold Hardware Hardware HandB[/url] tolerate mimic Hermes, Chanel, Gucci, Burberry, Prada, Miu Miu as well Louis Vuitton hfurthermorebags after that so on. these [url=http://www.replica-watches-net.com/Replica-sp44_g1462]BRM Watches SP44[/url] are stunning compatible with the original[url=http://www.goshoppingnet.com]Pocket Watches[/url]. rider you are infinitely receptive in the [url=http://www.replica-watches-net.com/replica-cartier-montres-santos-de-cartier-santos-100-ref-w20106x8-unisex-watch_n5558]Cartier Montres Santos de Cartier - Santos 100 ref.: W20106X8 Unisex Watch[/url] and [url=http://www.buyhangbag.com/Replica-hermes_g46]Replica Hermes handbags[/url], no more than consolidate in [url=http://www.goshoppingnet.com/Sell-jaegerlecoultre-reverso-squadra-watches_c182]Jaeger-LeCoultre Reverso Squadra Watches[/url] on 4687812345118</content>
+    </comment>
+    <comment id="b7db8f2d-7c67-4f24-91e5-06dcc5ac6e54" approved="True">
+      <date>2010-10-05 05:54:38</date>
+      <author>ffxiv gil</author>
+      <email>PomeroyBeaudry@yoyo-gold.com</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.ffxivgil-saler.com/</website>
+      <content>Another beautiful bed, I dunno where you get them but this site gets the best beds by far.</content>
+    </comment>
+    <comment id="e1c3bf17-4803-4eae-9160-abca28011d64" approved="True">
+      <date>2010-10-05 11:31:37</date>
+      <author>wow gold sale</author>
+      <email>HonoreCharpentier@wowgold365.fr</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.cataclysm-blizzard.com/</website>
+      <content>This blog has definitely changed my perspective on this subject.  Theres no way I wouldve thought about it this way if I hadnt come across your blog.  All I was doing was cruising the web and I found your blog and all of a sudden my views have changed.  Good on you, man!</content>
+    </comment>
+    <comment id="4e0ffd7a-d5b9-44db-8961-410cf3aa6f6c" approved="True">
+      <date>2010-10-05 17:22:34</date>
+      <author>lv bag</author>
+      <email>PascalGougeon@yoyo-gold.com/</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.bagoflv.com/</website>
+      <content>Excellent, You show exceedinglyspecialistand presents wellto silent future.</content>
+    </comment>
+  </comments>
+  <categories>
+    <category>bddabd05-73ba-4a63-a6c5-f97b5edea0fd</category>
+    <category>0d8cc69b-489f-47b7-be20-41e36e530fc1</category>
+  </categories>
+  <notifications />
+</post>

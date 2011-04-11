@@ -5,7 +5,7 @@ namespace zasz.me.Integration.RavenDB
 {
     public class ErrorLogs : RepoBase<Log>, ILogsRepository
     {
-        public ErrorLogs(IDocumentStore Store) : base(Store)
+        public ErrorLogs(IDocumentSession Session) : base(Session)
         {
         }
     }

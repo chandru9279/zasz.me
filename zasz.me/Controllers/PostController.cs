@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Practices.Unity;
 using zasz.me.Controllers.Utils;
 using zasz.me.Models;
 
@@ -12,16 +13,26 @@ namespace zasz.me.Controllers
     public class PostController : Controller
     {
         private readonly IPostRepository _Posts;
+        private int _MaxPostsPerPage;
 
         public PostController(IPostRepository Posts)
         {
             _Posts = Posts;
         }
 
-        public ActionResult List()
+        [Dependency("MaxPostsPerPage")]
+        public int MaxPostsPerPage
         {
-            List<Post> ViewName = _Posts.All();
-            return View(ViewName);
+            get { return _MaxPostsPerPage; }
+            set { _MaxPostsPerPage = value; }
+        }
+
+        public ActionResult List(int PageNumber = 0)
+        {
+            return View(new PostListModel(
+                            _Posts.Page(PageNumber, _MaxPostsPerPage),
+                            (int) (_Posts.Count() / _MaxPostsPerPage)
+                            ));
         }
 
         public ActionResult Create()
@@ -40,7 +51,7 @@ namespace zasz.me.Controllers
                                     Title = Title,
                                     Content = PostContent,
                                     Tags = new List<string>(Tags.Split(Constants.Shredders,
-                                                                    StringSplitOptions.RemoveEmptyEntries)),
+                                                                       StringSplitOptions.RemoveEmptyEntries)),
                                     Site = Site.WithName(ChosenSite),
                                     Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug,
                                     Timestamp = DateTime.Now
@@ -65,5 +76,22 @@ namespace zasz.me.Controllers
             var Sluglets = (from object Match in Regex.Matches(NearlySlug, @"[a-zA-Z0-9.-]+") select Match.ToString()).ToList();
             return string.Join("-", Sluglets);
         }
+
+        #region Nested type: PostListModel
+
+        public class PostListModel
+        {
+            public PostListModel(List<Post> Posts, int NumberOfPages)
+            {
+                this.Posts = Posts;
+                this.NumberOfPages = NumberOfPages;
+            }
+
+            public List<Post> Posts { get; set; }
+
+            public int NumberOfPages { get; set; }
+        }
+
+        #endregion
     }
 }

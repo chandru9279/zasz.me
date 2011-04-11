@@ -12,6 +12,15 @@ namespace zasz.me.Services
                 Add(new Pair<X, Y>(Ones[i], Others[i]));
         }
 
+        public Pairs()
+        {
+        }
+
+        public Pairs(IEnumerable<Pair<X, Y>> collection)
+            : base(collection)
+        {
+        }
+
         public X this[Y Other]
         {
             get { return WithOther(Other).One; }
@@ -67,7 +76,7 @@ namespace zasz.me.Services
         {
             unchecked
             {
-                return (One.GetHashCode()*397) ^ Other.GetHashCode();
+                return (One.GetHashCode() * 397) ^ Other.GetHashCode();
             }
         }
 

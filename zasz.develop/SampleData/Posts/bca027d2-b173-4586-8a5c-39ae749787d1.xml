@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>Zasz</author>
+  <title>Pre-Fetching Troubles? A Good Idea</title>
+  <description />
+  <content>&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;u&gt;&lt;span class="Apple-style-span" style="font-size: large"&gt;A Point in Case :&lt;/span&gt;&lt;/u&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;In a standard ASP.NET application you have some stylesheet links in some aspx pages. These links further hav links to images using the url(...) format. When the browser downloads these stylesheets, it assumes the url(...) constructs links within the stylesheet are relative to the path from which the stylesheet itself was downloaded. This is usually the case. Stylesheets are downloaded from a folder say &amp;quot;GreenTheme&amp;quot; and usually theres a folder called &amp;quot;images&amp;quot; within the &amp;quot;GreenTheme&amp;quot; folder and stylesheet has constructs like :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;background-color:url(&amp;#39;images/bg.png&amp;#39;)&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;This means that , these images , when requested by the browser are served by the IIS server itself. &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;These requests do not go through the ASP.NET runtime at all.&lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; Requests from browser to server will be like : &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;http://www.yourdomain.tld/GreenTheme/images/bg.png&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; which points to a valid file in the server directory structure and so IIS server can and does serve it, all by itself.Problem is it &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;does not set required http headers that must be set if Image Pre-Fetching is needed.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;u&gt;&lt;span class="Apple-style-span" style="font-size: large"&gt;Why Pre-Fetch ?&lt;/span&gt;&lt;/u&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Suppose you have a CSS segment like this:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;.classA&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; {&amp;nbsp; background-image:url(a.png); } &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;.classA:hover&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;{&amp;nbsp; background-image:url(b.png);&amp;nbsp; } &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp;When the mouse hovers over an element which belongs to this class, it must display a different image. Simple, ain&amp;#39;t it? But you can observe a DELAY when you hover your pointer over the element for the first time. This is the time taken to request the new background image from the server.From the second time onwards - when you hover - there is no delay in showing the image because it has already been fetched and cached.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;A lot of such elements, (or) Big background images, (or) A slow internet connection&amp;nbsp; - any of these means that users will see the delay effect prominantly and your UI is not going to be well thought of at all by visitors. So if you Pre-Fetch these images - (not only images that&amp;#39;re required during hover) - in a , say , loading screen or in a previous page using a script that uses idle time, you ensure bestexperience for visitors.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Also it may be necessary that users don&amp;#39;t see a partially rendered page - something todays advanced browsers are capable of showing (they render as the code is downloaded). We can use Pre-fetching to show a loading screen [as in &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;GMail&lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; - while inbox is loading] while images, scripts, and AJAX-lets, and xml-xsl s&amp;nbsp; are downloaded.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;u&gt;&lt;span class="Apple-style-span" style="font-size: large"&gt;How to Pre-fetch?&lt;/span&gt;&lt;/u&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;I&amp;#39;ve used a page that shows &amp;quot;Loading... &amp;quot; while in the background a script pre-fetches some images, scripts, and stylesheets. This script keeps track of the various &amp;lt;img&amp;gt; tags and &amp;lt;link&amp;gt; tags that each points to a resource that is tobe prefetched. When all the elements are loaded , we assume all the links/images they are pointing to are fetched, and so we can move on to the next page.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;div style=&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;quot;visibility:hidden&amp;quot;&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;img src=&amp;quot;GreenTheme/images/bg.jpg&amp;quot; alt=&amp;quot;&amp;quot; onload=&amp;quot;myfun()&amp;quot;&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp; /&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;img src=&amp;quot;GreenTheme/images/a.png&amp;quot; alt=&amp;quot;&amp;quot; onload=&amp;quot;myfun()&amp;quot;&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp; /&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;img src=&amp;quot;GreenTheme/images/b.png&amp;quot; alt=&amp;quot;&amp;quot; onload=&amp;quot;myfun()&amp;quot;&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp; /&amp;gt; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;/div&amp;gt; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;myfun() may simply updates a global counter variable as it is&amp;nbsp; called each time, checking if the maximum is reached. For eg if you have 10 images and 2 stylesheets and 2 scripts to be prefetched, you use 10 &amp;lt;img src=&amp;quot;..&amp;quot;&amp;gt; tags , 2 &amp;lt;link href=&amp;quot;..&amp;quot;&amp;gt; and 2 &amp;lt;script src=&amp;quot;..&amp;quot;&amp;gt; tags in the approperiate places (like in a hidden div) and max=10+2+2=14 for mfun(). When all 14 elements are loaded, use location.href in javascript to redirect to another page. Sometimes it is necessary to set visibility = hidden through javascript or our DIV tag, cause a browser may simply ignore elements within a div tag that is hidded (this is not likely)- but if u set visibility = hidden via javascript, as part of global code, we work around the issue.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;u&gt;&lt;span class="Apple-style-span" style="font-size: large"&gt;If-Modified-Since problem&lt;/span&gt;&lt;/u&gt;&lt;span class="Apple-style-span" style="font-size: large"&gt; :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;When we use a loading page for prefetching images required by another page (possibly the home page) we come across this strange problem. &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;HttpAnalyser &lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;is a software that detects and hooks onto an Internet Explorer instance and logs &amp;amp; shows all HTTP requests/responses that tke place between the browser and any server.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;When we request for our site with a loading page, As Expected we see requests for all the Pre-fetcher Links we put in.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Then we are redirected to a content aspx page (the page we redirected in the script using location.href) As Expected.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;But whats Not Expected is the HttpAnalyser shows browser sending &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;If-Modified-Since&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; requests. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; For which the server replies &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Not-Modified&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; For all the pre-fetched images that occur in this page (for eg the Home Page).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Even though we have prefetched our images that occur in the home page , and those images that may be required when Hovering , and scripts etc in the Loading Page itself, some additional HttpRequests for these resources are sent. Okay they are NOT downloaded again - becuase they were prefetched, but instead of directly using the cached copy of the prefetched images, the browser takes time to ask the server if &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;pre-fetched copy in cache - has it been modified since it was downloaded?&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; Whenever a same image that was downloaded for a page, is needed for another page, the browser asks this question to the server in the form of a &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;If-Modified-Since &amp;lt;DateTimeObject&amp;gt; &lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;HttpRequest. The Server replies &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Not-Modified &lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;and then the Cached copy is used.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;u&gt;&lt;span class="Apple-style-span" style="font-size: large"&gt;The WorkAround :&lt;/span&gt;&lt;/u&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp;How do we eliminate this unnecessary if-modified-since request then? It is obviously not going to be necessay for us - coz stylesheet images, hover images and scripts are not going to be changed for a long time - and defenitely not in the short timespan between the display of the Loading Page and Home page. The Answer is the &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Expires header.&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; What the server must do is : when sending the images that are requested in the pre-fetch load page, it must add a header called &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Expires&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; to which it must assign a suitable value [im my case One Year]. This informs the browser that the images prefetched by it are not going to be modified for one year atleat. Its cached copies of those Hover images etc expires only after one year or so. So it does NOT send&lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; If-Modified-since requests &lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;when prefetched images (prefetched in Loading Page) are referred to from the Home Page or Other Pages.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;u&gt;&lt;span class="Apple-style-span" style="font-size: large"&gt;How to WorkAround ?&lt;/span&gt;&lt;/u&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;See the first section of this post. StyleSheet links directlt hit a valid image file. So they are served by the IIS Server, and so we cannot(no easy way to) tell the server that such and such an image must be sent with a caching header &amp;quot;expires&amp;quot;&amp;nbsp; filled in with an approperiate vale.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;What we&amp;#39;re looking for is Http Handlers. Create an ASP.NET ashx HttpHandler that serves an image that is present in the same directory as the ashx file. [This is Important] Seperate the ashx file and code using a dll or a class in App_Code, because we will be having multiple Ashx files pointing to the same class[coz thre&amp;#39;ll be many directories that contain stylesheet images]. In this class write the code to get a name from the QueryString and search for and write the image file coresponding to the given name to the response stream. Also use the &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Response.Caching.* properties&lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; to set the caching location as public (-cache at proxy client and server) and set the &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Expires header&lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; also from C# code.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Place this handler(the ashx file) in all the folders where stylesheet images are present. Say inside &amp;quot;GreenTheme/images&amp;quot; and inside &amp;quot;RedTheme/images&amp;quot;. Placing the ashx files here is important.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Now the sylesheets &lt;/span&gt;&lt;em&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;must&lt;/span&gt;&lt;/strong&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; contain modified constructs like &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;background-color:url(&amp;#39;images/CssImage.ashx?name=bg.png&amp;#39;)&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;instead of&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;background-color:url(&amp;#39;images/bg.png&amp;#39;)&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;This way all the browser requests will be like &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;http://www.yourdomain.tld/GreenTheme/images/CssImage.ashx?name=bg.png&lt;/span&gt;&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;http://www.yourdomain.tld/RedTheme/images/CssImage.ashx?name=bg.png&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;instead of &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;http://www.yourdomain.tld/GreenTheme/images/bg.png&lt;/span&gt;&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;http://www.yourdomain.tld/RedTheme/images/bg.png&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;If the stylesheets contain links as specified above, the server has no choice nut to handover the ashx requests to ASP.NET runtime, thus our C# class coresponding to the CssImage.ashx file&amp;nbsp; will serve the images &lt;/span&gt;&lt;em&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;WITH&amp;nbsp; &lt;/span&gt;&lt;/strong&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;the caching headers such as EXPIRES and LOCATION in place. Values may also be set approperiately in code for these headers. Thus modifying the stylesheets by hand to change the contents of url(..) clauses, will solve our problem , but has Side Effects such as&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: 18px"&gt;&lt;span class="Apple-style-span" style="text-decoration: underline; -webkit-text-decorations-in-effect: underline"&gt;Loss of Designer support :&lt;/span&gt;&lt;/span&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp;Having urls like&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;background-color:url(&amp;#39;images/CssImage.ashx?name=bg.png&amp;#39;)&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp;&amp;nbsp; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;in style sheets in Visual Studio will result in loss of designer support. During Design time you can&amp;#39;t use the WYSIWYG editor. I hava developed a means of working around this too. &lt;/span&gt;&lt;/p&gt;&lt;ol&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; Create CssImage.ashx files in all the Css image directories and poin them to our CssImagHandler C3 class as instructed before but DO NOT modify the stylesheet urls.&amp;nbsp; &lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Create a HttpHandler that serves stylesheets. This new handler serves stylesheets (.css files) after modifying the contents - changing all the url(images/xx.jpg) to url(images/CssImage.ashx?name=xx.jpg) whenever serving. Also this handler can be used to set the Caching Headers and Policies for the .css files themselves providing further boost in performance.&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Put this handler(.ashx file) in all places where there are stylesheet. Again we have multiple ashx files pointing to the same class, so we have to seperate the class coding and the ashx file itself. ( For eg. Put the new Css.ashx file copies  in &amp;quot;GreenTheme&amp;quot; and &amp;quot;RedTheme&amp;quot;)&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Information &lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;: So now we have a handler that modifies stylesheet url contents, so that the urls point to a handler that handles image requests. In both handlers we set cachig headers and policies.&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Don&amp;#39;t do this&lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; : Now we have to(but we don&amp;#39;t - so don&amp;#39;t do this step - just understand) change the &amp;lt;link&amp;gt; tags in our aspx pages from &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;link href=&amp;quot;GreenTheme/style.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; ... /&amp;gt;&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp; to &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;link href=&amp;quot;GreenTheme/Css.ashx?name=style.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; ... /&amp;gt;&amp;nbsp;&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; which againresults in loss of designer support. The Designeer looks for link tags and automatically applies the stylesheet.. having&amp;nbsp; &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;GreenTheme/Css.ashx?name=style.css&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; in the link tag is not understood by the designer.&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Do This : Instead what we do is leave the link tags unchanged, but write code in &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Page_Load&lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; or &lt;/span&gt;&lt;strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;OnLoad&lt;/span&gt;&lt;/strong&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; handler etc .. that changes the link tags &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;link href=&amp;quot;GreenTheme/style.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; ... /&amp;gt;&lt;/span&gt;&lt;/em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp; to &lt;/span&gt;&lt;em&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;lt;link href=&amp;quot;GreenTheme/Css.ashx?name=style.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; ... /&amp;gt;&lt;/span&gt;&lt;/em&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Thus we make sure DYNAMICALLY, DURING A REQUEST,		&lt;/span&gt;		&lt;ul&gt;																						&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;That link tags are modified to make the stylesheets pass through the stylesheet handler,&lt;/span&gt;&lt;/li&gt;											&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;which makes sure that urls in the stylesheets it serves are modified tomake the images be requested through the image handler,&lt;/span&gt;&lt;/li&gt;											&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;both the handlers setting Client &amp;amp; Server Caching policies and headers,&lt;/span&gt;&lt;/li&gt;											&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;and we don&amp;#39;t lose designer support becoz handlers do their job only during when they are requested.&lt;/span&gt;&lt;/li&gt;											&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;As far as the designer sees ... links tag hrefs &amp;amp; targets are okay... and target stylesheets urls are also okay&lt;/span&gt;&lt;/li&gt;				&lt;/ul&gt;				&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;So the functionality of our stylesheet handling class will be&lt;/span&gt;&lt;/p&gt;&lt;ul&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Get the name of the stylesheet of the querystring&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Look for the file in the same directory as the ashx file, becoz we put stylesheet-handling ashx files in all directories containing stylesheets.&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;For the previous step we can use the Request.Path property to get path of current request (that is the request to the Css.ashx file, when browser sees the modified &amp;lt;link&amp;gt; tags)&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Using that as a string, substringing to uptotheLastIndexOf(&amp;#39;\&amp;#39;) we get the directory where the Css.ashx file and the .css file itself is to be found.&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Append&amp;nbsp; &amp;lt;name(from QueryString)&amp;gt;.css to the working string got from the prevoius step and use File Reader to read in contents of the stylesheet&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Use Regular Expressions or the logic I usedto Modify the url(..) clauses and send the string to Server Cache and Response stream&lt;/span&gt;&lt;/li&gt;							&lt;li&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Insert code in the beginning of the class that checks if modifies stylesheet is in&amp;nbsp; the cache.. If present no need to read again.. just send the server -side cached copy.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;All of the above concepts have implemetations in this site itself&amp;nbsp; &lt;/span&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&lt;img src="/ZaszBlog/Admin/TinyMCE/plugins/emotions/images/smiley-cool.gif" border="0" alt="Cool" title="Cool" /&gt; .. Download all code from &lt;/span&gt;&lt;a href="/Downloads/Assembly.zip"&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;http://www.chandruon.net/Downloads/Assembly.zip&lt;/span&gt;&lt;/a&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt; and &lt;/span&gt;&lt;a href="/Downloads/Site.zip"&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;http://www.chandruon.net/Downloads/Site.zip&lt;/span&gt;&lt;/a&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&amp;nbsp; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;Inside them see the class CssImage.ashx and Image.ashx and Css.ashx and the classes to which they are pointing to.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&lt;span class="Apple-style-span" style="font-size: 11px"&gt;&lt;a href="http://www.ieinspector.com/httpanalyzer/"&gt;&lt;span class="Apple-style-span" style="font-size: 13px"&gt;http://www.ieinspector.com/httpanalyzer/&lt;/span&gt;&lt;/a&gt;&lt;span class="Apple-style-span" style="font-size: 13px"&gt; Here you can get the Http Analyser and check all this out for yourself. &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span class="Apple-style-span" style="font-size: small"&gt;&lt;span class="Apple-style-span" style="font-size: 11px"&gt;&lt;span class="Apple-style-span" style="font-size: 13px"&gt;Happy developing!&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-11-15 11:35:00</pubDate>
+  <lastModified>2008-11-15 11:53:55</lastModified>
+  <raters>1</raters>
+  <rating>4</rating>
+  <slug>Pre-Fetching-Troubles-A-Good-Idea</slug>
+  <tags>
+    <tag>asp.net</tag>
+    <tag>web</tag>
+    <tag>concept</tag>
+  </tags>
+  <comments>
+    <comment id="fbdb2fd3-30c0-43f2-a846-8a4fef6a5f94" approved="True">
+      <date>2009-10-31 15:31:42</date>
+      <author>personal loans</author>
+      <email>jlperry4@copper.net</email>
+      <ip>79.116.139.196</ip>
+      <website>http://fastloansus.com/</website>
+      <content>Interesting post</content>
+    </comment>
+    <comment id="feeeff09-f27a-4a8e-893d-8685571fc00c" approved="True">
+      <date>2010-06-11 06:59:54</date>
+      <author>Puma Shoes</author>
+      <email>luoace2@gmail.com</email>
+      <ip>72.18.206.128</ip>
+      <website>http://www.pumashoes.cc/</website>
+      <content>You made great points there. I made a search on the topic and found most peoples will agree with your blog.</content>
+    </comment>
+    <comment id="d77178c9-595e-405c-8ecb-cceee90a6b82" approved="True">
+      <date>2010-06-25 11:53:20</date>
+      <author>wow gold</author>
+      <email>etienneBeaule@gamehehe.com</email>
+      <ip>118.249.147.98</ip>
+      <website>http://www.gamehehe.com/</website>
+      <content>Glad I stumbled into this article! smile I have you bookmarked to check out new stuff you post</content>
+    </comment>
+    <comment id="fd7a7f8f-5fc8-49ca-a87c-2f2a8d925994" approved="True">
+      <date>2010-06-25 12:38:52</date>
+      <author>wow gold</author>
+      <email>ClarimundaDucharme@wowgold365.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.com/</website>
+      <content>Useful information, many thanks to the author. It is puzzling to me now, but in general, the usefulness and significance is overwhelming. Very much thanks again and good luck!</content>
+    </comment>
+    <comment id="010592df-695b-431c-8686-fd0676a432b8" approved="True">
+      <date>2010-06-25 12:46:05</date>
+      <author>wow gold</author>
+      <email>RaisKhulusBoutros@wowgold365.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.com/</website>
+      <content>I have never something like this.Your post is historic.</content>
+    </comment>
+    <comment id="8e7b8304-05dc-4aa7-99db-bcec30edc651" approved="True">
+      <date>2010-06-25 13:44:02</date>
+      <author>ffxiv gil</author>
+      <email>NibalShafiqahBoutros@cheap-ffxiv-gils.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.cheap-ffxiv-gils.com/</website>
+      <content>Considerably, the article is actually the sweetest on this noteworthy topic. I agree with your conclusions and will eagerly look forward to your approaching updates. Just saying thanks will not just be enough, for the wonderful lucidity in your writing. I will immediately grab your rss feed to stay informed of any updates. De lightful work and much success in your business dealings!</content>
+    </comment>
+    <comment id="e7bed91d-ce5f-4d70-b7b3-d231082988fd" approved="True">
+      <date>2010-06-25 14:24:04</date>
+      <author>Wow Gold boutique en ligne</author>
+      <email>AmbraTurcotte@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gold4game-online.com/</website>
+      <content>I would like to thank you for the efforts you have made in writing this article. I am hoping the same best work from you in the future as well. In fact your creative writing abilities has inspired me to start my own BlogEngine blog now. Really the blogging is spreading its wings rapidly. Your write up is a fine example of it.</content>
+    </comment>
+    <comment id="1682c5e2-8c50-470e-b62c-94d300486927" approved="True">
+      <date>2010-06-26 13:53:14</date>
+      <author>wow gold</author>
+      <email>MadelineDooley@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.fr/</website>
+      <content>Really nice read thanks, I have added this to my Mixx bookmarks</content>
+    </comment>
+    <comment id="bf49ffab-1718-49fa-a75d-7a2b593f72ab" approved="True">
+      <date>2010-06-26 14:09:02</date>
+      <author>wow gold</author>
+      <email>JulesGuay@gamesgoldsale.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gamesgoldsale.com/</website>
+      <content>This is a wonderful piece of writing, I discovered your website checking google for a related content and came to this. I couldnt discover to much different info on this piece of content, so it was nice to locate this one. I will certainly be back again to look at some other posts that you have another time.</content>
+    </comment>
+    <comment id="0e66e2f1-0735-4194-9b96-c4cf8d596284" approved="True">
+      <date>2010-06-26 15:17:33</date>
+      <author>wow gold</author>
+      <email>PinabelLazure@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldteamsale.com/</website>
+      <content>Just wanted to say I enjoyed the post.  You have really put a lot of time into your article and it is just great!</content>
+    </comment>
+    <comment id="8113960d-e460-48fe-81f7-03e75309d32a" approved="True">
+      <date>2010-06-26 15:50:01</date>
+      <author>Cheap Fast Wow Gold</author>
+      <email>AliceFunnell@wowgold365.co.uk</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldteamsale.com/</website>
+      <content>article marketing is one of the most effective ways to make a living online. with article marketing, you can send traffic to your pages at absolutely no charge. with hard work, article marketing can actually be the foundation of a real internet business. article marketing is highly recommended.</content>
+    </comment>
+    <comment id="6d9d67ab-2bf5-411c-88c5-778c25ef2fa5" approved="True">
+      <date>2010-06-28 07:20:41</date>
+      <author>wow gold</author>
+      <email>VivienneBordeaux@gmail.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.co.uk/</website>
+      <content>I tried to get the feed for the RSS for this blog but it is not properly displaying in Google Chrome. Does anyone have any suggestions?</content>
+    </comment>
+    <comment id="bf5786cb-469b-4977-ae79-4cfb140d74ae" approved="True">
+      <date>2010-06-28 07:37:25</date>
+      <author>wow gold</author>
+      <email>CharlotteVanthoff@wowgold365.de</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.de/</website>
+      <content>While this subject can be very touchy for most people, my opinion is that there has to be a middle or common ground that we all can find. I do appreciate that youve added relevant and intelligent commentary here though. Thank you!</content>
+    </comment>
+    <comment id="1ef21998-d737-44a3-a39a-e4a47d818d7c" approved="True">
+      <date>2010-06-28 08:52:22</date>
+      <author>wow gold</author>
+      <email>ReneMarois@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldteamsale.com/</website>
+      <content>I dont know who you think you are, but youre just blowing smoke out your ears.  Nothing youre saying makes sense and its all a bunch of immature ranting.  If you want people to get behind your blog, you should at the very least learn a little something about what youre talking about!</content>
+    </comment>
+    <comment id="d0dc877a-0f3f-4462-b567-ff3e7fd779dc" approved="True">
+      <date>2010-06-28 09:22:33</date>
+      <author>Wow Gold EU pas cher</author>
+      <email>AliceMorin@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gold4game-online.com/</website>
+      <content>Thanks a lot information. can stuff like this looking at homework, and exactly.</content>
+    </comment>
+    <comment id="17a1dc7b-57dd-469b-9813-455f44969b79" approved="True">
+      <date>2010-06-29 10:00:38</date>
+      <author>wow gold</author>
+      <email>AlbraccaBernard@wowgoldsale.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgoldsale.fr/</website>
+      <content>Just droppin a post to say nice blog. Keep up the greatwork.</content>
+    </comment>
+    <comment id="f7273e7b-c163-4fe2-8568-a184bd9552ba" approved="True">
+      <date>2010-06-29 10:36:39</date>
+      <author>wow gold</author>
+      <email>LeggetGarceau@gamehehe.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gamehehe.fr/</website>
+      <content>You...are...awesome!  This blog is so great.  I really hope more people read this and get what youre saying, because let me tell you, its important stuff.  I never wouldve thought about it this way unless Id run into your blog.  Thanks for putting it up.  I hope you have great success.</content>
+    </comment>
+    <comment id="c0b162a1-e1bf-4d89-bab3-08fe3aa6a0b8" approved="True">
+      <date>2010-06-30 06:39:25</date>
+      <author>wow gold</author>
+      <email>Barryetoile@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visongold.com/</website>
+      <content>Can I make a suggestion?  I think youve got something good here.  But what if you added a couple links to a page that backs up what youre saying?  Or maybe you could give us something to look at, something that would connect what youre saying to something tangible?  Just a suggestion.</content>
+    </comment>
+    <comment id="04b70c19-0d6f-481f-ad6a-ca89f26983e4" approved="True">
+      <date>2010-06-30 06:54:40</date>
+      <author>sell wow gold</author>
+      <email>VillettePerrault@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ff14gilsaler.com/</website>
+      <content>I'm glad I discovered this web site, I couldnt get any info on this matter prior to. I also operate a site and if you're ever interested in doing some visitor writing for me please feel free to let me know, im always look for people to check out my web page. Please stop by and leave a comment sometime!</content>
+    </comment>
+    <comment id="6500fd8b-0957-4a8c-ba4b-19ce6d344dc3" approved="True">
+      <date>2010-07-28 08:22:50</date>
+      <author>Timberland boots</author>
+      <email>373751851@qq.com</email>
+      <ip>59.58.175.242</ip>
+      <website>http://www.timberlandshoesonline.com/</website>
+      <content>I have read your article, I think this is very good!I'm in love with this piece!It's so cool~! You can check me in http://www.timberlandshoesonline.com and give me some advises.I also like to play this game, very well,</content>
+    </comment>
+    <comment id="523f1459-2ab5-4883-bbee-5f8e5b659eea" approved="True">
+      <date>2010-08-04 13:22:08</date>
+      <author>Timberland boots</author>
+      <email>373751851@qq.com</email>
+      <ip>59.58.175.242</ip>
+      <website>http://www.timberlandshoesonline.com/</website>
+      <content>I had just finished reading your articles，and this is very good! timberland boots uk Being a comprehensive trade solution provider offering sale services with free shipping to international buyers who are interested in shopping online.The products here are timberland boots outlet, timberland roll top boots and men timberland boots. As an online business platform mainly retailing, waterproof boots we provide our buyers with an efficient and manageable procurement process covering every phase of the international supply chain and streamlining trade channels. Also welcome wholesaling, feedback now!</content>
+    </comment>
+    <comment id="4557e815-e51c-446d-8ef1-c87e649643eb" approved="True">
+      <date>2010-08-19 19:19:42</date>
+      <author>wow gold</author>
+      <email>CrescentBrochu@gil4ff14.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgoldsale.co.uk/</website>
+      <content>Hello webmaster, good day. Superb post. You have gained a new fan. Please keep up the good work and I look forward to more of your great posts. Have a nice day,</content>
+    </comment>
+    <comment id="87288123-5db6-45f2-9e96-8233ec14e95b" approved="True">
+      <date>2010-08-19 20:26:02</date>
+      <author>Google PR</author>
+      <email>RabicanDupont@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ask-pagerank.com/</website>
+      <content>I enjoy reading this post. I want to see more on this subject.. Thank you for writing this amazing info.. Anyway, I��m going to subscribe to your rss and I hope you write great articles again soon.</content>
+    </comment>
+    <comment id="5e6f5835-9fa6-4e3b-80bb-6f6d7c0772fb" approved="True">
+      <date>2010-08-19 21:19:56</date>
+      <author>world of warcraft gold us</author>
+      <email>PerrinLarivi����re@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.google-game.com/</website>
+      <content>Youre so cool!  I dont think Ive read anything like this before.  So good to find somebody with some original thoughts on this subject.  Thanks for starting this up.  This blog is something that is needed on the web, someone with a little originality.  Good job for bringing something new to the internet!</content>
+    </comment>
+    <comment id="7c7bbf05-a8a6-46f9-8442-24232d3fae0c" approved="True">
+      <date>2010-08-20 22:32:23</date>
+      <author>wow gold</author>
+      <email>JavierBellefeuille@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visongold.com/</website>
+      <content>Due to his background, Wyclef Jean is now one of six Earthkeeper Heroes within Timberland��s 2009 Earthkeepers program, which aims to catalyze a movement of environmental and social activists. This partnership will combine music, product, digital and social media, service events and concerts to motivate and inspire fans and consumers to take action in protecting the environment. Jean commented:   ��It is not common to find an agreement between an individual and a corporation with so many altruistic synergies. I am truly humbled and excited to begin our journey together. Timberland is not only a brand I have worn as long as I can remember, but now I feel I have gained a friend in Jeff [Swartz, Timberland's President and CEO] and the respect of what is beyond a brand. I have the utmost respect for what he and his company stand for not only in its legacies but in its future. I am looking forward to making change together www.wowgold365.com</content>
+    </comment>
+    <comment id="3c9f2a73-40b1-4d07-b6a5-40b410bc93ed" approved="True">
+      <date>2010-08-20 23:11:19</date>
+      <author>wow gold</author>
+      <email>MuazzazNadirahMaalouf@ffxigil365.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold-europe.com/</website>
+      <content>What are you saying, man?  I know everyones got their own opinion, but really?  Listen, your blog is cool.  I like the effort you put into it, especially with the vids and the pics.  But, come on.  Theres gotta be a better way to say this, a way that doesnt make it seem like everyone here is stupid!</content>
+    </comment>
+    <comment id="96ccaa34-b03f-4ce7-bd32-17b0ee638b55" approved="True">
+      <date>2010-08-28 17:18:48</date>
+      <author>wow po</author>
+      <email>LeverettQuenneville@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgoldsale-fr.com/</website>
+      <content>This is my first time i visit here. I found so many entertaining stuff in your blog, especially its discussion. From the tons of comments on your articles, I guess I am not the only one having all the enjoyment here! Keep up the excellent work.</content>
+    </comment>
+    <comment id="a1e36f08-96c2-4543-bd9c-747fbd185d20" approved="True">
+      <date>2010-08-28 19:18:45</date>
+      <author>wow po</author>
+      <email>AlexisBrian@wowgold-europe.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.yokuar.com/</website>
+      <content>I would like to thank you for the efforts you have made in writing this article. I am hoping the same best work from you in the future as well. In fact your creative writing abilities has inspired me to start my own BlogEngine blog now. Really the blogging is spreading its wings rapidly. Your write up is a fine example of it.</content>
+    </comment>
+    <comment id="74086919-e431-47f1-abc6-45a06b8fc41d" approved="True">
+      <date>2010-09-05 16:02:39</date>
+      <author>wow gold</author>
+      <email>GermaineRatte@buy-ffxiv-gils.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgolders.com/</website>
+      <content>Great Post, I love to read posts that are informative and acutally have good content. Thank you for sharing your knowledge and I look forward to seeing more.</content>
+    </comment>
+    <comment id="e242fe9c-ed15-4407-92df-0073e36f6f76" approved="True">
+      <date>2010-09-08 20:48:50</date>
+      <author>Cheap necklace</author>
+      <email>AnceloteDagenais@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visonnecklace.com/</website>
+      <content>Well every blog owner deserve a little admiration. Nice post, grazie.</content>
+    </comment>
+    <comment id="d237f142-48b4-4ff3-bc91-c01516792da2" approved="True">
+      <date>2010-09-13 16:07:50</date>
+      <author>Watch Movies Online</author>
+      <email>Styers47@hotmail.com</email>
+      <ip>69.162.141.120</ip>
+      <website>http://www.watchfreemoviesonlinetoday.net/</website>
+      <content>I thought it was going to be some boring old post, but it really compensated for my time. I will post a link to this page on my blog. I am sure my visitors will find that very useful.</content>
+    </comment>
+    <comment id="7f36c99d-72bb-49b5-ae3a-83100c7a4bef" approved="True">
+      <date>2010-09-14 08:04:02</date>
+      <author>Free Movies Online</author>
+      <email>Braly49@hotmail.com</email>
+      <ip>98.142.218.70</ip>
+      <website>http://www.watchfreemoviesonlinetoday.net/</website>
+      <content>I would like to thank you for the efforts you have made in writing this article. I am hoping the same best work from you in the future as well. In fact your creative writing abilities has inspired me to start my own BlogEngine blog now.</content>
+    </comment>
+    <comment id="af4888d4-6dc3-4709-9523-44caf56fb669" approved="True">
+      <date>2010-09-18 20:49:23</date>
+      <author>best nike dunks</author>
+      <email>nikedunksmail@hotmail.com</email>
+      <ip>117.26.110.18</ip>
+      <website>http://www.bestnikedunks.com/</website>
+      <content>Thank you for this insightful website! nike shoes online store http://www.bestnikedunks.com com and hope you will write more,and better.i will assit to reading them,thanks.</content>
+    </comment>
+    <comment id="d1712ff9-f861-4623-9790-df62835f5533" approved="True">
+      <date>2010-09-20 11:19:45</date>
+      <author>Breitling Emergency Watches</author>
+      <email>jfosi@hotmail.com</email>
+      <ip>222.79.19.187</ip>
+      <website>http://www.replica-watches-all.com/Replica-professional-collection-emergency_c2370</website>
+      <content>towardward [url=http://www.replicawatchessuper.com/Replica-Blancpain-Collection-Blancpain-Women-Chronographe-Flyback---Rattrapante-3485F-1130-97B-Watch-women_l483]Blancpain Women Chronographe Flyback &amp;#224; Rattrapante[/url], you cylsecretder identify titanic asas a resultrtment of [url=http://www.replicawatchessuper.com/Replica-chopard-your-hour-watches_v196]Chopard Your Hour watches[/url] alby top ofg by [url=http://www.replica-watches-net.com/Replica-burberry-watches_g1679]Replica Burberry Watches[/url] which are assist architect commodities for ladies among men. our [url=http://www.buyhangbag.com/Hermes-Kelly-32cm-Togo-Leather-Gold-Gold-Hardware-Hardware-HandB-amsNJ32lan_n1379]Hermes Kelly 32cm Togo Leather Gold Gold Hardware Hardware HandB[/url] tolerate mimic Hermes, Chanel, Gucci, Burberry, Prada, Miu Miu as well Louis Vuitton hfurthermorebags after that so on. these [url=http://www.replica-watches-net.com/Replica-sp44_g1462]BRM Watches SP44[/url] are stunning compatible with the original[url=http://www.goshoppingnet.com]Pocket Watches[/url]. rider you are infinitely receptive in the [url=http://www.replica-watches-net.com/replica-cartier-montres-santos-de-cartier-santos-100-ref-w20106x8-unisex-watch_n5558]Cartier Montres Santos de Cartier - Santos 100 ref.: W20106X8 Unisex Watch[/url] and [url=http://www.buyhangbag.com/Replica-hermes_g46]Replica Hermes handbags[/url], no more than consolidate in [url=http://www.goshoppingnet.com/Sell-jaegerlecoultre-reverso-squadra-watches_c182]Jaeger-LeCoultre Reverso Squadra Watches[/url] on 4687812345118</content>
+    </comment>
+    <comment id="d0911ed9-321a-45f9-976a-d52a6a682136" approved="True">
+      <date>2010-10-05 05:54:20</date>
+      <author>ffxiv gil</author>
+      <email>WilliamTisserand@biggoldforwow.com</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.visongil.com/</website>
+      <content>I just cant stop reading this.  Its so cool, so full of information that I just didnt know.  Im glad to see that people are actually writing about this issue in such a smart way, showing us all different sides to it.  Youre a great blogger.  Please keep it up.  I cant wait to read whats next.</content>
+    </comment>
+    <comment id="6c352a0e-7ed0-436f-ac69-5262bc5b8dab" approved="True">
+      <date>2010-10-05 11:33:57</date>
+      <author>ffxiv gil</author>
+      <email>RussellHoule@visongold.com</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.uffxivgil.com/</website>
+      <content>Okay, it took an extra three minutes to re-read your post to make sure I understand everything. Good stuff. Your post here will definitely help me.</content>
+    </comment>
+    <comment id="a660145f-1334-4600-9597-525fd66c1eed" approved="True">
+      <date>2010-10-05 17:20:33</date>
+      <author>ff14 gold</author>
+      <email>FifiGaillard@ff14gilsaler.com/</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.ff14gold365.com/</website>
+      <content>Hi!  Excellent post!  I really enjoyed reading it.  I will bookmark this site to return later.  Looking forward to it.  Thanks!</content>
+    </comment>
+    <comment id="b8741940-915b-4def-8351-6f6685bcca9d" approved="True">
+      <date>2010-10-13 07:10:48</date>
+      <author>Dance Classes</author>
+      <email>Zysett62@hotmail.com</email>
+      <ip>69.162.141.56</ip>
+      <website>http://www.theperformancestudio.com.au/Dance-Classes-Sydney.html</website>
+      <content>Thank you for the sensible critique. Me &amp;amp; my neighbour were preparing to do some research about that. We got a good book on that matter from our local library and most books where not as influensive as your information. I am very glad to see such information which I was searching for a long time.This made very glad Smile</content>
+    </comment>
+    <comment id="359e7ad6-6d87-45b6-a51a-acf99c7017db" approved="True">
+      <date>2010-10-15 18:54:20</date>
+      <author>wow gold</author>
+      <email>chhypv@dazx.com</email>
+      <ip>117.43.173.43</ip>
+      <website>http://www.wowpvp.org/</website>
+      <content>Such a usefule blog wow !!!!</content>
+    </comment>
+    <comment id="682c889a-a9fb-47fb-ba78-b7e360a2569d" approved="True">
+      <date>2010-10-17 17:46:57</date>
+      <author>wow power leveling</author>
+      <email>aeqymp@bxjx.com</email>
+      <ip>218.87.1.100</ip>
+      <website>http://www.wow-power-leveling.eu/</website>
+      <content>There is obviously a lot to know about this.</content>
+    </comment>
+    <comment id="4a1ae8f5-a0c8-456c-b945-771224c64df4" approved="True">
+      <date>2010-10-17 17:47:30</date>
+      <author>wow power leveling</author>
+      <email>wmaajx@sgdl.com</email>
+      <ip>218.87.1.100</ip>
+      <website>http://www.wow-power-leveling.eu/</website>
+      <content>Good! Thank you! I always wanted to write in my site </content>
+    </comment>
+    <comment id="0640fe9e-355d-4398-b787-a45fa8c2bc5e" approved="True">
+      <date>2010-10-18 12:07:05</date>
+      <author>AIR JORDAN 9</author>
+      <email>qmqyaf@nycw.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.air-jordan-23.com/air-jordan-9-ix.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="8c3e98e5-189b-4736-981a-1a598f735746" approved="True">
+      <date>2010-10-19 08:22:08</date>
+      <author>air jordan spizikes</author>
+      <email>ekagja@jdit.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.air-jordan-23.com/air-jordan-spizikes.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="4d7d634d-b945-46ac-b7b9-8025ca21896b" approved="True">
+      <date>2010-10-19 15:06:49</date>
+      <author>air jordan 2009</author>
+      <email>hmgyxo@dgji.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.air-jordan-23.com/air-jordan-23-xxiii.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="45eaf039-e819-46e9-9d3f-51611b1b3982" approved="True">
+      <date>2010-10-19 18:45:50</date>
+      <author>silkroad gold</author>
+      <email>exefhk@evfx.com</email>
+      <ip>117.40.119.115</ip>
+      <website>http://www.silkroadgoldbuy.com/</website>
+      <content>There is obviously a lot to know about this.</content>
+    </comment>
+    <comment id="aca4edc8-c425-4e91-b0d2-c952dd5424dc" approved="True">
+      <date>2010-10-19 21:30:53</date>
+      <author>UGG Chrystie Boots</author>
+      <email>hxlojx@enff.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.flyinsnow.com/ugg-5512-chrystie-boots.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="9968f203-0763-498e-8ec3-c7f53d5ced84" approved="True">
+      <date>2010-10-21 01:25:15</date>
+      <author>AIR JORDAN 9</author>
+      <email>njkyft@pvmk.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.air-jordan-23.com/air-jordan-9-ix.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="570efb03-29a6-4366-83c7-9728df3afb6f" approved="True">
+      <date>2010-10-21 20:43:15</date>
+      <author>Air Jordan Classic</author>
+      <email>bgpirt@tbbe.com</email>
+      <ip>218.86.49.136</ip>
+      <website>http://www.air-jordan-23.com/air-jordan-classic.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="d9c76c2f-a6e5-4e1a-af64-2092c398808b" approved="True">
+      <date>2010-10-25 18:22:34</date>
+      <author>buy wow gold</author>
+      <email>brvvbt@aseg.com</email>
+      <ip>61.131.198.138</ip>
+      <website>http://www.happyleveling.com/</website>
+      <content>There is obviously a lot to know about this.</content>
+    </comment>
+    <comment id="3aa1cd6b-1a83-42b0-8d8c-c24f5e4bacdd" approved="True">
+      <date>2010-10-25 22:25:28</date>
+      <author>UGG Ultra Tall boots</author>
+      <email>glictk@udxr.com</email>
+      <ip>218.86.49.136</ip>
+      <website>http://www.ugg-australia-shoes.com/ugg-5245-ultra-tall-boots-c-39.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="f61db44b-098e-4fac-a3e2-3c8dd680e6cf" approved="True">
+      <date>2010-10-26 14:30:34</date>
+      <author>ugg Women's Coquette Boots chestnut</author>
+      <email>ckctff@ubgw.com</email>
+      <ip>175.42.81.83</ip>
+      <website>http://www.uggbootsuk4sale.com/ugg-5125-women-s-coquette-boots-chestnut.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="8a42eb7a-1eab-4a84-a273-231cca3e4a10" approved="True">
+      <date>2010-10-26 18:43:41</date>
+      <author>buy wow gold</author>
+      <email>ifpptw@zacl.com</email>
+      <ip>61.131.198.138</ip>
+      <website>http://www.happyleveling.com/</website>
+      <content>Good! Thank you! I always wanted to write in my site </content>
+    </comment>
+    <comment id="1d639f58-48d9-43d2-afdb-9e07aa647d4a" approved="True">
+      <date>2010-10-27 23:26:07</date>
+      <author>Ugg Bailey Button Triplet chestnut</author>
+      <email>iltfmr@kxvq.com</email>
+      <ip>218.86.49.136</ip>
+      <website>http://www.ugg-australia-shoes.com/genuine-ugg-australia-bailey-button-triplet-1873-chestnut-boots-p-144.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="95f0c2ef-ce2d-43b2-82cd-2c61e0eeb8ee" approved="True">
+      <date>2010-10-28 14:06:06</date>
+      <author>Nike Air Force 1 Low</author>
+      <email>mmviyv@weti.com</email>
+      <ip>218.86.49.136</ip>
+      <website>http://www.lowestbestexport.com/nike-shoes_nike-air-force-1-shoes_nike-air-force-1-low.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="014301bf-75e4-4d1d-a6bc-15ab5cb7ee9d" approved="True">
+      <date>2010-10-28 16:05:14</date>
+      <author>buy wow gold</author>
+      <email>orosnh@gmao.com</email>
+      <ip>59.62.66.154</ip>
+      <website>http://www.happyleveling.com/</website>
+      <content>Good! Thank you! I always wanted to write in my site </content>
+    </comment>
+    <comment id="f073b5f2-d995-4031-811d-0ded5b8064ac" approved="True">
+      <date>2010-10-28 18:37:22</date>
+      <author>UGG Ashur Boots</author>
+      <email>pwcdbn@cryl.com</email>
+      <ip>120.40.148.62</ip>
+      <website>http://www.uggboots4onsale.co.uk/ugg-ashur-boots.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="ccd3cb8a-a399-43ae-99d5-196d532ea06f" approved="True">
+      <date>2010-10-28 19:36:58</date>
+      <author>UGG Seline Boots</author>
+      <email>vuywsi@olcz.com</email>
+      <ip>120.40.148.62</ip>
+      <website>http://www.australiaugg.us/ugg-seline-boots-c-14.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="172d7641-d0dd-4804-a42b-088851028eb7" approved="True">
+      <date>2010-10-28 23:50:17</date>
+      <author>UGG Evera chestnut Shoes</author>
+      <email>vtkpig@nkor.com</email>
+      <ip>120.40.148.62</ip>
+      <website>http://www.flyinsnow.com/chestnut-geuninu-ugg-1798-women-s-evera-shoes.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="98c140ed-cc8f-4d5a-bf2d-b054d132c7e2" approved="True">
+      <date>2010-10-29 22:53:12</date>
+      <author>Ugg Hazel sandals</author>
+      <email>gkwhgs@izgm.com</email>
+      <ip>120.40.148.62</ip>
+      <website>http://www.uggsheepskinboot.com/ugg-women-s-hazel-1771-sandals.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="14fbef9e-358e-44dd-abab-c194a9ebad33" approved="True">
+      <date>2010-10-30 18:50:03</date>
+      <author>buy wow gold</author>
+      <email>rocmym@jjoj.com</email>
+      <ip>117.43.74.155</ip>
+      <website>http://www.happyleveling.com/</website>
+      <content>Good! Thank you! I always wanted to write in my site </content>
+    </comment>
+    <comment id="958eb35f-36be-431e-ad58-ed7a23b15f16" approved="True">
+      <date>2010-11-01 01:06:12</date>
+      <author>UGG Kensington Boot</author>
+      <email>mciimu@qzyo.com</email>
+      <ip>120.40.148.62</ip>
+      <website>http://www.flyinsnow.com/ugg-5678-women-s-kensington-boot.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+  </comments>
+  <categories>
+    <category>aa150520-27f4-4edb-94ac-95b33f0dac10</category>
+  </categories>
+  <notifications />
+</post>

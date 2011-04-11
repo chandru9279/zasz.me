@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("zasz.me")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Portal")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ThoughtWorks Technologies India Pvt Ltd")]
+[assembly: AssemblyCompany("ZASZ Inc")]
 [assembly: AssemblyProduct("zasz.me")]
-[assembly: AssemblyCopyright("Copyright © ThoughtWorks Technologies India Pvt Ltd 2011")]
+[assembly: AssemblyCopyright("Copyright © ZASZ Inc")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

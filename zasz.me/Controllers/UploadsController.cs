@@ -1,68 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
-using Microsoft.Practices.Unity.Utility;
-using zasz.me.Controllers.Utils;
-using zasz.me.Integration;
+using zasz.me.Services;
 
 namespace zasz.me.Controllers
 {
     public class UploadsController : Controller
     {
-        private readonly UploadsConfig _Settings;
-        private readonly string _ThumbsDirRooted;
-        private readonly string _UploadsDirRooted;
-        readonly Func<string, string, bool> _DoesExtensionMatch = (Extension, ExtensionList) => Handy.Shred(ExtensionList).Contains(Extension.ToLower().Remove(0, 1));
+        private readonly IFilesService _FilesService;
 
-        public UploadsController()
+        public UploadsController(IFilesService FilesService)
         {
-            _Settings = WebConfigurationManager.GetWebApplicationSection("Uploads") as UploadsConfig;
-            _UploadsDirRooted = AppDomain.CurrentDomain.BaseDirectory + (_Settings != null ? _Settings.UploadDir : "Uploads") + "\\";
-            _ThumbsDirRooted = _UploadsDirRooted + (_Settings != null ? _Settings.ThumbsDir : "Thumbs") + "\\";
-            if (!Directory.Exists(_UploadsDirRooted)) Directory.CreateDirectory(_UploadsDirRooted);
-            if (!Directory.Exists(_ThumbsDirRooted)) Directory.CreateDirectory(_ThumbsDirRooted);
+            _FilesService = FilesService;
         }
 
         public ActionResult Delete(string File)
         {
-            if (File.StartsWith("/Uploads"))
+            try
             {
-                try
-                {
-                    System.IO.File.Delete(Server.MapPath(File));
-                    var ThumbFile = _ThumbsDirRooted + Path.GetFileName(File);
-                    if (System.IO.File.Exists(ThumbFile)) System.IO.File.Delete(ThumbFile);
-                }
-                catch(Exception)
-                {
-                    return new HttpStatusCodeResult(408);
-                }
-                return new HttpStatusCodeResult(200);
+                _FilesService.Delete(File);
             }
-            return new HttpNotFoundResult();
+            catch (UnauthorizedAccessException)
+            {
+                return new HttpNotFoundResult();
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(408);
+            }
+
+            return new HttpStatusCodeResult(200);
         }
 
         /* Url that hits this : http://localhost:2654/Uploads/Browse?CKEditor=editor1&CKEditorFuncNum=1&langCode=en */
 
         public ActionResult Browse(string Id, string CkEditor, int CkEditorFuncNum, string LangCode)
         {
-            var ViewModel = new BrowseViewModel {CkEditorFuncNum = CkEditorFuncNum};
-            if (Directory.GetDirectories(_UploadsDirRooted).Any(It => It.EndsWith(Id)))
-                foreach (string RootedPath in Directory.GetFiles(_UploadsDirRooted + Id, "*", SearchOption.TopDirectoryOnly))
-                    if (!System.IO.File.GetAttributes(RootedPath).HasFlag(FileAttributes.System))
-                    {
-                        string File = Url.Content("~/" + _Settings.UploadDir + "/" + Id + "/" + Path.GetFileName(RootedPath));
-                        var Extension = Path.GetExtension(RootedPath);
-                        string Thumb = Id == "Images"
-                                           ? Url.Content("~/" + _Settings.UploadDir + "/" + _Settings.ThumbsDir + "/" + Path.GetFileName(RootedPath))
-                                           : Url.Content("~/Content/Thumbnails/" + (Extension == null ? "" : Extension.Substring(1)) + ".png");
-                        if (!System.IO.File.Exists(Server.MapPath(Thumb))) Thumb = Id == "Images" ? Url.Content("~/Content/Thumbnails/.image.png") : Url.Content("~/Content/Thumbnails/notfound.png");
-                        ViewModel.Add(Thumb, File);
-                    }
+            Pairs<string, string> Pairs = _FilesService.Browse(Id);
+            var ViewModel = new BrowseViewModel {CkEditorFuncNum = CkEditorFuncNum, ThumbsAndFiles = Pairs};
+            // Messages can be dispalyed while browsing : Use ViewModel.Message
             return View(ViewModel);
         }
 
@@ -72,83 +48,35 @@ namespace zasz.me.Controllers
         public ActionResult Upload(string Id, string CkEditor, int CkEditorFuncNum, string LangCode)
         {
             var ViewModel = new UploadViewModel {CkEditorFuncNum = CkEditorFuncNum};
-            if (_Settings.Disabled)
-            {
-                ViewModel.Message = "You can't upload files now.";
-                return View(ViewModel);
-            }
-            string FileName = "";
-            string Folder = "";
             int Count = Request.Files.Count;
             if (Count > 0)
             {
-                HttpPostedFileBase Hpf = Request.Files[0];
-                if (Hpf != null && Hpf.ContentLength != 0)
+                HttpPostedFileBase PostedFile = Request.Files[0];
+                try
                 {
-                    FileName = Path.GetFileName(Hpf.FileName);
-                    if (CheckUploadedFile(FileName))
-                    {
-                        Folder = FindFolder(FileName);
-                        if (!Directory.Exists(_UploadsDirRooted + Folder)) Directory.CreateDirectory(_UploadsDirRooted + Folder);
-                        string SavedFileName = _UploadsDirRooted + Folder + "\\" + FileName;
-                        Hpf.SaveAs(SavedFileName);
-                        if (Id == "Images")
-                            Handy.GenerateThumbnail(SavedFileName, _ThumbsDirRooted + FileName, _Settings.ThumbWidth, _Settings.ThumbHeight);
-                    }
-                    else
-                        ViewModel.Message = "File upload denied - only certain filetypes are allowed.";
+                    ViewModel.Url = _FilesService.Upload(PostedFile);
+                }
+                catch (InvalidOperationException Exception)
+                {
+                    ViewModel.Message = Exception.Message;
+                }
+                catch (UnauthorizedAccessException Exception)
+                {
+                    ViewModel.Message = Exception.Message;
                 }
             }
             else
-                ViewModel.Message = "Server error: File upload failed!";
-
-            ViewModel.Url = Url.Content("~/" + _Settings.UploadDir + "/" + Folder + "/" + FileName);
+                ViewModel.Message = "Your file did not make it to the server - Network Error.";
             return View(ViewModel);
-        }
-
-        private string FindFolder(string FileName)
-        {
-            string Extension = Path.GetExtension(FileName);
-            for (int I = 0; I < _Settings.Mappings.Count; I++)
-            {
-                if (_DoesExtensionMatch(_Settings.Mappings[I].FileExtensions, Extension))
-                    return _Settings.Mappings[I].Folder;
-            }
-            return "Files";
-        }
-
-        private bool CheckUploadedFile(string FileName)
-        {
-            string Extension = Path.GetExtension(FileName);
-            if (_DoesExtensionMatch(Extension, _Settings.DeniedExts))
-                return false; // Disallow files with denied extensions
-            return !FileName.StartsWith("."); // Disallow linux hidden files
         }
 
         #region Nested type: BrowseViewModel
 
         public class BrowseViewModel
         {
-            private readonly List<String> Files = new List<string>();
-            private readonly List<String> Thumbs = new List<string>();
+            public Pairs<string, string> ThumbsAndFiles { get; set; }
             public int CkEditorFuncNum { get; set; }
             public string Message { get; set; }
-
-            public void Add(string Thumb, string File)
-            {
-                Thumbs.Add(Thumb);
-                Files.Add(File);
-            }
-
-            public int Count()
-            {
-                return Files.Count;
-            }
-
-            public Pair<string, string> Get(int i)
-            {
-                return new Pair<string, string>(Thumbs[i], Files[i]);
-            }
         }
 
         #endregion

@@ -2,7 +2,6 @@
 using System.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using zasz.health.Utils;
 using zasz.me.Controllers;
 using zasz.me.Models;
 

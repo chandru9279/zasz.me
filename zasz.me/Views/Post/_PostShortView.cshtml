@@ -1,7 +1,7 @@
 ﻿@model zasz.me.Models.Post
 
 <h2>@Model.Title</h2>
-<p>@Microsoft.Security.Application.Sanitizer.GetSafeHtml(HModel.Content) </p>
+<p>@Microsoft.Security.Application.Sanitizer.GetSafeHtml(Model.Content) </p>
 
 <ul>
 @foreach (string Tag in Model.Tags)

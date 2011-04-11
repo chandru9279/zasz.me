@@ -2,7 +2,7 @@
 
 namespace zasz.me.Models
 {
-    public class Log
+    public class Log : IModel
     {
         [ID]
         public string ID { get; set; }

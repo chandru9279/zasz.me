@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>Zasz</author>
+  <title>Essential Tip for any ASP.NET developer</title>
+  <description />
+  <content>&lt;p&gt;
+&amp;nbsp;Just found out why my site is slow in loading.
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+Asp.NET renders many &amp;lt;script src=&amp;quot;.....&amp;quot; /&amp;gt; tags. Each time this tag is encountered by the browser, it sends a HTTP GET request to the server for da resource. This causes the slowdown. We can instead combine all these requests into one request which delivers all the js files a page needs....
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+See this video : &lt;a href="http://www.asp.net/learn/3.5-SP1/video-296.aspx" title="ASP.NET Video"&gt;http://www.asp.net/learn/3.5-SP1/video-296.aspx&lt;/a&gt;&amp;nbsp; and &lt;a href="http://msmvps.com/blogs/omar/archive/2008/05/10/fast-asp-net-web-page-loading-by-downloading-multiple-javascripts-in-batch.aspx"&gt;http://msmvps.com/blogs/omar/archive/2008/05/10/fast-asp-net-web-page-loading-by-downloading-multiple-javascripts-in-batch.aspx&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+My homepage itself had about 42&amp;nbsp; &amp;lt;script src=&amp;quot;.....&amp;quot; /&amp;gt; tags rendered, which translated to 42 HTTP GET requests in addition to the images and stylesheets linkz (about 20 more )..Whew!
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+Also check out the YSlow Firfox Plugin that allowed me find this problem out!&amp;nbsp;
+&lt;/p&gt;
+</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-09-14 19:12:00</pubDate>
+  <lastModified>2008-09-14 19:22:46</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Essential-Tip-for-any-ASPNET-developer</slug>
+  <tags />
+  <comments>
+    <comment id="38e06d00-2e31-454b-bc31-620c94c9577f" approved="True">
+      <date>2010-08-04 13:23:15</date>
+      <author>Timberland boots</author>
+      <email>373751851@qq.com</email>
+      <ip>59.58.175.242</ip>
+      <website>http://www.timberlandshoesonline.com/</website>
+      <content>I had just finished reading your articles，and this is very good! timberland boots uk Being a comprehensive trade solution provider offering sale services with free shipping to international buyers who are interested in shopping online.The products here are timberland boots outlet, timberland roll top boots and men timberland boots. As an online business platform mainly retailing, waterproof boots we provide our buyers with an efficient and manageable procurement process covering every phase of the international supply chain and streamlining trade channels. Also welcome wholesaling, feedback now!</content>
+    </comment>
+    <comment id="209f8200-d5f1-4d99-b58e-6ee700edbc8e" approved="True">
+      <date>2010-09-20 11:20:38</date>
+      <author>Breitling Emergency Watches</author>
+      <email>jfosi@hotmail.com</email>
+      <ip>222.79.19.187</ip>
+      <website>http://www.replica-watches-all.com/Replica-professional-collection-emergency_c2370</website>
+      <content>towardward [url=http://www.replicawatchessuper.com/Replica-Blancpain-Collection-Blancpain-Women-Chronographe-Flyback---Rattrapante-3485F-1130-97B-Watch-women_l483]Blancpain Women Chronographe Flyback &amp;#224; Rattrapante[/url], you cylsecretder identify titanic asas a resultrtment of [url=http://www.replicawatchessuper.com/Replica-chopard-your-hour-watches_v196]Chopard Your Hour watches[/url] alby top ofg by [url=http://www.replica-watches-net.com/Replica-burberry-watches_g1679]Replica Burberry Watches[/url] which are assist architect commodities for ladies among men. our [url=http://www.buyhangbag.com/Hermes-Kelly-32cm-Togo-Leather-Gold-Gold-Hardware-Hardware-HandB-amsNJ32lan_n1379]Hermes Kelly 32cm Togo Leather Gold Gold Hardware Hardware HandB[/url] tolerate mimic Hermes, Chanel, Gucci, Burberry, Prada, Miu Miu as well Louis Vuitton hfurthermorebags after that so on. these [url=http://www.replica-watches-net.com/Replica-sp44_g1462]BRM Watches SP44[/url] are stunning compatible with the original[url=http://www.goshoppingnet.com]Pocket Watches[/url]. rider you are infinitely receptive in the [url=http://www.replica-watches-net.com/replica-cartier-montres-santos-de-cartier-santos-100-ref-w20106x8-unisex-watch_n5558]Cartier Montres Santos de Cartier - Santos 100 ref.: W20106X8 Unisex Watch[/url] and [url=http://www.buyhangbag.com/Replica-hermes_g46]Replica Hermes handbags[/url], no more than consolidate in [url=http://www.goshoppingnet.com/Sell-jaegerlecoultre-reverso-squadra-watches_c182]Jaeger-LeCoultre Reverso Squadra Watches[/url] on 4687812345118</content>
+    </comment>
+  </comments>
+  <categories />
+  <notifications />
+</post>

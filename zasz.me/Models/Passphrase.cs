@@ -2,7 +2,7 @@
 {
     /* The new Creadential especially for personal sites*/
 
-    public class Passphrase
+    public class Passphrase : IModel
     {
         [ID]
         public string PhraseDigest { get; set; }
@@ -14,6 +14,6 @@
 
     public interface IPassphraseRepository : IRepository<Passphrase>
     {
-        bool IsValid(Passphrase Incoming);
+        bool Authenticate(string IncomingPassphraseDigest);
     }
 }

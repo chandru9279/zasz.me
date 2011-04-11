@@ -1,4 +1,4 @@
-﻿namespace zasz.develop
+﻿namespace zasz.develop.Utils
 {
     partial class DevUtil
     {
@@ -34,6 +34,11 @@
             this.DevConsole = new System.Windows.Forms.TextBox();
             this.ClearConsole = new System.Windows.Forms.Button();
             this.UtilChooseFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.AllPro = new System.Windows.Forms.RadioButton();
+            this.AllRest = new System.Windows.Forms.RadioButton();
+            this.AllBoth = new System.Windows.Forms.RadioButton();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ImportPosts
@@ -82,11 +87,57 @@
             this.UtilChooseFolder.SelectedPath = "C:\\Documents and Settings\\thiagac\\My Documents\\Visual Studio 2010\\Projects\\Posts";
             this.UtilChooseFolder.ShowNewFolderButton = false;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.AllBoth);
+            this.groupBox1.Controls.Add(this.AllRest);
+            this.groupBox1.Controls.Add(this.AllPro);
+            this.groupBox1.Location = new System.Drawing.Point(380, 72);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(181, 104);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Site";
+            // 
+            // AllPro
+            // 
+            this.AllPro.AutoSize = true;
+            this.AllPro.Location = new System.Drawing.Point(41, 19);
+            this.AllPro.Name = "AllPro";
+            this.AllPro.Size = new System.Drawing.Size(55, 17);
+            this.AllPro.TabIndex = 0;
+            this.AllPro.TabStop = true;
+            this.AllPro.Text = "All Pro";
+            this.AllPro.UseVisualStyleBackColor = true;
+            // 
+            // AllRest
+            // 
+            this.AllRest.AutoSize = true;
+            this.AllRest.Location = new System.Drawing.Point(41, 42);
+            this.AllRest.Name = "AllRest";
+            this.AllRest.Size = new System.Drawing.Size(61, 17);
+            this.AllRest.TabIndex = 1;
+            this.AllRest.TabStop = true;
+            this.AllRest.Text = "All Rest";
+            this.AllRest.UseVisualStyleBackColor = false;
+            // 
+            // AllBoth
+            // 
+            this.AllBoth.AutoSize = true;
+            this.AllBoth.Location = new System.Drawing.Point(41, 65);
+            this.AllBoth.Name = "AllBoth";
+            this.AllBoth.Size = new System.Drawing.Size(61, 17);
+            this.AllBoth.TabIndex = 2;
+            this.AllBoth.TabStop = true;
+            this.AllBoth.Text = "All Both";
+            this.AllBoth.UseVisualStyleBackColor = true;
+            // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ClearConsole);
             this.Controls.Add(this.DevConsole);
             this.Controls.Add(this.ClearDB);
@@ -94,6 +145,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DevUtil";
             this.Text = "Developer Utilities";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,6 +159,10 @@
         private System.Windows.Forms.TextBox DevConsole;
         private System.Windows.Forms.Button ClearConsole;
         private System.Windows.Forms.FolderBrowserDialog UtilChooseFolder;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton AllBoth;
+        private System.Windows.Forms.RadioButton AllRest;
+        private System.Windows.Forms.RadioButton AllPro;
     }
 }
 

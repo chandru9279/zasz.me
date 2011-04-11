@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>Zasz</author>
+  <title>GWT code splitting best practice is not really best practice</title>
+  <description />
+  <content>&lt;p&gt;I believe if you put in code like&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;GWT.runAsync(new RunAsyncCallback(){&lt;/p&gt;&lt;p&gt;@Override&lt;/p&gt;&lt;p&gt;public void onFailure(){&lt;/p&gt;&lt;p&gt;}&amp;nbsp;&lt;/p&gt;&lt;p&gt;@Override&lt;/p&gt;&lt;p&gt;public void onSuccess(){&lt;/p&gt;&lt;p&gt;}&amp;nbsp;&amp;nbsp;&lt;/p&gt;&lt;p&gt;});&amp;nbsp;&lt;/p&gt;&lt;p&gt;&amp;nbsp;then what happens is that the&amp;nbsp;onSuccess code is actually going to be in the file that gets downloaded. And the onFailure code , together with the code downloading code is in the initial/current javascript file.&lt;/p&gt;&lt;p&gt;&amp;nbsp;As the GWT compiler tries to compile the SourceUnit (souce file)&amp;nbsp;that contains this code, it will put&amp;nbsp;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Sorry -----------------------=Am gonna complete this later!=--------------------------- GTG&amp;nbsp;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>False</iscommentsenabled>
+  <pubDate>2010-09-24 21:45:00</pubDate>
+  <lastModified>2010-10-20 22:59:47</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>GWT-code-splitting-best-practice-is-not-really-best-practice</slug>
+  <tags />
+  <comments />
+  <categories />
+  <notifications />
+</post>

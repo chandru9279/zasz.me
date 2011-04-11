@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace zasz.me.Models
 {
-    public class Post
+    public class Post : IModel
     {
         private List<string> _Tags = new List<string>();
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace zasz.develop
+namespace zasz.develop.Utils
 {
     class Death : Exception
     {

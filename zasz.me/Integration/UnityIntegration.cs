@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.SessionState;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
+using zasz.me.Configuration;
 
 namespace zasz.me.Integration
 {
@@ -14,8 +13,8 @@ namespace zasz.me.Integration
         public static void Bootstrap()
         {
             var BigBox = new UnityContainer();
-            var Section = ConfigurationManager.GetSection("unity") as UnityConfigurationSection;
-            if (Section != null) Section.Configure(BigBox, "BigBox");
+            Config.Unity.Configure(BigBox, "BigBox");
+            Config.PutConfigIn(BigBox);
             ControllerBuilder.Current.SetControllerFactory(new UnityControllerBuilder(BigBox));
             HugeBox.Swallow(BigBox);
         }
@@ -62,6 +61,14 @@ namespace zasz.me.Integration
     }
 
 
+    /// <summary>
+    /// This is a Lifetime Manager that maintains a singleton instance per web request. For example
+    /// A DB Session can be managed by this manager - you have one session instance for the whole 
+    /// Request. 
+    /// 
+    /// This Q&A is good reference
+    /// http://stackoverflow.com/questions/707138/using-asp-net-session-for-lifetime-management-unity
+    /// </summary>
     public class SingletonPerRequest : LifetimeManager, IDisposable
     {
         private readonly string _Name;
@@ -74,13 +81,7 @@ namespace zasz.me.Integration
         }
 
         #endregion
-
-        /// <summary>
-        /// This is a Lifetime Manager that maintains a singleton instance per web request. For example
-        /// A DB Session can be managed by this manager - you have one session instance for the whole 
-        /// Request
-        /// </summary>
-        /// <param name="Name"></param>
+        
         public SingletonPerRequest(string Name)
         {
             _Name = Name;
@@ -91,14 +92,22 @@ namespace zasz.me.Integration
             return HttpContext.Current.Items[_Name];
         }
 
+        /// <summary>
+        /// http://www.tavaresstudios.com/Blog/post/Writing-Custom-Lifetime-Managers.aspx says framework never calls the RemoveValue(), 
+        /// I suppose its meant for utility xD
+        /// </summary>
         public override void RemoveValue()
         {
             HttpContext.Current.Items.Remove(_Name);
         }
 
-        public override void SetValue(object newValue)
+        /// <summary>
+        /// This method is called by the container only when GetValue returns null, which is once per webrequest.
+        /// </summary>
+        /// <param name="NewValue">The newly created object that the container constructs and gives to this LifeTimeManager</param>
+        public override void SetValue(object NewValue)
         {
-            throw new NotImplementedException();
+            HttpContext.Current.Items[_Name] = NewValue;
         }
     }
 }
