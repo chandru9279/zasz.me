@@ -5,13 +5,9 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.RavenDB.Indexes
 {
+    // Convention-named : "Post/BySlug"
     public class Post_BySlug : AbstractIndexCreationTask
     {
-        public override string IndexName
-        {
-            get { return "Posts/BySlug"; }
-        }
-
         public override IndexDefinition CreateIndexDefinition()
         {
             return new IndexDefinition<Post>

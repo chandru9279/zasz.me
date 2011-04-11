@@ -33,12 +33,12 @@ namespace zasz.me.Integration.RavenDB
 
         public List<Model> Page(int PageNumber, int PageSize)
         {
-            return _Session.Load<Model>().Skip(PageNumber * PageSize).Take(PageSize).ToList();
+            return _Session.Query<Model>().Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
         public long Count()
         {
-            return _Session.Load<Model>().Count();
+            return _Session.Query<Model>().Count();
         }
 
         /// <summary>

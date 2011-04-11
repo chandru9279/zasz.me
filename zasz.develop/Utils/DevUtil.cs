@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
+using Raven.Database.Data;
 using zasz.develop.SampleData;
 using zasz.me.Integration.RavenDB;
 using zasz.me.Integration.RavenDB.Indexes;
@@ -93,21 +92,17 @@ namespace zasz.develop.Utils
 
         private void ClearDB_Click(object sender, EventArgs e)
         {
-            try
+            DeleteByType("Posts");
+        }
+
+        private void DeleteByType(string EntityName)
+        {
+            Log("Deleting All " + EntityName + ".. ");
+            using (var Session = _DocumentStore.OpenSession())
             {
-                Log("Deleting All Posts.. ");
-                using (var Session = _DocumentStore.OpenSession())
-                {
-                    List<Post> Posts = Session.Query<Post>().ToList();
-                    if (Posts.Count == 0) Die("Query returned 0 results");
-                    Posts.ForEach(Session.Delete);
-                    Session.SaveChanges();
-                }
-                Log("Done (All Posts Deleted) !");
+                Session.Advanced.DatabaseCommands.DeleteByIndex("Raven/DocumentsByEntityName", new IndexQuery {Query = "Tag:" + EntityName}, false);
             }
-            catch (Death)
-            {
-            }
+            Log("Done (All " + EntityName + " Deleted) !");
         }
     }
 }
