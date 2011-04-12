@@ -30,14 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DevUtil));
             this.ImportPosts = new System.Windows.Forms.Button();
-            this.ClearDB = new System.Windows.Forms.Button();
+            this.ClearZaszStore = new System.Windows.Forms.Button();
             this.DevConsole = new System.Windows.Forms.TextBox();
             this.ClearConsole = new System.Windows.Forms.Button();
             this.UtilChooseFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.AllPro = new System.Windows.Forms.RadioButton();
-            this.AllRest = new System.Windows.Forms.RadioButton();
             this.AllBoth = new System.Windows.Forms.RadioButton();
+            this.AllRest = new System.Windows.Forms.RadioButton();
+            this.AllPro = new System.Windows.Forms.RadioButton();
+            this.ClearTestStore = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,15 +52,15 @@
             this.ImportPosts.UseVisualStyleBackColor = true;
             this.ImportPosts.Click += new System.EventHandler(this.ImportPostsClick);
             // 
-            // ClearDB
+            // ClearZaszStore
             // 
-            this.ClearDB.Location = new System.Drawing.Point(28, 72);
-            this.ClearDB.Name = "ClearDB";
-            this.ClearDB.Size = new System.Drawing.Size(140, 30);
-            this.ClearDB.TabIndex = 1;
-            this.ClearDB.Text = "Clear RavenDB";
-            this.ClearDB.UseVisualStyleBackColor = true;
-            this.ClearDB.Click += new System.EventHandler(this.ClearDB_Click);
+            this.ClearZaszStore.Location = new System.Drawing.Point(28, 72);
+            this.ClearZaszStore.Name = "ClearZaszStore";
+            this.ClearZaszStore.Size = new System.Drawing.Size(140, 30);
+            this.ClearZaszStore.TabIndex = 1;
+            this.ClearZaszStore.Text = "Clear ZaszStore";
+            this.ClearZaszStore.UseVisualStyleBackColor = true;
+            this.ClearZaszStore.Click += new System.EventHandler(this.ClearZaszStore_Click);
             // 
             // DevConsole
             // 
@@ -99,16 +100,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Site";
             // 
-            // AllPro
+            // AllBoth
             // 
-            this.AllPro.AutoSize = true;
-            this.AllPro.Location = new System.Drawing.Point(41, 19);
-            this.AllPro.Name = "AllPro";
-            this.AllPro.Size = new System.Drawing.Size(55, 17);
-            this.AllPro.TabIndex = 0;
-            this.AllPro.TabStop = true;
-            this.AllPro.Text = "All Pro";
-            this.AllPro.UseVisualStyleBackColor = true;
+            this.AllBoth.AutoSize = true;
+            this.AllBoth.Location = new System.Drawing.Point(41, 65);
+            this.AllBoth.Name = "AllBoth";
+            this.AllBoth.Size = new System.Drawing.Size(61, 17);
+            this.AllBoth.TabIndex = 2;
+            this.AllBoth.TabStop = true;
+            this.AllBoth.Text = "All Both";
+            this.AllBoth.UseVisualStyleBackColor = true;
             // 
             // AllRest
             // 
@@ -121,26 +122,37 @@
             this.AllRest.Text = "All Rest";
             this.AllRest.UseVisualStyleBackColor = false;
             // 
-            // AllBoth
+            // AllPro
             // 
-            this.AllBoth.AutoSize = true;
-            this.AllBoth.Location = new System.Drawing.Point(41, 65);
-            this.AllBoth.Name = "AllBoth";
-            this.AllBoth.Size = new System.Drawing.Size(61, 17);
-            this.AllBoth.TabIndex = 2;
-            this.AllBoth.TabStop = true;
-            this.AllBoth.Text = "All Both";
-            this.AllBoth.UseVisualStyleBackColor = true;
+            this.AllPro.AutoSize = true;
+            this.AllPro.Location = new System.Drawing.Point(41, 19);
+            this.AllPro.Name = "AllPro";
+            this.AllPro.Size = new System.Drawing.Size(55, 17);
+            this.AllPro.TabIndex = 0;
+            this.AllPro.TabStop = true;
+            this.AllPro.Text = "All Pro";
+            this.AllPro.UseVisualStyleBackColor = true;
+            // 
+            // ClearTestStore
+            // 
+            this.ClearTestStore.Location = new System.Drawing.Point(28, 130);
+            this.ClearTestStore.Name = "ClearTestStore";
+            this.ClearTestStore.Size = new System.Drawing.Size(140, 30);
+            this.ClearTestStore.TabIndex = 5;
+            this.ClearTestStore.Text = "Clear TestStore";
+            this.ClearTestStore.UseVisualStyleBackColor = true;
+            this.ClearTestStore.Click += new System.EventHandler(this.ClearTestStore_Click);
             // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.ClearTestStore);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ClearConsole);
             this.Controls.Add(this.DevConsole);
-            this.Controls.Add(this.ClearDB);
+            this.Controls.Add(this.ClearZaszStore);
             this.Controls.Add(this.ImportPosts);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DevUtil";
@@ -155,7 +167,7 @@
         #endregion
 
         private System.Windows.Forms.Button ImportPosts;
-        private System.Windows.Forms.Button ClearDB;
+        private System.Windows.Forms.Button ClearZaszStore;
         private System.Windows.Forms.TextBox DevConsole;
         private System.Windows.Forms.Button ClearConsole;
         private System.Windows.Forms.FolderBrowserDialog UtilChooseFolder;
@@ -163,6 +175,7 @@
         private System.Windows.Forms.RadioButton AllBoth;
         private System.Windows.Forms.RadioButton AllRest;
         private System.Windows.Forms.RadioButton AllPro;
+        private System.Windows.Forms.Button ClearTestStore;
     }
 }
 

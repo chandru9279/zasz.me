@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Raven.Abstractions.Data;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
 using zasz.develop.SampleData;
@@ -28,13 +27,20 @@ namespace zasz.health.IntegrationTests
             var DocumentSession = _DocumentStore.OpenSession();
             Repo = new Posts(DocumentSession);
 
-            var Count = (from Set in DocumentSession.Query<Collection>("Raven/DocumentCollections")
-                         where Set.Name == "Posts"
-                         select Set.Count).First();
+            ////This field has Value 0
+            var Count = DocumentSession.Query<Post>().Count();
+
+            //returns 0 results
+            var FewPosts = from APost in DocumentSession.Query<Post>("Post/BySlug")
+                           where APost.Slug.StartsWith("B")
+                           select APost.Slug;
+
+            // This field is an EMPTY array.
+            var ThePosts = FewPosts.ToArray();
             
             if (Count == 0)
             {
-                var SamplePosts = PostsData.GetFromFolder(@"C:\Documents and Settings\thiagac\My Documents\Visual Studio 2010\Projects\Posts", Log);
+                var SamplePosts = PostsData.GetFromFolder(@"C:\Documents and Settings\thiagac\My Documents\Visual Studio 2010\Projects\Confidence", Log);
                 foreach (Post SamplePost in SamplePosts)
                     DocumentSession.Store(SamplePost);
                 DocumentSession.SaveChanges();

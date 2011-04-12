@@ -72,6 +72,11 @@ namespace zasz.develop.Utils
             throw new Death(DieLog);
         }
 
+        private void Log(string Log, params object[] Args)
+        {
+            this.Log(string.Format(Log, Args));
+        }
+        
         private void Log(string Log)
         {
             DevConsole.Text = DevConsole.Text + Environment.NewLine + Log;
@@ -90,19 +95,24 @@ namespace zasz.develop.Utils
             _DocumentStore.Conventions.FindIdentityProperty = RavenIntegration._FindIdentityProperty;
         }
 
-        private void ClearDB_Click(object sender, EventArgs e)
+        private void ClearZaszStore_Click(object sender, EventArgs e)
         {
             DeleteByType("Posts");
         }
 
-        private void DeleteByType(string EntityName)
+        private void DeleteByType(string EntityName, string Store = "ZaszStore")
         {
-            Log("Deleting All " + EntityName + ".. ");
-            using (var Session = _DocumentStore.OpenSession())
+            Log("Deleting All {0} from {1}.. ", EntityName, Store);
+            using (var Session = _DocumentStore.OpenSession(Store))
             {
                 Session.Advanced.DatabaseCommands.DeleteByIndex("Raven/DocumentsByEntityName", new IndexQuery {Query = "Tag:" + EntityName}, false);
             }
-            Log("Done (All " + EntityName + " Deleted) !");
+            Log("Done (All {0} Deleted from {1}..) !", EntityName, Store);
+        }
+
+        private void ClearTestStore_Click(object sender, EventArgs e)
+        {
+            DeleteByType("Posts", "TestStore");
         }
     }
 }
