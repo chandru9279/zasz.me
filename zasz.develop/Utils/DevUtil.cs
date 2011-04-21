@@ -1,27 +1,25 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Windows.Forms;
-using Raven.Client.Document;
-using Raven.Client.Indexes;
-using Raven.Database.Data;
 using zasz.develop.SampleData;
-using zasz.me.Integration.RavenDB;
-using zasz.me.Integration.RavenDB.Indexes;
+using zasz.me.Integration.EntityFramework;
 using zasz.me.Models;
 
 namespace zasz.develop.Utils
 {
     public partial class DevUtil : Form
     {
-        private static DocumentStore _DocumentStore;
         private readonly ChooseSite _ChooseSiteDialog;
+        private readonly FullContext _FullContext;
         private readonly IPostRepository _PostRepository;
 
         public DevUtil()
         {
             InitializeComponent();
             _ChooseSiteDialog = new ChooseSite();
-            UseRavenDB();
-            _PostRepository = new Posts(_DocumentStore.OpenSession());
+            Database.SetInitializer(new ColdStorageInitializer());
+            _FullContext = new FullContext();
+            _PostRepository = new Posts(_FullContext);
             RegisterSites();
         }
 
@@ -59,7 +57,7 @@ namespace zasz.develop.Utils
                     _PostRepository.Save(NewPost);
                 }
 
-                _PostRepository.Flush();
+                _PostRepository.Commit();
             }
             catch (Death)
             {
@@ -76,7 +74,7 @@ namespace zasz.develop.Utils
         {
             this.Log(string.Format(Log, Args));
         }
-        
+
         private void Log(string Log)
         {
             DevConsole.Text = DevConsole.Text + Environment.NewLine + Log;
@@ -87,32 +85,17 @@ namespace zasz.develop.Utils
             DevConsole.Clear();
         }
 
-        private static void UseRavenDB()
+        private void ClearColdStorage_Click(object sender, EventArgs e)
         {
-            _DocumentStore = new DocumentStore {Url = "http://localhost:3000", DefaultDatabase = "ZaszStore"};
-            _DocumentStore.Initialize();
-            IndexCreation.CreateIndexes(typeof (Post_BySlug).Assembly, _DocumentStore);
-            _DocumentStore.Conventions.FindIdentityProperty = RavenIntegration._FindIdentityProperty;
+            DeleteByType<Post>();
         }
 
-        private void ClearZaszStore_Click(object sender, EventArgs e)
+        private void DeleteByType<T>() where T : class
         {
-            DeleteByType("Posts");
-        }
-
-        private void DeleteByType(string EntityName, string Store = "ZaszStore")
-        {
-            Log("Deleting All {0} from {1}.. ", EntityName, Store);
-            using (var Session = _DocumentStore.OpenSession(Store))
-            {
-                Session.Advanced.DatabaseCommands.DeleteByIndex("Raven/DocumentsByEntityName", new IndexQuery {Query = "Tag:" + EntityName}, false);
-            }
-            Log("Done (All {0} Deleted from {1}..) !", EntityName, Store);
-        }
-
-        private void ClearTestStore_Click(object sender, EventArgs e)
-        {
-            DeleteByType("Posts", "TestStore");
+            Log("Deleting All {0} from ColdStorage.. ", typeof(T));
+            foreach (T Model in _FullContext.Set<T>())
+                _FullContext.Set<T>().Remove(Model);
+            Log("Done (All {0} Deleted from ColdStorage..) !", typeof(T));
         }
     }
 }

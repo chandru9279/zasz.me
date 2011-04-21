@@ -1,10 +1,12 @@
-﻿namespace zasz.me.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace zasz.me.Models
 {
     /* The new Creadential especially for personal sites*/
 
     public class Passphrase : IModel
     {
-        [ID]
+        [Key]
         public string PhraseDigest { get; set; }
 
         public string Name { get; set; }

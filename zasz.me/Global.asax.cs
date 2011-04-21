@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using zasz.me.Integration;
-using zasz.me.Integration.RavenDB;
+using zasz.me.Integration.EntityFramework;
 
 namespace zasz.me
 {
@@ -38,7 +38,7 @@ namespace zasz.me
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
             UnityIntegration.Bootstrap();
-            RavenIntegration.Bootstrap();
+            EntityFramework.Bootstrap();
         }
     }
 }

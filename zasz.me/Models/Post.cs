@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace zasz.me.Models
 {
     public class Post : IModel
     {
-        private List<string> _Tags = new List<string>();
+        [Key]
+        public string Slug { get; set; }
 
-        [JsonConverter(typeof(Site.SiteJsonConverter))]
-        public Site Site { get; set; }
+        private List<string> _Tags;
+
+        public string SiteName;
 
         public string Title { get; set; }
-
-        [ID]
-        public string Slug { get; set; }
 
         public string Content { get; set; }
 
@@ -26,7 +25,14 @@ namespace zasz.me.Models
 
         public DateTime Timestamp { get; set; }
 
-        [JsonIgnore]
+        [NotMapped]
+        public Site Site
+        {
+            get { return Site.WithName(SiteName); }
+            set { SiteName = value.Name; }
+        }
+
+        [NotMapped]
         public string Permalink
         {
             get { return string.Format("http://{0}/{1}/post/{2}", Site.Host, Site.Name, Slug); }
@@ -35,8 +41,6 @@ namespace zasz.me.Models
 
     public interface IPostRepository : IRepository<Post>
     {
-        Post FromSlug(string Slug);
-
         List<Post> RecentPosts(int HowMany);
 
         List<Post> FromTag(string Tag);

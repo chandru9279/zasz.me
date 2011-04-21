@@ -42,11 +42,11 @@
     <Reference Include="AntiXSSLibrary">
       <HintPath>..\packages\AntiXSS.4.0.1\lib\net35\AntiXSSLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\AsyncCtpLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\packages\AntiXSS.4.0.1\lib\net35\HtmlSanitizationLibrary.dll</HintPath>
@@ -66,19 +66,8 @@
     <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
       <HintPath>..\packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="MissingBitsFromClientProfile, Version=0.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Raven.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages" />
     <Reference Include="System.Web.Helpers" />
@@ -106,8 +95,7 @@
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\WritingsConfig.cs" />
     <Compile Include="Controllers\Utils\Constants.cs" />
-    <Compile Include="Integration\RavenDB\Indexes\Post_BySlug.cs" />
-    <Compile Include="Integration\RavenDB\RavenIntegration.cs" />
+    <Compile Include="Integration\EntityFramework\EntityFramework.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Areas\Pro\ProAreaRegistration.cs" />
     <Compile Include="Areas\Rest\Controllers\HomeController.cs" />
@@ -124,14 +112,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Integration\ElmahIntegration.cs" />
-    <Compile Include="Integration\RavenDB\ErrorLogs.cs" />
-    <Compile Include="Integration\RavenDB\Posts.cs" />
-    <Compile Include="Integration\RavenDB\RepoBase.cs" />
-    <Compile Include="Integration\RavenDB\Vault.cs" />
+    <Compile Include="Integration\EntityFramework\ErrorLogs.cs" />
+    <Compile Include="Integration\EntityFramework\Posts.cs" />
+    <Compile Include="Integration\EntityFramework\RepoBase.cs" />
+    <Compile Include="Integration\EntityFramework\Vault.cs" />
     <Compile Include="Integration\HugeBox.cs" />
     <Compile Include="Integration\UnityIntegration.cs" />
     <Compile Include="Configuration\UploadsConfig.cs" />
-    <Compile Include="Models\IDAttribute.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Passphrase.cs" />
     <Compile Include="Models\Post.cs" />
@@ -142,7 +129,16 @@
     <Compile Include="Services\Pairs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ColdStorage\ColdStorage.mdf" />
+    <Content Include="App_Data\ColdStorage\ColdStorage_log.ldf">
+      <DependentUpon>ColdStorage.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ColdStorage\TestStorage.mdf" />
+    <Content Include="App_Data\ColdStorage\TestStorage_log.ldf">
+      <DependentUpon>TestStorage.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\BlueprintReset.css" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
     <Content Include="Content\Pro\Images\bgpuzzle.png" />
     <Content Include="Content\Pro\Images\expand-down.png" />
@@ -450,7 +446,9 @@
     <Content Include="Areas\Rest\Views\Shared\_RestLayout.cshtml" />
     <None Include="App_Data\Setup\Build.bat" />
     <None Include="App_Data\Setup\Packages.bat" />
-    <Content Include="App_Data\Setup\Raven.Server.exe.config" />
+    <None Include="Content\Schemas\unity.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Uploads\Docs\ZZZZZZZ.docx" />
     <Content Include="Views\Uploads\Browse.cshtml" />
     <Content Include="Views\Unlocker\Unlock.cshtml" />

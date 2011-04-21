@@ -38,7 +38,6 @@
             this.AllBoth = new System.Windows.Forms.RadioButton();
             this.AllRest = new System.Windows.Forms.RadioButton();
             this.AllPro = new System.Windows.Forms.RadioButton();
-            this.ClearTestStore = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,9 +57,9 @@
             this.ClearZaszStore.Name = "ClearZaszStore";
             this.ClearZaszStore.Size = new System.Drawing.Size(140, 30);
             this.ClearZaszStore.TabIndex = 1;
-            this.ClearZaszStore.Text = "Clear ZaszStore";
+            this.ClearZaszStore.Text = "Clear ColdStorage";
             this.ClearZaszStore.UseVisualStyleBackColor = true;
-            this.ClearZaszStore.Click += new System.EventHandler(this.ClearZaszStore_Click);
+            this.ClearZaszStore.Click += new System.EventHandler(this.ClearColdStorage_Click);
             // 
             // DevConsole
             // 
@@ -133,22 +132,11 @@
             this.AllPro.Text = "All Pro";
             this.AllPro.UseVisualStyleBackColor = true;
             // 
-            // ClearTestStore
-            // 
-            this.ClearTestStore.Location = new System.Drawing.Point(28, 130);
-            this.ClearTestStore.Name = "ClearTestStore";
-            this.ClearTestStore.Size = new System.Drawing.Size(140, 30);
-            this.ClearTestStore.TabIndex = 5;
-            this.ClearTestStore.Text = "Clear TestStore";
-            this.ClearTestStore.UseVisualStyleBackColor = true;
-            this.ClearTestStore.Click += new System.EventHandler(this.ClearTestStore_Click);
-            // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
-            this.Controls.Add(this.ClearTestStore);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ClearConsole);
             this.Controls.Add(this.DevConsole);
@@ -175,7 +163,6 @@
         private System.Windows.Forms.RadioButton AllBoth;
         private System.Windows.Forms.RadioButton AllRest;
         private System.Windows.Forms.RadioButton AllPro;
-        private System.Windows.Forms.Button ClearTestStore;
     }
 }
 

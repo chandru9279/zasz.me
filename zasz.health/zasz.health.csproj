@@ -55,30 +55,20 @@
     <OutputPath>bin\Util\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\AsyncCtpLibrary.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="MissingBitsFromClientProfile, Version=0.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\MissingBitsFromClientProfile.dll</HintPath>
-    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Raven.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.1.0.0.322\lib\4.0\Raven.Client.Lightweight.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
@@ -103,6 +93,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

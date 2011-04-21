@@ -1,10 +1,11 @@
-﻿using Elmah;
+﻿using System.ComponentModel.DataAnnotations;
+using Elmah;
 
 namespace zasz.me.Models
 {
     public class Log : IModel
     {
-        [ID]
+        [Key]
         public string ID { get; set; }
 
         public Error Error { get; set; }
