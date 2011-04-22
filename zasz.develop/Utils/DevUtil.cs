@@ -34,13 +34,12 @@ namespace zasz.develop.Utils
             me.Models.Site.Register("localhost", "Pro");
         }
 
-        private void ImportPostsClick(object sender, EventArgs e)
+        private void ImportPostsClick(object Sender, EventArgs E)
         {
             try
             {
-                string PreselectedPath = UtilChooseFolder.SelectedPath;
-                UtilChooseFolder.ShowDialog();
-                string Path = String.IsNullOrEmpty(UtilChooseFolder.SelectedPath) ? PreselectedPath : UtilChooseFolder.SelectedPath;
+//                const string Path = @"C:\Documents and Settings\thiagac\My Documents\Visual Studio 2010\Projects\Posts";
+                const string Path = @"E:\Dev\Confidence\zasz.develop\SampleData\Posts";
 
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {
@@ -80,12 +79,12 @@ namespace zasz.develop.Utils
             DevConsole.Text = DevConsole.Text + Environment.NewLine + Log;
         }
 
-        private void ClearConsoleClick(object sender, EventArgs e)
+        private void ClearConsoleClick(object Sender, EventArgs E)
         {
             DevConsole.Clear();
         }
 
-        private void ClearColdStorage_Click(object sender, EventArgs e)
+        private void ClearColdStorageClick(object Sender, EventArgs E)
         {
             DeleteByType<Post>();
         }
@@ -95,6 +94,7 @@ namespace zasz.develop.Utils
             Log("Deleting All {0} from ColdStorage.. ", typeof(T));
             foreach (T Model in _FullContext.Set<T>())
                 _FullContext.Set<T>().Remove(Model);
+            _FullContext.SaveChanges();
             Log("Done (All {0} Deleted from ColdStorage..) !", typeof(T));
         }
     }

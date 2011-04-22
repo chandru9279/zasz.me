@@ -123,6 +123,7 @@
     <Compile Include="Models\Passphrase.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FilesystemFilesService.cs" />
     <Compile Include="Services\IFilesService.cs" />

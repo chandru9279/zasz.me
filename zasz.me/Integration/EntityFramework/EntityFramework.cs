@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using zasz.me.Models;
 using Microsoft.Practices.Unity;
+using System.Data.Entity;
 
 namespace zasz.me.Integration.EntityFramework
 {
@@ -10,7 +11,7 @@ namespace zasz.me.Integration.EntityFramework
         public static void Bootstrap()
         {
             Database.SetInitializer(new ColdStorageInitializer()); 
-            SetupUnityToGiveDBContextSingletonPerWebRequest();
+            SetupUnityToGiveDbContextSingletonPerWebRequest();
         }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace zasz.me.Integration.EntityFramework
         ///     which is now obsolete - or so visual studio says. Further it tells me to use InjectionFactory
         ///     <code>new InjectionFactory(Container => new FullContext())</code>
         /// </summary>
-        public static void SetupUnityToGiveDBContextSingletonPerWebRequest()
+        public static void SetupUnityToGiveDbContextSingletonPerWebRequest()
         {
             HugeBox.BigBox.RegisterType<FullContext>(new SingletonPerRequest("DB-Context"));
         }
@@ -38,10 +39,14 @@ namespace zasz.me.Integration.EntityFramework
         public DbSet<Passphrase> Vault { get; set; }
 
         public DbSet<Log> ErrorLogs { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder ModelBuilder)
+        {
+            
+        }
     }
 
     public class ColdStorageInitializer : DropCreateDatabaseIfModelChanges<FullContext>
     {
-        
     }
 }

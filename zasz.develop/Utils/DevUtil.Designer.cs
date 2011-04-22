@@ -33,7 +33,6 @@
             this.ClearZaszStore = new System.Windows.Forms.Button();
             this.DevConsole = new System.Windows.Forms.TextBox();
             this.ClearConsole = new System.Windows.Forms.Button();
-            this.UtilChooseFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.AllBoth = new System.Windows.Forms.RadioButton();
             this.AllRest = new System.Windows.Forms.RadioButton();
@@ -53,13 +52,13 @@
             // 
             // ClearZaszStore
             // 
-            this.ClearZaszStore.Location = new System.Drawing.Point(28, 72);
+            this.ClearZaszStore.Location = new System.Drawing.Point(28, 101);
             this.ClearZaszStore.Name = "ClearZaszStore";
             this.ClearZaszStore.Size = new System.Drawing.Size(140, 30);
             this.ClearZaszStore.TabIndex = 1;
             this.ClearZaszStore.Text = "Clear ColdStorage";
             this.ClearZaszStore.UseVisualStyleBackColor = true;
-            this.ClearZaszStore.Click += new System.EventHandler(this.ClearColdStorage_Click);
+            this.ClearZaszStore.Click += new System.EventHandler(this.ClearColdStorageClick);
             // 
             // DevConsole
             // 
@@ -80,12 +79,6 @@
             this.ClearConsole.Text = "Clear Console";
             this.ClearConsole.UseVisualStyleBackColor = true;
             this.ClearConsole.Click += new System.EventHandler(this.ClearConsoleClick);
-            // 
-            // UtilChooseFolder
-            // 
-            this.UtilChooseFolder.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            this.UtilChooseFolder.SelectedPath = "C:\\Documents and Settings\\thiagac\\My Documents\\Visual Studio 2010\\Projects\\Posts";
-            this.UtilChooseFolder.ShowNewFolderButton = false;
             // 
             // groupBox1
             // 
@@ -158,7 +151,6 @@
         private System.Windows.Forms.Button ClearZaszStore;
         private System.Windows.Forms.TextBox DevConsole;
         private System.Windows.Forms.Button ClearConsole;
-        private System.Windows.Forms.FolderBrowserDialog UtilChooseFolder;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton AllBoth;
         private System.Windows.Forms.RadioButton AllRest;

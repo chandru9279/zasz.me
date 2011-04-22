@@ -33,11 +33,11 @@ namespace zasz.health.IntegrationTests
         [TestMethod]
         public void TestPaging()
         {
-            var IDS = new List<string> {"End of Holidays in Horizon :(", "Getting-started-with-Apache-Struts-2-2c-with-Netbeans-61"};
+            var Ids = new List<string> {"End of Holidays in Horizon :(", "Getting-started-with-Apache-Struts-2-2c-with-Netbeans-61"};
             var Posts = _Repo.Page(0, 10);
-            var ActualIDS = new List<string>(10);
-            Posts.ForEach(Post => ActualIDS.Add(Post.Title));
-            Assert.IsTrue(IDS.TrueForAll(ActualIDS.Contains));
+            var ActualIds = new List<string>(10);
+            Posts.ForEach(Post => ActualIds.Add(Post.Title));
+            Assert.IsTrue(Ids.TrueForAll(ActualIds.Contains));
         }
 
         [TestCleanup]

@@ -6,13 +6,15 @@ namespace zasz.me.Models
 {
     public class Post : IModel
     {
+        private List<string> _Tags;
+
+        public string _SiteName;
+
+
         [Key]
         public string Slug { get; set; }
 
-        private List<string> _Tags;
-
-        public string SiteName;
-
+        [Required]
         public string Title { get; set; }
 
         public string Content { get; set; }
@@ -23,15 +25,17 @@ namespace zasz.me.Models
             set { _Tags = value; }
         }
 
+        [Required]
         public DateTime Timestamp { get; set; }
 
-        [NotMapped]
+        [Required]
         public Site Site
         {
-            get { return Site.WithName(SiteName); }
-            set { SiteName = value.Name; }
+            get { return Site.WithName(_SiteName); }
+            set { _SiteName = value.Name; }
         }
 
+        
         [NotMapped]
         public string Permalink
         {
