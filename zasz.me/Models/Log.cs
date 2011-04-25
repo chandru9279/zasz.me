@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Elmah;
 
 namespace zasz.me.Models
@@ -19,5 +20,6 @@ namespace zasz.me.Models
 
     public interface ILogsRepository : IRepository<Log>
     {
+        List<Log> Page(int PageNumber, int PageSize);
     }
 }

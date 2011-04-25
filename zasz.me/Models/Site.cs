@@ -15,6 +15,11 @@ namespace zasz.me.Models
             VirtualPath = AreaUrl;
         }
 
+        /* Should not be used in code, present for use by entity framework only*/
+        public Site()
+        {
+        }
+
         [NotMapped]
         public string Host { get; set; }
 

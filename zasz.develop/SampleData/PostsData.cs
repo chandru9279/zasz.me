@@ -54,6 +54,18 @@ namespace zasz.develop.SampleData
                 }
                 yield return NewPost;
             }
+
+            yield break;
+        }
+
+
+        public static void RegisterSites()
+        {
+            Site.Register("zasz.me", "Rest");
+            Site.Register("AnyHost", "Admin", "~/Home/Show");
+            Site.Register("AnyHost", "Both", "~/Home/Show");
+            Site.Register("chandruon.net", "Pro");
+            Site.Register("localhost", "Pro");
         }
     }
 }

@@ -27,6 +27,11 @@ namespace zasz.me.Integration.EntityFramework
                     select Model).ToList();
         }
 
+        public List<Post> Page(int PageNumber, int PageSize)
+        {
+            return _ModelSet.OrderBy(Model => Model.Timestamp).Skip(PageNumber * PageSize).Take(PageSize).ToList();
+        }
+
         #endregion
     }
 }

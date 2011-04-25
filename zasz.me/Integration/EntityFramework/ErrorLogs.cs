@@ -1,4 +1,6 @@
-﻿using zasz.me.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
@@ -6,6 +8,11 @@ namespace zasz.me.Integration.EntityFramework
     {
         public ErrorLogs(FullContext Session) : base(Session)
         {
+        }
+
+        public List<Log> Page(int PageNumber, int PageSize)
+        {
+            return _ModelSet.OrderBy(Model => Model.ID).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
     }
 }

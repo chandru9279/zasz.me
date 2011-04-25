@@ -27,5 +27,12 @@ namespace zasz.me.Controllers.Utils
             }
         }
 
+        public static List<T> Collect<X,T>(this List<X> TheList, Func<X,T> FieldSelector)
+        {
+            List<T> Fields = new List<T>(TheList.Count);
+            TheList.ForEach(Item => Fields.Add(FieldSelector(Item)));
+            return Fields;
+        }
+
     }
 }

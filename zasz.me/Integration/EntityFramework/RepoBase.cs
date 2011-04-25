@@ -33,11 +33,6 @@ namespace zasz.me.Integration.EntityFramework
             _ModelSet.Remove(Entity);
         }
 
-        public List<Model> Page(int PageNumber, int PageSize)
-        {
-            return _ModelSet.Skip(PageNumber * PageSize).Take(PageSize).ToList();
-        }
-
         public long Count()
         {
             return _ModelSet.Count();

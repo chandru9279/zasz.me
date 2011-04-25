@@ -18,8 +18,6 @@ namespace zasz.me.Models
 
         void Delete(Model Entity);
 
-        List<Model> Page(int PageNumber, int PageSize);
-
         long Count();
 
         void Commit();

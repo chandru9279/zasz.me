@@ -48,5 +48,7 @@ namespace zasz.me.Models
         List<Post> RecentPosts(int HowMany);
 
         List<Post> FromTag(string Tag);
+
+        List<Post> Page(int PageNumber, int PageSize);
     }
 }

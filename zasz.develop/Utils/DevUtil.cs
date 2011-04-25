@@ -20,26 +20,18 @@ namespace zasz.develop.Utils
             Database.SetInitializer(new ColdStorageInitializer());
             _FullContext = new FullContext();
             _PostRepository = new Posts(_FullContext);
-            RegisterSites();
+            PostsData.RegisterSites();
         }
 
         public string Current { get; set; }
 
-        private static void RegisterSites()
-        {
-            me.Models.Site.Register("zasz.me", "Rest");
-            me.Models.Site.Register("AnyHost", "Admin", "~/Home/Show");
-            me.Models.Site.Register("AnyHost", "Both", "~/Home/Show");
-            me.Models.Site.Register("chandruon.net", "Pro");
-            me.Models.Site.Register("localhost", "Pro");
-        }
+        
 
         private void ImportPostsClick(object Sender, EventArgs E)
         {
             try
             {
-//                const string Path = @"C:\Documents and Settings\thiagac\My Documents\Visual Studio 2010\Projects\Posts";
-                const string Path = @"E:\Dev\Confidence\zasz.develop\SampleData\Posts";
+                string Path = Environment.GetEnvironmentVariable("SampleDataPath");
 
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {

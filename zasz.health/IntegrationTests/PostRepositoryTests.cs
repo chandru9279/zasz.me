@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using zasz.develop.SampleData;
+using zasz.me.Controllers.Utils;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Models;
 
@@ -18,14 +19,18 @@ namespace zasz.health.IntegrationTests
         public void Setup()
         {
             Database.SetInitializer(new ColdStorageInitializer());
+            PostsData.RegisterSites();
             _FullContext = new FullContext();
             _Repo = new Posts(_FullContext);
             var Count = _Repo.Count();
             if (Count == 0)
             {
-                var SamplePosts = PostsData.GetFromFolder(@"C:\Documents and Settings\thiagac\My Documents\Visual Studio 2010\Projects\Confidence", Log);
+                var SamplePosts = PostsData.GetFromFolder(Environment.GetEnvironmentVariable("SampleDataPath", EnvironmentVariableTarget.Machine), Log);
                 foreach (Post SamplePost in SamplePosts)
+                {
+                    SamplePost.Site = Site.WithName("Both");
                     _Repo.Save(SamplePost);
+                }
                 _Repo.Commit();
             }
         }
@@ -33,10 +38,9 @@ namespace zasz.health.IntegrationTests
         [TestMethod]
         public void TestPaging()
         {
-            var Ids = new List<string> {"End of Holidays in Horizon :(", "Getting-started-with-Apache-Struts-2-2c-with-Netbeans-61"};
+            var Ids = new List<string> {"Fact-and-Fiction", "Getting-started-with-Apache-Struts-2-2c-with-Netbeans-61"};
             var Posts = _Repo.Page(0, 10);
-            var ActualIds = new List<string>(10);
-            Posts.ForEach(Post => ActualIds.Add(Post.Title));
+            var ActualIds = Posts.Collect(Post => Post.Slug);
             Assert.IsTrue(Ids.TrueForAll(ActualIds.Contains));
         }
 
