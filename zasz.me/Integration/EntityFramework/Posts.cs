@@ -13,11 +13,11 @@ namespace zasz.me.Integration.EntityFramework
 
         #region IPostRepository Members
 
-        public List<Post> RecentPosts(int howMany)
+        public List<Post> RecentPosts(int HowMany)
         {
             return (from Model in _ModelSet
                     orderby Model.Timestamp descending
-                    select Model).Take(howMany).ToList();
+                    select Model).Take(HowMany).ToList();
         }
 
         public List<Post> FromTag(string Tag)
