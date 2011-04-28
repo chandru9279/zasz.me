@@ -6,10 +6,7 @@ namespace zasz.me.Models
 {
     public class Post : IModel
     {
-        private List<string> _Tags;
-
         public string _SiteName;
-
 
         [Key]
         public string Slug { get; set; }
@@ -19,11 +16,7 @@ namespace zasz.me.Models
 
         public string Content { get; set; }
 
-        public List<string> Tags
-        {
-            get { return _Tags ?? (_Tags = new List<string>()); }
-            set { _Tags = value; }
-        }
+        public ICollection<Tag> Tags { get; set; }
 
         [Required]
         public DateTime Timestamp { get; set; }
@@ -35,7 +28,7 @@ namespace zasz.me.Models
             set { _SiteName = value.Name; }
         }
 
-        
+
         [NotMapped]
         public string Permalink
         {
@@ -50,5 +43,9 @@ namespace zasz.me.Models
         List<Post> FromTag(string Tag);
 
         List<Post> Page(int PageNumber, int PageSize);
+
+        List<Post> Page(int PageNumber, int PageSize, Site ProOrRest);
+
+        long Count(Site ProOrRest);
     }
 }

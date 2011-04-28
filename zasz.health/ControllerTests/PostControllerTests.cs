@@ -2,6 +2,7 @@
 using System.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using zasz.me.Areas.Pro.Controllers;
 using zasz.me.Controllers;
 using zasz.me.Models;
 
@@ -17,7 +18,7 @@ namespace zasz.health.ControllerTests
         public PostControllerTests()
         {
             _PostRepository = new Mock<IPostRepository>();
-            _Controller = new PostController(_PostRepository.Object);
+            _Controller = new WritingsController(_PostRepository.Object);
         }
 
         [TestMethod]

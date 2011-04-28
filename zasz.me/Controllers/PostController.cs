@@ -10,39 +10,34 @@ using zasz.me.Models;
 
 namespace zasz.me.Controllers
 {
-    public class PostController : Controller
+    public abstract class PostController : Controller
     {
         private readonly IPostRepository _Posts;
-        private int _MaxPostsPerPage;
 
-        public PostController(IPostRepository Posts)
+        protected PostController(IPostRepository Posts)
         {
             _Posts = Posts;
         }
 
         [Dependency("MaxPostsPerPage")]
-        public int MaxPostsPerPage
-        {
-            get { return _MaxPostsPerPage; }
-            set { _MaxPostsPerPage = value; }
-        }
+        public int MaxPostsPerPage { get; set; }
 
-        public ActionResult List(int PageNumber = 0)
+        protected ActionResult List(Site ProOrRest, int PageNumber)
         {
             return View(new PostListModel(
-                            _Posts.Page(PageNumber, _MaxPostsPerPage),
-                            (int) (_Posts.Count() / _MaxPostsPerPage)
+                            _Posts.Page(PageNumber, MaxPostsPerPage, ProOrRest),
+                            (int) (_Posts.Count() / MaxPostsPerPage)
                             ));
         }
 
-        public ActionResult Create()
+        protected ActionResult Create()
         {
             ViewBag.EditorName = "PostContent";
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
+        protected ActionResult Create(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
         {
             try
             {
@@ -50,9 +45,8 @@ namespace zasz.me.Controllers
                                 {
                                     Title = Title,
                                     Content = PostContent,
-                                    Tags = new List<string>(Tags.Split(Constants.Shredders,
-                                                                       StringSplitOptions.RemoveEmptyEntries)),
                                     Site = Site.WithName(ChosenSite),
+                                    Tags = Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).ToList().Collect(It => new Tag(It)),
                                     Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug,
                                     Timestamp = DateTime.Now
                                 };

@@ -44,6 +44,19 @@ namespace zasz.health.IntegrationTests
             Assert.IsTrue(Ids.TrueForAll(ActualIds.Contains));
         }
 
+
+        [TestMethod]
+        public void TestCount()
+        {
+            var Posts = _Repo.Count();
+            var Both = _Repo.Count(Site.WithName("Both"));
+            var Pro = _Repo.Count(Site.WithName("Pro"));
+            var Rest = _Repo.Count(Site.WithName("Rest"));
+            Assert.AreEqual(Both, Posts);
+            Assert.AreEqual(Pro, Posts);
+            Assert.AreEqual(Rest, Posts);
+        }
+
         [TestCleanup]
         public void TearDown()
         {

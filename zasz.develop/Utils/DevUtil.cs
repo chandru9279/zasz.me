@@ -39,6 +39,11 @@ namespace zasz.develop.Utils
                     if (AllPro.Checked) NewPost.Site = me.Models.Site.WithName("Pro");
                     else if (AllBoth.Checked) NewPost.Site = me.Models.Site.WithName("Both");
                     else if (AllRest.Checked) NewPost.Site = me.Models.Site.WithName("Rest");
+                    else if (Default.Checked)
+                    {
+                        var DefaultSitemap = PostsData.DefaultSiteMap();
+                        NewPost.Site = me.Models.Site.WithName(DefaultSitemap[NewPost.Slug]);
+                    }
                     else
                     {
                         DialogResult Dialog = _ChooseSiteDialog.ShowDialog(this);

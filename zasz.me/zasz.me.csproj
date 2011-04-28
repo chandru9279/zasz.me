@@ -92,6 +92,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Pro\Controllers\ContactController.cs" />
+    <Compile Include="Areas\Pro\Controllers\ErrorController.cs" />
+    <Compile Include="Areas\Pro\Controllers\PortfolioController.cs" />
+    <Compile Include="Areas\Pro\Controllers\WritingsController.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\WritingsConfig.cs" />
     <Compile Include="Controllers\Utils\Constants.cs" />
@@ -130,14 +134,6 @@
     <Compile Include="Services\Pairs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ColdStorage\ColdStorage.mdf" />
-    <Content Include="App_Data\ColdStorage\ColdStorage_log.ldf">
-      <DependentUpon>ColdStorage.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\ColdStorage\TestStorage.mdf" />
-    <Content Include="App_Data\ColdStorage\TestStorage_log.ldf">
-      <DependentUpon>TestStorage.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
@@ -415,6 +411,7 @@
     <Content Include="Areas\Pro\Views\Shared\_ProLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\ColdStorage\" />
     <Folder Include="Areas\Pro\Models\" />
     <Folder Include="Areas\Rest\Models\" />
     <Folder Include="Content\Rest\Images\" />
@@ -446,7 +443,14 @@
     <Content Include="Areas\Pro\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Rest\Views\Shared\_RestLayout.cshtml" />
     <None Include="App_Data\Setup\Build.bat" />
+    <None Include="App_Data\Setup\HyperionEnv.bat" />
+    <None Include="App_Data\Setup\LapEnv.bat" />
     <None Include="App_Data\Setup\Packages.bat" />
+    <Content Include="Areas\Pro\Views\Error\Broken.cshtml" />
+    <Content Include="Areas\Pro\Views\Writings\List.cshtml" />
+    <Content Include="Areas\Pro\Views\Contact\Form.cshtml" />
+    <Content Include="Areas\Pro\Views\Portfolio\All.cshtml" />
+    <Content Include="Areas\Pro\Views\Home\About.cshtml" />
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -456,7 +460,6 @@
     <Content Include="Areas\Pro\Views\Home\Show.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Home\Show.cshtml" />
-    <Content Include="Views\Post\List.cshtml" />
     <Content Include="Views\Post\_PostShortView.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

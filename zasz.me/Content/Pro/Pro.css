@@ -1,6 +1,7 @@
 ﻿div
 {
     overflow: hidden;
+    font-family: georgia,serif;
 }
         
 .Pro
@@ -10,7 +11,6 @@
     background-position: center top;
     width: 100%;
     color: #FF5400;
-    font-family: Terminal;
 }
         
 .Site-In-Center
@@ -75,7 +75,6 @@
 {
     width: 100%;
     height : 300px;
-    font-family: Bookman Old Style;
     font-size: 30px;
     display: block;
     float: left;
@@ -102,7 +101,6 @@
 .Sub-Header
 {
     color: #FFFFFF;
-    font-family: Bookman Old Style;
     font-size: 25px;
 }
             
@@ -118,7 +116,7 @@
 {
     font-size:25px;
     margin-left:150px;
-    width: 350px;
+    width: 330px;
     font-style:oblique;
     text-align: center;
 }
@@ -138,10 +136,15 @@
     display: inline-block;
     width: 120px;
 }
+
+.Main-Menu-Item:HOVER
+{
+    color: #A83500;
+}
         
 .Pro-Body
 {
-    width: 921px;
+    width: 100%;
     background-color: #FFFFFF;
 }
         
@@ -213,3 +216,25 @@
     background-color: #FFFFFF;
     float: left;
 }
+
+a
+{
+    color: inherit;
+}
+
+.Post
+{
+    color: #333333;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: auto 20px;
+}
+
+.Metadata
+{
+    color: #FF6060;
+    font-size: 12px;
+}
+    

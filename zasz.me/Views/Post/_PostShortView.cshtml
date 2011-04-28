@@ -1,7 +1,9 @@
-﻿@model zasz.me.Models.Post
+﻿@model zasz.me.Models.Post           
 
-<h2>@Model.Title</h2>
-<p>@Microsoft.Security.Application.Sanitizer.GetSafeHtml(Model.Content) </p>
+<div class="Post">
+<div style="font-size:21px; font-weight:bold;">@Model.Title</div>
+<div class="Metadata">Posted by Chandru on @Model.Timestamp</div>
+<p>@Html.Raw(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Content)) </p>
 
 <ul>
 @foreach (string Tag in Model.Tags)
@@ -13,3 +15,4 @@
 <br />
 <div style="border: 1px solid black;"></div>
 <br />
+</div>

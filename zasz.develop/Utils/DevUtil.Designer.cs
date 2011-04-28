@@ -37,6 +37,7 @@
             this.AllBoth = new System.Windows.Forms.RadioButton();
             this.AllRest = new System.Windows.Forms.RadioButton();
             this.AllPro = new System.Windows.Forms.RadioButton();
+            this.Default = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,12 +83,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Default);
             this.groupBox1.Controls.Add(this.AllBoth);
             this.groupBox1.Controls.Add(this.AllRest);
             this.groupBox1.Controls.Add(this.AllPro);
             this.groupBox1.Location = new System.Drawing.Point(380, 72);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(181, 104);
+            this.groupBox1.Size = new System.Drawing.Size(181, 147);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Site";
@@ -125,6 +127,17 @@
             this.AllPro.Text = "All Pro";
             this.AllPro.UseVisualStyleBackColor = true;
             // 
+            // Default
+            // 
+            this.Default.AutoSize = true;
+            this.Default.Location = new System.Drawing.Point(41, 88);
+            this.Default.Name = "Default";
+            this.Default.Size = new System.Drawing.Size(96, 17);
+            this.Default.TabIndex = 3;
+            this.Default.TabStop = true;
+            this.Default.Text = "InCode Deafult";
+            this.Default.UseVisualStyleBackColor = true;
+            // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,6 +168,7 @@
         private System.Windows.Forms.RadioButton AllBoth;
         private System.Windows.Forms.RadioButton AllRest;
         private System.Windows.Forms.RadioButton AllPro;
+        private System.Windows.Forms.RadioButton Default;
     }
 }
 

@@ -8,6 +8,10 @@ namespace zasz.me.Areas.Pro.Controllers
         {
             return View();
         }
-
+        
+        public ActionResult About()
+        {
+            return View();
+        }
     }
 }
