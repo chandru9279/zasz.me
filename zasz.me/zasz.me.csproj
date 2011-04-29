@@ -100,6 +100,7 @@
     <Compile Include="Configuration\WritingsConfig.cs" />
     <Compile Include="Controllers\Utils\Constants.cs" />
     <Compile Include="Integration\EntityFramework\EntityFramework.cs" />
+    <Compile Include="Integration\EntityFramework\Tags.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Areas\Pro\ProAreaRegistration.cs" />
     <Compile Include="Areas\Rest\Controllers\HomeController.cs" />

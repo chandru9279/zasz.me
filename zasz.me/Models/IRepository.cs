@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace zasz.me.Models
+﻿namespace zasz.me.Models
 {
     /// <summary>
     ///     This is the base interface of all Repositories. In this App there's no seperate Service Layer that accesses 
@@ -14,7 +12,7 @@ namespace zasz.me.Models
     {
         void Save(Model Instance);
 
-        Model Get(string ID);
+        Model Get(string Id);
 
         void Delete(Model Entity);
 

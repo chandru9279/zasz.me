@@ -237,4 +237,22 @@ a
     color: #FF6060;
     font-size: 12px;
 }
+
+.Tags li
+{
+    display: inline;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin: 6px;
+    padding: 3px 10px;
+    background-color: #FFC6C1;
+}
+
+.Tags li:HOVER
+{
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #FF0015;
+}
     

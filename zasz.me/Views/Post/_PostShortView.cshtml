@@ -5,10 +5,10 @@
 <div class="Metadata">Posted by Chandru on @Model.Timestamp</div>
 <p>@Html.Raw(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Content)) </p>
 
-<ul>
-@foreach (string Tag in Model.Tags)
+<ul class="Tags">
+@foreach (zasz.me.Models.Tag Tag in Model.Tags)
 {
-    <li>@Tag</li>
+    <li><a href="/Pro/Writings/Tag/@Tag.Name">@Tag.Name</a></li>
 }
 </ul>
 

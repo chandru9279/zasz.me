@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using zasz.me.Models;
 
@@ -7,8 +6,8 @@ namespace zasz.me.Integration.EntityFramework
 {
     public abstract class RepoBase<Model> : IRepository<Model> where Model : class, IModel
     {
-        protected readonly FullContext _Session;
         protected readonly DbSet<Model> _ModelSet;
+        protected readonly FullContext _Session;
 
         protected RepoBase(FullContext Session)
         {
@@ -23,9 +22,9 @@ namespace zasz.me.Integration.EntityFramework
             _ModelSet.Add(Instance);
         }
 
-        public Model Get(string ID)
+        public Model Get(string Id)
         {
-            return _ModelSet.Find(ID);
+            return _ModelSet.Find(Id);
         }
 
         public void Delete(Model Entity)
@@ -39,8 +38,8 @@ namespace zasz.me.Integration.EntityFramework
         }
 
         /// <summary>
-        /// Calling Commit in any repository is the same thing as calling commit for the whole Web Request.
-        /// It saves changes to all Models, Not only for this specific Model.
+        ///     Calling Commit in any repository is the same thing as calling commit for the whole Web Request.
+        ///     It saves changes to all Models, Not only for this specific Model.
         /// </summary>
         public void Commit()
         {

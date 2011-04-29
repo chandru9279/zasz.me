@@ -6,7 +6,7 @@ namespace zasz.me.Models
 {
     public class Post : IModel
     {
-        public string _SiteName;
+        private string _SiteName;
 
         [Key]
         public string Slug { get; set; }
@@ -16,7 +16,7 @@ namespace zasz.me.Models
 
         public string Content { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
 
         [Required]
         public DateTime Timestamp { get; set; }
@@ -39,8 +39,6 @@ namespace zasz.me.Models
     public interface IPostRepository : IRepository<Post>
     {
         List<Post> RecentPosts(int HowMany);
-
-        List<Post> FromTag(string Tag);
 
         List<Post> Page(int PageNumber, int PageSize);
 

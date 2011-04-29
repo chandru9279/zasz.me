@@ -10,10 +10,11 @@ using zasz.me.Models;
 namespace zasz.health.IntegrationTests
 {
     [TestClass]
-    public class PostRepositoryTests
+    public class PostAndTagRepositoryTests
     {
-        private static FullContext _FullContext;
-        private Posts _Repo;
+        private FullContext _FullContext;
+        private Posts _Posts;
+        private Tags _Tags;
 
         [TestInitialize]
         public void Setup()
@@ -21,17 +22,18 @@ namespace zasz.health.IntegrationTests
             Database.SetInitializer(new ColdStorageInitializer());
             PostsData.RegisterSites();
             _FullContext = new FullContext();
-            _Repo = new Posts(_FullContext);
-            var Count = _Repo.Count();
+            _Posts = new Posts(_FullContext);
+            _Tags = new Tags(_FullContext);
+            var Count = _Posts.Count();
             if (Count == 0)
             {
                 var SamplePosts = PostsData.GetFromFolder(Environment.GetEnvironmentVariable("SampleDataPath", EnvironmentVariableTarget.Machine), Log);
                 foreach (Post SamplePost in SamplePosts)
                 {
                     SamplePost.Site = Site.WithName("Both");
-                    _Repo.Save(SamplePost);
+                    _Posts.Save(SamplePost);
                 }
-                _Repo.Commit();
+                _Posts.Commit();
             }
         }
 
@@ -39,7 +41,7 @@ namespace zasz.health.IntegrationTests
         public void TestPaging()
         {
             var Ids = new List<string> {"Fact-and-Fiction", "Getting-started-with-Apache-Struts-2-2c-with-Netbeans-61"};
-            var Posts = _Repo.Page(0, 10);
+            var Posts = _Posts.Page(0, 10);
             var ActualIds = Posts.Collect(Post => Post.Slug);
             Assert.IsTrue(Ids.TrueForAll(ActualIds.Contains));
         }
@@ -48,13 +50,20 @@ namespace zasz.health.IntegrationTests
         [TestMethod]
         public void TestCount()
         {
-            var Posts = _Repo.Count();
-            var Both = _Repo.Count(Site.WithName("Both"));
-            var Pro = _Repo.Count(Site.WithName("Pro"));
-            var Rest = _Repo.Count(Site.WithName("Rest"));
+            var Posts = _Posts.Count();
+            var Both = _Posts.Count(Site.WithName("Both"));
+            var Pro = _Posts.Count(Site.WithName("Pro"));
+            var Rest = _Posts.Count(Site.WithName("Rest"));
             Assert.AreEqual(Both, Posts);
             Assert.AreEqual(Pro, Posts);
             Assert.AreEqual(Rest, Posts);
+        }
+
+        [TestMethod]
+        public void TestTagPagingQuery()
+        {
+            var Posts = _Tags.PagePosts("asp.net", 0, 2, Site.WithName("Pro"));
+            Assert.AreEqual(2, Posts.Count);
         }
 
         [TestCleanup]

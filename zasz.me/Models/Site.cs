@@ -47,5 +47,35 @@ namespace zasz.me.Models
         {
             return _Sites.Find(Site => Site.Name == Name);
         }
+
+        /*public bool Equals(Site Other)
+        {
+            if (ReferenceEquals(null, Other)) return false;
+            if (ReferenceEquals(this, Other)) return true;
+            return Equals(Other.Name, Name) || Equals(Other.Name, "Both");
+        }
+
+        public override bool Equals(object Obj)
+        {
+            if (ReferenceEquals(null, Obj)) return false;
+            if (ReferenceEquals(this, Obj)) return true;
+            if (Obj.GetType() != typeof (Site)) return false;
+            return Equals((Site) Obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public static bool operator ==(Site Left, Site Right)
+        {
+            return Equals(Left, Right);
+        }
+
+        public static bool operator !=(Site Left, Site Right)
+        {
+            return !Equals(Left, Right);
+        }*/
     }
 }

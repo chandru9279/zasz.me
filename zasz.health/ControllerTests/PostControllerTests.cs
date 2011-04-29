@@ -31,5 +31,35 @@ namespace zasz.health.ControllerTests
             Assert.AreEqual("using-di-or-dependency-injection", Try(HttpUtility.HtmlEncode("using DI/Dependency Injection")));
             Assert.AreEqual("using-di-or-dependency-injection", Try("using DI/Dependency Injection"));
         }
+
+        [TestMethod]
+        public void One()
+        {
+            const string ID = "49105961189491232322";
+            var Actual = Captcha(ID);
+            Assert.AreEqual("1dVgJB", Actual);
+        }
+
+        [TestMethod]
+        public void Two()
+        {
+            const string Id = "6612111411369135233323";
+            var Actual = Captcha(Id);
+            Assert.AreEqual("1dVgJB", Actual);
+        }
+
+        private string Captcha(string ID)
+        {
+            var Substring = ID.Substring(ID.Length - 6, 6);
+            var Result = "";
+            for (int i = 0, startIndex = 0; i < 6; i++)
+            {
+                var CurrentLength = int.Parse(Substring[i].ToString());
+                int ASCII = int.Parse(ID.Substring(startIndex, CurrentLength)) - i * 5;
+                Result += Convert.ToChar(ASCII);
+                startIndex += CurrentLength;
+            }
+            return Result;
+        }
     }
-}    
+}

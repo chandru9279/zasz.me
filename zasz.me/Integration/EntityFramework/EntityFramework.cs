@@ -1,8 +1,6 @@
-﻿using System;
-using System.Data.Entity.Infrastructure;
-using zasz.me.Models;
+﻿using System.Data.Entity;
 using Microsoft.Practices.Unity;
-using System.Data.Entity;
+using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
@@ -10,7 +8,7 @@ namespace zasz.me.Integration.EntityFramework
     {
         public static void Bootstrap()
         {
-            Database.SetInitializer(new ColdStorageInitializer()); 
+            Database.SetInitializer(new ColdStorageInitializer());
             SetupUnityToGiveDbContextSingletonPerWebRequest();
         }
 
@@ -28,8 +26,6 @@ namespace zasz.me.Integration.EntityFramework
         {
             HugeBox.BigBox.RegisterType<FullContext>(new SingletonPerRequest("DB-Context"));
         }
-
-
     }
 
     public class FullContext : DbContext
@@ -42,7 +38,6 @@ namespace zasz.me.Integration.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder ModelBuilder)
         {
-            
         }
     }
 

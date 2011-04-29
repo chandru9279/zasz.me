@@ -8,9 +8,13 @@ namespace zasz.me.Integration.EntityFramework
         {
         }
 
+        #region IPassphraseRepository Members
+
         public bool Authenticate(string IncomingPhraseDigest)
         {
             return Get(IncomingPhraseDigest) != null;
         }
+
+        #endregion
     }
 }

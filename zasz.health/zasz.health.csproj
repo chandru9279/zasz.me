@@ -79,7 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\PostControllerTests.cs" />
-    <Compile Include="IntegrationTests\PostRepositoryTests.cs" />
+    <Compile Include="IntegrationTests\PostAndTagRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

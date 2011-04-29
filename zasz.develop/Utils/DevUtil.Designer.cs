@@ -34,10 +34,10 @@
             this.DevConsole = new System.Windows.Forms.TextBox();
             this.ClearConsole = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Default = new System.Windows.Forms.RadioButton();
             this.AllBoth = new System.Windows.Forms.RadioButton();
             this.AllRest = new System.Windows.Forms.RadioButton();
             this.AllPro = new System.Windows.Forms.RadioButton();
-            this.Default = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,6 +94,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Site";
             // 
+            // Default
+            // 
+            this.Default.AutoSize = true;
+            this.Default.Location = new System.Drawing.Point(41, 88);
+            this.Default.Name = "Default";
+            this.Default.Size = new System.Drawing.Size(96, 17);
+            this.Default.TabIndex = 3;
+            this.Default.TabStop = true;
+            this.Default.Text = "InCode Deafult";
+            this.Default.UseVisualStyleBackColor = true;
+            // 
             // AllBoth
             // 
             this.AllBoth.AutoSize = true;
@@ -126,17 +137,6 @@
             this.AllPro.TabStop = true;
             this.AllPro.Text = "All Pro";
             this.AllPro.UseVisualStyleBackColor = true;
-            // 
-            // Default
-            // 
-            this.Default.AutoSize = true;
-            this.Default.Location = new System.Drawing.Point(41, 88);
-            this.Default.Name = "Default";
-            this.Default.Size = new System.Drawing.Size(96, 17);
-            this.Default.TabIndex = 3;
-            this.Default.TabStop = true;
-            this.Default.Text = "InCode Deafult";
-            this.Default.UseVisualStyleBackColor = true;
             // 
             // DevUtil
             // 

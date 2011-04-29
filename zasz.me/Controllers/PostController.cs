@@ -13,10 +13,12 @@ namespace zasz.me.Controllers
     public abstract class PostController : Controller
     {
         private readonly IPostRepository _Posts;
+        private readonly ITagRepository _Tags;
 
-        protected PostController(IPostRepository Posts)
+        protected PostController(IPostRepository Posts, ITagRepository Tags)
         {
             _Posts = Posts;
+            _Tags = Tags;
         }
 
         [Dependency("MaxPostsPerPage")]
@@ -26,6 +28,14 @@ namespace zasz.me.Controllers
         {
             return View(new PostListModel(
                             _Posts.Page(PageNumber, MaxPostsPerPage, ProOrRest),
+                            (int) (_Posts.Count() / MaxPostsPerPage)
+                            ));
+        }
+        
+        protected ActionResult Tag(Site ProOrRest, string Tag, int PageNumber)
+        {
+            return View(new PostListModel(
+                            _Tags.PagePosts(Tag, PageNumber, MaxPostsPerPage, ProOrRest),
                             (int) (_Posts.Count() / MaxPostsPerPage)
                             ));
         }

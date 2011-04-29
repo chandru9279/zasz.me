@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Windows.Forms;
 using zasz.develop.SampleData;
 using zasz.me.Integration.EntityFramework;
@@ -12,6 +14,7 @@ namespace zasz.develop.Utils
         private readonly ChooseSite _ChooseSiteDialog;
         private readonly FullContext _FullContext;
         private readonly IPostRepository _PostRepository;
+        private readonly ITagRepository _TagRepository;
 
         public DevUtil()
         {
@@ -20,6 +23,7 @@ namespace zasz.develop.Utils
             Database.SetInitializer(new ColdStorageInitializer());
             _FullContext = new FullContext();
             _PostRepository = new Posts(_FullContext);
+            _TagRepository = new Tags(_FullContext);
             PostsData.RegisterSites();
         }
 
@@ -36,13 +40,16 @@ namespace zasz.develop.Utils
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {
                     Current = NewPost.Title;
+                    List<Tag> PersistantTags = new List<Tag>(NewPost.Tags.Count);
+                    PersistantTags.AddRange(from Tag in NewPost.Tags 
+                                            select _TagRepository.FindOrNew(Tag.Name));
+                    NewPost.Tags = PersistantTags;
                     if (AllPro.Checked) NewPost.Site = me.Models.Site.WithName("Pro");
                     else if (AllBoth.Checked) NewPost.Site = me.Models.Site.WithName("Both");
                     else if (AllRest.Checked) NewPost.Site = me.Models.Site.WithName("Rest");
                     else if (Default.Checked)
                     {
-                        var DefaultSitemap = PostsData.DefaultSiteMap();
-                        NewPost.Site = me.Models.Site.WithName(DefaultSitemap[NewPost.Slug]);
+                        NewPost.Site = me.Models.Site.WithName(PostsData.DefaultSiteMap[NewPost.Slug]);
                     }
                     else
                     {

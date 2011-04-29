@@ -25,14 +25,14 @@ namespace zasz.me
 
             Routes.MapRoute(
                 "PostRouting", 
-                "Pro/Writings/{Action}/{ID}", 
-                new {Controller = "Post", Action = "List", ID = UrlParameter.Optional}
+                "Pro/Writings/{Action}/{Id}", 
+                new {Controller = "Post", Action = "List", Id = UrlParameter.Optional}
                 );
 
             Routes.MapRoute(
                 "Indirection", 
-                "{Controller}/{Action}/{ID}",
-                new {Controller = "Indirection", Action = "Indirect", ID = UrlParameter.Optional} // Parameter defaults
+                "{Controller}/{Action}/{Id}",
+                new {Controller = "Indirection", Action = "Indirect", Id = UrlParameter.Optional} // Parameter defaults
                 );
         }
 

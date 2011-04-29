@@ -14,6 +14,11 @@ namespace zasz.me.Areas.Pro.Controllers
         {
             return List(Site.WithName("Pro"), PageNumber);
         }
+        
+        public ActionResult Tag(string Id)
+        {
+            return List(Site.WithName("Pro"), PageNumber);
+        }
 
     }
 }
