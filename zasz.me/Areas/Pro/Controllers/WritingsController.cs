@@ -6,19 +6,26 @@ namespace zasz.me.Areas.Pro.Controllers
 {
     public class WritingsController : PostController
     {
-        public WritingsController(IPostRepository Posts) : base(Posts)
+        private readonly Site _Pro;
+
+        public WritingsController(IPostRepository Posts, ITagRepository Tags) : base(Posts, Tags)
         {
+            _Pro = Site.WithName("Pro");
+        }
+
+        public ActionResult Default()
+        {
+            return RedirectToAction("List");
         }
 
         public ActionResult List(int PageNumber = 0)
         {
-            return List(Site.WithName("Pro"), PageNumber);
-        }
-        
-        public ActionResult Tag(string Id)
-        {
-            return List(Site.WithName("Pro"), PageNumber);
+            return List(_Pro, PageNumber);
         }
 
+        public ActionResult Tag(string TagName, int PageNumber = 0)
+        {
+            return Tag(_Pro, TagName, PageNumber);
+        }
     }
 }

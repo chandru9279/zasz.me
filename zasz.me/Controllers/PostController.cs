@@ -31,13 +31,13 @@ namespace zasz.me.Controllers
                             (int) (_Posts.Count() / MaxPostsPerPage)
                             ));
         }
-        
+
         protected ActionResult Tag(Site ProOrRest, string Tag, int PageNumber)
         {
-            return View(new PostListModel(
-                            _Tags.PagePosts(Tag, PageNumber, MaxPostsPerPage, ProOrRest),
-                            (int) (_Posts.Count() / MaxPostsPerPage)
-                            ));
+            return View("List", new PostListModel(
+                                    _Tags.PagePosts(Tag, PageNumber, MaxPostsPerPage, ProOrRest),
+                                    (int) (_Posts.Count() / MaxPostsPerPage)
+                                    ));
         }
 
         protected ActionResult Create()

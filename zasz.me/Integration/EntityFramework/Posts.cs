@@ -6,12 +6,24 @@ namespace zasz.me.Integration.EntityFramework
 {
     public class Posts : RepoBase<Post>, IPostRepository
     {
-        public Posts(FullContext Session)
+        private readonly ITagRepository _Tags;
+
+        public Posts(FullContext Session, ITagRepository Tags)
             : base(Session)
         {
+            _Tags = Tags;
         }
 
         #region IPostRepository Members
+
+        public override void Save(Post Instance)
+        {
+            List<Tag> PersistantTags = new List<Tag>(Instance.Tags.Count);
+            PersistantTags.AddRange(from Tag in Instance.Tags
+                                    select _Tags.FindOrNew(Tag.Name));
+            Instance.Tags = PersistantTags;
+            base.Save(Instance);
+        }
 
         public List<Post> RecentPosts(int HowMany)
         {

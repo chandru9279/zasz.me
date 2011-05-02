@@ -23,16 +23,11 @@ namespace zasz.me
             Routes.IgnoreRoute("Content/");
             Routes.MapRoute("Favicon", "favicon.ico", new {Controller = "Indirection", Action = "Favicon"});
 
-            Routes.MapRoute(
-                "PostRouting", 
-                "Pro/Writings/{Action}/{Id}", 
-                new {Controller = "Post", Action = "List", Id = UrlParameter.Optional}
-                );
 
             Routes.MapRoute(
                 "Indirection", 
                 "{Controller}/{Action}/{Id}",
-                new {Controller = "Indirection", Action = "Indirect", Id = UrlParameter.Optional} // Parameter defaults
+                new {Controller = "Indirection", Action = "Default", Id = UrlParameter.Optional} // Parameter defaults
                 );
         }
 

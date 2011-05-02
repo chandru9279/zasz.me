@@ -14,6 +14,11 @@ namespace zasz.me.Controllers
             _FilesService = FilesService;
         }
 
+        public ActionResult Default()
+        {
+            return Browse("Files", "", 1, "");
+        }
+
         public ActionResult Delete(string File)
         {
             try

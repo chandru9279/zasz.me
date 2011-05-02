@@ -98,7 +98,12 @@
                         </div>                        
                 </div>
                 <div class="Pro-Body">
+                <div class="Pro-Body-Left">
                     @RenderBody()
+                </div>
+                <div class="Pro-Body-Right">
+                    @RenderSection("Right", false)
+                </div>
                 </div>
             </div>
         </div>

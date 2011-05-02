@@ -17,7 +17,7 @@ namespace zasz.me.Integration.EntityFramework
 
         #region IRepository<Model> Members
 
-        public void Save(Model Instance)
+        public virtual void Save(Model Instance)
         {
             _ModelSet.Add(Instance);
         }

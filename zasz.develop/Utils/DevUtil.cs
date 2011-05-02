@@ -22,8 +22,8 @@ namespace zasz.develop.Utils
             _ChooseSiteDialog = new ChooseSite();
             Database.SetInitializer(new ColdStorageInitializer());
             _FullContext = new FullContext();
-            _PostRepository = new Posts(_FullContext);
             _TagRepository = new Tags(_FullContext);
+            _PostRepository = new Posts(_FullContext, _TagRepository);
             PostsData.RegisterSites();
         }
 
@@ -40,10 +40,6 @@ namespace zasz.develop.Utils
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {
                     Current = NewPost.Title;
-                    List<Tag> PersistantTags = new List<Tag>(NewPost.Tags.Count);
-                    PersistantTags.AddRange(from Tag in NewPost.Tags 
-                                            select _TagRepository.FindOrNew(Tag.Name));
-                    NewPost.Tags = PersistantTags;
                     if (AllPro.Checked) NewPost.Site = me.Models.Site.WithName("Pro");
                     else if (AllBoth.Checked) NewPost.Site = me.Models.Site.WithName("Both");
                     else if (AllRest.Checked) NewPost.Site = me.Models.Site.WithName("Rest");

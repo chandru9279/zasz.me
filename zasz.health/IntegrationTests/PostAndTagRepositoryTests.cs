@@ -22,8 +22,8 @@ namespace zasz.health.IntegrationTests
             Database.SetInitializer(new ColdStorageInitializer());
             PostsData.RegisterSites();
             _FullContext = new FullContext();
-            _Posts = new Posts(_FullContext);
             _Tags = new Tags(_FullContext);
+            _Posts = new Posts(_FullContext, _Tags);
             var Count = _Posts.Count();
             if (Count == 0)
             {
@@ -64,6 +64,15 @@ namespace zasz.health.IntegrationTests
         {
             var Posts = _Tags.PagePosts("asp.net", 0, 2, Site.WithName("Pro"));
             Assert.AreEqual(2, Posts.Count);
+
+            Posts = _Tags.PagePosts("asp.net", 0, 100, Site.WithName("Pro"));
+            Assert.AreEqual(7, Posts.Count);
+
+            Posts = _Tags.PagePosts("games", 0, 100, Site.WithName("Pro"));
+            Assert.AreEqual(7, Posts.Count);
+
+            Posts = _Tags.PagePosts("dota", 0, 100, Site.WithName("Pro"));
+            Assert.AreEqual(8, Posts.Count);
         }
 
         [TestCleanup]
