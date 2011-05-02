@@ -112,7 +112,6 @@
     <Compile Include="Controllers\UnlockerController.cs" />
     <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Controllers\PostController.cs" />
-    <Compile Include="Controllers\Utils\TransferResult.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
