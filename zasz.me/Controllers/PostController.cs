@@ -24,20 +24,21 @@ namespace zasz.me.Controllers
         [Dependency("MaxPostsPerPage")]
         public int MaxPostsPerPage { get; set; }
 
+        [Dependency("DescriptionLength")]
+        public int DescriptionLength { get; set; }
+
         protected ActionResult List(Site ProOrRest, int PageNumber)
         {
             return View(new PostListModel(
                             _Posts.Page(PageNumber, MaxPostsPerPage, ProOrRest),
-                            (int) (_Posts.Count() / MaxPostsPerPage)
-                            ));
+                            (int) (_Posts.Count() / MaxPostsPerPage), DescriptionLength));
         }
 
         protected ActionResult Tag(Site ProOrRest, string Tag, int PageNumber)
         {
             return View("List", new PostListModel(
                                     _Tags.PagePosts(Tag, PageNumber, MaxPostsPerPage, ProOrRest),
-                                    (int) (_Posts.Count() / MaxPostsPerPage)
-                                    ));
+                                    (int) (_Posts.Count() / MaxPostsPerPage), DescriptionLength));
         }
 
         protected ActionResult Create()
@@ -85,15 +86,16 @@ namespace zasz.me.Controllers
 
         public class PostListModel
         {
-            public PostListModel(List<Post> Posts, int NumberOfPages)
+            public PostListModel(List<Post> Posts, int NumberOfPages, int DescriptionLength)
             {
                 this.Posts = Posts;
                 this.NumberOfPages = NumberOfPages;
+                this.DescriptionLength = DescriptionLength;
             }
 
             public List<Post> Posts { get; set; }
-
             public int NumberOfPages { get; set; }
+            public int DescriptionLength { get; set; }
         }
 
         #endregion

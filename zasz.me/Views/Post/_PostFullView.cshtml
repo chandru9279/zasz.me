@@ -1,0 +1,19 @@
+﻿@model zasz.me.Models.Post
+
+<div style="font-size:21px; font-weight:bold;">@Model.Title</div>
+<div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
+
+<p>@Html.Raw(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Content)) </p>
+
+<div class="Right-Sidebar">
+<ul class="Tags">
+@foreach (zasz.me.Models.Tag Tag in Model.Tags)
+{
+    <li><a href="/Pro/Writings/Tag/@Tag.Name">@Tag.Name</a></li>
+}
+</ul>
+</div>
+<br />
+<div style="border: 1px solid black;"></div>
+<br />
+</div>

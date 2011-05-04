@@ -1,10 +1,12 @@
 ﻿@model zasz.me.Models.Post           
 
 <div class="Post">
-<div style="font-size:21px; font-weight:bold;">@Model.Title</div>
-<div class="Metadata">Posted by Chandru on @Model.Timestamp</div>
-<p>@Html.Raw(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Content)) </p>
+<div class="Post-Title">@Model.Title</div>
+<div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
+<p>@Model.GetDescription(ViewBag.DescriptionLength)  &nbsp;&nbsp; <a class="Normal-Link" href="/Writings/Post/@Model.Slug">Read the full entry</a></p>
 
+
+<span>Tagged : </span>
 <ul class="Tags">
 @foreach (zasz.me.Models.Tag Tag in Model.Tags)
 {
@@ -12,7 +14,4 @@
 }
 </ul>
 
-<br />
-<div style="border: 1px solid black;"></div>
-<br />
 </div>

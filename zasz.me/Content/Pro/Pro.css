@@ -97,6 +97,20 @@
     display: block;
     float:left;
 }
+
+.Header-Link
+{
+    margin: 10px 3px;
+    opacity:0.6;
+    filter:alpha(opacity=60);
+}
+
+.Header-Link:HOVER
+{
+    opacity:1.0;
+    filter:alpha(opacity=100);
+    cursor: pointer;
+}
         
 .Sub-Header
 {
@@ -144,8 +158,24 @@
         
 .Pro-Body
 {
+    display: table-row;
     width: 100%;
     background-color: #FFFFFF;
+}
+       
+.Pro-Body-Left
+{
+    width: 700px;
+    display: table-cell;
+    background-color: #FFFFFF;
+}       
+
+.Pro-Body-Right
+{
+    width: 234px;
+    background-color: #FFEBE0;
+    border-left: 2px solid #FFAE7F;
+    display: table-cell;
 }
         
 .Status-History
@@ -198,6 +228,12 @@
     color: #FF5400;
     font-size: 24px;
 }
+
+.Focus-Description a:HOVER
+{
+    color: #A83500;
+    cursor: pointer;
+}
         
 .Description
 {
@@ -213,13 +249,14 @@
     border: 2px solid #FFAE7F;
     border-top-width: 0px;
     height : 15px;
-    background-color: #FFFFFF;
     float: left;
+    color: #FFFFFF;
+    background-color: #FF0015;
 }
 
 a
 {
-    color: inherit;
+    color: inherit;    
 }
 
 .Post
@@ -232,21 +269,39 @@ a
     margin: auto 20px;
 }
 
+.Post-Title
+{
+    color: black;
+    font-size:22px; 
+}
+
+.Post-Title:HOVER
+{
+    color: #A83500;
+    text-decoration:underline;
+    cursor: pointer;
+}
+
 .Metadata
 {
-    color: #FF6060;
-    font-size: 12px;
+    color: #6F6F6F;
+    font-size: 18px;
+}
+
+.Tags
+{
+    display: inline;
 }
 
 .Tags li
 {
     display: inline;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    margin: 6px;
-    padding: 3px 10px;
-    background-color: #FFC6C1;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 3px;
+    padding: 0px 3px 3px 3px;
+    background-color: #FFEBE0;
 }
 
 .Tags li:HOVER
@@ -256,3 +311,25 @@ a
     background-color: #FF0015;
 }
     
+.Tags li a
+{
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.Paging li
+{
+    display: inline;
+    padding: 3px;
+}
+
+.Normal-Link
+{
+    color: #FF6060;
+    text-decoration: none;   
+}
+
+.Normal-Link:HOVER
+{
+    color: #A83500;
+}

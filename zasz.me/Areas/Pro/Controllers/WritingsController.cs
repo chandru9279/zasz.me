@@ -18,9 +18,9 @@ namespace zasz.me.Areas.Pro.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List(int PageNumber = 0)
+        public ActionResult List(int Id = 0)
         {
-            return List(_Pro, PageNumber);
+            return List(_Pro, Id);
         }
 
         public ActionResult Tag(string TagName, int PageNumber = 0)

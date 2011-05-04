@@ -2,11 +2,34 @@
 
 @{
     ViewBag.Title = "Posts";
+    ViewBag.DescriptionLength = Model.DescriptionLength;
+    var SplitPath = Request.Path.Split(new [] {'/'});
+    var LastSplit = SplitPath[SplitPath.Length - 1];
+    var PagePath = LastSplit.Is<int>() ? Request.Path.Substring(0, Request.Path.Length - LastSplit.Length) : Request.Path + "/";
 }
+
+@section Right{
+ <div style="margin: 20px 10px;">
+    <div class="Post-Title">
+        Archives
+    </div>
+ </div>
+}
+
 
 @foreach (var Post in Model.Posts)
 {
     <div style="margin: 20px auto;">
         @Html.Partial("~/Views/Post/_PostShortView.cshtml", Post)
-    </div>
+        <br />
+        <br />
+    </div>    
 }
+
+
+<ul class="Paging">
+@for (int i = 1; i <= Model.NumberOfPages; i++)
+{
+    <li><a href="@(PagePath + i)">@i</a></li>
+}
+</ul>

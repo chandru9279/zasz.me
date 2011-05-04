@@ -25,6 +25,7 @@ namespace zasz.me.Configuration
         {
             // Type auto inferred
             BigBox.RegisterInstance("MaxPostsPerPage", Writings.MaxPostsPerPage);
+            BigBox.RegisterInstance("DescriptionLength", Writings.DescriptionLength);
             BigBox.RegisterInstance(Uploads);
         }
     }

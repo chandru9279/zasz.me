@@ -12,5 +12,14 @@ namespace zasz.me.Configuration
             set
             { this["MaxPostsPerPage"] = value; }
         }
+
+        [ConfigurationProperty("DescriptionLength", DefaultValue = 80)]
+        public int DescriptionLength
+        {
+            get
+            { return (int)this["DescriptionLength"]; }
+            set
+            { this["DescriptionLength"] = value; }
+        }
     }
 }
