@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace zasz.me.Models
+namespace zasz.me.Areas.Shared.Models
 {
     /* The new Creadential especially for personal sites*/
 

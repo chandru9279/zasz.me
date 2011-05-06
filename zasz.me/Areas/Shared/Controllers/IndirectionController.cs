@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace zasz.me.Controllers
+namespace zasz.me.Areas.Shared.Controllers
 {
     /* Need to delete this controller and use Routing to do this*/
     public class IndirectionController : Controller

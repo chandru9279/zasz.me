@@ -1,4 +1,4 @@
-﻿namespace zasz.me.Models
+﻿namespace zasz.me.Areas.Shared.Models
 {
     /// <summary>
     ///     This is the base interface of all Repositories. In this App there's no seperate Service Layer that accesses 

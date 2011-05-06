@@ -1,4 +1,4 @@
-﻿@model zasz.me.Controllers.PostController.PostListModel
+﻿@model zasz.me.Areas.Shared.Controllers.PostController.PostListModel
 
 @{
     ViewBag.Title = "Posts";
@@ -20,7 +20,7 @@
 @foreach (var Post in Model.Posts)
 {
     <div style="margin: 20px auto;">
-        @Html.Partial("~/Views/Post/_PostShortView.cshtml", Post)
+        @Html.Partial("~/Areas/Shared/Views/Post/_PostShortView.cshtml", Post)
         <br />
         <br />
     </div>    

@@ -1,11 +1,17 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
+using zasz.me.Areas.Shared.Models;
 
-namespace zasz.me.Controllers
+namespace zasz.me.Areas.Shared.Controllers
 {
-    public class UnlockerController : Controller
+    public abstract class UnlockerController : Controller
     {
+        private readonly IPassphraseRepository _PassphraseRepository;
+
+        protected UnlockerController(IPassphraseRepository PassphraseRepository)
+        {
+            _PassphraseRepository = PassphraseRepository;
+        }
 
         public ActionResult Unlock(string Controller = "Home", string Action = "Show")
         {
@@ -17,8 +23,11 @@ namespace zasz.me.Controllers
         [HttpPost]
         public ActionResult Unlock(string PassPhrase, string Controller, string Action)
         {
-            // Compare PassPhrase
-            FormsAuthentication.SetAuthCookie("Manager", false);
+            if (_PassphraseRepository.Authenticate(PassPhrase))
+            {
+                FormsAuthentication.SetAuthCookie("Manager", false);
+                return RedirectToAction(Action, Controller);
+            }
             return RedirectToAction(Action, Controller);
         }
 

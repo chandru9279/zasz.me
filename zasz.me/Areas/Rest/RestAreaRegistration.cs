@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using zasz.me.Models;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Areas.Rest
 {
@@ -17,9 +17,7 @@ namespace zasz.me.Areas.Rest
                 "Rest/{controller}/{action}/{id}",
                 new {Controller = "Home", action = "Show", id = UrlParameter.Optional}
                 );
-            Site.Register("zasz.me", AreaName);
-            Site.Register("AnyHost", "Admin", "~/Home/Show");
-            Site.Register("AnyHost", "Both", "~/Home/Show");
+            Site.Register("zasz.me", Domain.Rest);
         }
     }
 }

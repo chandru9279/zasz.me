@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HtmlAgilityPack;
 
-namespace zasz.me.Models
+namespace zasz.me.Areas.Shared.Models
 {
     public class Post : IModel
     {
-        private string _SiteName;
+        private Site _Site;
 
         [Key]
         public string Slug { get; set; }
@@ -25,15 +25,15 @@ namespace zasz.me.Models
         [Required]
         public Site Site
         {
-            get { return Site.WithName(_SiteName); }
-            set { _SiteName = value.Name; }
+            get { return Site.WithName(_Site.Name); }
+            set { _Site = Site.WithName(value.Name); }
         }
 
 
         [NotMapped]
         public string Permalink
         {
-            get { return string.Format("http://{0}/{1}/post/{2}", Site.Host, Site.Name, Slug); }
+            get { return string.Format("http://www.{0}/{1}/Writings/Post/{2}", Site.Host, Site.Name, Slug); }
         }
 
         public string GetDescription(int Threshold)

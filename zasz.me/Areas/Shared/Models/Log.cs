@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Elmah;
 
-namespace zasz.me.Models
+namespace zasz.me.Areas.Shared.Models
 {
     public class Log : IModel
     {

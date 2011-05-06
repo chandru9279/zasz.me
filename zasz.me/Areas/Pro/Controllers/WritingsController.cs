@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
-using zasz.me.Controllers;
-using zasz.me.Models;
+using zasz.me.Areas.Shared.Controllers;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Areas.Pro.Controllers
 {

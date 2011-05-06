@@ -22,31 +22,35 @@ namespace zasz.me
             Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             Routes.IgnoreRoute("{CustomEndpoint}.axd");
             Routes.IgnoreRoute("Content/");
+            Routes.IgnoreRoute("Integration/ckeditor");
             Routes.MapRoute("Favicon", "favicon.ico", new {Controller = "Indirection", Action = "Favicon"});
-            
-            /*Routing based on Domain to Areas : 
+
+            /* Routing based on Domain to Areas : 
              * http://www.asp.net/mvc/tutorials/creating-a-custom-route-constraint-cs,
              * http://suhair.in/Blog/Aspnet-MVC-Areas-in-depth-Part-2
+             * 
+             * The following routes will auto add area tokens, based on Domains, only if no area name is given in the first place.
+             * If Area name is explicitly mentioned, the routes in the AreaRegistration take over.
              */
 
             Routes.MapRoute(
                 "zasz.me Route",
                 "{Controller}/{Action}/{Id}",
-                new {Controller = "Home", Action = "Show", Id = UrlParameter.Optional},
-                new {DomainConstraint = new DomainRouteConstraint("zasz.me")} 
+                new {Controller = "Home", Action = "Default", Id = UrlParameter.Optional},
+                new {DomainConstraint = new DomainRouteConstraint("zasz.me")}
                 ).DataTokens["area"] = "Pro";
 
             Routes.MapRoute(
                 "localhost Route",
                 "{Controller}/{Action}/{Id}",
-                new {Controller = "Home", Action = "Show", Id = UrlParameter.Optional},
+                new { Controller = "Home", Action = "Default", Id = UrlParameter.Optional },
                 new {DomainConstraint = new DomainRouteConstraint("localhost")}
                 ).DataTokens["area"] = "Pro";
 
             Routes.MapRoute(
                 "chandruon.net Route",
                 "{Controller}/{Action}/{Id}",
-                new {Controller = "Home", Action = "Show", Id = UrlParameter.Optional},
+                new { Controller = "Home", Action = "Default", Id = UrlParameter.Optional },
                 new {DomainConstraint = new DomainRouteConstraint("chandruon.net")}
                 ).DataTokens["area"] = "Pro";
         }

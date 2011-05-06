@@ -4,8 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
 using zasz.develop.SampleData;
+using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
-using zasz.me.Models;
 
 namespace zasz.develop.Utils
 {
@@ -40,18 +40,18 @@ namespace zasz.develop.Utils
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {
                     Current = NewPost.Title;
-                    if (AllPro.Checked) NewPost.Site = me.Models.Site.WithName("Pro");
-                    else if (AllBoth.Checked) NewPost.Site = me.Models.Site.WithName("Both");
-                    else if (AllRest.Checked) NewPost.Site = me.Models.Site.WithName("Rest");
+                    if (AllPro.Checked) NewPost.Site = me.Areas.Shared.Models.Site.WithName("Pro");
+                    else if (AllBoth.Checked) NewPost.Site = me.Areas.Shared.Models.Site.WithName("Both");
+                    else if (AllRest.Checked) NewPost.Site = me.Areas.Shared.Models.Site.WithName("Rest");
                     else if (Default.Checked)
                     {
-                        NewPost.Site = me.Models.Site.WithName(PostsData.DefaultSiteMap[NewPost.Slug]);
+                        NewPost.Site = me.Areas.Shared.Models.Site.WithName(PostsData.DefaultSiteMap[NewPost.Slug]);
                     }
                     else
                     {
                         DialogResult Dialog = _ChooseSiteDialog.ShowDialog(this);
                         if (Dialog == DialogResult.Cancel) Die("You cancelled");
-                        NewPost.Site = me.Models.Site.WithName(ChooseSite.MapSites[Dialog]);
+                        NewPost.Site = me.Areas.Shared.Models.Site.WithName(ChooseSite.MapSites[Dialog]);
                     }
                     _PostRepository.Save(NewPost);
                 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using zasz.me.Models;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.health.ModelTests
 {

@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using zasz.me.Areas.Shared.Models;
 using zasz.me.Controllers.Utils;
-using zasz.me.Models;
 
-namespace zasz.me.Controllers
+namespace zasz.me.Areas.Shared.Controllers
 {
     public abstract class PostController : Controller
     {

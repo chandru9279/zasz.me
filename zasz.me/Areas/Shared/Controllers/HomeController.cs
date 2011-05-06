@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace zasz.me.Controllers
+namespace zasz.me.Areas.Shared.Controllers
 {
     public class HomeController : Controller
     {

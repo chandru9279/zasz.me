@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using zasz.me.Services;
 
-namespace zasz.me.Controllers
+namespace zasz.me.Areas.Shared.Controllers
 {
     public class UploadsController : Controller
     {

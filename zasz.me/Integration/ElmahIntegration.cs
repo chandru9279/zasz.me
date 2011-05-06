@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Elmah;
-using zasz.me.Models;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration
 {

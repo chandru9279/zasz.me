@@ -6,8 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using zasz.develop.Utils;
+using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
-using zasz.me.Models;
 
 namespace zasz.develop.SampleData
 {
@@ -124,11 +124,9 @@ namespace zasz.develop.SampleData
 
         public static void RegisterSites()
         {
-            Site.Register("zasz.me", "Rest");
-            Site.Register("AnyHost", "Admin", "~/Home/Show");
-            Site.Register("AnyHost", "Both", "~/Home/Show");
-            Site.Register("chandruon.net", "Pro");
-            Site.Register("localhost", "Pro");
+            Site.Register("zasz.me", Domain.Rest);
+            Site.Register("chandruon.net", Domain.Both);
+            Site.Register("chandruon.net", Domain.Pro);
         }
     }
 }
