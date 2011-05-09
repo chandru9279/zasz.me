@@ -110,15 +110,3 @@
     border-color: #FFE2C5;
     border: 1px solid;
 }
-
-.Normal-Link
-{
-    color: #FF6060;
-    text-decoration: none;   
-}
-
-.Normal-Link:HOVER
-{
-    color: #A83500;
-    text-decoration: underline;
-}
