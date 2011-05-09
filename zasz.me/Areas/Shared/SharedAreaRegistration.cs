@@ -13,9 +13,9 @@ namespace zasz.me.Areas.Shared
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context)
+        public override void RegisterArea(AreaRegistrationContext Context)
         {
-            context.MapRoute(
+            Context.MapRoute(
                 "Shared_default",
                 "Shared/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }

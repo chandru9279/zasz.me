@@ -71,6 +71,6 @@ namespace zasz.me.Areas.Shared.Models
 
         List<Post> Page(int PageNumber, int PageSize, Site ProOrRest);
 
-        long Count(Site ProOrRest);
+        int Count(Site ProOrRest);
     }
 }

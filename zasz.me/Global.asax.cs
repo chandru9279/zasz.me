@@ -23,6 +23,7 @@ namespace zasz.me
             Routes.IgnoreRoute("{CustomEndpoint}.axd");
             Routes.IgnoreRoute("Content/");
             Routes.IgnoreRoute("Integration/ckeditor");
+            
             Routes.MapRoute("Favicon", "favicon.ico", new {Controller = "Indirection", Action = "Favicon"});
 
             /* Routing based on Domain to Areas : 

@@ -21,5 +21,12 @@ namespace zasz.me.Integration.EntityFramework
                     where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == "Both"
                     select EachPost).Skip(PageNumber * MaxPostsPerPage).Take(MaxPostsPerPage).ToList();
         }
+
+        public int Count(string Tag, Site ProOrRest)
+        {
+            return (from EachPost in Get(Tag).Posts
+                    where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == "Both"
+                    select EachPost).Count();
+        }
     }
 }

@@ -1,0 +1,124 @@
+﻿.Post
+{
+    color: #333333;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: auto 20px;
+}
+
+.Post-Title
+{
+    color: black;
+    font-size:22px; 
+    text-decoration: none;
+}
+
+.Post-Title:HOVER
+{
+    color: #A83500;
+    text-decoration:underline;
+    cursor: pointer;
+}
+
+.Metadata
+{
+    color: #6F6F6F;
+    font-size: 18px;
+}
+
+.Tags
+{
+    display: inline;
+}
+
+.Tags li
+{
+    display: inline;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 3px;
+    padding: 0px 3px 3px 3px;
+    background-color: #FFEBE0;
+}
+
+.Tags li:HOVER
+{
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #FF0015;
+}
+    
+.Tags li a
+{
+    font-size: 12px;
+    text-decoration: none;
+}
+
+
+.Paging 
+{
+    display: table;
+    padding: 10px;
+    margin: 20px auto;
+    clear: left;
+    font-size: 9pt;
+}
+
+.Paging a, .Paging span
+{
+    color: #FF6400;
+    border-color: #FFFFFF;
+    background: #FFFFFF;
+    display: block;
+    float: left;
+    padding: 3px 5px 3px 5px;
+    margin-right: 3px;
+    border: 1px solid;
+
+}
+
+.Paging span.Current
+{
+    background: #FFBE94;
+    color: #FF6400;
+    border-color: #FF6400;
+    border: 1px solid;
+    font-weight: bold;
+}
+
+.Paging a
+{
+    border-color: #FF6400;
+    background: url('Images/Paging.png') bottom left repeat-x;
+    border: 1px solid;
+    text-decoration: none;
+}
+
+.Paging a:hover
+{
+    border-color: #FF9400;
+    background: #FFBE94;
+    color: #FF6400;
+}
+
+.Paging span.DisabledPrevNext
+{
+    color: #FFE2C5;
+    border-color: #FFE2C5;
+    border: 1px solid;
+}
+
+.Normal-Link
+{
+    color: #FF6060;
+    text-decoration: none;   
+}
+
+.Normal-Link:HOVER
+{
+    color: #A83500;
+    text-decoration: underline;
+}

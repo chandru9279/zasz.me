@@ -37,6 +37,7 @@ namespace zasz.me.Integration.EntityFramework
             return _ModelSet.OrderBy(Model => Model.Timestamp).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
+        /// <param name="PageNumber">Zero-Based Index</param>
         public List<Post> Page(int PageNumber, int PageSize, Site ProOrRest)
         {
             return (from Model in _ModelSet
@@ -45,7 +46,7 @@ namespace zasz.me.Integration.EntityFramework
                     select Model).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
-        public long Count(Site ProOrRest)
+        public int Count(Site ProOrRest)
         {
             return _ModelSet.Where(Model => Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both").Count();
         }

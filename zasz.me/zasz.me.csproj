@@ -150,7 +150,9 @@
     <Content Include="Content\Pro\Images\shadow-top.png" />
     <Content Include="Content\Pro\Images\shadow-topright.png" />
     <Content Include="Content\Pro\Images\stackoverflow.png" />
-    <Content Include="Content\Pro\Pro.css" />
+    <Content Include="Content\Pro\Images\Paging.gif" />
+    <Content Include="Content\Pro\Writings.css" />
+    <Content Include="Content\Pro\ProLayout.css" />
     <Content Include="Content\Thumbnails\.image.png" />
     <Content Include="Content\Thumbnails\avi.png" />
     <Content Include="Content\Thumbnails\bat.png" />

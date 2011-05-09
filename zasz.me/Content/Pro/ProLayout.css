@@ -3,6 +3,11 @@
     overflow: hidden;
     font-family: georgia,serif;
 }
+
+a
+{
+    color: inherit;    
+}
         
 .Pro
 {
@@ -160,22 +165,29 @@
 {
     display: table-row;
     width: 100%;
-    background-color: #FFFFFF;
+    height: 100%;
+    background-color: #FFFFFF;    
 }
        
 .Pro-Body-Left
 {
+    display: table-cell;
     width: 700px;
     display: table-cell;
     background-color: #FFFFFF;
+}
+
+.Pro-Body-Left-Min-Height
+{
+    min-height: 1200px;
 }       
 
 .Pro-Body-Right
 {
+    display: table-cell;
     width: 234px;
     background-color: #FFEBE0;
     border-left: 2px solid #FFAE7F;
-    display: table-cell;
 }
         
 .Status-History
@@ -242,6 +254,12 @@
     font-size: 12px;
     margin-bottom: 20px;
 }
+
+.Sidebar-Title
+{
+    border-bottom: 1px dotted #FFAE7F;
+    display: block;
+}
         
 .Bottom-Shadowless
 {
@@ -252,84 +270,4 @@
     float: left;
     color: #FFFFFF;
     background-color: #FF0015;
-}
-
-a
-{
-    color: inherit;    
-}
-
-.Post
-{
-    color: #333333;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    padding: 5px;
-    margin: auto 20px;
-}
-
-.Post-Title
-{
-    color: black;
-    font-size:22px; 
-}
-
-.Post-Title:HOVER
-{
-    color: #A83500;
-    text-decoration:underline;
-    cursor: pointer;
-}
-
-.Metadata
-{
-    color: #6F6F6F;
-    font-size: 18px;
-}
-
-.Tags
-{
-    display: inline;
-}
-
-.Tags li
-{
-    display: inline;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    margin: 3px;
-    padding: 0px 3px 3px 3px;
-    background-color: #FFEBE0;
-}
-
-.Tags li:HOVER
-{
-    cursor: pointer;
-    color: #FFFFFF;
-    background-color: #FF0015;
-}
-    
-.Tags li a
-{
-    font-size: 12px;
-    text-decoration: none;
-}
-
-.Paging li
-{
-    display: inline;
-    padding: 3px;
-}
-
-.Normal-Link
-{
-    color: #FF6060;
-    text-decoration: none;   
-}
-
-.Normal-Link:HOVER
-{
-    color: #A83500;
 }

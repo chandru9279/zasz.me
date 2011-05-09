@@ -18,12 +18,12 @@ namespace zasz.me.Areas.Pro.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List(int Id = 0)
+        public ActionResult List(int Id = 1)
         {
             return List(_Pro, Id);
         }
 
-        public ActionResult Tag(string TagName, int PageNumber = 0)
+        public ActionResult Tag(string TagName, int PageNumber = 1)
         {
             return Tag(_Pro, TagName, PageNumber);
         }

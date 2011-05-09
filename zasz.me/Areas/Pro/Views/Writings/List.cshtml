@@ -5,12 +5,28 @@
     ViewBag.DescriptionLength = Model.DescriptionLength;
     var SplitPath = Request.Path.Split(new [] {'/'});
     var LastSplit = SplitPath[SplitPath.Length - 1];
-    var PagePath = LastSplit.Is<int>() ? Request.Path.Substring(0, Request.Path.Length - LastSplit.Length) : Request.Path + "/";
+    var PagePath = Request.Path + "/";
+    var PreviousPath = "";
+    var CurrentPage = 1;
+    var NextPath = PagePath + "2";
+    bool PreviousEnabled = false;
+    bool NextEnabled = Model.NumberOfPages > 1;
+    if(LastSplit.Is<int>()) 
+    { 
+        PagePath = Request.Path.Substring(0, Request.Path.Length - LastSplit.Length);
+        CurrentPage = int.Parse(LastSplit);
+        
+        NextEnabled = CurrentPage < Model.NumberOfPages;
+        PreviousEnabled = CurrentPage > 1;
+        PreviousPath = PagePath + (CurrentPage - 1);
+        NextPath = PagePath + (CurrentPage + 1);
+    }
+    
 }
 
 @section Right{
  <div style="margin: 20px 10px;">
-    <div class="Post-Title">
+    <div class="Sidebar-Title">
         Archives
     </div>
  </div>
@@ -27,9 +43,19 @@
 }
 
 
-<ul class="Paging">
-@for (int i = 1; i <= Model.NumberOfPages; i++)
+@if (Model.NumberOfPages > 1)
 {
-    <li><a href="@(PagePath + i)">@i</a></li>
+    <div class="Paging">
+        @if (PreviousEnabled) { <a href="@PreviousPath">Previous</a> }
+        else { <span class="DisabledPrevNext">Previous</span> }
+    @for (int i = 1; i <= Model.NumberOfPages; i++)
+    {
+        if(i == CurrentPage)
+        { <span class="Current">@i</span> }
+        else
+        { <a href="@(PagePath + i)">@i</a> }
+    }
+    @if (NextEnabled) { <a href="@NextPath">Next</a> }
+    else { <span class="DisabledPrevNext">Next</span> }
+    </div>
 }
-</ul>

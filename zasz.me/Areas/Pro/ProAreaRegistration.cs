@@ -13,13 +13,8 @@ namespace zasz.me.Areas.Pro
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Pro_Home",
-                "Pro/{Controller}/{Action}/{Id}",
-                new {Controller = "Home", Action = "Default", Id = UrlParameter.Optional}
-                );
-            context.MapRoute(
-                "PostRouting",
-                "Pro/Writings/Tag/{TagName}/{PageNumber}",
+                "TagRouting",
+                "Writings/Tag/{TagName}/{PageNumber}",
                 new { Controller = "Writings", Action = "Tag", PageNumber = UrlParameter.Optional }
                 );
 

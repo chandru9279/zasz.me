@@ -5,7 +5,8 @@
     
     <link href="@Url.Content("~/Content/ForHtmlHelpers.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/BlueprintReset.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Pro/Pro.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Pro/ProLayout.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Pro/Writings.css")" rel="stylesheet" type="text/css" />
 
     <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
     <meta name="robots" content="index, follow" />
@@ -105,7 +106,9 @@
                 </div>
                 <div class="Pro-Body">
                 <div class="Pro-Body-Left">
+                    <div class="Pro-Body-Left-Min-Height">
                     @RenderBody()
+                    </div>
                 </div>
                 <div class="Pro-Body-Right">
                     @RenderSection("Right", false)

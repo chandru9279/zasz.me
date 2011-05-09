@@ -30,15 +30,15 @@ namespace zasz.me.Areas.Shared.Controllers
         protected ActionResult List(Site ProOrRest, int PageNumber)
         {
             return View(new PostListModel(
-                            _Posts.Page(PageNumber, MaxPostsPerPage, ProOrRest),
-                            (int) (_Posts.Count() / MaxPostsPerPage), DescriptionLength));
+                            _Posts.Page(PageNumber - 1, MaxPostsPerPage, ProOrRest),
+                            _Posts.Count(ProOrRest)/MaxPostsPerPage, DescriptionLength));
         }
 
         protected ActionResult Tag(Site ProOrRest, string Tag, int PageNumber)
         {
             return View("List", new PostListModel(
-                                    _Tags.PagePosts(Tag, PageNumber, MaxPostsPerPage, ProOrRest),
-                                    (int) (_Posts.Count() / MaxPostsPerPage), DescriptionLength));
+                                    _Tags.PagePosts(Tag, PageNumber - 1, MaxPostsPerPage, ProOrRest),
+                                    _Tags.Count(Tag, ProOrRest) / MaxPostsPerPage, DescriptionLength));
         }
 
         protected ActionResult Create()
@@ -57,7 +57,9 @@ namespace zasz.me.Areas.Shared.Controllers
                                     Title = Title,
                                     Content = PostContent,
                                     Site = Site.WithName(ChosenSite),
-                                    Tags = Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).ToList().Collect(It => new Tag(It)),
+                                    Tags =
+                                        Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).ToList().
+                                        Collect(It => new Tag(It)),
                                     Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug,
                                     Timestamp = DateTime.Now
                                 };
@@ -78,7 +80,8 @@ namespace zasz.me.Areas.Shared.Controllers
                     DecodedTitle,
                     (Current, Pair) => Current.Replace(Pair.Key, " " + Pair.Value + " ")
                 );
-            var Sluglets = (from object Match in Regex.Matches(NearlySlug, @"[a-zA-Z0-9.-]+") select Match.ToString()).ToList();
+            List<string> Sluglets =
+                (from object Match in Regex.Matches(NearlySlug, @"[a-zA-Z0-9.-]+") select Match.ToString()).ToList();
             return string.Join("-", Sluglets);
         }
 
