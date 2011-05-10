@@ -35,16 +35,16 @@ namespace zasz.me.Integration.EntityFramework
 
         public List<Post> Page(int PageNumber, int PageSize)
         {
-            return _ModelSet.OrderBy(Model => Model.Timestamp).Skip(PageNumber*PageSize).Take(PageSize).ToList();
+            return _ModelSet.OrderBy(Model => Model.Timestamp).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
-        /// <param name="PageNumber">Zero-Based Index</param>
+        /// <param name = "PageNumber">Zero-Based Index</param>
         public List<Post> Page(int PageNumber, int PageSize, Site ProOrRest)
         {
             return (from Model in _ModelSet
                     where Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both"
                     orderby Model.Timestamp
-                    select Model).Skip(PageNumber*PageSize).Take(PageSize).ToList();
+                    select Model).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
         public int Count(Site ProOrRest)
@@ -61,35 +61,18 @@ namespace zasz.me.Integration.EntityFramework
             IQueryable<DateTime> Dates = (from Model in _ModelSet
                                           where Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both"
                                           select Model.Timestamp);
-            Dictionary<DateTime, string> Dict = Dates.ToDictionary(It => new DateTime(It.Year, It.Month, 1), It => string.Format("{0:MMMM, yyyy}", It));
-            var a = from Pair in Dict.Distinct(new FormattedDateComparator())
-                    group Pair by Pair.Key.Year into Group
-                    select new {Group.Key, Group};
-            foreach (var Pair in Dict.Distinct(new FormattedDateComparator()).OrderBy(It => It.Key).GroupBy(It => It.Key.Year))
+
+            IQueryable<IGrouping<int, DateTime>> GroupingByYear = from Date in Dates
+                                                                  group Date by Date.Year
+                                                                  into YearGroup
+                                                                  select YearGroup;
+
+            foreach (var YearGroup in GroupingByYear)
             {
-                Result.Add(Pair.Key, Pair.ToList());
+                List<string> formatted = YearGroup.OrderBy(It => It.Month).Select(Month => string.Format("{0:MMMM, yyyy}", Month)).ToList();
+                Result.Add(YearGroup.Key, formatted);
             }
+            return Result;
         }
-
-        #region Nested type: FormattedDateComparator
-
-        private class FormattedDateComparator : IEqualityComparer<KeyValuePair<DateTime, string>>
-        {
-            #region IEqualityComparer<KeyValuePair<DateTime,string>> Members
-
-            public bool Equals(KeyValuePair<DateTime, string> X, KeyValuePair<DateTime, string> Y)
-            {
-                return X.Value == Y.Value;
-            }
-
-            public int GetHashCode(KeyValuePair<DateTime, string> Obj)
-            {
-                return Obj.GetHashCode();
-            }
-
-            #endregion
-        }
-
-        #endregion
     }
 }
