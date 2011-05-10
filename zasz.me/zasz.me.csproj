@@ -71,6 +71,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages" />
     <Reference Include="System.Web.Helpers" />
@@ -145,6 +146,7 @@
     <Content Include="Content\Pro\Images\expand-down.png" />
     <Content Include="Content\Pro\Images\github_32.png" />
     <Content Include="Content\Pro\Images\linked-in.jpeg" />
+    <Content Include="Content\Pro\Images\Paging.png" />
     <Content Include="Content\Pro\Images\rss.jpeg" />
     <Content Include="Content\Pro\Images\shadow-right.png" />
     <Content Include="Content\Pro\Images\shadow-top.png" />
@@ -287,9 +289,6 @@
     <Content Include="Areas\Shared\Views\Post\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Shared\Views\Post\Post.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Shared\Views\Uploads\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +309,8 @@
     <Content Include="Areas\Pro\Views\Portfolio\All.cshtml" />
     <Content Include="Areas\Pro\Views\Home\About.cshtml" />
     <Content Include="Areas\Shared\Web.config" />
+    <Content Include="Areas\Pro\Views\Writings\ArchiveControl.cshtml" />
+    <Content Include="Areas\Pro\Views\Writings\Post.cshtml" />
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>

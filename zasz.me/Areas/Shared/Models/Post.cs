@@ -33,7 +33,7 @@ namespace zasz.me.Areas.Shared.Models
         [NotMapped]
         public string Permalink
         {
-            get { return string.Format("http://www.{0}/{1}/Writings/Post/{2}", Site.Host, Site.Name, Slug); }
+            get { return string.Format("http://{0}/Writings/Post/{1}", Site.Host, Slug); }
         }
 
         public string GetDescription(int Threshold)
@@ -65,11 +65,14 @@ namespace zasz.me.Areas.Shared.Models
 
     public interface IPostRepository : IRepository<Post>
     {
-        List<Post> RecentPosts(int HowMany);
-
+        [Obsolete]
         List<Post> Page(int PageNumber, int PageSize);
 
         List<Post> Page(int PageNumber, int PageSize, Site ProOrRest);
+
+        Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped(Site ProOrRest);
+
+        List<Post> Archive(int Year, int Month, Site ProOrRest);
 
         int Count(Site ProOrRest);
     }

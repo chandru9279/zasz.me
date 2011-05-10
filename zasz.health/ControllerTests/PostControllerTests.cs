@@ -5,7 +5,6 @@ using Moq;
 using zasz.me.Areas.Pro.Controllers;
 using zasz.me.Areas.Shared.Controllers;
 using zasz.me.Areas.Shared.Models;
-using zasz.me.Controllers;
 
 namespace zasz.health.ControllerTests
 {

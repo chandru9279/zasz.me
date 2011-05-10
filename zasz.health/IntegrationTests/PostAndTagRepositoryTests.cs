@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using zasz.develop.SampleData;
+using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
-using zasz.me.Controllers.Utils;
 using zasz.me.Integration.EntityFramework;
 
 namespace zasz.health.IntegrationTests

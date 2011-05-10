@@ -1,0 +1,16 @@
+﻿@model zasz.me.Areas.Shared.Models.Post
+
+@{
+    ViewBag.Title = "Post";
+}
+
+
+@section Right{
+QR - Code
+}
+
+
+@Html.Partial("~/Areas/Shared/Views/Post/_PostFullView.cshtml", (object)Model)
+
+@Html.Partial("~/Areas/Shared/Views/Post/_DisqusComments.cshtml", (object)Model)
+

@@ -26,6 +26,6 @@ namespace zasz.me.Areas.Shared.Models
 
         List<Post> PagePosts(string Tag, int PageNumber, int MaxPostsPerPage, Site ProOrRest);
 
-        int Count(string Tag, Site ProOrRest);
+        int CountPosts(string Tag, Site ProOrRest);
     }
 }

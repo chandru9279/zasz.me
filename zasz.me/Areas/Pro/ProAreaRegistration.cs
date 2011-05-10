@@ -18,6 +18,12 @@ namespace zasz.me.Areas.Pro
                 new { Controller = "Writings", Action = "Tag", PageNumber = UrlParameter.Optional }
                 );
 
+            context.MapRoute(
+                "ArchiveRouting",
+                "Writings/Archive/{Year}/{Month}",
+                new { Controller = "Writings", Action = "Archive" }
+                );
+
             Site.Register("chandruon.net", Domain.Pro);
         }
     }

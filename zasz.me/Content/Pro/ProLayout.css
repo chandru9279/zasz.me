@@ -1,6 +1,5 @@
 ﻿div
 {
-    overflow: hidden;
     font-family: georgia,serif;
 }
 
@@ -175,15 +174,17 @@ a
 
 .Pro-Body-Left-Min-Height
 {
-    min-height: 1200px;
+    min-height: 1225px;
 }       
 
 .Pro-Body-Right
 {
     display: table-cell;
-    width: 234px;
+    width: 204px;
     background-color: #FFEBE0;
     border-left: 2px solid #FFAE7F;
+    padding-left: 15px;
+    padding-right: 15px;
 }
         
 .Status-History
@@ -191,6 +192,7 @@ a
     margin-left: 10px;
     margin-right: 10px;
     height: 54px;
+    overflow: hidden;
 }
         
 #Status-History li
@@ -251,11 +253,17 @@ a
     margin-bottom: 15px;
 }
 
+.Sidebar-Control
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .Sidebar-Title
 {
     border-bottom: 2px dotted #FFAE7F;
     display: block;
-    text-transform:capitalize;
+    margin-bottom: 20px;
 }
         
 .Bottom-Shadowless

@@ -5,14 +5,14 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
-using zasz.me.Controllers.Utils;
 
 namespace zasz.me.Areas.Shared.Controllers
 {
     public abstract class PostController : Controller
     {
-        private readonly IPostRepository _Posts;
+        protected readonly IPostRepository _Posts;
         private readonly ITagRepository _Tags;
 
         protected PostController(IPostRepository Posts, ITagRepository Tags)
@@ -29,16 +29,40 @@ namespace zasz.me.Areas.Shared.Controllers
 
         protected ActionResult List(Site ProOrRest, int PageNumber)
         {
-            return View(new PostListModel(
-                            _Posts.Page(PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                            _Posts.Count(ProOrRest)/MaxPostsPerPage, DescriptionLength));
+            return View(new PostListModel
+                            {
+                                Posts = _Posts.Page(PageNumber - 1, MaxPostsPerPage, ProOrRest),
+                                NumberOfPages = _Posts.Count(ProOrRest) / MaxPostsPerPage,
+                                DescriptionLength = DescriptionLength,
+                                WhatIsListed = "Recent Posts.."
+                            });
         }
 
         protected ActionResult Tag(Site ProOrRest, string Tag, int PageNumber)
         {
-            return View("List", new PostListModel(
-                                    _Tags.PagePosts(Tag, PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                    _Tags.Count(Tag, ProOrRest) / MaxPostsPerPage, DescriptionLength));
+            return View("List", new PostListModel
+                                    {
+                                        Posts = _Tags.PagePosts(Tag, PageNumber - 1, MaxPostsPerPage, ProOrRest),
+                                        NumberOfPages = _Tags.CountPosts(Tag, ProOrRest) / MaxPostsPerPage,
+                                        DescriptionLength = DescriptionLength,
+                                        WhatIsListed = "Posts tagged with \""  + Tag + "\""
+                                    });
+        }
+
+        protected ActionResult ArchiveControl(Site ProOrRest)
+        {
+            return PartialView(_Posts.PostedMonthsYearGrouped(ProOrRest));
+        }
+
+        protected ActionResult Archive(Site ProOrRest, int Year, int Month)
+        {
+            return View("List", new PostListModel
+                                    {
+                                        Posts = _Posts.Archive(Year, Month, ProOrRest),
+                                        NumberOfPages = 1,
+                                        DescriptionLength = DescriptionLength,
+                                        WhatIsListed = string.Format("Archived for {0:MMMM, yyyy}", new DateTime(Year, Month, 1))
+                                    });
         }
 
         protected ActionResult Create()
@@ -89,16 +113,10 @@ namespace zasz.me.Areas.Shared.Controllers
 
         public class PostListModel
         {
-            public PostListModel(List<Post> Posts, int NumberOfPages, int DescriptionLength)
-            {
-                this.Posts = Posts;
-                this.NumberOfPages = NumberOfPages;
-                this.DescriptionLength = DescriptionLength;
-            }
-
             public List<Post> Posts { get; set; }
             public int NumberOfPages { get; set; }
             public int DescriptionLength { get; set; }
+            public string WhatIsListed { get; set; }
         }
 
         #endregion

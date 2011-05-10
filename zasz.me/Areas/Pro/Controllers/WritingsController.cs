@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.ComponentModel;
+using System.Web.Mvc;
 using zasz.me.Areas.Shared.Controllers;
+using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Areas.Pro.Controllers
@@ -23,9 +25,26 @@ namespace zasz.me.Areas.Pro.Controllers
             return List(_Pro, Id);
         }
 
+        public ActionResult Post([Bind(Prefix = "Id")]string Slug)
+        {
+            return View(_Posts.Get(Slug));
+        }
+
         public ActionResult Tag(string TagName, int PageNumber = 1)
         {
             return Tag(_Pro, TagName, PageNumber);
+        }
+
+        /* Use Handy.InvalidateOutputCache() when Creating a Post to manually expire this cache*/
+        [OutputCache(Duration = 3600)]
+        public ActionResult ArchiveControl()
+        {
+            return ArchiveControl(_Pro);
+        }
+
+        public ActionResult Archive(int Year, string Month)
+        {
+            return Archive(_Pro, Year, Constants.Months[Month]);
         }
     }
 }

@@ -26,13 +26,6 @@ namespace zasz.me.Integration.EntityFramework
             base.Save(Instance);
         }
 
-        public List<Post> RecentPosts(int HowMany)
-        {
-            return (from Model in _ModelSet
-                    orderby Model.Timestamp descending
-                    select Model).Take(HowMany).ToList();
-        }
-
         public List<Post> Page(int PageNumber, int PageSize)
         {
             return _ModelSet.OrderBy(Model => Model.Timestamp).Skip(PageNumber * PageSize).Take(PageSize).ToList();
@@ -47,32 +40,47 @@ namespace zasz.me.Integration.EntityFramework
                     select Model).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
+        public List<Post> Archive(int Year, int Month, Site ProOrRest)
+        {
+            return (from Model in _ModelSet
+                    where (Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both")
+                    && Model.Timestamp.Year == Year && Model.Timestamp.Month == Month
+                    select Model).ToList();
+        }
+
         public int Count(Site ProOrRest)
         {
             return _ModelSet.Where(Model => Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both").Count();
         }
 
-        #endregion
-
         /// <returns> A Dictionary of year as Key and the list of formatted months on which posts have been published as value</returns>
-        public Dictionary<int, List<string>> PostedMonths(Site ProOrRest)
+        public Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped(Site ProOrRest)
         {
-            Dictionary<int, List<string>> Result = new Dictionary<int, List<string>>();
-            IQueryable<DateTime> Dates = (from Model in _ModelSet
-                                          where Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both"
-                                          select Model.Timestamp);
+            var Dates = (from Model in _ModelSet
+                         where Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both"
+                         select Model.Timestamp).ToList();
 
-            IQueryable<IGrouping<int, DateTime>> GroupingByYear = from Date in Dates
-                                                                  group Date by Date.Year
-                                                                  into YearGroup
-                                                                  select YearGroup;
+            var GroupingByYear = from Date in Dates
+                                 orderby Date.Year descending 
+                                 group Date by Date.Year
+                                 into YearGroup 
+                                 select new
+                                            {
+                                                Year = YearGroup.Key,
+                                                Formatted = from Date in YearGroup
+                                                            orderby Date.Month descending
+                                                            group Date by Date.Month
+                                                            into MonthGroup
+                                                            select new
+                                                                       {
+                                                                           DateString = string.Format("{0:MMMM yyyy}", MonthGroup.First()),
+                                                                           Count = MonthGroup.Count()
+                                                                       }
+                                            };
 
-            foreach (var YearGroup in GroupingByYear)
-            {
-                List<string> formatted = YearGroup.OrderBy(It => It.Month).Select(Month => string.Format("{0:MMMM, yyyy}", Month)).ToList();
-                Result.Add(YearGroup.Key, formatted);
-            }
-            return Result;
+            return GroupingByYear.ToDictionary(It => It.Year, It => It.Formatted.ToDictionary(Month => Month.DateString, Month => Month.Count));
         }
+
+        #endregion
     }
 }

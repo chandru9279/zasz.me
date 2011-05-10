@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using zasz.me.Services;
 
-namespace zasz.me.Controllers.Utils
+namespace zasz.me.Areas.Shared.Controllers.Utils
 {
     public static class Constants
     {
@@ -21,6 +22,9 @@ namespace zasz.me.Controllers.Utils
                                                           new[] {"F#", "j-sharp"},
                                                           new[] {"J#", "f-sharp"},
                                                       };
+
+        public static Pairs<string, int> Months = new Pairs<string, int>(new[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"},
+                                                                         new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
 
         public static Dictionary<string, string> GoWords()
         {

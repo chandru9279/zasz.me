@@ -1,19 +1,20 @@
 ﻿@model zasz.me.Areas.Shared.Models.Post
 
-<div style="font-size:21px; font-weight:bold;">@Model.Title</div>
+<div class="Post">
+<br />
+<br />
+<a class="Post-Title" href="/Writings/Post/@Model.Slug">@Model.Title</a>
 <div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
-
-<p>@Html.Raw(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Content)) </p>
-
-<div class="Right-Sidebar">
+<br />
+<br />
+<p>@Html.Raw(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Content))</p>
+<span>Tagged : </span>
 <ul class="Tags">
-@foreach (zasz.me.Models.Tag Tag in Model.Tags)
+@foreach (zasz.me.Areas.Shared.Models.Tag Tag in Model.Tags)
 {
-    <li><a href="/Pro/Writings/Tag/@Tag.Name">@Tag.Name</a></li>
+    <li><a href="/Writings/Tag/@Tag.Name">@Tag.Name</a></li>
 }
 </ul>
-</div>
-<br />
-<div style="border: 1px solid black;"></div>
-<br />
+&nbsp;&nbsp;
+<a href="@Model.Permalink" class="Normal-Link">Permalink</a>
 </div>

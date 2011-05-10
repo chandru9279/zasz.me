@@ -22,7 +22,7 @@ namespace zasz.me.Integration.EntityFramework
                     select EachPost).Skip(PageNumber * MaxPostsPerPage).Take(MaxPostsPerPage).ToList();
         }
 
-        public int Count(string Tag, Site ProOrRest)
+        public int CountPosts(string Tag, Site ProOrRest)
         {
             return (from EachPost in Get(Tag).Posts
                     where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == "Both"

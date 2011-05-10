@@ -25,13 +25,10 @@
 }
 
 @section Right{
- <div style="margin: 20px 10px;">
-    <div class="Sidebar-Title">
-        Archives
-    </div>
- </div>
+    @Html.Action("ArchiveControl")
 }
 
+<div style="margin: 20px 20px 20px 25px;">@Model.WhatIsListed</div>
 
 @foreach (var Post in Model.Posts)
 {
@@ -46,16 +43,20 @@
 @if (Model.NumberOfPages > 1)
 {
     <div class="Paging">
-        @if (PreviousEnabled) { <a href="@PreviousPath">Previous</a> }
-        else { <span class="DisabledPrevNext">Previous</span> }
+        @if (PreviousEnabled)
+        { <a href="@PreviousPath">Previous</a> }
+        else
+        { <span class="DisabledPrevNext">Previous</span> }
     @for (int i = 1; i <= Model.NumberOfPages; i++)
     {
-        if(i == CurrentPage)
+        if (i == CurrentPage)
         { <span class="Current">@i</span> }
         else
         { <a href="@(PagePath + i)">@i</a> }
     }
-    @if (NextEnabled) { <a href="@NextPath">Next</a> }
-    else { <span class="DisabledPrevNext">Next</span> }
+    @if (NextEnabled)
+    { <a href="@NextPath">Next</a> }
+    else
+    { <span class="DisabledPrevNext">Next</span> }
     </div>
 }

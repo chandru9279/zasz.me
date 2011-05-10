@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Caching;
+using System.Web.Mvc;
 
-namespace zasz.me.Controllers.Utils
+namespace zasz.me.Areas.Shared.Controllers.Utils
 {
     public static class Handy
     {
@@ -23,16 +25,22 @@ namespace zasz.me.Controllers.Utils
             }
             catch (Exception)
             {
-                
             }
         }
 
-        public static List<T> Collect<X,T>(this List<X> TheList, Func<X,T> FieldSelector)
+        public static List<T> Collect<X, T>(this List<X> TheList, Func<X, T> FieldSelector)
         {
             List<T> Fields = new List<T>(TheList.Count);
             TheList.ForEach(Item => Fields.Add(FieldSelector(Item)));
             return Fields;
         }
 
+        /* This mad method will expire all output cache, i.e., every cached action is invalidated.
+         * http://stackoverflow.com/questions/5326230/mvc3-outputcache-removeoutputcacheitem-renderaction*/
+
+        public static void InvalidateOutputCache()
+        {
+            OutputCacheAttribute.ChildActionCache = new MemoryCache("NewDefault");
+        }
     }
 }
