@@ -7,19 +7,19 @@ namespace zasz.me.Areas.Shared
     {
         public override string AreaName
         {
-            get
-            {
-                return "Shared";
-            }
+            get { return "Shared"; }
         }
 
         public override void RegisterArea(AreaRegistrationContext Context)
         {
+            Context.MapRoute("Favicon", "favicon.ico", new {Controller = "Indirection", Action = "Favicon"});
+
             Context.MapRoute(
                 "Shared_default",
                 "Shared/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                new {Controller = "Home", Action = "Default", id = UrlParameter.Optional}
+                );
+
             Site.Register("chandruon.net", Domain.Both);
         }
     }

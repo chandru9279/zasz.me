@@ -1,14 +1,11 @@
 ﻿using System.Web.Mvc;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Areas.Pro.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : BaseController
     {
-        public ActionResult Default()
-        {
-            return RedirectToAction("Form");
-        }
-
+        [DefaultAction]
         public ActionResult Form()
         {
             return View();

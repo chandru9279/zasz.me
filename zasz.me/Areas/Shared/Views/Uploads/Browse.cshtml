@@ -1,4 +1,4 @@
-﻿@model zasz.me.Controllers.UploadsController.BrowseViewModel
+﻿@model zasz.me.Areas.Shared.Controllers.UploadsController.BrowseViewModel
 @{
     Layout = null;
 }
@@ -88,7 +88,7 @@
 
     function deleteFile(File,Id) {
     $.ajax({
-      url: "/Uploads/Delete?File=" + File,
+      url: "/Shared/Uploads/Delete?File=" + File,
       context: document.body,
       type:'POST',
       success: function() {document.getElementById(Id).style.display = 'none';},
@@ -104,15 +104,15 @@
 </head>
 <body>
     <div class="browser">
-        @for (int i = 0; i < Model.Count(); i++)
+        @for (int i = 0; i < Model.ThumbsAndFiles.Count(); i++)
         {
-            var Pair = Model.Get(i);
+            var Pair = Model.ThumbsAndFiles[i];
             <div class="item" id="item-@i" style="display:block;">
                 <div class="thumbnail">
-                    <img src="@Pair.First" alt="@Pair.First" onclick="returnFile('@Pair.Second');" />
+                    <img src="@Pair.One" alt="@Pair.One" onclick="returnFile('@Pair.Other');" />
                 </div>
-                <div>@Path.GetFileName(Model.ThumbsAndFiles[i].Other)</div>
-                <a class="delete" href="javascript:void(0);" onclick="deleteFile('@Pair.Second','item-@i')"> Delete</a>
+                <div>@Path.GetFileName(Pair.Other)</div>
+                <a class="delete" href="javascript:void(0);" onclick="deleteFile('@Pair.Other','item-@i')"> Delete</a>
             </div>
         }
     </div>

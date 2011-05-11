@@ -1,14 +1,11 @@
 ﻿using System.Web.Mvc;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Areas.Pro.Controllers
 {
-    public class PortfolioController : Controller
+    public class PortfolioController : BaseController
     {
-        public ActionResult Default()
-        {
-            return RedirectToAction("All");
-        }
-
+        [DefaultAction]
         public ActionResult All()
         {
             return View();

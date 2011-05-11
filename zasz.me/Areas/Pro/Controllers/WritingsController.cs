@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using zasz.me.Areas.Shared.Controllers;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Areas.Pro.Controllers
 {
@@ -15,11 +15,7 @@ namespace zasz.me.Areas.Pro.Controllers
             _Pro = Site.WithName("Pro");
         }
 
-        public ActionResult Default()
-        {
-            return RedirectToAction("List");
-        }
-
+        [DefaultAction]
         public ActionResult List(int Id = 1)
         {
             return List(_Pro, Id);

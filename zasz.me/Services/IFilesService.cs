@@ -1,10 +1,14 @@
 ﻿
+using System;
 using System.Web;
 
 namespace zasz.me.Services
 {
     public interface IFilesService
     {
+
+        Func<string, string> Convert { get; set; } 
+
         /// <summary>
         /// Browses a given folder with thumbnails and FileUrls
         /// </summary>

@@ -131,6 +131,9 @@
     <Compile Include="Integration\EntityFramework\RepoBase.cs" />
     <Compile Include="Integration\EntityFramework\Vault.cs" />
     <Compile Include="Integration\HugeBox.cs" />
+    <Compile Include="Integration\MVC\BaseController.cs" />
+    <Compile Include="Integration\MVC\DefaultActionAttribute.cs" />
+    <Compile Include="Integration\MVC\DomainRouteConstraint.cs" />
     <Compile Include="Integration\UnityIntegration.cs" />
     <Compile Include="Configuration\UploadsConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -238,6 +241,8 @@
     <Content Include="Content\jQuery-UI\Images\ui-icons_454545_256x240.png" />
     <Content Include="Content\jQuery-UI\Images\ui-icons_888888_256x240.png" />
     <Content Include="Content\jQuery-UI\Images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Uploads\Images\github_32.png" />
+    <Content Include="Uploads\Thumbs\github_32.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -276,7 +281,6 @@
     <Folder Include="Content\Rest\Images\" />
     <Folder Include="Controllers\" />
     <Folder Include="Uploads\Files\" />
-    <Folder Include="Uploads\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -311,6 +315,7 @@
     <Content Include="Areas\Shared\Web.config" />
     <Content Include="Areas\Pro\Views\Writings\ArchiveControl.cshtml" />
     <Content Include="Areas\Pro\Views\Writings\Post.cshtml" />
+    <Content Include="Areas\Shared\Views\Post\_DisqusCommentCount.cshtml" />
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>

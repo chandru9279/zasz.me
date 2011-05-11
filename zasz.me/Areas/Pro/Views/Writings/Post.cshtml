@@ -6,11 +6,22 @@
 
 
 @section Right{
-QR - Code
+    QR - Code
 }
 
 
 @Html.Partial("~/Areas/Shared/Views/Post/_PostFullView.cshtml", (object)Model)
 
-@Html.Partial("~/Areas/Shared/Views/Post/_DisqusComments.cshtml", (object)Model)
+<div class="Clear"></div>
+@*This div will be filled by the Disqus script in _DisqusComments.cshtml*@
+<div style="margin:20px" id="disqus_thread">
+<noscript>
+    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+</div>
+
+@section Bottom{
+    @Html.Partial("~/Areas/Shared/Views/Post/_DisqusComments.cshtml", (object)Model)
+}
+
 

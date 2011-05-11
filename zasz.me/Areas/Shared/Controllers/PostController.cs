@@ -7,10 +7,11 @@ using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Areas.Shared.Controllers
 {
-    public abstract class PostController : Controller
+    public abstract class PostController : BaseController
     {
         protected readonly IPostRepository _Posts;
         private readonly ITagRepository _Tags;

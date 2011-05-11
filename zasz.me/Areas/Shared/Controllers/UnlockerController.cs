@@ -1,10 +1,11 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using zasz.me.Areas.Shared.Models;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Areas.Shared.Controllers
 {
-    public abstract class UnlockerController : Controller
+    public abstract class UnlockerController : BaseController
     {
         private readonly IPassphraseRepository _PassphraseRepository;
 
@@ -13,6 +14,7 @@ namespace zasz.me.Areas.Shared.Controllers
             _PassphraseRepository = PassphraseRepository;
         }
 
+        [DefaultAction]
         public ActionResult Unlock(string Controller = "Home", string Action = "Show")
         {
             ViewBag.Controller = Controller;

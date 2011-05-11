@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using zasz.me.Integration;
 using zasz.me.Integration.EntityFramework;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me
 {
@@ -24,7 +25,6 @@ namespace zasz.me
             Routes.IgnoreRoute("Content/");
             Routes.IgnoreRoute("Integration/ckeditor");
             
-            Routes.MapRoute("Favicon", "favicon.ico", new {Controller = "Indirection", Action = "Favicon"});
 
             /* Routing based on Domain to Areas : 
              * http://www.asp.net/mvc/tutorials/creating-a-custom-route-constraint-cs,
@@ -32,7 +32,10 @@ namespace zasz.me
              * 
              * The following routes will auto add area tokens, based on Domains, only if no area name is given in the first place.
              * If Area name is explicitly mentioned, the routes in the AreaRegistration take over.
+             * The following 3 will conflict, if the DomainRouteConstraint is removed.
              */
+
+            AreaRegistration.RegisterAllAreas();
 
             Routes.MapRoute(
                 "zasz.me Route",
@@ -58,7 +61,6 @@ namespace zasz.me
 
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             ViewEngines.Engines.Clear();
@@ -66,29 +68,5 @@ namespace zasz.me
             UnityIntegration.Bootstrap();
             EntityFramework.Bootstrap();
         }
-
-        #region Nested type: DomainRouteConstraint
-
-        public class DomainRouteConstraint : IRouteConstraint
-        {
-            private readonly string _Domain;
-
-            public DomainRouteConstraint(string Domain)
-            {
-                _Domain = Domain;
-            }
-
-            #region IRouteConstraint Members
-
-            public bool Match(HttpContextBase Context, Route Route, string ParameterName, RouteValueDictionary Values, RouteDirection RouteDirection)
-            {
-                var Url = Context.Request.Url.Host;
-                return Url.Equals(_Domain, StringComparison.InvariantCultureIgnoreCase);
-            }
-
-            #endregion
-        }
-
-        #endregion
     }
 }

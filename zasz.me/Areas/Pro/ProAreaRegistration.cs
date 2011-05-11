@@ -10,15 +10,15 @@ namespace zasz.me.Areas.Pro
             get { return Domain.Pro.ToString(); }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context)
+        public override void RegisterArea(AreaRegistrationContext Context)
         {
-            context.MapRoute(
+            Context.MapRoute(
                 "TagRouting",
                 "Writings/Tag/{TagName}/{PageNumber}",
                 new { Controller = "Writings", Action = "Tag", PageNumber = UrlParameter.Optional }
                 );
 
-            context.MapRoute(
+            Context.MapRoute(
                 "ArchiveRouting",
                 "Writings/Archive/{Year}/{Month}",
                 new { Controller = "Writings", Action = "Archive" }

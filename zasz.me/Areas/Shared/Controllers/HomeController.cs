@@ -1,14 +1,11 @@
 ﻿using System.Web.Mvc;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Areas.Shared.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        public ActionResult Default()
-        {
-            return RedirectToAction("Show");
-        }
-
+        [DefaultAction]
         public ActionResult Show()
         {
             return View();

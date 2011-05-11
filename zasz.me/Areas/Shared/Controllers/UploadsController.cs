@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using zasz.me.Integration.MVC;
 using zasz.me.Services;
 
 namespace zasz.me.Areas.Shared.Controllers
 {
-    public class UploadsController : Controller
+    public class UploadsController : BaseController
     {
         private readonly IFilesService _FilesService;
 
         public UploadsController(IFilesService FilesService)
         {
+            FilesService.Convert = It => Url.Content(It);
             _FilesService = FilesService;
-        }
-
-        public ActionResult Default()
-        {
-            return Browse("Files", "", 1, "");
         }
 
         public ActionResult Delete(string File)
@@ -39,7 +36,8 @@ namespace zasz.me.Areas.Shared.Controllers
 
         /* Url that hits this : http://localhost:2654/Uploads/Browse?CKEditor=editor1&CKEditorFuncNum=1&langCode=en */
 
-        public ActionResult Browse(string Id, string CkEditor, int CkEditorFuncNum, string LangCode)
+        [DefaultAction]
+        public ActionResult Browse(string Id = "Files", string CkEditor = "", int CkEditorFuncNum = 1, string LangCode= "")
         {
             Pairs<string, string> Pairs = _FilesService.Browse(Id);
             var ViewModel = new BrowseViewModel {CkEditorFuncNum = CkEditorFuncNum, ThumbsAndFiles = Pairs};

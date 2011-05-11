@@ -11,13 +11,15 @@ namespace zasz.me.Services
     {
         private readonly Func<string, string, bool> DoesExtensionMatch = (Extension, ExtensionList) => Handy.Shred(ExtensionList).Contains(Extension.ToLower().Remove(0, 1));
         private readonly Func<string, string> SysPath = HttpContext.Current.Server.MapPath;
-        private readonly Func<string, string> Url = VirtualPathUtility.ToAppRelative;
         private readonly UploadsConfig _Settings;
         private readonly string _ThumbsDirRooted;
         private readonly string _UploadsDirRooted;
 
+        public Func<string, string> Convert { get; set; } 
+
         public FilesystemFilesService(UploadsConfig UploadsConfiguration)
         {
+            Convert = It => It; //Does Nothing
             _Settings = UploadsConfiguration;
             _UploadsDirRooted = AppDomain.CurrentDomain.BaseDirectory + _Settings.UploadsFolder + "\\";
             _ThumbsDirRooted = _UploadsDirRooted + _Settings.ThumbsFolder + "\\";
@@ -34,13 +36,13 @@ namespace zasz.me.Services
                 foreach (string RootedPath in Directory.GetFiles(_UploadsDirRooted + Folder, "*", SearchOption.TopDirectoryOnly))
                     if (!File.GetAttributes(RootedPath).HasFlag(FileAttributes.System))
                     {
-                        string Filepath = Url("~/" + _Settings.UploadsFolder + "/" + Folder + "/" + Path.GetFileName(RootedPath));
+                        string Filepath = Convert("~/" + _Settings.UploadsFolder + "/" + Folder + "/" + Path.GetFileName(RootedPath));
                         var Extension = Path.GetExtension(RootedPath);
                         string Thumb = Folder == "Images"
-                                           ? Url("~/" + _Settings.UploadsFolder + "/" + _Settings.ThumbsFolder + "/" + Path.GetFileName(RootedPath))
-                                           : Url("~/Content/Thumbnails/" + (Extension == null ? "" : Extension.Substring(1)) + ".png");
+                                           ? Convert("~/" + _Settings.UploadsFolder + "/" + _Settings.ThumbsFolder + "/" + Path.GetFileName(RootedPath))
+                                           : Convert("~/Content/Thumbnails/" + (Extension == null ? "" : Extension.Substring(1)) + ".png");
                         if (!File.Exists(SysPath(Thumb)))
-                            Thumb = Folder == "Images" ? Url("~/Content/Thumbnails/.image.png") : Url("~/Content/Thumbnails/notfound.png");
+                            Thumb = Folder == "Images" ? Convert("~/Content/Thumbnails/.image.png") : Convert("~/Content/Thumbnails/notfound.png");
                         BrowseModel.Add(new Pair<string, string>(Thumb, Filepath));
                     }
             return BrowseModel;
@@ -77,7 +79,7 @@ namespace zasz.me.Services
                 else
                     throw new UnauthorizedAccessException("File upload denied - only certain filetypes are allowed.");
             }
-            return Url("~/" + _Settings.UploadsFolder + "/" + Folder + "/" + FileName);
+            return Convert("~/" + _Settings.UploadsFolder + "/" + Folder + "/" + FileName);
         }
 
         #endregion
