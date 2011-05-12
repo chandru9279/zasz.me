@@ -15,6 +15,7 @@ namespace zasz.me.Areas.Shared.Controllers
     {
         protected readonly IPostRepository _Posts;
         private readonly ITagRepository _Tags;
+        private string ManageViewPath = "~/Areas/Shared/Views/Shared/Manage.cshtml";
 
         protected PostController(IPostRepository Posts, ITagRepository Tags)
         {
@@ -68,12 +69,16 @@ namespace zasz.me.Areas.Shared.Controllers
 
         protected ActionResult Create()
         {
-            ViewBag.EditorName = "PostContent";
-            return View();
+            return View(ManageViewPath, new Post());
+        }
+        
+        protected ActionResult Edit(string Slug)
+        {
+            return View(ManageViewPath, _Posts.Get(Slug));
         }
 
         [HttpPost]
-        protected ActionResult Create(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
+        protected ActionResult Manage(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
         {
             try
             {
@@ -88,8 +93,9 @@ namespace zasz.me.Areas.Shared.Controllers
                                     Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug,
                                     Timestamp = DateTime.Now
                                 };
+                if(ModelState.IsValid)
                 _Posts.Save(Entry);
-                return View("Post", Entry);
+                return View(ManageViewPath, Entry);
             }
             catch
             {

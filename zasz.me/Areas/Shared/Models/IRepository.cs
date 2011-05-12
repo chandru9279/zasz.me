@@ -18,7 +18,10 @@
 
         long Count();
 
+        Model FindOrNew(string Id);
+
         void Commit();
+
     }
 
     /// <summary>

@@ -241,8 +241,6 @@
     <Content Include="Content\jQuery-UI\Images\ui-icons_454545_256x240.png" />
     <Content Include="Content\jQuery-UI\Images\ui-icons_888888_256x240.png" />
     <Content Include="Content\jQuery-UI\Images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Uploads\Images\github_32.png" />
-    <Content Include="Uploads\Thumbs\github_32.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -280,7 +278,6 @@
     <Folder Include="Areas\Rest\Models\" />
     <Folder Include="Content\Rest\Images\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Uploads\Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -290,7 +287,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Shared\Views\Shared\_CKEditor.cshtml" />
-    <Content Include="Areas\Shared\Views\Post\Create.cshtml" />
+    <Content Include="Areas\Shared\Views\Post\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Shared\Views\Uploads\Upload.cshtml" />
@@ -319,7 +316,6 @@
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Uploads\Docs\ZZZZZZZ.docx" />
     <Content Include="Areas\Shared\Views\Uploads\Browse.cshtml" />
     <Content Include="Areas\Shared\Views\Unlocker\Unlock.cshtml" />
     <Content Include="Areas\Pro\Views\Home\Show.cshtml" />

@@ -22,8 +22,6 @@ namespace zasz.me.Areas.Shared.Models
 
     public interface ITagRepository : IRepository<Tag>
     {
-        Tag FindOrNew(string Name);
-
         List<Post> PagePosts(string Tag, int PageNumber, int MaxPostsPerPage, Site ProOrRest);
 
         int CountPosts(string Tag, Site ProOrRest);

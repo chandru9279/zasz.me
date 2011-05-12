@@ -4,7 +4,7 @@ using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public abstract class RepoBase<Model> : IRepository<Model> where Model : class, IModel
+    public abstract class RepoBase<Model> : IRepository<Model> where Model : class, IModel, new()
     {
         protected readonly DbSet<Model> _ModelSet;
         protected readonly FullContext _Session;
@@ -35,6 +35,11 @@ namespace zasz.me.Integration.EntityFramework
         public long Count()
         {
             return _ModelSet.Count();
+        }
+
+        public Model FindOrNew(string Id)
+        {
+            return Get(Id) ?? _ModelSet.Add(new Model());
         }
 
         /// <summary>

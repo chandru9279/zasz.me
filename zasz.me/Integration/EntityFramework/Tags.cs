@@ -10,11 +10,6 @@ namespace zasz.me.Integration.EntityFramework
         {
         }
 
-        public Tag FindOrNew(string Name)
-        {
-            return Get(Name) ?? new Tag(Name);
-        }
-
         public List<Post> PagePosts(string Tag, int PageNumber, int MaxPostsPerPage, Site ProOrRest)
         {
             return (from EachPost in Get(Tag).Posts

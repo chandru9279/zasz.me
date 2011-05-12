@@ -6,6 +6,10 @@ namespace zasz.me.Areas.Shared.Models
 {
     public class Log : IModel
     {
+        public Log()
+        {
+        }
+
         [Key]
         public string ID { get; set; }
 
