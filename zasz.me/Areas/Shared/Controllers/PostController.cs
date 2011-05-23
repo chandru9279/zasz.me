@@ -15,7 +15,7 @@ namespace zasz.me.Areas.Shared.Controllers
     {
         protected readonly IPostRepository _Posts;
         private readonly ITagRepository _Tags;
-        private string ManageViewPath = "~/Areas/Shared/Views/Shared/Manage.cshtml";
+        private const string ManageViewPath = "~/Areas/Shared/Views/Shared/Manage.cshtml";
 
         protected PostController(IPostRepository Posts, ITagRepository Tags)
         {
