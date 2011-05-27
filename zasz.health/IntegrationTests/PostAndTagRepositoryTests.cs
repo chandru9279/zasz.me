@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Controllers.Utils;
@@ -42,7 +43,7 @@ namespace zasz.health.IntegrationTests
         {
             var Ids = new List<string> {"Fact-and-Fiction", "Getting-started-with-Apache-Struts-2-2c-with-Netbeans-61"};
             var Posts = _Posts.Page(0, 10);
-            var ActualIds = Posts.Collect(Post => Post.Slug);
+            var ActualIds = Posts.Select(Post => Post.Slug);
             Assert.IsTrue(Ids.TrueForAll(ActualIds.Contains));
         }
 

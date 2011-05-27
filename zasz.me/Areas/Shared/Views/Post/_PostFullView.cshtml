@@ -7,7 +7,7 @@
 <div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
 <br />
 <br />
-<p>@Html.Raw(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Content))</p>
+<p>@Html.Raw(Model.Content)</p>
 <span>Tagged : </span>
 <ul class="Tags">
 @foreach (zasz.me.Areas.Shared.Models.Tag Tag in Model.Tags)

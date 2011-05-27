@@ -1,12 +1,23 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/BlueprintReset.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Shared/Shared.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div>
+    <form method="post" action="@ViewBag.Submit">
+    <div style="display:table; width:100%;">
+    <div class="Left">
+        <div class="Min-Height">
         @RenderBody()
+        </div>
     </div>
+    <div class="Right">
+        @RenderSection("Right", false)
+    </div>
+    <div class="Clear" />
+    </div>
+    </form>
 </body>
 </html>

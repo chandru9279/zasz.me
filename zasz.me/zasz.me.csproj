@@ -157,6 +157,7 @@
     <Content Include="Content\Pro\Images\stackoverflow.png" />
     <Content Include="Content\Pro\Writings.css" />
     <Content Include="Content\Pro\ProLayout.css" />
+    <Content Include="Content\Shared\Shared.css" />
     <Content Include="Content\Thumbnails\.image.png" />
     <Content Include="Content\Thumbnails\avi.png" />
     <Content Include="Content\Thumbnails\bat.png" />
@@ -277,7 +278,6 @@
     <Folder Include="Areas\Pro\Models\" />
     <Folder Include="Areas\Rest\Models\" />
     <Folder Include="Content\Rest\Images\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -38,6 +38,7 @@
             this.AllBoth = new System.Windows.Forms.RadioButton();
             this.AllRest = new System.Windows.Forms.RadioButton();
             this.AllPro = new System.Windows.Forms.RadioButton();
+            this.ClearPostContent = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,11 +139,22 @@
             this.AllPro.Text = "All Pro";
             this.AllPro.UseVisualStyleBackColor = true;
             // 
+            // ClearPostContent
+            // 
+            this.ClearPostContent.Location = new System.Drawing.Point(28, 190);
+            this.ClearPostContent.Name = "ClearPostContent";
+            this.ClearPostContent.Size = new System.Drawing.Size(140, 29);
+            this.ClearPostContent.TabIndex = 5;
+            this.ClearPostContent.Text = "Clear Post Content";
+            this.ClearPostContent.UseVisualStyleBackColor = true;
+            this.ClearPostContent.Click += new System.EventHandler(this.ClearPostContentClick);
+            // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.ClearPostContent);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ClearConsole);
             this.Controls.Add(this.DevConsole);
@@ -169,6 +181,7 @@
         private System.Windows.Forms.RadioButton AllRest;
         private System.Windows.Forms.RadioButton AllPro;
         private System.Windows.Forms.RadioButton Default;
+        private System.Windows.Forms.Button ClearPostContent;
     }
 }
 

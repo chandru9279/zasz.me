@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using HtmlAgilityPack;
 
 namespace zasz.me.Areas.Shared.Models
@@ -18,6 +19,13 @@ namespace zasz.me.Areas.Shared.Models
         public string Content { get; set; }
 
         public virtual ICollection<Tag> Tags { get; set; }
+
+        [NotMapped]
+        public string TagsLine
+        {
+            get { return Tags == null ? "" : string.Join(" ", Tags.Select(It => It.Name)); }
+        }
+
 
         [Required]
         public DateTime Timestamp { get; set; }
@@ -38,9 +46,9 @@ namespace zasz.me.Areas.Shared.Models
 
         public string GetDescription(int Threshold)
         {
-            HtmlDocument Doc = new HtmlDocument();
+            var Doc = new HtmlDocument();
             Doc.LoadHtml(Content);
-            var Description = String.Empty;
+            string Description = String.Empty;
             ProcessNode(Doc.DocumentNode, ref Description, Threshold);
             return Description;
         }
@@ -65,7 +73,6 @@ namespace zasz.me.Areas.Shared.Models
 
     public interface IPostRepository : IRepository<Post>
     {
-        [Obsolete]
         List<Post> Page(int PageNumber, int PageSize);
 
         List<Post> Page(int PageNumber, int PageSize, Site ProOrRest);

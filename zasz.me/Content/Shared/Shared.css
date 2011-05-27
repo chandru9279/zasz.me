@@ -1,0 +1,35 @@
+﻿
+.Left 
+{
+    width: 75%;
+    display: table-cell;
+    padding: 10px;
+}
+
+.Min-Height
+{
+    min-height: 1000px;
+}
+
+.Right 
+{
+    width:25%;
+    background-color: #FFEBE0;
+    border-left: 2px solid #FFAE7F;
+    display: table-cell;
+    padding: 10px;
+}
+
+.Clear
+{
+    clear: both;
+}
+
+.Admin-Title
+{
+    font-size: x-large; 
+    width: 300px; 
+    margin: 12px auto; 
+    color: #FF7700;
+    display: block;    
+}

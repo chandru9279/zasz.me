@@ -13,9 +13,9 @@ namespace zasz.me.Areas.Shared.Controllers
 {
     public abstract class PostController : BaseController
     {
+        private const string ManageViewPath = "~/Areas/Shared/Views/Post/Manage.cshtml";
         protected readonly IPostRepository _Posts;
         private readonly ITagRepository _Tags;
-        private const string ManageViewPath = "~/Areas/Shared/Views/Shared/Manage.cshtml";
 
         protected PostController(IPostRepository Posts, ITagRepository Tags)
         {
@@ -34,7 +34,7 @@ namespace zasz.me.Areas.Shared.Controllers
             return View(new PostListModel
                             {
                                 Posts = _Posts.Page(PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                NumberOfPages = _Posts.Count(ProOrRest) / MaxPostsPerPage,
+                                NumberOfPages = _Posts.Count(ProOrRest)/MaxPostsPerPage,
                                 DescriptionLength = DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
                             });
@@ -45,9 +45,9 @@ namespace zasz.me.Areas.Shared.Controllers
             return View("List", new PostListModel
                                     {
                                         Posts = _Tags.PagePosts(Tag, PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                        NumberOfPages = _Tags.CountPosts(Tag, ProOrRest) / MaxPostsPerPage,
+                                        NumberOfPages = _Tags.CountPosts(Tag, ProOrRest)/MaxPostsPerPage,
                                         DescriptionLength = DescriptionLength,
-                                        WhatIsListed = "Posts tagged with \""  + Tag + "\""
+                                        WhatIsListed = "Posts tagged with \"" + Tag + "\""
                                     });
         }
 
@@ -63,43 +63,48 @@ namespace zasz.me.Areas.Shared.Controllers
                                         Posts = _Posts.Archive(Year, Month, ProOrRest),
                                         NumberOfPages = 1,
                                         DescriptionLength = DescriptionLength,
-                                        WhatIsListed = string.Format("Archived for {0:MMMM, yyyy}", new DateTime(Year, Month, 1))
+                                        WhatIsListed =
+                                            string.Format("Archived for {0:MMMM, yyyy}", new DateTime(Year, Month, 1))
                                     });
         }
 
-        protected ActionResult Create()
+        public ActionResult Create()
         {
             return View(ManageViewPath, new Post());
         }
-        
-        protected ActionResult Edit(string Slug)
+
+        public ActionResult Edit(string Id)
         {
-            return View(ManageViewPath, _Posts.Get(Slug));
+            return View(ManageViewPath, _Posts.Get(Id));
         }
 
         [HttpPost]
-        protected ActionResult Manage(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
+        [ValidateInput(false)]  
+        public ActionResult Manage(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
         {
+            bool New = string.IsNullOrEmpty(Slug);
             try
             {
-                var Entry = new Post
-                                {
-                                    Title = Title,
-                                    Content = PostContent,
-                                    Site = Site.WithName(ChosenSite),
-                                    Tags =
-                                        Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).ToList().
-                                        Collect(It => new Tag(It)),
-                                    Slug = String.IsNullOrEmpty(Slug) ? GetSlug(Title) : Slug,
-                                    Timestamp = DateTime.Now
-                                };
-                if(ModelState.IsValid)
-                _Posts.Save(Entry);
-                return View(ManageViewPath, Entry);
+                Post Entry = New ? new Post() : _Posts.Get(Slug);
+
+                Entry.Title = Title;
+                Entry.Content = PostContent;
+                Entry.Site = Site.WithName(ChosenSite);
+                Entry.Tags =
+                    Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(It => _Tags.Get(It) ?? new Tag(It)).
+                        ToList();
+                if (New) Entry.Slug = GetSlug(Title);
+                if (New) Entry.Timestamp = DateTime.Now;
+
+                if (New && ModelState.IsValid)
+                    _Posts.Save(Entry);
+
+                _Posts.Commit();
+                return RedirectToAction("Post", new {Id = Slug});
             }
             catch
             {
-                return View();
+                    return View();
             }
         }
 

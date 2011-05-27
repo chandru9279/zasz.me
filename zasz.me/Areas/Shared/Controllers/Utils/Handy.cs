@@ -14,7 +14,9 @@ namespace zasz.me.Areas.Shared.Controllers.Utils
     {
         public static List<string> Shred(string WordList)
         {
-            return String.IsNullOrEmpty(WordList) ? new List<string>() : WordList.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return String.IsNullOrEmpty(WordList)
+                       ? new List<string>()
+                       : WordList.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
         public static void GenerateThumbnail(string SavedFileName, string ThumbsDir, int ThumbWidth, int ThumbHeight)
@@ -29,14 +31,7 @@ namespace zasz.me.Areas.Shared.Controllers.Utils
             {
             }
         }
-
-        public static List<T> Collect<X, T>(this List<X> TheList, Func<X, T> FieldSelector)
-        {
-            List<T> Fields = new List<T>(TheList.Count);
-            TheList.ForEach(Item => Fields.Add(FieldSelector(Item)));
-            return Fields;
-        }
-
+        
         /* This mad method will expire all output cache, i.e., every cached action is invalidated.
          * http://stackoverflow.com/questions/5326230/mvc3-outputcache-removeoutputcacheitem-renderaction*/
 
@@ -45,44 +40,47 @@ namespace zasz.me.Areas.Shared.Controllers.Utils
             OutputCacheAttribute.ChildActionCache = new MemoryCache("NewDefault");
         }
 
-        
 
         /// <summary>
         ///     http://stackoverflow.com/questions/3793799/qr-code-generation-in-asp-net-mvc
         ///     Produces the markup for an image element that displays a QR Code image, as provided by Google's chart API.
         /// </summary>
-        /// <param name = "htmlHelper"></param>
-        /// <param name = "data">The data to be encoded, as a string.</param>
-        /// <param name = "size">The square length of the resulting image, in pixels.</param>
-        /// <param name = "margin">The width of the border that surrounds the image, measured in rows (not pixels).</param>
-        /// <param name = "errorCorrectionLevel">The amount of error correction to build into the image.  Higher error correction comes at the expense of reduced space for data.</param>
-        /// <param name = "htmlAttributes">Optional HTML attributes to include on the image element.</param>
+        /// <param name = "HtmlHelper"></param>
+        /// <param name = "Data">The data to be encoded, as a string.</param>
+        /// <param name = "Size">The square length of the resulting image, in pixels.</param>
+        /// <param name = "Margin">The width of the border that surrounds the image, measured in rows (not pixels).</param>
+        /// <param name = "ErrorCorrectionLevel">The amount of error correction to build into the image.  Higher error correction comes at the expense of reduced space for data.</param>
+        /// <param name = "HtmlAttributes">Optional HTML attributes to include on the image element.</param>
         /// <returns></returns>
-        public static MvcHtmlString QRCode(this HtmlHelper htmlHelper, string data, int size = 80, int margin = 4, QRCodeErrorCorrectionLevel errorCorrectionLevel = QRCodeErrorCorrectionLevel.Low, object htmlAttributes = null)
+        public static MvcHtmlString QrCode(this HtmlHelper HtmlHelper, string Data, int Size = 80, int Margin = 4,
+                                           QrCodeErrorCorrectionLevel ErrorCorrectionLevel =
+                                               QrCodeErrorCorrectionLevel.Low, object HtmlAttributes = null)
         {
-            if (data == null)
-                throw new ArgumentNullException("data");
-            if (size < 1)
-                throw new ArgumentOutOfRangeException("size", size, "Must be greater than zero.");
-            if (margin < 0)
-                throw new ArgumentOutOfRangeException("margin", margin, "Must be greater than or equal to zero.");
-            if (!Enum.IsDefined(typeof (QRCodeErrorCorrectionLevel), errorCorrectionLevel))
-                throw new InvalidEnumArgumentException("errorCorrectionLevel", (int) errorCorrectionLevel, typeof (QRCodeErrorCorrectionLevel));
+            if (Data == null)
+                throw new ArgumentNullException("Data");
+            if (Size < 1)
+                throw new ArgumentOutOfRangeException("Size", Size, "Must be greater than zero.");
+            if (Margin < 0)
+                throw new ArgumentOutOfRangeException("Margin", Margin, "Must be greater than or equal to zero.");
+            if (!Enum.IsDefined(typeof (QrCodeErrorCorrectionLevel), ErrorCorrectionLevel))
+                throw new InvalidEnumArgumentException("ErrorCorrectionLevel", (int) ErrorCorrectionLevel,
+                                                       typeof (QrCodeErrorCorrectionLevel));
 
-            var url = string.Format("http://chart.apis.google.com/chart?cht=qr&chld={2}|{3}&chs={0}x{0}&chl={1}", size, HttpUtility.UrlEncode(data), errorCorrectionLevel.ToString()[0], margin);
+            string Url = string.Format("http://chart.apis.google.com/chart?cht=qr&chld={2}|{3}&chs={0}x{0}&chl={1}",
+                                       Size, HttpUtility.UrlEncode(Data), ErrorCorrectionLevel.ToString()[0], Margin);
 
-            var tag = new TagBuilder("img");
-            if (htmlAttributes != null)
-                tag.MergeAttributes(new RouteValueDictionary(htmlAttributes));
-            tag.Attributes.Add("src", url);
-            tag.Attributes.Add("width", size.ToString());
-            tag.Attributes.Add("height", size.ToString());
+            var Tag = new TagBuilder("img");
+            if (HtmlAttributes != null)
+                Tag.MergeAttributes(new RouteValueDictionary(HtmlAttributes));
+            Tag.Attributes.Add("src", Url);
+            Tag.Attributes.Add("width", Size.ToString());
+            Tag.Attributes.Add("height", Size.ToString());
 
-            return new MvcHtmlString(tag.ToString(TagRenderMode.SelfClosing));
+            return new MvcHtmlString(Tag.ToString(TagRenderMode.SelfClosing));
         }
     }
 
-    public enum QRCodeErrorCorrectionLevel
+    public enum QrCodeErrorCorrectionLevel
     {
         /// <summary>
         ///     Recovers from up to 7% erroneous data.

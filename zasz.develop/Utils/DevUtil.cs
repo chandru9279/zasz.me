@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Windows.Forms;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
+using My = zasz.me.Areas.Shared.Models;
 
 namespace zasz.develop.Utils
 {
     public partial class DevUtil : Form
     {
+        private const string BlogPic = @"/ThonHttpHandlers/Image.ashx?picturepath=~/App_Data/ZaszBlog/Files\";
         private readonly ChooseSite _ChooseSiteDialog;
         private readonly FullContext _FullContext;
         private readonly IPostRepository _PostRepository;
         private readonly ITagRepository _TagRepository;
+
 
         public DevUtil()
         {
@@ -27,7 +31,6 @@ namespace zasz.develop.Utils
 
         public string Current { get; set; }
 
-        
 
         private void ImportPostsClick(object Sender, EventArgs E)
         {
@@ -38,18 +41,18 @@ namespace zasz.develop.Utils
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {
                     Current = NewPost.Title;
-                    if (AllPro.Checked) NewPost.Site = me.Areas.Shared.Models.Site.WithName("Pro");
-                    else if (AllBoth.Checked) NewPost.Site = me.Areas.Shared.Models.Site.WithName("Both");
-                    else if (AllRest.Checked) NewPost.Site = me.Areas.Shared.Models.Site.WithName("Rest");
+                    if (AllPro.Checked) NewPost.Site = My.Site.WithName("Pro");
+                    else if (AllBoth.Checked) NewPost.Site = My.Site.WithName("Both");
+                    else if (AllRest.Checked) NewPost.Site = My.Site.WithName("Rest");
                     else if (Default.Checked)
                     {
-                        NewPost.Site = me.Areas.Shared.Models.Site.WithName(PostsData.DefaultSiteMap[NewPost.Slug]);
+                        NewPost.Site = My.Site.WithName(PostsData.DefaultSiteMap[NewPost.Slug]);
                     }
                     else
                     {
                         DialogResult Dialog = _ChooseSiteDialog.ShowDialog(this);
                         if (Dialog == DialogResult.Cancel) Die("You cancelled");
-                        NewPost.Site = me.Areas.Shared.Models.Site.WithName(ChooseSite.MapSites[Dialog]);
+                        NewPost.Site = My.Site.WithName(ChooseSite.MapSites[Dialog]);
                     }
                     _PostRepository.Save(NewPost);
                 }
@@ -89,11 +92,26 @@ namespace zasz.develop.Utils
 
         private void DeleteByType<T>() where T : class
         {
-            Log("Deleting All {0} from ColdStorage.. ", typeof(T));
+            Log("Deleting All {0} from ColdStorage.. ", typeof (T));
             foreach (T Model in _FullContext.Set<T>())
                 _FullContext.Set<T>().Remove(Model);
             _FullContext.SaveChanges();
-            Log("Done (All {0} Deleted from ColdStorage..) !", typeof(T));
+            Log("Done (All {0} Deleted from ColdStorage..) !", typeof (T));
+        }
+
+        /*
+         * Converts tags like
+         * <img src="/ThonHttpHandlers/Image.ashx?picturepath=~/App_Data/ZaszBlog/Files\Image328.jpg" alt="" width="60%" height="60%">
+         * to 
+         * <img src="/ThonHttpHandlers/Image.ashx?picturepath=~/App_Data/ZaszBlog/Files\Image328.jpg" alt="" width="60%" height="60%">
+         */
+
+        private void ClearPostContentClick(object Sender, EventArgs E)
+        {
+            List<Post> Posts = _PostRepository.Page(0, 100);
+            foreach (Post Post in Posts)
+                Post.Content = "Content";
+            _PostRepository.Commit();
         }
     }
 }
