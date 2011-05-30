@@ -25,18 +25,16 @@
 }
 
 @section Right{
-    @Html.Action("ArchiveControl", "Writings")
+    @Html.Action("ArchiveControl")
 }
 
-<div style="margin: 20px 20px 20px 25px;">@Model.WhatIsListed</div>
+<div class="date_break">@Model.WhatIsListed</div>
 
 @foreach (var Post in Model.Posts)
 {
-    <div style="margin: 20px auto;">
-        @Html.Partial("~/Areas/Pro/Views/Writings/_PostShortView.cshtml", Post)
+        @Html.Partial("~/Areas/Rest/Views/Writings/_PostShortView.cshtml", Post)
         <br />
         <br />
-    </div>    
 }
 
 

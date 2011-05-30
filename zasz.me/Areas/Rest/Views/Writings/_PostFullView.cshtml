@@ -1,0 +1,25 @@
+﻿@model zasz.me.Areas.Shared.Models.Post
+
+<div class="Post">
+<br />
+<br />
+<a class="Post-Title" href="/Writings/Post/@Model.Slug">@Model.Title</a>
+<div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
+<br />
+<br />
+<p>@Html.Raw(Model.Content)</p>
+<span>Tagged : </span>
+<ul class="Tags">
+@foreach (zasz.me.Areas.Shared.Models.Tag Tag in Model.Tags)
+{
+    <li><a href="/Writings/Tag/@Tag.Name">@Tag.Name</a></li>
+}
+</ul>
+&nbsp;&nbsp;
+<br />
+<a href="@Model.Permalink" class="Normal-Link">@Model.Permalink</a>
+<br />
+<span>Manage :</span>
+<a href="/Writings/Edit/@Model.Slug" class="Normal-Link">Edit</a>
+<a href="/Writings/Delete/@Model.Slug" class="Normal-Link">Delete</a>
+</div>

@@ -100,6 +100,10 @@
     <Compile Include="Areas\Pro\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Pro\Controllers\PortfolioController.cs" />
     <Compile Include="Areas\Pro\Controllers\WritingsController.cs" />
+    <Compile Include="Areas\Rest\Controllers\AboutController.cs" />
+    <Compile Include="Areas\Rest\Controllers\GalleryController.cs" />
+    <Compile Include="Areas\Rest\Controllers\WritingsController.cs" />
+    <Compile Include="Areas\Shared\Controllers\WritingsBase.cs" />
     <Compile Include="Areas\Shared\Models\IRepository.cs" />
     <Compile Include="Areas\Shared\Models\Log.cs" />
     <Compile Include="Areas\Shared\Models\Passphrase.cs" />
@@ -142,6 +146,10 @@
     <Compile Include="Services\Pairs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Rest\Views\Web.config" />
+    <Content Include="Areas\Rest\Views\Writings\_ViewStart.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
@@ -157,6 +165,48 @@
     <Content Include="Content\Pro\Images\stackoverflow.png" />
     <Content Include="Content\Pro\Writings.css" />
     <Content Include="Content\Pro\ProLayout.css" />
+    <Content Include="Content\Rest\DiabloBlue\Images\bg2.jpg" />
+    <Content Include="Content\Rest\DiabloBlue\Images\borderb2.gif" />
+    <Content Include="Content\Rest\DiabloBlue\Images\bullet2.gif" />
+    <Content Include="Content\Rest\DiabloBlue\Images\button_bg2.gif" />
+    <Content Include="Content\Rest\DiabloBlue\Images\d3_header2.jpg" />
+    <Content Include="Content\Rest\DiabloBlue\Images\ev_bg2.gif" />
+    <Content Include="Content\Rest\DiabloBlue\Images\stone-blue.jpg" />
+    <Content Include="Content\Rest\DiabloBlue\Images\stone-blue2.jpg" />
+    <Content Include="Content\Rest\DiabloBlue\Images\stone-dark.jpg" />
+    <Content Include="Content\Rest\DiabloBlue\Images\title_bg2.gif" />
+    <Content Include="Content\Rest\DiabloRed\Images\bg1.jpg" />
+    <Content Include="Content\Rest\DiabloRed\Images\borderb1.gif" />
+    <Content Include="Content\Rest\DiabloRed\Images\bullet.gif" />
+    <Content Include="Content\Rest\DiabloRed\Images\button_bg1.gif" />
+    <Content Include="Content\Rest\DiabloRed\Images\d3_header1.jpg" />
+    <Content Include="Content\Rest\DiabloRed\Images\ev_bg1.gif" />
+    <Content Include="Content\Rest\DiabloRed\Images\leather-heavy.jpg" />
+    <Content Include="Content\Rest\DiabloRed\Images\leather-vdark.jpg" />
+    <Content Include="Content\Rest\DiabloRed\Images\stone-dark.jpg" />
+    <Content Include="Content\Rest\DiabloRed\Images\title_bg1.gif" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\background_2.jpg" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\bg_2.gif" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\blue_overlay.jpg" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\bullet2.gif" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\buttons2.gif" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\extras_bg2.jpg" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\header_2.jpg" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\horiz_2.gif" />
+    <Content Include="Content\Rest\StarcraftBlue\Images\title_2.gif" />
+    <Content Include="Content\Rest\StarcraftBlue\StarcraftBlue.css" />
+    <Content Include="Content\Rest\StarcraftRed\StarcraftRed.css" />
+    <Content Include="Content\Rest\StarcraftRed\Images\bg_3.gif" />
+    <Content Include="Content\Rest\StarcraftRed\Images\bullet3.gif" />
+    <Content Include="Content\Rest\StarcraftRed\Images\buttons3.gif" />
+    <Content Include="Content\Rest\StarcraftRed\Images\circuits.jpg" />
+    <Content Include="Content\Rest\StarcraftRed\Images\crosshatch.gif" />
+    <Content Include="Content\Rest\StarcraftRed\Images\extras_bg3.jpg" />
+    <Content Include="Content\Rest\StarcraftRed\Images\header_3.jpg" />
+    <Content Include="Content\Rest\StarcraftRed\Images\horiz_3.gif" />
+    <Content Include="Content\Rest\StarcraftRed\Images\title_3.gif" />
+    <Content Include="Content\Rest\DiabloRed\DiabloRed.css" />
+    <Content Include="Content\Rest\DiabloBlue\DiabloBlue.css" />
     <Content Include="Content\Shared\Shared.css" />
     <Content Include="Content\Thumbnails\.image.png" />
     <Content Include="Content\Thumbnails\avi.png" />
@@ -277,7 +327,6 @@
     <Folder Include="App_Data\ColdStorage\" />
     <Folder Include="Areas\Pro\Models\" />
     <Folder Include="Areas\Rest\Models\" />
-    <Folder Include="Content\Rest\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -294,12 +343,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Pro\Views\Web.config" />
-    <Content Include="Areas\Rest\Views\Web.config" />
     <Content Include="Areas\Pro\Views\Shared\_StackOverflowFlair.cshtml" />
     <Content Include="Areas\Rest\Views\Home\Show.cshtml" />
-    <Content Include="Areas\Rest\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Pro\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Rest\Views\Shared\_RestLayout.cshtml" />
+    <Content Include="Areas\Rest\Views\About\_DiabloRed.cshtml" />
     <None Include="App_Data\Setup\Build.bat" />
     <None Include="App_Data\Setup\HyperionEnv.bat" />
     <None Include="App_Data\Setup\LapEnv.bat" />
@@ -313,6 +360,17 @@
     <Content Include="Areas\Pro\Views\Writings\ArchiveControl.cshtml" />
     <Content Include="Areas\Pro\Views\Writings\Post.cshtml" />
     <Content Include="Areas\Shared\Views\Post\_DisqusCommentCount.cshtml" />
+    <Content Include="Areas\Rest\Views\Home\_StarcraftBlue.cshtml" />
+    <Content Include="Areas\Rest\Views\Writings\_DiabloBlue.cshtml" />
+    <Content Include="Areas\Rest\Views\Gallery\_StarcraftRed.cshtml" />
+    <Content Include="Areas\Rest\Views\Shared\Menu.cshtml" />
+    <Content Include="Areas\Rest\Views\Gallery\Look.cshtml" />
+    <Content Include="Areas\Rest\Views\About\Me.cshtml" />
+    <Content Include="Areas\Rest\Views\Writings\ArchiveControl.cshtml" />
+    <Content Include="Areas\Rest\Views\Writings\List.cshtml" />
+    <Content Include="Areas\Rest\Views\Writings\Post.cshtml" />
+    <Content Include="Areas\Rest\Views\Writings\_PostFullView.cshtml" />
+    <Content Include="Areas\Rest\Views\Writings\_PostShortView.cshtml" />
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -321,8 +379,8 @@
     <Content Include="Areas\Pro\Views\Home\Show.cshtml" />
     <Content Include="Areas\Shared\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\Shared\Views\Home\Show.cshtml" />
-    <Content Include="Areas\Shared\Views\Post\_PostShortView.cshtml" />
-    <Content Include="Areas\Shared\Views\Post\_PostFullView.cshtml" />
+    <Content Include="Areas\Pro\Views\Writings\_PostShortView.cshtml" />
+    <Content Include="Areas\Pro\Views\Writings\_PostFullView.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

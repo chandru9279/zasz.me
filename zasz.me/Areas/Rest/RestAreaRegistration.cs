@@ -10,7 +10,7 @@ namespace zasz.me.Areas.Rest
             get { return "Rest"; }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context)
+        public override void RegisterArea(AreaRegistrationContext Context)
         {
             Site.Register("zasz.me", Domain.Rest);
         }

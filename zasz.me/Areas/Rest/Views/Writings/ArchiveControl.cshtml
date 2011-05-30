@@ -1,7 +1,7 @@
-﻿@model Dictionary<int, Dictionary<string, int>>
+﻿@model Dictionary<int, Dictionary<string, int>>          
 
 
-@*      --= Pro Area =--      *@
+@*      --= Rest Area =--      *@
 
 
 <div class="Sidebar-Control">
@@ -11,7 +11,7 @@
 {
     <li>
         <div style="font-weight:bold">@Year.Key</div>
-        <ul style="margin-left: 15px;">
+        <ul>
         @foreach(var Month in Year.Value)
         {
             <li><a href="/Writings/Archive/@Year.Key/@Month.Key.Substring(0, Month.Key.IndexOf(' '))" class="Normal-Link">@Month.Key (@Month.Value)</a></li>

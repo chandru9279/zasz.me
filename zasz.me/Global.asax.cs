@@ -37,25 +37,50 @@ namespace zasz.me
 
             AreaRegistration.RegisterAllAreas();
 
+            DomainMappedRoute(
+                Routes, 
+                "Usual", 
+                "{Controller}/{Action}/{Id}", 
+                new { Controller = "Home", Action = "Default", Id = UrlParameter.Optional }
+                );
+
+            DomainMappedRoute(
+                Routes,
+                "TagRouting",
+                "Writings/Tag/{TagName}/{PageNumber}",
+                new { Controller = "Writings", Action = "Tag", PageNumber = UrlParameter.Optional }
+                );
+
+            DomainMappedRoute(
+                Routes,
+                "ArchiveRouting",
+                "Writings/Archive/{Year}/{Month}",
+                new { Controller = "Writings", Action = "Archive" }
+                );
+
+        }
+
+        private static void DomainMappedRoute(RouteCollection Routes, string RouteName, string Pattern, object Defaults)
+        {
             Routes.MapRoute(
-                "zasz.me Route",
-                "{Controller}/{Action}/{Id}",
-                new {Controller = "Home", Action = "Default", Id = UrlParameter.Optional},
-                new {DomainConstraint = new DomainRouteConstraint("zasz.me")}
+                "zasz.me " + RouteName,
+                Pattern,
+                Defaults,
+                new { DomainConstraint = new DomainRouteConstraint("zasz.me") }
                 ).DataTokens["area"] = "Pro";
 
             Routes.MapRoute(
-                "localhost Route",
-                "{Controller}/{Action}/{Id}",
-                new { Controller = "Home", Action = "Default", Id = UrlParameter.Optional },
-                new {DomainConstraint = new DomainRouteConstraint("localhost")}
-                ).DataTokens["area"] = "Pro";
+                "localhost " + RouteName,
+                Pattern,
+                Defaults,
+                new { DomainConstraint = new DomainRouteConstraint("localhost") }
+                ).DataTokens["area"] = "Rest";
 
             Routes.MapRoute(
-                "chandruon.net Route",
-                "{Controller}/{Action}/{Id}",
-                new { Controller = "Home", Action = "Default", Id = UrlParameter.Optional },
-                new {DomainConstraint = new DomainRouteConstraint("chandruon.net")}
+                "chandruon.net " + RouteName,
+                Pattern,
+                Defaults,
+                new { DomainConstraint = new DomainRouteConstraint("chandruon.net") }
                 ).DataTokens["area"] = "Pro";
         }
 
