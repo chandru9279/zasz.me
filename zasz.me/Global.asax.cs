@@ -25,16 +25,6 @@ namespace zasz.me
             Routes.IgnoreRoute("Content/");
             Routes.IgnoreRoute("Integration/ckeditor");
             
-
-            /* Routing based on Domain to Areas : 
-             * http://www.asp.net/mvc/tutorials/creating-a-custom-route-constraint-cs,
-             * http://suhair.in/Blog/Aspnet-MVC-Areas-in-depth-Part-2
-             * 
-             * The following routes will auto add area tokens, based on Domains, only if no area name is given in the first place.
-             * If Area name is explicitly mentioned, the routes in the AreaRegistration take over.
-             * The following 3 will conflict, if the DomainRouteConstraint is removed.
-             */
-
             AreaRegistration.RegisterAllAreas();
 
             DomainMappedRoute(
@@ -59,6 +49,15 @@ namespace zasz.me
                 );
 
         }
+
+        /* Routing based on Domain to Areas : 
+             * http://www.asp.net/mvc/tutorials/creating-a-custom-route-constraint-cs,
+             * http://suhair.in/Blog/Aspnet-MVC-Areas-in-depth-Part-2
+             * 
+             * The following routes will auto add area tokens, based on Domains, only if no area name is given in the first place.
+             * If Area name is explicitly mentioned, the routes in the AreaRegistration take over.
+             * The following 3 will conflict, if the DomainRouteConstraint is removed.
+             */
 
         private static void DomainMappedRoute(RouteCollection Routes, string RouteName, string Pattern, object Defaults)
         {

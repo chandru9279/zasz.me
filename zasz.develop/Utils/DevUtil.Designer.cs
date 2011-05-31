@@ -39,6 +39,7 @@
             this.AllRest = new System.Windows.Forms.RadioButton();
             this.AllPro = new System.Windows.Forms.RadioButton();
             this.ClearPostContent = new System.Windows.Forms.Button();
+            this.CommentsToWxr = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,11 +150,22 @@
             this.ClearPostContent.UseVisualStyleBackColor = true;
             this.ClearPostContent.Click += new System.EventHandler(this.ClearPostContentClick);
             // 
+            // CommentsToWxr
+            // 
+            this.CommentsToWxr.Location = new System.Drawing.Point(28, 278);
+            this.CommentsToWxr.Name = "CommentsToWxr";
+            this.CommentsToWxr.Size = new System.Drawing.Size(140, 29);
+            this.CommentsToWxr.TabIndex = 6;
+            this.CommentsToWxr.Text = "Comments to WXR";
+            this.CommentsToWxr.UseVisualStyleBackColor = true;
+            this.CommentsToWxr.Click += new System.EventHandler(this.CommentsToWxrClick);
+            // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.CommentsToWxr);
             this.Controls.Add(this.ClearPostContent);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ClearConsole);
@@ -182,6 +194,7 @@
         private System.Windows.Forms.RadioButton AllPro;
         private System.Windows.Forms.RadioButton Default;
         private System.Windows.Forms.Button ClearPostContent;
+        private System.Windows.Forms.Button CommentsToWxr;
     }
 }
 

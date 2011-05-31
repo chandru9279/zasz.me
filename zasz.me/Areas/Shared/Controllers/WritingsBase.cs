@@ -22,7 +22,7 @@ namespace zasz.me.Areas.Shared.Controllers
 
         public ActionResult Post([Bind(Prefix = "Id")]string Slug)
         {
-            return View(WritingsView("Post"), _Posts.Get(Slug));
+            return View(_Posts.Get(Slug));
         }
 
         public ActionResult Tag(string TagName, int PageNumber = 1)
@@ -41,11 +41,5 @@ namespace zasz.me.Areas.Shared.Controllers
         {
             return Archive(_Site, Year, Constants.Months[Month]);
         }
-
-        public static string WritingsView(string ViewName)
-        {
-            return string.Format("~/Areas/Shared/Views/Writings/{0}.cshtml", ViewName);
-        }
-
     }
 }

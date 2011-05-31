@@ -1,12 +1,21 @@
 ﻿@model zasz.me.Areas.Shared.Models.Post
            
+
+@*      --= Pro Area =--      *@
+
+
 <div class="Post">
 
 <a class="Post-Title" href="/Writings/Post/@Model.Slug">@Model.Title</a>
 <div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
 <p>@Model.GetDescription(ViewBag.DescriptionLength)  &nbsp;&nbsp; <a class="Normal-Link" href="/Writings/Post/@Model.Slug">Read the full entry</a></p>
 
-
+@if (Model.Tags.Count == 0)
+{
+<span>No tags on this one.</span>
+}
+else
+{
 <span>Tagged : </span>
 <ul class="Tags">
 @foreach (zasz.me.Areas.Shared.Models.Tag Tag in Model.Tags)
@@ -14,6 +23,7 @@
     <li><a href="/Writings/Tag/@Tag.Name">@Tag.Name</a></li>
 }
 </ul>
+}
 <br />
 <a href="@Model.Permalink" class="Normal-Link">Permalink</a>
 <br />

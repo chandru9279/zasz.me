@@ -113,5 +113,11 @@ namespace zasz.develop.Utils
                 Post.Content = "Content";
             _PostRepository.Commit();
         }
+
+        private void CommentsToWxrClick(object Sender, EventArgs E)
+        {
+            string Path = Environment.GetEnvironmentVariable("SampleDataPath");
+            new CommentsExport().ConvertComments(Path, Log);
+        }
     }
 }

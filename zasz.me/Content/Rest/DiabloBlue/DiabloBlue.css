@@ -37,30 +37,45 @@ body { margin:0; font:12px Tahoma; color:#FFFFDD; background:url(Images/bg2.jpg)
 		.box { background:url(Images/stone-blue.jpg); border:1px solid #545454; margin:10px 0 25px 0; padding:10px; }
 
 #footer { clear:both; padding:20px }
-	#subnav { margin:10px 0;}	
-	#subnav a { color:#0b879e; }
-	#subnav a:hover { color:#00aecd } 
-	.copyright { font-size:10px;}
+.copyright { font-size:10px;}
 
-.Normal-Link
+a
 {
     color: White;
     text-decoration: none;   
 }
 
-.Normal-Link:HOVER
+a:HOVER
 {
-    color:Blue;  
+    color:#3C8D9E;  
     text-decoration: underline;
     cursor: pointer;
 }
 
 .Tags
 {
+    margin: 0px;
     display:inline-block;
 }
+
 .Tags li
 {
     display:inline-block;
 }
-	
+
+.Paging
+{
+    display:table;
+    margin: 10px auto;    
+}
+
+.Paging a, .Paging span  
+{
+    margin: 10px;
+    font-size: 20px;
+}
+
+#disqus_thread li
+{
+    background : none;
+}

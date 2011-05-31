@@ -28,6 +28,10 @@
     @Html.Action("ArchiveControl")
 }
 
+
+@*      --= Rest Area =--      *@
+
+
 <div class="date_break">@Model.WhatIsListed</div>
 
 @foreach (var Post in Model.Posts)
@@ -42,7 +46,7 @@
 {
     <div class="Paging">
         @if (PreviousEnabled)
-        { <a href="@PreviousPath">Previous</a> }
+        { <a class="Normal-Link" href="@PreviousPath">Previous</a> }
         else
         { <span class="DisabledPrevNext">Previous</span> }
     @for (int i = 1; i <= Model.NumberOfPages; i++)
@@ -50,10 +54,10 @@
         if (i == CurrentPage)
         { <span class="Current">@i</span> }
         else
-        { <a href="@(PagePath + i)">@i</a> }
+        { <a class="Normal-Link" href="@(PagePath + i)">@i</a> }
     }
     @if (NextEnabled)
-    { <a href="@NextPath">Next</a> }
+    { <a class="Normal-Link" href="@NextPath">Next</a> }
     else
     { <span class="DisabledPrevNext">Next</span> }
     </div>
