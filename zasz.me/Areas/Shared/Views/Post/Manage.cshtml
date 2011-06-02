@@ -22,7 +22,7 @@
 
 <div class="Admin-Title">Post Fields</div>
 
-<div>Site : </div>
+<div>Site : </div> @Html.ValidationMessageFor(X => X.Site)
 @Html.DropDownList("ChosenSite",
                     Enum.GetNames(typeof(zasz.me.Areas.Shared.Models.Domain))
                     .Select(Name => new SelectListItem()
@@ -33,10 +33,11 @@
                     })
                 )
 
-<div>Tags : </div>
+<div>Tags : </div> 
 <input type="text" name="Tags" value="@Model.TagsLine"/>
 
-<div>Title : </div>
+
+<div>Title : </div> @Html.ValidationMessageFor(X => X.Title)
 <input type="text" name="Title" value="@Model.Title"/>
 
 }

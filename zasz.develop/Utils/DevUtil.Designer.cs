@@ -40,6 +40,10 @@
             this.AllPro = new System.Windows.Forms.RadioButton();
             this.ClearPostContent = new System.Windows.Forms.Button();
             this.CommentsToWxr = new System.Windows.Forms.Button();
+            this.CommentsProgress = new System.Windows.Forms.ProgressBar();
+            this.SpamAmount = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -160,11 +164,49 @@
             this.CommentsToWxr.UseVisualStyleBackColor = true;
             this.CommentsToWxr.Click += new System.EventHandler(this.CommentsToWxrClick);
             // 
+            // CommentsProgress
+            // 
+            this.CommentsProgress.Location = new System.Drawing.Point(229, 278);
+            this.CommentsProgress.Name = "CommentsProgress";
+            this.CommentsProgress.Size = new System.Drawing.Size(332, 23);
+            this.CommentsProgress.Step = 1;
+            this.CommentsProgress.TabIndex = 7;
+            // 
+            // SpamAmount
+            // 
+            this.SpamAmount.Location = new System.Drawing.Point(229, 333);
+            this.SpamAmount.Name = "SpamAmount";
+            this.SpamAmount.Size = new System.Drawing.Size(332, 23);
+            this.SpamAmount.Step = 1;
+            this.SpamAmount.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(226, 262);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(155, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Comments Processing Progress";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(226, 317);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Spam Amount";
+            // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.SpamAmount);
+            this.Controls.Add(this.CommentsProgress);
             this.Controls.Add(this.CommentsToWxr);
             this.Controls.Add(this.ClearPostContent);
             this.Controls.Add(this.groupBox1);
@@ -195,6 +237,10 @@
         private System.Windows.Forms.RadioButton Default;
         private System.Windows.Forms.Button ClearPostContent;
         private System.Windows.Forms.Button CommentsToWxr;
+        private System.Windows.Forms.ProgressBar CommentsProgress;
+        private System.Windows.Forms.ProgressBar SpamAmount;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

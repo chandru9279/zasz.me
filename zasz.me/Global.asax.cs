@@ -26,14 +26,7 @@ namespace zasz.me
             Routes.IgnoreRoute("Integration/ckeditor");
             
             AreaRegistration.RegisterAllAreas();
-
-            DomainMappedRoute(
-                Routes, 
-                "Usual", 
-                "{Controller}/{Action}/{Id}", 
-                new { Controller = "Home", Action = "Default", Id = UrlParameter.Optional }
-                );
-
+            
             DomainMappedRoute(
                 Routes,
                 "TagRouting",
@@ -48,6 +41,12 @@ namespace zasz.me
                 new { Controller = "Writings", Action = "Archive" }
                 );
 
+            DomainMappedRoute(
+                Routes,
+                "Usual",
+                "{Controller}/{Action}/{Id}",
+                new { Controller = "Home", Action = "Default", Id = UrlParameter.Optional }
+                );
         }
 
         /* Routing based on Domain to Areas : 
@@ -61,6 +60,9 @@ namespace zasz.me
 
         private static void DomainMappedRoute(RouteCollection Routes, string RouteName, string Pattern, object Defaults)
         {
+            Routes.MapRoute("Pro " + RouteName, "Pro/" + Pattern, Defaults).DataTokens["area"] = "Pro";
+            Routes.MapRoute("Rest " + RouteName, "Rest/" + Pattern, Defaults).DataTokens["area"] = "Rest";
+
             Routes.MapRoute(
                 "zasz.me " + RouteName,
                 Pattern,
@@ -73,7 +75,7 @@ namespace zasz.me
                 Pattern,
                 Defaults,
                 new { DomainConstraint = new DomainRouteConstraint("localhost") }
-                ).DataTokens["area"] = "Rest";
+                ).DataTokens["area"] = "Pro";
 
             Routes.MapRoute(
                 "chandruon.net " + RouteName,

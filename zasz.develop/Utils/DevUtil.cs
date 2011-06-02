@@ -11,7 +11,6 @@ namespace zasz.develop.Utils
 {
     public partial class DevUtil : Form
     {
-        private const string BlogPic = @"/ThonHttpHandlers/Image.ashx?picturepath=~/App_Data/ZaszBlog/Files\";
         private readonly ChooseSite _ChooseSiteDialog;
         private readonly FullContext _FullContext;
         private readonly IPostRepository _PostRepository;
@@ -117,7 +116,8 @@ namespace zasz.develop.Utils
         private void CommentsToWxrClick(object Sender, EventArgs E)
         {
             string Path = Environment.GetEnvironmentVariable("SampleDataPath");
-            new CommentsExport().ConvertComments(Path, Log);
+            new CommentsExport {CommentsProgress = CommentsProgress, SpamAmount = SpamAmount}.ConvertComments(Path, Log);
         }
     }
 }
+

@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
+using Joel.Net;
 
 namespace zasz.develop.Utils
 {
@@ -21,25 +23,32 @@ namespace zasz.develop.Utils
         private const string nsEXCERPT = "http://wordpress.org/export/1.0/excerpt/";
         private const string nsWFW = "http://wellformedweb.org/CommentAPI/";
         private const string nsDC = "http://purl.org/dc/elements/1.1/";
+        private readonly Akismet Api;
 
-        private readonly Dictionary<string, string> _ns = new Dictionary<string, string>(6);
+        private readonly Dictionary<string, string> Namespaces = new Dictionary<string, string>(6);
 
+        private XmlDocument WXR;
         private int _commentCount;
-
-        private XmlDocument _doc;
 
         public CommentsExport()
         {
-            _ns.Add("wp", nsWP);
-            _ns.Add("dsq", nsDSQ);
-            _ns.Add("content", nsCONTENT);
-            _ns.Add("excerpt", nsEXCERPT);
-            _ns.Add("wfw", nsWFW);
-            _ns.Add("dc", nsDC);
+            Namespaces.Add("wp", nsWP);
+            Namespaces.Add("dsq", nsDSQ);
+            Namespaces.Add("content", nsCONTENT);
+            Namespaces.Add("excerpt", nsEXCERPT);
+            Namespaces.Add("wfw", nsWFW);
+            Namespaces.Add("dc", nsDC);
+
+            Api = new Akismet("94150f7474ea", "http://www.chandruon.net", "Test/1.0");
+            if (!Api.VerifyKey()) throw new Exception("Key not verified");
         }
 
+        public ProgressBar SpamAmount { get; set; }
+
+        public ProgressBar CommentsProgress { get; set; }
+
         /// <summary>
-        ///     Gets Comments out of XML files, which follow the BlogEngine.NET format.
+        ///   Gets Comments out of XML files, which follow the BlogEngine.NET format.
         /// </summary>
         /// <param name = "FolderSystemPath">Folder where XML files are located</param>
         /// <param name = "Log">An action to which logs are sent</param>
@@ -62,18 +71,23 @@ namespace zasz.develop.Utils
             if (XmlFiles.Count() == 0)
                 Die("No XML Files found");
 
-            _doc = new XmlDocument();
-            _doc.AppendChild(_doc.CreateNode(XmlNodeType.XmlDeclaration, null, null));
 
-            XmlElement rss = XElement("rss");
-            foreach (var itm in _ns)
-                rss.SetAttribute("xmlns:" + itm.Key, itm.Value);
+            CommentsProgress.Value = 0;
+            SpamAmount.Value = 0;
+            CommentsProgress.Maximum = 1763;
+            SpamAmount.Maximum = 1763;
 
-            _doc.AppendChild(rss);
+            WXR = new XmlDocument();
+            WXR.AppendChild(WXR.CreateNode(XmlNodeType.XmlDeclaration, null, null));
 
-            XmlElement root = XElement("channel");
-            rss.AppendChild(root);
-            int postId = 0;
+            XmlElement Rss = XElement("rss");
+            foreach (var Itm in Namespaces)
+                Rss.SetAttribute("xmlns:" + Itm.Key, Itm.Value);
+
+            WXR.AppendChild(Rss);
+
+            XmlElement Root = XElement("channel");
+            Rss.AppendChild(Root);
 
 
             foreach (string PostFile in XmlFiles)
@@ -81,75 +95,78 @@ namespace zasz.develop.Utils
                 Log("Working on file : " + PostFile);
                 var PostDoc = new XmlDocument();
                 PostDoc.Load(PostFile);
-                string Title = PostDoc.SelectSingleNode("post/title").InnerText;
-                string Slug = PostDoc.SelectSingleNode("post/slug").InnerText;
+                string Title = get(PostDoc, "post/title");
+                string Slug = get(PostDoc, "post/slug");
                 Log("Title : " + Title);
+                XmlElement Item = XElement("item");
+                Root.AppendChild(Item);
 
-                // Sub-element: article
-                XmlElement item = XElement("item");
-                root.AppendChild(item);
+                Item.AppendChild(XElement("title", Title));
+                Item.AppendChild(XElement("link", get(PostDoc, "WHAT TO DO HERE?")));
+                Item.AppendChild(XElement("dsq:thread_identifier", Slug));
+                Item.AppendChild(XElement("wp:post_date_gmt", get(PostDoc, "pubDate")));
+                Item.AppendChild(XElement("content:encoded", WXR.CreateCDataSection(get(PostDoc, "content"))));
 
-                item.AppendChild(XElement("title", Title));
-//                item.AppendChild(XElement("link", post.PermaLink.ToString()));
-//                item.AppendChild(XElement("pubDate", post.DateCreated.ToString(DATE_FORMAT)));
-                item.AppendChild(XElement("dsq:thread_identifier", Slug));
-//                item.AppendChild(XElement("dc:creator", "");
-//                item.AppendChild(XElement("description", string.Empty));
-//                item.AppendChild(XElement("content:encoded", _doc.CreateCDataSection(post.Content)));
-
-                item.AppendChild(XElement("wp:post_id", Slug));
-                item.AppendChild(XElement("wp:comment_status", "open"));
-                item.AppendChild(XElement("wp:ping_status", "open"));
-                item.AppendChild(XElement("wp:post_type", "post"));
+                Item.AppendChild(XElement("wp:post_id", Slug));
+                Item.AppendChild(XElement("wp:comment_status", "open"));
+                Item.AppendChild(XElement("wp:ping_status", "open"));
+                Item.AppendChild(XElement("wp:post_type", "post"));
 
                 foreach (XmlNode node in PostDoc.SelectNodes("post/comments/comment"))
                 {
-                    XmlElement cmt = XElement("wp:comment");
-                    cmt.AppendChild(XElement("wp:comment_id", (++_commentCount).ToString()));
-                    cmt.AppendChild(XElement("wp:comment_author", _doc.CreateCDataSection(get(node, "author"))));
-                    cmt.AppendChild(XElement("wp:comment_author_email", get(node, "email")));
-                    cmt.AppendChild(XElement("wp:comment_author_url", get(node, "website")));
-                    cmt.AppendChild(XElement("wp:comment_author_IP", get(node, "ip")));
+                    AkismetComment Comment = new AkismetComment();
+                    Comment.Blog = "http://www.chandruon.net/ZaszBlog";
+                    Comment.UserIp = get(node, "ip");
+                    Comment.CommentContent = get(node, "content");
+                    Comment.CommentAuthor = get(node, "author");
+                    Comment.CommentAuthorEmail = get(node, "email");
+                    Comment.CommentAuthorUrl = get(node, "website");
+                    Comment.CommentType = "comment";
+                    CommentsProgress.PerformStep();
+//                    if (Api.CommentCheck(Comment))
+//                    {
+//                        SpamAmount.PerformStep();
+//                        continue;
+//                    }
+                    XmlElement Cmt = XElement("wp:comment");
+                    Cmt.AppendChild(XElement("wp:comment_id", (++_commentCount).ToString()));
+                    Cmt.AppendChild(XElement("wp:comment_author", WXR.CreateCDataSection(Comment.CommentAuthor)));
+                    Cmt.AppendChild(XElement("wp:comment_author_email", Comment.CommentAuthorEmail));
+                    Cmt.AppendChild(XElement("wp:comment_author_url", Comment.CommentAuthorUrl));
+                    Cmt.AppendChild(XElement("wp:comment_author_IP", Comment.UserIp));
                     string Date = DateTime.Parse(get(node, "date")).ToString(DATE_FORMAT);
-                    cmt.AppendChild(XElement("wp:comment_date", Date));
-                    cmt.AppendChild(XElement("wp:comment_date_gmt", Date));
-                    cmt.AppendChild(XElement("wp:comment_content", _doc.CreateCDataSection(get(node, "content"))));
-                    cmt.AppendChild(XElement("wp:comment_approved", "1"));
-                    item.AppendChild(cmt);
+                    Cmt.AppendChild(XElement("wp:comment_date", Date));
+                    Cmt.AppendChild(XElement("wp:comment_date_gmt", Date));
+                    Cmt.AppendChild(XElement("wp:comment_content", WXR.CreateCDataSection(Comment.CommentContent)));
+                    Cmt.AppendChild(XElement("wp:comment_approved", "1"));
+                    Item.AppendChild(Cmt);
                 }
             }
 
-            _doc.Save(FolderSystemPath + @"\CommentsWXR.xml");
+            WXR.Save(FolderSystemPath + @"\CommentsWXRAksimetFiltered.xml");
         }
 
-        private static string get(XmlNode node, string element)
+        private static string get(XmlNode Node, string Element)
         {
-            XmlNode SingleNode = node.SelectSingleNode(element);
+            XmlNode SingleNode = Node.SelectSingleNode(Element);
             return SingleNode == null ? "" : SingleNode.InnerText;
         }
 
 
-        private XmlElement XElement(string name, string value, params XmlAttribute[] attributes)
+        private XmlElement XElement(string Name, string Value, params XmlAttribute[] Attributes)
         {
-            XmlElement e;
+            XmlElement E = Name.IndexOf(':') != -1
+                               ? WXR.CreateElement(Name, Namespaces[Name.Split(':')[0]])
+                               : WXR.CreateElement(Name);
 
-            if (name.IndexOf(':') != -1)
-                e = _doc.CreateElement(name, _ns[name.Split(':')[0]]);
-            else e = _doc.CreateElement(name);
+            if (Value != null)
+                E.InnerText = Value;
 
-            if (value != null)
-                e.InnerText = value;
+            if (Attributes != null)
+                foreach (XmlAttribute atr in Attributes)
+                    E.Attributes.Append(atr);
 
-            if (attributes != null)
-                foreach (XmlAttribute atr in attributes)
-                    e.Attributes.Append(atr);
-
-            return e;
-        }
-
-        private XmlElement XElement(string name, params XmlAttribute[] attributes)
-        {
-            return XElement(name, null, attributes);
+            return E;
         }
 
         private XmlElement XElement(string name)
@@ -159,11 +176,11 @@ namespace zasz.develop.Utils
 
         private XmlElement XElement(string name, params XmlLinkedNode[] childs)
         {
-            XmlElement e = null;
+            XmlElement e;
 
             if (name.IndexOf(':') != -1)
-                e = _doc.CreateElement(name, _ns[name.Split(':')[0]]);
-            else e = _doc.CreateElement(name);
+                e = WXR.CreateElement(name, Namespaces[name.Split(':')[0]]);
+            else e = WXR.CreateElement(name);
 
             if (childs != null)
                 foreach (XmlLinkedNode child in childs)
@@ -172,7 +189,6 @@ namespace zasz.develop.Utils
             return e;
         }
     }
-       
 }
 
 /*

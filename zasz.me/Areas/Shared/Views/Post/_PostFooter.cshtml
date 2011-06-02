@@ -1,0 +1,24 @@
+﻿@model zasz.me.Areas.Shared.Models.Post
+
+<div class="Post-Footer">
+@if(Model.Tags.Count == 0) 
+{
+    <span>No tags on this one</span>
+}
+else
+{
+    <span>Tagged : </span>
+    <ul class="Tags">
+    @foreach (zasz.me.Areas.Shared.Models.Tag Tag in Model.Tags)
+    {
+        <li><a href="/Writings/Tag/@Tag.Name">@Tag.Name</a></li>
+    }
+    </ul>
+}
+<br />
+Share\Bookmark this post by dragging this <a href="@Model.Permalink" class="Normal-Link">Permalink</a> onto the browser.
+<br />
+<span>Manage :</span>
+<a href="/Writings/Edit/@Model.Slug" class="Normal-Link">Edit</a>
+<a href="/Writings/Delete/@Model.Slug" class="Normal-Link">Delete</a>
+</div>

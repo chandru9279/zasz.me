@@ -79,33 +79,31 @@ namespace zasz.me.Areas.Shared.Controllers
         }
 
         [HttpPost]
-        [ValidateInput(false)]  
+        [ValidateInput(false)]
         public ActionResult Manage(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
         {
             bool New = string.IsNullOrEmpty(Slug);
-            try
-            {
-                Post Entry = New ? new Post() : _Posts.Get(Slug);
 
-                Entry.Title = Title;
-                Entry.Content = PostContent;
-                Entry.Site = Site.WithName(ChosenSite);
-                Entry.Tags =
-                    Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(It => _Tags.Get(It) ?? new Tag(It)).
-                        ToList();
-                if (New) Entry.Slug = GetSlug(Title);
-                if (New) Entry.Timestamp = DateTime.Now;
+            Post Entry = New ? new Post() : _Posts.Get(Slug);
 
-                if (New && ModelState.IsValid)
+            Entry.Title = Title;
+            Entry.Content = PostContent;
+            Entry.Site = Site.WithName(ChosenSite);
+            Entry.Tags =
+                Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(
+                    It => _Tags.Get(It) ?? new Tag(It)).
+                    ToList();
+            if (New) Entry.Slug = GetSlug(Title);
+            if (New) Entry.Timestamp = DateTime.Now;
+
+            if (New)
+                if (ModelState.IsValid)
                     _Posts.Save(Entry);
+                else
+                    return View(ManageViewPath, Entry);
 
-                _Posts.Commit();
-                return RedirectToAction("Post", new {Id = Slug});
-            }
-            catch
-            {
-                    return View();
-            }
+            _Posts.Commit();
+            return RedirectToAction("Post", new {Id = Slug});
         }
 
         public static string GetSlug(string Title)

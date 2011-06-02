@@ -27,7 +27,7 @@ namespace zasz.me.Integration.EntityFramework
 
         public List<Post> Page(int PageNumber, int PageSize)
         {
-            return _ModelSet.OrderBy(Model => Model.Timestamp).Skip(PageNumber * PageSize).Take(PageSize).ToList();
+            return _ModelSet.OrderByDescending(Model => Model.Timestamp).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
         /// <param name = "PageNumber">Zero-Based Index</param>
@@ -35,7 +35,7 @@ namespace zasz.me.Integration.EntityFramework
         {
             return (from Model in _ModelSet
                     where Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both"
-                    orderby Model.Timestamp
+                    orderby Model.Timestamp descending 
                     select Model).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
 
