@@ -9,55 +9,12 @@
     <link href="@Url.Content("~/Content/Pro/Writings.css")" rel="stylesheet" type="text/css" />
 
     <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MyScripts.js")" type="text/javascript"></script>    
+
     <meta name="robots" content="index, follow" />
     <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
-    
-    <!-- For Visual Studio IntelliSense -->
-    @if (false) { <script src="~/Scripts/jquery-1.4.4-vsdoc.js" type="text/javascript"></script> }
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            AttachClickHandlers();
-        });
-
-        var StatusExpanded = false;
-        var BodyClickedHandlers = new Array();
-
-        function AttachClickHandlers() {
-
-            $('body').click(BodyClicked)
-            $('#Status-History-Expand-Button').click(ExpandStatus);
-        }
-
-
-        function BodyClicked() {
-            jQuery.each(BodyClickedHandlers, function () {
-                this();
-            })
-        }
-
-        function ExpandStatus() {
-            if (StatusExpanded)
-                CloseStatus();
-            else {
-                BodyClickedHandlers.push(CloseStatus);
-                $('#Status-History').toggleClass('Status-History Status-History-Expanded')
-                StatusExpanded = true;
-            }
-            return false;
-        }
-
-        function CloseStatus() {
-            if (StatusExpanded) {
-                $('#Status-History').removeClass('Status-History-Expanded')
-                $('#Status-History').addClass('Status-History')
-                StatusExpanded = false;
-            }
-        }
-
-    </script>
     @RenderSection("Head", false)
-
 </head>
 
 <body class="Pro">

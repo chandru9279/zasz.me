@@ -78,6 +78,14 @@ namespace zasz.me.Areas.Shared.Controllers
             return View(ManageViewPath, _Posts.Get(Id));
         }
 
+        public ActionResult Delete(string Id)
+        {
+            /* Todo : Need to figure out a way to delete without fetching */
+            _Posts.Delete(_Posts.Get(Id));
+            _Posts.Commit();
+            return Redirect("/Writings/List");
+        }
+
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Manage(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
@@ -89,6 +97,7 @@ namespace zasz.me.Areas.Shared.Controllers
             Entry.Title = Title;
             Entry.Content = PostContent;
             Entry.Site = Site.WithName(ChosenSite);
+            Entry.Tags.Clear();
             Entry.Tags =
                 Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(
                     It => _Tags.Get(It) ?? new Tag(It)).
@@ -103,7 +112,7 @@ namespace zasz.me.Areas.Shared.Controllers
                     return View(ManageViewPath, Entry);
 
             _Posts.Commit();
-            return RedirectToAction("Post", new {Id = Slug});
+            return Redirect("/Writings/Post/" + Slug);
         }
 
         public static string GetSlug(string Title)

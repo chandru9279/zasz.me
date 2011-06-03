@@ -159,6 +159,7 @@
     <Content Include="Content\Pro\Images\linked-in.jpeg" />
     <Content Include="Content\Pro\Images\Paging.png" />
     <Content Include="Content\Pro\Images\rss.jpeg" />
+    <Content Include="Content\Pro\Images\scan-qr-codes.jpg" />
     <Content Include="Content\Pro\Images\shadow-right.png" />
     <Content Include="Content\Pro\Images\shadow-top.png" />
     <Content Include="Content\Pro\Images\shadow-topright.png" />
@@ -292,6 +293,7 @@
     <Content Include="Content\jQuery-UI\Images\ui-icons_454545_256x240.png" />
     <Content Include="Content\jQuery-UI\Images\ui-icons_888888_256x240.png" />
     <Content Include="Content\jQuery-UI\Images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\MyScripts.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

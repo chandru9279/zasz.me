@@ -30,10 +30,10 @@ hgroup, nav, section {
 }
 
 /* This helps to make newer HTML5 elements behave like DIVs in older browers */ 
-article, aside, dialog, figure, footer, header,
-hgroup, nav, section {
-    display:block;
-}
+article, aside, audio, canvas, command, datalist, dialog, 
+details, embed, figcaption, figure, footer, header, hgroup, 
+keygen, meter, nav, output, progress, section, source, video { display: block; }
+mark, rp, rt, ruby, summary, time { display: inline }
 
 /* Line-height should always be unitless! */
 body {

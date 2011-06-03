@@ -52,6 +52,11 @@
     font-style: italic;
 }
 
+.Post-Content p
+{
+    margin: 30px 0px;
+}
+
 .Post-Content strong
 {
     font-weight: bold;

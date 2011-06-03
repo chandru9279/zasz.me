@@ -6,10 +6,8 @@
 
 <div class="Post">
 <br />
-<br />
 <a class="Post-Title" href="/Writings/Post/@Model.Slug">@Model.Title</a>
 <div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
-<br />
 <br />
 <div class="Post-Content">@Html.Raw(Model.Content)</div>
 @Html.Partial("~/Areas/Shared/Views/Post/_PostFooter.cshtml", Model)

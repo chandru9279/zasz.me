@@ -289,3 +289,27 @@ a
     text-decoration: underline;
     cursor: pointer;
 }
+
+#mask
+{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:102;
+    background:#111;
+    opacity:0.8;
+    display:none;
+}
+
+.Pro-Popup
+{
+    color:Black;
+    background:#FFF;
+    padding:20px;
+    position:absolute;
+    z-index:107;
+    border:5px solid #FFAE7F;    
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+}
