@@ -91,11 +91,11 @@ namespace zasz.develop.Utils
 
         private void DeleteByType<T>() where T : class
         {
-            Log("Deleting All {0} from ColdStorage.. ", typeof (T));
+            Log("Deleting All {0} from ColdStorage.. ", typeof(T));
             foreach (T Model in _FullContext.Set<T>())
                 _FullContext.Set<T>().Remove(Model);
             _FullContext.SaveChanges();
-            Log("Done (All {0} Deleted from ColdStorage..) !", typeof (T));
+            Log("Done (All {0} Deleted from ColdStorage..) !", typeof(T));
         }
 
         /*
@@ -117,6 +117,17 @@ namespace zasz.develop.Utils
         {
             string Path = Environment.GetEnvironmentVariable("SampleDataPath");
             new CommentsExport {CommentsProgress = CommentsProgress, SpamAmount = SpamAmount}.ConvertComments(Path, Log);
+        }
+
+        private void ProcessPostsClick(object Sender, EventArgs E)
+        {
+            var AllPosts = _PostRepository.Page(0, 50, My.Site.WithName("Both"));
+            foreach(Post It in AllPosts)
+            {
+                HtmlDocument Node = new HtmlDocument();
+                Node.LoadHtml(It.Content);
+                var ImageNodes = Node.DocumentNode.SelectNodes("//img");
+            }
         }
     }
 }
