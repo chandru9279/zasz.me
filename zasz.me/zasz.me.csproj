@@ -144,6 +144,7 @@
     <Compile Include="Services\FilesystemFilesService.cs" />
     <Compile Include="Services\IFilesService.cs" />
     <Compile Include="Services\Pairs.cs" />
+    <Compile Include="Services\TagCloudService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Rest\Views\Web.config" />

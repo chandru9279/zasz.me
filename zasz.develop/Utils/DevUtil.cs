@@ -119,16 +119,21 @@ namespace zasz.develop.Utils
             new CommentsExport {CommentsProgress = CommentsProgress, SpamAmount = SpamAmount}.ConvertComments(Path, Log);
         }
 
-        private void ProcessPostsClick(object Sender, EventArgs E)
+        private void ShowTagCloud_Click(object sender, EventArgs e)
         {
-            var AllPosts = _PostRepository.Page(0, 50, My.Site.WithName("Both"));
-            foreach(Post It in AllPosts)
-            {
-                HtmlDocument Node = new HtmlDocument();
-                Node.LoadHtml(It.Content);
-                var ImageNodes = Node.DocumentNode.SelectNodes("//img");
-            }
+            new TagCloud().Show();
         }
+
+//        private void ProcessPostsClick(object Sender, EventArgs E)
+//        {
+//            var AllPosts = _PostRepository.Page(0, 50, My.Site.WithName("Both"));
+//            foreach(Post It in AllPosts)
+//            {
+//                HtmlDocument Node = new HtmlDocument();
+//                Node.LoadHtml(It.Content);
+//                var ImageNodes = Node.DocumentNode.SelectNodes("//img");
+//            }
+//        }
     }
 }
 

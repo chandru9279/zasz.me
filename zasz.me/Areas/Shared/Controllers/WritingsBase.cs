@@ -31,7 +31,7 @@ namespace zasz.me.Areas.Shared.Controllers
         }
 
         /* Use Handy.InvalidateOutputCache() when Creating a Post to manually expire this cache*/
-//        [OutputCache(Duration = 3600)]
+        [OutputCache(Duration = 3600)]
         public ActionResult ArchiveControl()
         {
             return ArchiveControl(_Site);
