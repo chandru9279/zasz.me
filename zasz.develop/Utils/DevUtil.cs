@@ -35,7 +35,7 @@ namespace zasz.develop.Utils
         {
             try
             {
-                string Path = Environment.GetEnvironmentVariable("SampleDataPath");
+                string Path = Environment.GetEnvironmentVariable("ProjectRootPath") + @"\zasz.develop\SampleData\Posts";
 
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {

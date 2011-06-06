@@ -1,75 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
-using System.Threading;
 
 namespace zasz.me.Services
 {
     public class TagCloudService
     {
-        private readonly StringFormat _HorizontalFormat;
-        private readonly int _LowestWeight;
         private readonly int _HighestWeight;
+        private readonly int _LowestWeight;
         internal readonly List<RectangleF> _Occupied;
-        private readonly Random _Seed;
-        private readonly Dictionary<string, int> _Tags;
         private readonly Dictionary<string, int> _TagsSorted;
-        private readonly StringFormat _VerticalFormat;
+        private readonly TagCloudStrategies _Strategies;
         private PointF _Center;
         private int _CurrentEdgeSize = 1;
         private bool _EdgeUnused = true;
-        private int _WeightSpan;
         private float _FontSpan;
+        private int _WeightSpan;
 
         public TagCloudService(Dictionary<string, int> Tags)
         {
-            _Tags = Tags;
-            var Sorted = from Tag in _Tags
+            var Sorted = from Tag in Tags
                          orderby Tag.Value descending
                          select new {Tag.Key, Tag.Value};
             _TagsSorted = Sorted.ToDictionary(It => It.Key, It => It.Value);
             _LowestWeight = _TagsSorted.Last().Value;
             _HighestWeight = _TagsSorted.First().Value;
-            _VerticalFormat = new StringFormat();
-            _HorizontalFormat = new StringFormat();
-            _VerticalFormat.FormatFlags = StringFormatFlags.DirectionVertical;
-            _Seed = new Random(DateTime.Now.Second);
-            _Occupied = new List<RectangleF>(_Tags.Count);
+            _Strategies = new TagCloudStrategies();
+            _Occupied = new List<RectangleF>(_TagsSorted.Count);
             ApplyDefaults();
         }
 
-        public string FontName { get; set; }
+        /// <summary>
+        /// Default is Times New Roman
+        /// </summary>
+        public FontFamily SelectedFont { get; set; }
 
+        /// <summary>
+        /// Size of the smallest string in the TagCloud
+        /// </summary>
         public float MinimumFontSize { get; set; }
 
+        /// <summary>
+        /// Size of the largest string in the TagCloud
+        /// </summary>
         public float MaximumFontSize { get; set; }
 
+        public TagDisplayStrategy SelectedStrategy { get; set; }
+
+        /// <summary>
+        /// A rotate transform will be applied on the whole image based on this 
+        /// Angle in degrees
+        /// </summary>
+        public int Angle { get; set; }  
+
         private void ApplyDefaults()
-        {   
-            FontName = "Arial";
-            MinimumFontSize = 10f;
-            MaximumFontSize = 30f;
+        {
+            SelectedFont = new FontFamily("Times New Roman");
+            MinimumFontSize = 1f;
+            MaximumFontSize = 5f;
+            Angle = 0;
+            SelectedStrategy = TagDisplayStrategy.RandomHorizontalOrVertical;
         }
 
         public Bitmap Get(int Width, int Height)
         {
             var TheCloudBitmap = new Bitmap(Width, Height);
             Graphics GImage = Graphics.FromImage(TheCloudBitmap);
+            GImage.TextRenderingHint = TextRenderingHint.AntiAlias;
             _Center = new PointF(TheCloudBitmap.Height/2f, TheCloudBitmap.Width/2f);
+            if (Angle != 0) Rotate(GImage);
             _WeightSpan = _HighestWeight - _LowestWeight;
-            if(MaximumFontSize < MinimumFontSize)
-                throw new ArgumentException("MaximumFontSize is less than MinimumFontSize");
+            if (MaximumFontSize < MinimumFontSize)
+                throw new ServiceRequirementException("MaximumFontSize is less than MinimumFontSize");
             _FontSpan = MaximumFontSize - MinimumFontSize;
 
             foreach (var Tag in _TagsSorted)
             {
-                var FontToApply = new Font(FontName, CalculateFontSize(Tag.Value));
+                var FontToApply = new Font(SelectedFont, CalculateFontSize(Tag.Value));
                 SizeF StringBounds = GImage.MeasureString(Tag.Key, FontToApply);
                 StringFormat Format = CalculateHow();
-                if(ReferenceEquals(Format, _VerticalFormat))
+                if (Format.FormatFlags.HasFlag(StringFormatFlags.DirectionVertical))
                 {
-                    var StringWidth = StringBounds.Width;
+                    float StringWidth = StringBounds.Width;
                     StringBounds.Width = StringBounds.Height;
                     StringBounds.Height = StringWidth;
                 }
@@ -81,9 +95,16 @@ namespace zasz.me.Services
             return TheCloudBitmap;
         }
 
+        private void Rotate(Graphics GImage)
+        {
+            GImage.TranslateTransform(_Center.X, _Center.Y);
+            GImage.RotateTransform(Angle);
+            GImage.TranslateTransform(-_Center.X, -_Center.Y);
+        }
+
         private StringFormat CalculateHow()
         {
-            return _Seed.NextDouble() > 0.5 ? _VerticalFormat : _HorizontalFormat;
+            return _Strategies.Set[SelectedStrategy].GetFormat();
         }
 
         private PointF CalculateWhere(SizeF Measure)
@@ -91,6 +112,8 @@ namespace zasz.me.Services
             PointF Point = _Center;
             while (TryPoint(Point, Measure) == false)
                 Point = GetSpiralNext(Point);
+            _CurrentEdgeSize = 1;
+            _EdgeUnused = true;
             return Point;
         }
 
@@ -99,6 +122,22 @@ namespace zasz.me.Services
             var TrailRectangle = new RectangleF(TrialPoint, Rectangle);
             return !_Occupied.Any(It => It.IntersectsWith(TrailRectangle));
         }
+
+        /* Imagine a grid of 5x5 points, and 0,0 and 4,4 are the topright and bottomleft respectively.
+         * You can move in a spiral by navigating as follows:
+         * 1. Inc GivenPoint's X by 1 and return it.
+         * 2. Inc GivenPoint's Y by 1 and return it.
+         * 3. Dec GivenPoint's X by 2 and return it.
+         * 4. Dec GivenPoint's Y by 2 and return it.
+         * 5. Inc GivenPoint's X by 3 and return it.
+         * 6. Inc GivenPoint's Y by 3 and return it.
+         * 7. Dec GivenPoint's X by 4 and return it.
+         * 8. Dec GivenPoint's Y by 4 and return it.
+         * 
+         * I'm calling the values 1,2,3,4 etc as _EdgeSize. Any joining of points in a graph is an edge.
+         * To find out if we need to increment or decrement I'm using the condition _EdgeSize is even or not.
+         * To increment EdgeSize, using a boolean _EdgeUnused to count upto 2 steps.
+         * */
 
         internal PointF GetSpiralNext(PointF TrialPoint)
         {
@@ -123,10 +162,16 @@ namespace zasz.me.Services
         private float CalculateFontSize(int Weight)
         {
             // Convert the Weight into a 0-1 range (float)
-            var WeightScaled = Weight - _LowestWeight / (float)_WeightSpan;
-
+            float WeightScaled = Weight - _LowestWeight/(float) _WeightSpan;
             // Convert the 0-1 range into a value in the Font range.
-            return MinimumFontSize + (WeightScaled * _FontSpan);
+            return MinimumFontSize + (WeightScaled*_FontSpan);
+        }
+    }
+
+    public class ServiceRequirementException : Exception
+    {
+        public ServiceRequirementException(string Message) : base(Message)
+        {
         }
     }
 }
