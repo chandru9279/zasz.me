@@ -4,24 +4,40 @@ using System.Drawing;
 
 namespace zasz.me.Services
 {
-    public abstract class StrategyHandler
+    public abstract class DisplayStrategy
     {
         protected static readonly StringFormat HorizontalFormat;
         protected static readonly StringFormat VerticalFormat;
         protected static readonly Random Seed;
+        private static readonly Dictionary<TagDisplayStrategy, DisplayStrategy> _Set;
 
-        static StrategyHandler()
+        static DisplayStrategy()
         {
             VerticalFormat = new StringFormat();
             HorizontalFormat = new StringFormat();
             VerticalFormat.FormatFlags = StringFormatFlags.DirectionVertical;
             Seed = new Random(DateTime.Now.Second);
+
+            _Set = new Dictionary<TagDisplayStrategy, DisplayStrategy>(6)
+                      {
+                          {TagDisplayStrategy.EqualHorizontalAndVertical, new EqualHorizontalAndVertical()},
+                          {TagDisplayStrategy.AllHorizontal, new AllHorizontal()},
+                          {TagDisplayStrategy.AllVertical, new AllVertical()},
+                          {TagDisplayStrategy.RandomHorizontalOrVertical, new RandomHorizontalOrVertical()},
+                          {TagDisplayStrategy.MoreHorizontalThanVertical, new RandomHorizontalOrVertical(0.25)},
+                          {TagDisplayStrategy.MoreVerticalThanHorizontal, new RandomHorizontalOrVertical(0.75)}
+                      };
+        }
+
+        public static DisplayStrategy Get(TagDisplayStrategy DisplayStrategy)
+        {
+            return _Set[DisplayStrategy];
         }
 
         public abstract StringFormat GetFormat();
     }
 
-    internal class AllHorizontal : StrategyHandler
+    internal class AllHorizontal : DisplayStrategy
     {
         public override StringFormat GetFormat()
         {
@@ -29,7 +45,7 @@ namespace zasz.me.Services
         }
     }
 
-    internal class AllVertical : StrategyHandler
+    internal class AllVertical : DisplayStrategy
     {
         public override StringFormat GetFormat()
         {
@@ -37,7 +53,7 @@ namespace zasz.me.Services
         }
     }
 
-    internal class RandomHorizontalOrVertical : StrategyHandler
+    internal class RandomHorizontalOrVertical : DisplayStrategy
     {
         private readonly double _Split;
 
@@ -52,7 +68,7 @@ namespace zasz.me.Services
         }
     }
 
-    internal class EqualHorizontalAndVertical : StrategyHandler
+    internal class EqualHorizontalAndVertical : DisplayStrategy
     {
         private bool _CurrentState;
 
@@ -66,25 +82,6 @@ namespace zasz.me.Services
             _CurrentState = !_CurrentState;
             return _CurrentState ? HorizontalFormat : VerticalFormat;
         }
-    }
-
-
-    public class TagCloudStrategies
-    {
-        public TagCloudStrategies()
-        {
-            Set = new Dictionary<TagDisplayStrategy, StrategyHandler>(6)
-                              {
-                                  {TagDisplayStrategy.EqualHorizontalAndVertical, new EqualHorizontalAndVertical()},
-                                  {TagDisplayStrategy.AllHorizontal, new AllHorizontal()},
-                                  {TagDisplayStrategy.AllVertical, new AllVertical()},
-                                  {TagDisplayStrategy.RandomHorizontalOrVertical, new RandomHorizontalOrVertical()},
-                                  {TagDisplayStrategy.MoreHorizontalThanVertical, new RandomHorizontalOrVertical(0.25)},
-                                  {TagDisplayStrategy.MoreVerticalThanHorizontal, new RandomHorizontalOrVertical(0.75)}
-                              };
-        }
-
-        public Dictionary<TagDisplayStrategy, StrategyHandler> Set { get; private set; }
     }
 
     public enum TagDisplayStrategy

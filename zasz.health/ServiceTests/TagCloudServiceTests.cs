@@ -43,6 +43,9 @@ namespace zasz.health.ServiceTests
         [TestMethod]
         public void TestGetNextPointInSpiral()
         {
+            _Service._CurrentEdgeSize = 1;
+            _Service._EdgeUnused = true;
+
             Assert.AreEqual(P(3, 2), _Service.GetSpiralNext(P(2, 2)));
             Assert.AreEqual(P(3, 3), _Service.GetSpiralNext(P(3, 2)));
             Assert.AreEqual(P(1, 3), _Service.GetSpiralNext(P(3, 3)));
@@ -53,5 +56,62 @@ namespace zasz.health.ServiceTests
             Assert.AreEqual(P(0, 0), _Service.GetSpiralNext(P(0, 4)));
             Assert.AreEqual(P(5, 0), _Service.GetSpiralNext(P(0, 0)));
         }
+        
+        
+        [TestMethod]
+        public void TestGetNextPointInEdge()
+        {
+            _Service._CurrentEdgeSize = 1;
+            _Service._EdgeUnused = true;
+            _Service._CurrentEdgeLimit = P(2, 2);
+            _Service._Center = P(2, 2);
+
+            Assert.AreEqual(P(3, 2), _Service.GetNextPointInEdge(P(2, 2)));
+
+            Assert.AreEqual(P(3, 3), _Service.GetNextPointInEdge(P(3, 2)));
+
+            Assert.AreEqual(P(2, 3), _Service.GetNextPointInEdge(P(3, 3)));
+            Assert.AreEqual(P(1, 3), _Service.GetNextPointInEdge(P(2, 3)));
+
+            Assert.AreEqual(P(1, 2), _Service.GetNextPointInEdge(P(1, 3)));
+            Assert.AreEqual(P(1, 1), _Service.GetNextPointInEdge(P(1, 2)));
+
+            Assert.AreEqual(P(2, 1), _Service.GetNextPointInEdge(P(1, 1)));
+            Assert.AreEqual(P(3, 1), _Service.GetNextPointInEdge(P(2, 1)));
+            Assert.AreEqual(P(4, 1), _Service.GetNextPointInEdge(P(3, 1)));
+
+            Assert.AreEqual(P(4, 2), _Service.GetNextPointInEdge(P(4, 1)));
+            Assert.AreEqual(P(4, 3), _Service.GetNextPointInEdge(P(4, 2)));
+            Assert.AreEqual(P(4, 4), _Service.GetNextPointInEdge(P(4, 3)));
+
+
+            Assert.AreEqual(P(3, 4), _Service.GetNextPointInEdge(P(4, 4)));
+            Assert.AreEqual(P(2, 4), _Service.GetNextPointInEdge(P(3, 4)));
+            Assert.AreEqual(P(1, 4), _Service.GetNextPointInEdge(P(2, 4)));
+            Assert.AreEqual(P(0, 4), _Service.GetNextPointInEdge(P(1, 4)));
+
+            Assert.AreEqual(P(0, 3), _Service.GetNextPointInEdge(P(0, 4)));
+            Assert.AreEqual(P(0, 2), _Service.GetNextPointInEdge(P(0, 3)));
+            Assert.AreEqual(P(0, 1), _Service.GetNextPointInEdge(P(0, 2)));
+            Assert.AreEqual(P(0, 0), _Service.GetNextPointInEdge(P(0, 1)));
+
+            Assert.AreEqual(P(1, 0), _Service.GetNextPointInEdge(P(0, 0)));
+            Assert.AreEqual(P(2, 0), _Service.GetNextPointInEdge(P(1, 0)));
+            Assert.AreEqual(P(3, 0), _Service.GetNextPointInEdge(P(2, 0)));
+            Assert.AreEqual(P(4, 0), _Service.GetNextPointInEdge(P(3, 0)));
+            Assert.AreEqual(P(5, 0), _Service.GetNextPointInEdge(P(4, 0)));
+        }
+
+        /**
+         * 
+         *       0  1  2  3  4
+         *   0   X  X  X  X  X 
+         *   1   X  X  X  X  X
+         *   2   X  X  X  X  X
+         *   3   X  X  X  X  X
+         *   4   X  X  X  X  X
+         * 
+         * 
+         */
     }
 }

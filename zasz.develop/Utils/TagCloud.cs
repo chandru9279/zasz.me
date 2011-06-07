@@ -10,6 +10,8 @@ namespace zasz.develop.Utils
 {
     public partial class TagCloud : Form
     {
+        private Color _Bg = Color.White;
+        private Color _Fg = Color.Black;
         private FontsService _Service;
 
         public TagCloud()
@@ -34,20 +36,50 @@ namespace zasz.develop.Utils
             if (null != FontsCombo.SelectedItem)
                 TagCloudService.SelectedFont = _Service.AvailableFonts[FontsCombo.SelectedItem.ToString()];
             if (null != StrategyCombo.SelectedItem)
-                TagCloudService.SelectedStrategy =
-                    (TagDisplayStrategy) Enum.Parse(typeof (TagDisplayStrategy), StrategyCombo.SelectedItem.ToString());
+                TagCloudService.DisplayChoice = DisplayStrategy.Get(
+                    (TagDisplayStrategy) Enum.Parse(typeof (TagDisplayStrategy), StrategyCombo.SelectedItem.ToString()));
+            if (null != BgfgStrategyCombo.SelectedItem && null != FgStrategyCombo.SelectedItem)
+            {
+                TagCloudService.ColorChoice = ColorStrategy.Get(
+                    (BackgroundForegroundScheme)
+                    Enum.Parse(typeof (BackgroundForegroundScheme), BgfgStrategyCombo.SelectedItem.ToString()),
+                    (ForegroundScheme) Enum.Parse(typeof (ForegroundScheme), FgStrategyCombo.SelectedItem.ToString()),
+                    _Bg, _Fg);
+            }
+
+
             Bitmap Bitmap = TagCloudService.Get(int.Parse(Width.Text), int.Parse(Height.Text));
             Bitmap.Save(SystemPath + @"\Cloud.png", ImageFormat.Png);
             Cloud.Image = Bitmap;
         }
 
-        private void TagCloudLoad(object sender, EventArgs e)
+        private void TagCloudLoad(object Sender, EventArgs E)
         {
             string SystemPath = Environment.GetEnvironmentVariable("ProjectRootPath") + @"\zasz.me\Content\Shared\Fonts";
             _Service = new FontsService();
             _Service.LoadFonts(SystemPath);
             FontsCombo.Items.AddRange(_Service.AvailableFonts.Keys.ToArray());
             StrategyCombo.Items.AddRange(Enum.GetNames(typeof (TagDisplayStrategy)));
+            BgfgStrategyCombo.Items.AddRange(Enum.GetNames(typeof (BackgroundForegroundScheme)));
+            FgStrategyCombo.Items.AddRange(Enum.GetNames(typeof (ForegroundScheme)));
+        }
+
+        private void SetBgClick(object Sender, EventArgs E)
+        {
+            if (ColorPick.ShowDialog() == DialogResult.OK)
+            {
+                _Bg = ColorPick.Color;
+                BackG.BackColor = _Bg;
+            }
+        }
+
+        private void SetFgClick(object Sender, EventArgs E)
+        {
+            if (ColorPick.ShowDialog() == DialogResult.OK)
+            {
+                _Fg = ColorPick.Color;
+                ForeG.BackColor = _Fg;
+            }
         }
     }
 }

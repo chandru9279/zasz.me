@@ -141,12 +141,14 @@
     <Compile Include="Integration\UnityIntegration.cs" />
     <Compile Include="Configuration\UploadsConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\HSLColor.cs" />
+    <Compile Include="Services\ColorStrategy.cs" />
     <Compile Include="Services\FilesystemFilesService.cs" />
     <Compile Include="Services\FontsService.cs" />
     <Compile Include="Services\IFilesService.cs" />
     <Compile Include="Services\Pairs.cs" />
     <Compile Include="Services\TagCloudService.cs" />
-    <Compile Include="Services\TagCloudStrategies.cs" />
+    <Compile Include="Services\DisplayStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Rest\Views\Web.config" />
@@ -413,7 +415,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2654</DevelopmentServerPort>
+          <DevelopmentServerPort>36728</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

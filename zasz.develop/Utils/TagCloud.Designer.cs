@@ -45,6 +45,15 @@
             this.FontsCombo = new System.Windows.Forms.ComboBox();
             this.StrategyCombo = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.BgfgStrategyCombo = new System.Windows.Forms.ComboBox();
+            this.FgStrategyCombo = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.ColorPick = new System.Windows.Forms.ColorDialog();
+            this.SetBg = new System.Windows.Forms.Button();
+            this.SetFg = new System.Windows.Forms.Button();
+            this.BackG = new System.Windows.Forms.Label();
+            this.ForeG = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Cloud)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,7 +132,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(72, 361);
+            this.label4.Location = new System.Drawing.Point(75, 365);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 10;
@@ -190,17 +199,97 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(54, 440);
+            this.label7.Location = new System.Drawing.Point(27, 439);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(46, 13);
+            this.label7.Size = new System.Drawing.Size(83, 13);
             this.label7.TabIndex = 16;
-            this.label7.Text = "Strategy";
+            this.label7.Text = "Display Strategy";
+            // 
+            // BgfgStrategyCombo
+            // 
+            this.BgfgStrategyCombo.FormattingEnabled = true;
+            this.BgfgStrategyCombo.Location = new System.Drawing.Point(116, 464);
+            this.BgfgStrategyCombo.Name = "BgfgStrategyCombo";
+            this.BgfgStrategyCombo.Size = new System.Drawing.Size(174, 21);
+            this.BgfgStrategyCombo.TabIndex = 18;
+            // 
+            // FgStrategyCombo
+            // 
+            this.FgStrategyCombo.FormattingEnabled = true;
+            this.FgStrategyCombo.Location = new System.Drawing.Point(116, 492);
+            this.FgStrategyCombo.Name = "FgStrategyCombo";
+            this.FgStrategyCombo.Size = new System.Drawing.Size(174, 21);
+            this.FgStrategyCombo.TabIndex = 19;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(29, 464);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "BG FG Strategy";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(47, 492);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(63, 13);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "FG Strategy";
+            // 
+            // SetBg
+            // 
+            this.SetBg.Location = new System.Drawing.Point(116, 519);
+            this.SetBg.Name = "SetBg";
+            this.SetBg.Size = new System.Drawing.Size(113, 23);
+            this.SetBg.TabIndex = 22;
+            this.SetBg.Text = "Set Background";
+            this.SetBg.UseVisualStyleBackColor = true;
+            this.SetBg.Click += new System.EventHandler(this.SetBgClick);
+            // 
+            // SetFg
+            // 
+            this.SetFg.Location = new System.Drawing.Point(116, 548);
+            this.SetFg.Name = "SetFg";
+            this.SetFg.Size = new System.Drawing.Size(113, 23);
+            this.SetFg.TabIndex = 23;
+            this.SetFg.Text = "Set Foreground";
+            this.SetFg.UseVisualStyleBackColor = true;
+            this.SetFg.Click += new System.EventHandler(this.SetFgClick);
+            // 
+            // BackG
+            // 
+            this.BackG.AutoSize = true;
+            this.BackG.Location = new System.Drawing.Point(69, 524);
+            this.BackG.Name = "BackG";
+            this.BackG.Size = new System.Drawing.Size(35, 13);
+            this.BackG.TabIndex = 24;
+            this.BackG.Text = "BACK";
+            // 
+            // ForeG
+            // 
+            this.ForeG.AutoSize = true;
+            this.ForeG.Location = new System.Drawing.Point(69, 548);
+            this.ForeG.Name = "ForeG";
+            this.ForeG.Size = new System.Drawing.Size(36, 13);
+            this.ForeG.TabIndex = 25;
+            this.ForeG.Text = "FORE";
             // 
             // TagCloud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(931, 499);
+            this.ClientSize = new System.Drawing.Size(992, 596);
+            this.Controls.Add(this.ForeG);
+            this.Controls.Add(this.BackG);
+            this.Controls.Add(this.SetFg);
+            this.Controls.Add(this.SetBg);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.FgStrategyCombo);
+            this.Controls.Add(this.BgfgStrategyCombo);
             this.Controls.Add(this.StrategyCombo);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.FontsCombo);
@@ -246,5 +335,14 @@
         private System.Windows.Forms.ComboBox FontsCombo;
         private System.Windows.Forms.ComboBox StrategyCombo;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox BgfgStrategyCombo;
+        private System.Windows.Forms.ComboBox FgStrategyCombo;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ColorDialog ColorPick;
+        private System.Windows.Forms.Button SetBg;
+        private System.Windows.Forms.Button SetFg;
+        private System.Windows.Forms.Label BackG;
+        private System.Windows.Forms.Label ForeG;
     }
 }
