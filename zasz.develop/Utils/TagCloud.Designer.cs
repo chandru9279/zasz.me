@@ -54,13 +54,17 @@
             this.SetFg = new System.Windows.Forms.Button();
             this.BackG = new System.Windows.Forms.Label();
             this.ForeG = new System.Windows.Forms.Label();
+            this.VerticalTextRight = new System.Windows.Forms.CheckBox();
+            this.ShowBoundaries = new System.Windows.Forms.CheckBox();
+            this.Cropper = new System.Windows.Forms.CheckBox();
+            this.Margin = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Cloud)).BeginInit();
             this.SuspendLayout();
             // 
             // Cloud
             // 
             this.Cloud.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Cloud.Location = new System.Drawing.Point(338, 35);
+            this.Cloud.Location = new System.Drawing.Point(321, 35);
             this.Cloud.Name = "Cloud";
             this.Cloud.Size = new System.Drawing.Size(100, 50);
             this.Cloud.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -78,9 +82,9 @@
             // 
             // Generate
             // 
-            this.Generate.Location = new System.Drawing.Point(116, 224);
+            this.Generate.Location = new System.Drawing.Point(222, 212);
             this.Generate.Name = "Generate";
-            this.Generate.Size = new System.Drawing.Size(75, 23);
+            this.Generate.Size = new System.Drawing.Size(68, 126);
             this.Generate.TabIndex = 2;
             this.Generate.Text = "Generate";
             this.Generate.UseVisualStyleBackColor = true;
@@ -88,16 +92,16 @@
             // 
             // MaxFontSize
             // 
-            this.MaxFontSize.Location = new System.Drawing.Point(116, 280);
+            this.MaxFontSize.Location = new System.Drawing.Point(116, 215);
             this.MaxFontSize.Name = "MaxFontSize";
             this.MaxFontSize.Size = new System.Drawing.Size(100, 20);
             this.MaxFontSize.TabIndex = 3;
-            this.MaxFontSize.Text = "4";
+            this.MaxFontSize.Text = "72";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 283);
+            this.label1.Location = new System.Drawing.Point(42, 218);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 13);
             this.label1.TabIndex = 4;
@@ -106,7 +110,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 309);
+            this.label2.Location = new System.Drawing.Point(45, 244);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 6;
@@ -114,16 +118,16 @@
             // 
             // MinFontSize
             // 
-            this.MinFontSize.Location = new System.Drawing.Point(116, 306);
+            this.MinFontSize.Location = new System.Drawing.Point(116, 241);
             this.MinFontSize.Name = "MinFontSize";
             this.MinFontSize.Size = new System.Drawing.Size(100, 20);
             this.MinFontSize.TabIndex = 5;
-            this.MinFontSize.Text = "1";
+            this.MinFontSize.Text = "12";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(54, 335);
+            this.label3.Location = new System.Drawing.Point(54, 348);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 8;
@@ -132,7 +136,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(75, 365);
+            this.label4.Location = new System.Drawing.Point(75, 273);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 10;
@@ -140,7 +144,7 @@
             // 
             // Width
             // 
-            this.Width.Location = new System.Drawing.Point(116, 358);
+            this.Width.Location = new System.Drawing.Point(116, 266);
             this.Width.Name = "Width";
             this.Width.Size = new System.Drawing.Size(100, 20);
             this.Width.TabIndex = 9;
@@ -149,7 +153,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(72, 387);
+            this.label5.Location = new System.Drawing.Point(72, 295);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 12;
@@ -157,7 +161,7 @@
             // 
             // Height
             // 
-            this.Height.Location = new System.Drawing.Point(116, 384);
+            this.Height.Location = new System.Drawing.Point(116, 292);
             this.Height.Name = "Height";
             this.Height.Size = new System.Drawing.Size(100, 20);
             this.Height.TabIndex = 11;
@@ -166,7 +170,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(76, 413);
+            this.label6.Location = new System.Drawing.Point(76, 321);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 13);
             this.label6.TabIndex = 14;
@@ -174,16 +178,15 @@
             // 
             // Angle
             // 
-            this.Angle.Location = new System.Drawing.Point(116, 410);
+            this.Angle.Location = new System.Drawing.Point(116, 318);
             this.Angle.Name = "Angle";
             this.Angle.Size = new System.Drawing.Size(100, 20);
             this.Angle.TabIndex = 13;
-            this.Angle.Text = "-45";
             // 
             // FontsCombo
             // 
             this.FontsCombo.FormattingEnabled = true;
-            this.FontsCombo.Location = new System.Drawing.Point(116, 331);
+            this.FontsCombo.Location = new System.Drawing.Point(116, 344);
             this.FontsCombo.Name = "FontsCombo";
             this.FontsCombo.Size = new System.Drawing.Size(174, 21);
             this.FontsCombo.TabIndex = 15;
@@ -191,7 +194,7 @@
             // StrategyCombo
             // 
             this.StrategyCombo.FormattingEnabled = true;
-            this.StrategyCombo.Location = new System.Drawing.Point(116, 436);
+            this.StrategyCombo.Location = new System.Drawing.Point(116, 371);
             this.StrategyCombo.Name = "StrategyCombo";
             this.StrategyCombo.Size = new System.Drawing.Size(174, 21);
             this.StrategyCombo.TabIndex = 17;
@@ -199,7 +202,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 439);
+            this.label7.Location = new System.Drawing.Point(27, 374);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 13);
             this.label7.TabIndex = 16;
@@ -208,7 +211,7 @@
             // BgfgStrategyCombo
             // 
             this.BgfgStrategyCombo.FormattingEnabled = true;
-            this.BgfgStrategyCombo.Location = new System.Drawing.Point(116, 464);
+            this.BgfgStrategyCombo.Location = new System.Drawing.Point(116, 399);
             this.BgfgStrategyCombo.Name = "BgfgStrategyCombo";
             this.BgfgStrategyCombo.Size = new System.Drawing.Size(174, 21);
             this.BgfgStrategyCombo.TabIndex = 18;
@@ -216,7 +219,7 @@
             // FgStrategyCombo
             // 
             this.FgStrategyCombo.FormattingEnabled = true;
-            this.FgStrategyCombo.Location = new System.Drawing.Point(116, 492);
+            this.FgStrategyCombo.Location = new System.Drawing.Point(116, 427);
             this.FgStrategyCombo.Name = "FgStrategyCombo";
             this.FgStrategyCombo.Size = new System.Drawing.Size(174, 21);
             this.FgStrategyCombo.TabIndex = 19;
@@ -224,7 +227,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(29, 464);
+            this.label8.Location = new System.Drawing.Point(29, 399);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(81, 13);
             this.label8.TabIndex = 20;
@@ -233,7 +236,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(47, 492);
+            this.label9.Location = new System.Drawing.Point(47, 427);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 21;
@@ -241,7 +244,7 @@
             // 
             // SetBg
             // 
-            this.SetBg.Location = new System.Drawing.Point(116, 519);
+            this.SetBg.Location = new System.Drawing.Point(116, 454);
             this.SetBg.Name = "SetBg";
             this.SetBg.Size = new System.Drawing.Size(113, 23);
             this.SetBg.TabIndex = 22;
@@ -251,7 +254,7 @@
             // 
             // SetFg
             // 
-            this.SetFg.Location = new System.Drawing.Point(116, 548);
+            this.SetFg.Location = new System.Drawing.Point(116, 483);
             this.SetFg.Name = "SetFg";
             this.SetFg.Size = new System.Drawing.Size(113, 23);
             this.SetFg.TabIndex = 23;
@@ -262,26 +265,69 @@
             // BackG
             // 
             this.BackG.AutoSize = true;
-            this.BackG.Location = new System.Drawing.Point(69, 524);
+            this.BackG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BackG.Location = new System.Drawing.Point(69, 459);
             this.BackG.Name = "BackG";
-            this.BackG.Size = new System.Drawing.Size(35, 13);
+            this.BackG.Size = new System.Drawing.Size(37, 15);
             this.BackG.TabIndex = 24;
             this.BackG.Text = "BACK";
             // 
             // ForeG
             // 
             this.ForeG.AutoSize = true;
-            this.ForeG.Location = new System.Drawing.Point(69, 548);
+            this.ForeG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ForeG.Location = new System.Drawing.Point(69, 483);
             this.ForeG.Name = "ForeG";
-            this.ForeG.Size = new System.Drawing.Size(36, 13);
+            this.ForeG.Size = new System.Drawing.Size(38, 15);
             this.ForeG.TabIndex = 25;
             this.ForeG.Text = "FORE";
+            // 
+            // VerticalTextRight
+            // 
+            this.VerticalTextRight.AutoSize = true;
+            this.VerticalTextRight.Location = new System.Drawing.Point(72, 538);
+            this.VerticalTextRight.Name = "VerticalTextRight";
+            this.VerticalTextRight.Size = new System.Drawing.Size(113, 17);
+            this.VerticalTextRight.TabIndex = 26;
+            this.VerticalTextRight.Text = "Vertical Text Right";
+            this.VerticalTextRight.UseVisualStyleBackColor = true;
+            // 
+            // ShowBoundaries
+            // 
+            this.ShowBoundaries.AutoSize = true;
+            this.ShowBoundaries.Location = new System.Drawing.Point(191, 538);
+            this.ShowBoundaries.Name = "ShowBoundaries";
+            this.ShowBoundaries.Size = new System.Drawing.Size(109, 17);
+            this.ShowBoundaries.TabIndex = 27;
+            this.ShowBoundaries.Text = "Show Boundaries";
+            this.ShowBoundaries.UseVisualStyleBackColor = true;
+            // 
+            // Cropper
+            // 
+            this.Cropper.AutoSize = true;
+            this.Cropper.Location = new System.Drawing.Point(73, 515);
+            this.Cropper.Name = "Cropper";
+            this.Cropper.Size = new System.Drawing.Size(111, 17);
+            this.Cropper.TabIndex = 28;
+            this.Cropper.Text = "Crop with Margin :";
+            this.Cropper.UseVisualStyleBackColor = true;
+            // 
+            // Margin
+            // 
+            this.Margin.Location = new System.Drawing.Point(190, 512);
+            this.Margin.Name = "Margin";
+            this.Margin.Size = new System.Drawing.Size(100, 20);
+            this.Margin.TabIndex = 29;
             // 
             // TagCloud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 596);
+            this.Controls.Add(this.Margin);
+            this.Controls.Add(this.Cropper);
+            this.Controls.Add(this.ShowBoundaries);
+            this.Controls.Add(this.VerticalTextRight);
             this.Controls.Add(this.ForeG);
             this.Controls.Add(this.BackG);
             this.Controls.Add(this.SetFg);
@@ -309,6 +355,7 @@
             this.Controls.Add(this.Cloud);
             this.Name = "TagCloud";
             this.Text = "TagCloud";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TagCloudFormClosing);
             this.Load += new System.EventHandler(this.TagCloudLoad);
             ((System.ComponentModel.ISupportInitialize)(this.Cloud)).EndInit();
             this.ResumeLayout(false);
@@ -344,5 +391,9 @@
         private System.Windows.Forms.Button SetFg;
         private System.Windows.Forms.Label BackG;
         private System.Windows.Forms.Label ForeG;
+        private System.Windows.Forms.CheckBox VerticalTextRight;
+        private System.Windows.Forms.CheckBox ShowBoundaries;
+        private System.Windows.Forms.CheckBox Cropper;
+        private System.Windows.Forms.TextBox Margin;
     }
 }

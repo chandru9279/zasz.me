@@ -28,7 +28,7 @@ namespace zasz.me.Services
 
         public HslColor(int Red, int Green, int Blue, double Scale = 1.0)
         {
-            HslColor HslColor = Color.FromArgb(Red, Green, Blue);
+            HslColor HslColor = (HslColor) Color.FromArgb(Red, Green, Blue);
             _Hue = HslColor._Hue;
             _Saturation = HslColor._Saturation;
             _Luminosity = HslColor._Luminosity;
@@ -77,13 +77,13 @@ namespace zasz.me.Services
 
         public string ToRgbString()
         {
-            Color RgbColor = this;
+            Color RgbColor = (Color) this;
             return String.Format("R: {0:#0.##} G: {1:#0.##} B: {2:#0.##}", RgbColor.R, RgbColor.G, RgbColor.B);
         }
 
         #region Casts to/from System.Drawing.Color
 
-        public static implicit operator Color(HslColor ColorHsl)
+        public static explicit operator Color(HslColor ColorHsl)
         {
             double R = 0, G = 0, B = 0;
             if (ColorHsl._Luminosity != 0)
@@ -134,7 +134,7 @@ namespace zasz.me.Services
             return Temp2;
         }
 
-        public static implicit operator HslColor(Color RgbColor)
+        public static explicit operator HslColor(Color RgbColor)
         {
             var HslColor = new HslColor
                                {

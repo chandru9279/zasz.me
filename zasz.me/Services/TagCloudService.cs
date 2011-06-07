@@ -8,12 +8,15 @@ namespace zasz.me.Services
 {
     public class TagCloudService
     {
+        internal readonly List<Rectangle> _Borders;
         private readonly Func<float, float> _Decrement = (It => It - 1);
+        private readonly int _Height;
         private readonly int _HighestWeight;
         private readonly Func<float, float> _Increment = (It => It + 1);
         private readonly int _LowestWeight;
         internal readonly List<RectangleF> _Occupied;
         private readonly Dictionary<string, int> _TagsSorted;
+        private readonly int _Width;
         internal PointF _Center;
         private Func<float, float> _Change;
         internal PointF _CurrentEdgeLimit;
@@ -23,8 +26,10 @@ namespace zasz.me.Services
 
         private int _WeightSpan;
 
-        public TagCloudService(Dictionary<string, int> Tags)
+        public TagCloudService(Dictionary<string, int> Tags, int Width, int Height)
         {
+            _Width = Width;
+            _Height = Height;
             var Sorted = from Tag in Tags
                          orderby Tag.Value descending
                          select new {Tag.Key, Tag.Value};
@@ -32,6 +37,7 @@ namespace zasz.me.Services
             _LowestWeight = _TagsSorted.Last().Value;
             _HighestWeight = _TagsSorted.First().Value;
             _Occupied = new List<RectangleF>(_TagsSorted.Count);
+            _Borders = new List<Rectangle>();
             ApplyDefaults();
         }
 
@@ -39,6 +45,18 @@ namespace zasz.me.Services
         /// Default is Times New Roman
         /// </summary>
         public FontFamily SelectedFont { get; set; }
+
+        /// <summary>
+        /// Default is false, Enable to start seeing Word boundaries used for
+        /// collision detection.
+        /// </summary>
+        public bool ShowWordBoundaries { get; set; }
+
+        /// <summary>
+        /// Set this to true, if vertical must needs to appear with RHS as floor
+        /// Default is LHS is the floor and RHS is ceiling of the Text.
+        /// </summary>
+        public bool VerticalTextRight { get; set; }
 
         /// <summary>
         /// Size of the smallest string in the TagCloud
@@ -68,6 +86,16 @@ namespace zasz.me.Services
         /// </summary>
         public int Angle { get; set; }
 
+        /// <summary>
+        /// Default is false. Set this to true to crop out blank background.
+        /// </summary>
+        public bool Crop { get; set; }
+
+        /// <summary>
+        /// Default is 30px.
+        /// </summary>
+        public float Margin { get; set; }
+
         private void ApplyDefaults()
         {
             SelectedFont = new FontFamily("Times New Roman");
@@ -75,20 +103,23 @@ namespace zasz.me.Services
             MaximumFontSize = 5f;
             Angle = 0;
             DisplayChoice = DisplayStrategy.Get(TagDisplayStrategy.RandomHorizontalOrVertical);
-            ColorChoice = ColorStrategy.Get(BackgroundForegroundScheme.LightBgDarkFg, ForegroundScheme.RandomVaried,
+            ColorChoice = ColorStrategy.Get(Theme.LightBgDarkFg, Style.RandomVaried,
                                             Color.White, Color.Black);
+            VerticalTextRight = false;
+            ShowWordBoundaries = false;
+            Margin = 30f;
         }
 
-        public Bitmap Get(int Width, int Height)
+        public Bitmap Construct(out List<Rectangle> Borders)
         {
-            var TheCloudBitmap = new Bitmap(Width, Height);
+            var TheCloudBitmap = new Bitmap(_Width, _Height);
             Graphics GImage = Graphics.FromImage(TheCloudBitmap);
             GImage.TextRenderingHint = TextRenderingHint.AntiAlias;
             _Center = new PointF(TheCloudBitmap.Height/2f, TheCloudBitmap.Width/2f);
-            if (Angle != 0) Rotate(GImage);
+            if (Angle != 0) Rotate(GImage, _Center, Angle);
             _WeightSpan = _HighestWeight - _LowestWeight;
             if (MaximumFontSize < MinimumFontSize)
-                throw new ServiceRequirementException("MaximumFontSize is less than MinimumFontSize");
+                throw new Exception("MaximumFontSize is less than MinimumFontSize");
             _FontHeightSpan = MaximumFontSize - MinimumFontSize;
             GImage.Clear(ColorChoice.GetBackGroundColor());
 
@@ -97,27 +128,37 @@ namespace zasz.me.Services
                 var FontToApply = new Font(SelectedFont, CalculateFontSize(Tag.Value));
                 SizeF StringBounds = GImage.MeasureString(Tag.Key, FontToApply);
                 StringFormat Format = DisplayChoice.GetFormat();
-                if (Format.FormatFlags.HasFlag(StringFormatFlags.DirectionVertical))
+                bool IsVertical = Format.FormatFlags.HasFlag(StringFormatFlags.DirectionVertical);
+                if (IsVertical)
                 {
                     float StringWidth = StringBounds.Width;
                     StringBounds.Width = StringBounds.Height;
                     StringBounds.Height = StringWidth;
                 }
-                PointF TopRight = CalculateWhere(StringBounds);
-                GImage.DrawString(Tag.Key, FontToApply, new SolidBrush(ColorChoice.GetCurrentColor()), TopRight, Format);
-                /* Uncomment this to see word boundaries.
-                GImage.DrawRectangle(Pens.Black, TopRight.X, TopRight.Y, StringBounds.Width, StringBounds.Height);
-                 */
-                _Occupied.Add(new RectangleF(TopRight, StringBounds));
+                PointF TopLeft = CalculateWhere(StringBounds);
+                PointF TextCenter = IsVertical & VerticalTextRight
+                                        ? new PointF(TopLeft.X + (StringBounds.Width/2f),
+                                                     TopLeft.Y + (StringBounds.Height/2f))
+                                        : TopLeft;
+                var CurrentBrush = new SolidBrush(ColorChoice.GetCurrentColor());
+                if (IsVertical & VerticalTextRight) Rotate(GImage, TextCenter, -180);
+                GImage.DrawString(Tag.Key, FontToApply, CurrentBrush, TopLeft, Format);
+                if (IsVertical & VerticalTextRight) Rotate(GImage, TextCenter, 180);
+                if (ShowWordBoundaries)
+                    GImage.DrawRectangle(new Pen(CurrentBrush), TopLeft.X, TopLeft.Y, StringBounds.Width,
+                                         StringBounds.Height);
+                _Occupied.Add(new RectangleF(TopLeft, StringBounds));
             }
-            return TheCloudBitmap;
+            Borders = _Borders;
+            GImage.Dispose();
+            return CropFillBorders(TheCloudBitmap);
         }
 
-        private void Rotate(Graphics GImage)
+        private static void Rotate(Graphics GImage, PointF About, int ByAngle)
         {
-            GImage.TranslateTransform(_Center.X, _Center.Y);
-            GImage.RotateTransform(Angle);
-            GImage.TranslateTransform(-_Center.X, -_Center.Y);
+            GImage.TranslateTransform(About.X, About.Y);
+            GImage.RotateTransform(ByAngle);
+            GImage.TranslateTransform(-About.X, -About.Y);
         }
 
         private PointF CalculateWhere(SizeF Measure)
@@ -201,17 +242,54 @@ namespace zasz.me.Services
         // Range Mapping
         private float CalculateFontSize(int Weight)
         {
+            // Strange case where all tags have equal weights
+            if (_WeightSpan == 0) return (MinimumFontSize + MaximumFontSize)/2f;
             // Convert the Weight into a 0-1 range (float)
-            float WeightScaled = Weight - _LowestWeight/(float) _WeightSpan;
+            float WeightScaled = (Weight - _LowestWeight)/(float) _WeightSpan;
             // Convert the 0-1 range into a value in the Font range.
             return MinimumFontSize + (WeightScaled*_FontHeightSpan);
         }
-    }
 
-    public class ServiceRequirementException : Exception
-    {
-        public ServiceRequirementException(string Message) : base(Message)
+        internal Bitmap CropFillBorders(Bitmap Incoming)
         {
+            if (Crop)
+            {
+                Bitmap Cropped;
+                float NewTop;
+                float NewLeft;
+                CropIt(Incoming, out Cropped, out NewTop, out NewLeft);
+                FillBorders(NewTop, NewLeft);
+                return Cropped;
+            }
+            FillBorders(0f, 0f);
+            return Incoming;
+        }
+
+        private void CropIt(Bitmap Incoming, out Bitmap Cropped, out float NewTop, out float NewLeft)
+        {
+            NewTop = _Occupied.Select(It => It.Top).Min() - Margin;
+            NewLeft = _Occupied.Select(It => It.Left).Min() - Margin;
+
+            float Bottom = _Occupied.Select(It => It.Bottom).Max() + Margin;
+            float Right = _Occupied.Select(It => It.Right).Max() + Margin;
+
+            if (NewTop < 0) NewTop = 0;
+            if (NewLeft < 0) NewLeft = 0;
+
+            if (Bottom > _Height) Bottom = _Height;
+            if (Right > _Width) Right = _Width;
+
+            var Rectangle = new RectangleF(NewLeft, NewTop, Right - NewLeft, Bottom - NewTop);
+            Cropped = Incoming.Clone(Rectangle, Incoming.PixelFormat);
+        }
+
+        private void FillBorders(float NewTop, float NewLeft)
+        {
+            foreach (RectangleF Rect in _Occupied)
+            {
+                _Borders.Add(new Rectangle((int) Math.Round(Rect.X - NewLeft), (int) Math.Round(Rect.Y - NewTop),
+                                           (int) Math.Round(Rect.Width), (int) Math.Round(Rect.Height)));
+            }
         }
     }
 }

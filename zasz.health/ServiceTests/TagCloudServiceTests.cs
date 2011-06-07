@@ -23,7 +23,7 @@ namespace zasz.health.ServiceTests
                                                                                 {"music", 9},
                                                                                 {"crapo", 1},
                                                                                 {"dota", 2},
-                                                                            });
+                                                                            }, 300, 300);
 
 // ReSharper restore InconsistentNaming
 

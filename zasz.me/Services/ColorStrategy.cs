@@ -5,53 +5,45 @@ using System.Drawing;
 namespace zasz.me.Services
 {
     using ColorStrategies =
-        Dictionary<ForegroundScheme, Func<HslColor, HslColor, BackgroundForegroundScheme, ColorStrategy>>;
+        Dictionary<Style, Func<Color, HslColor, Theme, ColorStrategy>>;
 
     public abstract class ColorStrategy
     {
         private static readonly ColorStrategies _Set;
 
-        protected readonly HslColor _Background;
         protected readonly HslColor _Foreground;
+        protected Color _Background;
         protected Random _Seed;
 
         static ColorStrategy()
         {
-            _Set = new ColorStrategies(6)
-                       {
-                           {
-                               ForegroundScheme.Fixed,
-                               (BgHsl, FgHsl, BgfgScheme) => new FixedForegroundStrategy(BgHsl, FgHsl)
-                               },
-                           {
-                               ForegroundScheme.Varied,
-                               (BgHsl, FgHsl, BgfgScheme) => new VariedForegroundStrategy(BgHsl, FgHsl, BgfgScheme)
-                               },
-                           {
-                               ForegroundScheme.RandomVaried,
-                               (BgHsl, FgHsl, BgfgScheme) =>
-                               new RandomVariedForegroundStrategy(BgHsl, FgHsl, BgfgScheme)
-                               }
-                       };
+            _Set = new ColorStrategies(3);
+            _Set.Add(Style.Fixed, (BgHsl, FgHsl, TheTheme) => new FixedForeground(BgHsl, FgHsl));
+            _Set.Add(Style.Varied, (BgHsl, FgHsl, TheTheme) => new VariedForeground(BgHsl, FgHsl, TheTheme));
+            _Set.Add(Style.RandomVaried, (BgHsl, FgHsl, TheTheme) => new RandomVaried(BgHsl, FgHsl, TheTheme));
+            _Set.Add(Style.Random, (BgHsl, FgHsl, TheTheme) => new RandomForeground(BgHsl, FgHsl));
+            _Set.Add(Style.Grayscale, (BgHsl, FgHsl, TheTheme) => new Grayscale(BgHsl, FgHsl, TheTheme));
         }
 
-        protected ColorStrategy(HslColor Background, HslColor Foreground)
+        protected ColorStrategy(Color Background, HslColor Foreground)
         {
             _Background = Background;
             _Foreground = Foreground;
             _Seed = new Random(DateTime.Now.Second);
         }
 
-        public static ColorStrategy Get(BackgroundForegroundScheme BgfgScheme, ForegroundScheme FgScheme,
+        public static ColorStrategy Get(Theme TheTheme, Style TheStyle,
                                         Color Background, Color Foreground)
         {
-            HslColor BgHsl = (BgfgScheme == BackgroundForegroundScheme.LightBgDarkFg)
-                                 ? Background.Lighten()
-                                 : Background.Darken();
-            HslColor FgHsl = (BgfgScheme == BackgroundForegroundScheme.LightBgDarkFg)
+            HslColor FgHsl = (TheTheme == Theme.LightBgDarkFg)
                                  ? Foreground.Darken()
                                  : Foreground.Lighten();
-            return _Set[FgScheme](BgHsl, FgHsl, BgfgScheme);
+            if (Background.A != 255) /* Not interfering with any transparent color */
+                return _Set[TheStyle](Background, FgHsl, TheTheme);
+            HslColor BgHsl = (TheTheme == Theme.LightBgDarkFg)
+                                 ? Background.Lighten()
+                                 : Background.Darken();
+            return _Set[TheStyle]((Color) BgHsl, FgHsl, TheTheme);
         }
 
         public Color GetBackGroundColor()
@@ -62,24 +54,38 @@ namespace zasz.me.Services
         public abstract Color GetCurrentColor();
     }
 
-    internal class FixedForegroundStrategy : ColorStrategy
+    internal class FixedForeground : ColorStrategy
     {
-        public FixedForegroundStrategy(HslColor Background, HslColor Foreground)
+        public FixedForeground(Color Background, HslColor Foreground)
             : base(Background, Foreground)
         {
         }
 
         public override Color GetCurrentColor()
         {
-            return _Foreground;
+            return (Color) _Foreground;
         }
     }
 
-    internal class VariedForegroundStrategy : ColorStrategy
+    internal class RandomForeground : FixedForeground
     {
-        private readonly double _Range;
+        public RandomForeground(Color Background, HslColor Foreground)
+            : base(Background, Foreground)
+        {
+        }
 
-        public VariedForegroundStrategy(HslColor Background, HslColor Foreground, BackgroundForegroundScheme BgfgScheme)
+        public override Color GetCurrentColor()
+        {
+            _Foreground.Hue = _Seed.NextDouble();
+            return (Color) _Foreground;
+        }
+    }
+
+    internal class VariedForeground : ColorStrategy
+    {
+        protected readonly double _Range;
+
+        public VariedForeground(Color Background, HslColor Foreground, Theme TheTheme)
             : base(Background, Foreground)
         {
             /* Dark foreground needed, so Luminosity is reduced to somewhere between 0 & 0.5
@@ -87,21 +93,20 @@ namespace zasz.me.Services
              * For Light foreground Luminosity is kept between 0.5 & 1
              */
             _Foreground.Saturation = 1.0;
-            _Range = (BgfgScheme == BackgroundForegroundScheme.LightBgDarkFg) ? 0d : 0.5;
+            _Range = (TheTheme == Theme.LightBgDarkFg) ? 0d : 0.5;
         }
 
         public override Color GetCurrentColor()
         {
             _Foreground.Luminosity = (_Seed.NextDouble()*0.5) + _Range;
-            return _Foreground;
+            return (Color) _Foreground;
         }
     }
 
-    internal class RandomVariedForegroundStrategy : VariedForegroundStrategy
+    internal class RandomVaried : VariedForeground
     {
-        public RandomVariedForegroundStrategy(HslColor Background, HslColor Foreground,
-                                              BackgroundForegroundScheme BgfgScheme)
-            : base(Background, Foreground, BgfgScheme)
+        public RandomVaried(Color Background, HslColor Foreground, Theme TheTheme)
+            : base(Background, Foreground, TheTheme)
         {
         }
 
@@ -112,31 +117,45 @@ namespace zasz.me.Services
         }
     }
 
-    public enum BackgroundForegroundScheme
+    internal class Grayscale : VariedForeground
+    {
+        public Grayscale(Color Background, HslColor Foreground, Theme TheTheme)
+            : base(Background, Foreground, TheTheme)
+        {
+            /* Saturation is 0 - Meaning no color specified by hue can be seen at all. 
+             * So luminance is now reduced to showing grayscale */
+            _Foreground.Saturation = 0.0;
+            _Background = Color.FromArgb(Background.A, TheTheme == Theme.LightBgDarkFg?Color.White:Color.Black);
+        }
+    }
+
+    public enum Theme
     {
         DarkBgLightFg,
         LightBgDarkFg
     }
 
-    public enum ForegroundScheme
+    public enum Style
     {
         Fixed,
+        Random,
         Varied,
-        RandomVaried
+        RandomVaried,
+        Grayscale
     }
 
     public static class ColorExtension
     {
         public static HslColor Lighten(this Color Given)
         {
-            HslColor ColorHsl = Given;
+            var ColorHsl = (HslColor) Given;
             if (ColorHsl.Luminosity < 0.5) ColorHsl.Luminosity = 0.75;
             return ColorHsl;
         }
 
         public static HslColor Darken(this Color Given)
         {
-            HslColor ColorHsl = Given;
+            var ColorHsl = (HslColor) Given;
             if (ColorHsl.Luminosity > 0.5) ColorHsl.Luminosity = 0.25;
             return ColorHsl;
         }

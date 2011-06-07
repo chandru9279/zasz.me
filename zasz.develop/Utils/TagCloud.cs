@@ -19,40 +19,6 @@ namespace zasz.develop.Utils
             InitializeComponent();
         }
 
-        private void GenerateClick(object Sender, EventArgs E)
-        {
-            string SystemPath = Environment.GetEnvironmentVariable("ProjectRootPath") +
-                                @"\zasz.develop\SampleData\TagCloud";
-            Dictionary<string, int> Tags = Words.Lines.Select(
-                Line => Line.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
-                .Where(Splits => Splits.Length == 2)
-                .ToDictionary(Splits => Splits[0], Splits => int.Parse(Splits[1]));
-            var TagCloudService = new TagCloudService(Tags)
-                                      {
-                                          MaximumFontSize = float.Parse(MaxFontSize.Text),
-                                          MinimumFontSize = float.Parse(MinFontSize.Text),
-                                      };
-            if (!String.IsNullOrEmpty(Angle.Text)) TagCloudService.Angle = int.Parse(Angle.Text);
-            if (null != FontsCombo.SelectedItem)
-                TagCloudService.SelectedFont = _Service.AvailableFonts[FontsCombo.SelectedItem.ToString()];
-            if (null != StrategyCombo.SelectedItem)
-                TagCloudService.DisplayChoice = DisplayStrategy.Get(
-                    (TagDisplayStrategy) Enum.Parse(typeof (TagDisplayStrategy), StrategyCombo.SelectedItem.ToString()));
-            if (null != BgfgStrategyCombo.SelectedItem && null != FgStrategyCombo.SelectedItem)
-            {
-                TagCloudService.ColorChoice = ColorStrategy.Get(
-                    (BackgroundForegroundScheme)
-                    Enum.Parse(typeof (BackgroundForegroundScheme), BgfgStrategyCombo.SelectedItem.ToString()),
-                    (ForegroundScheme) Enum.Parse(typeof (ForegroundScheme), FgStrategyCombo.SelectedItem.ToString()),
-                    _Bg, _Fg);
-            }
-
-
-            Bitmap Bitmap = TagCloudService.Get(int.Parse(Width.Text), int.Parse(Height.Text));
-            Bitmap.Save(SystemPath + @"\Cloud.png", ImageFormat.Png);
-            Cloud.Image = Bitmap;
-        }
-
         private void TagCloudLoad(object Sender, EventArgs E)
         {
             string SystemPath = Environment.GetEnvironmentVariable("ProjectRootPath") + @"\zasz.me\Content\Shared\Fonts";
@@ -60,8 +26,71 @@ namespace zasz.develop.Utils
             _Service.LoadFonts(SystemPath);
             FontsCombo.Items.AddRange(_Service.AvailableFonts.Keys.ToArray());
             StrategyCombo.Items.AddRange(Enum.GetNames(typeof (TagDisplayStrategy)));
-            BgfgStrategyCombo.Items.AddRange(Enum.GetNames(typeof (BackgroundForegroundScheme)));
-            FgStrategyCombo.Items.AddRange(Enum.GetNames(typeof (ForegroundScheme)));
+            BgfgStrategyCombo.Items.AddRange(Enum.GetNames(typeof (Theme)));
+            FgStrategyCombo.Items.AddRange(Enum.GetNames(typeof (Style)));
+        }
+
+        private void GenerateClick(object Sender, EventArgs E)
+        {
+            Cloud.Controls.Clear();
+            string SystemPath = Environment.GetEnvironmentVariable("ProjectRootPath") +
+                                @"\zasz.develop\SampleData\TagCloud";
+            Dictionary<string, int> Tags = Words.Lines.Select(
+                Line => Line.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                .Where(Splits => Splits.Length == 2)
+                .ToDictionary(Splits => Splits[0], Splits => int.Parse(Splits[1]));
+            var TagCloudService = new TagCloudService(Tags, int.Parse(Width.Text), int.Parse(Height.Text))
+                                      {
+                                          MaximumFontSize = float.Parse(MaxFontSize.Text),
+                                          MinimumFontSize = float.Parse(MinFontSize.Text),
+                                      };
+            if (!String.IsNullOrEmpty(Angle.Text)) TagCloudService.Angle = int.Parse(Angle.Text);
+            if (!String.IsNullOrEmpty(Margin.Text)) TagCloudService.Margin = int.Parse(Margin.Text);
+            if (null != FontsCombo.SelectedItem)
+                TagCloudService.SelectedFont = _Service.AvailableFonts[FontsCombo.SelectedItem.ToString()];
+            if (null != StrategyCombo.SelectedItem)
+                TagCloudService.DisplayChoice = DisplayStrategy.Get(
+                    (TagDisplayStrategy) Enum.Parse(typeof (TagDisplayStrategy), StrategyCombo.SelectedItem.ToString()));
+            Theme BgfgScheme = null != BgfgStrategyCombo.SelectedItem
+                                   ? (Theme) Enum.Parse(typeof (Theme), BgfgStrategyCombo.SelectedItem.ToString())
+                                   : Theme.LightBgDarkFg;
+            Style FgScheme = null != FgStrategyCombo.SelectedItem
+                                 ? (Style) Enum.Parse(typeof (Style), FgStrategyCombo.SelectedItem.ToString())
+                                 : Style.Varied;
+            TagCloudService.ColorChoice = ColorStrategy.Get(BgfgScheme, FgScheme, _Bg, _Fg);
+            TagCloudService.VerticalTextRight = VerticalTextRight.Checked;
+            TagCloudService.ShowWordBoundaries = ShowBoundaries.Checked;
+            TagCloudService.Crop = Cropper.Checked;
+            List<Rectangle> Borders;
+            Bitmap Bitmap = TagCloudService.Construct(out Borders);
+            Bitmap.Save(SystemPath + @"\Cloud.png", ImageFormat.Png);
+            Cloud.Image = Bitmap;
+            Borders.ForEach((It) => Cloud.Controls.Add(GetBorder(It)));
+        }
+
+        private Control GetBorder(Rectangle It)
+        {
+            Label Border = new Label
+                               {
+                                   Top = It.Top,
+                                   Left = It.Left,
+                                   Width = It.Width,
+                                   Height = It.Height,
+                                   BackColor = Color.FromArgb(0, Color.White)
+                               };
+            Border.MouseEnter += OnEnter;
+            Border.MouseLeave += OnLeave;
+            return Border;
+        }
+
+        private void OnEnter(object Sender, EventArgs E)
+        {
+            ((Label)Sender).BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        private void OnLeave(object Sender, EventArgs E)
+        {
+            ((Label)Sender).BorderStyle = BorderStyle.None;
         }
 
         private void SetBgClick(object Sender, EventArgs E)
@@ -80,6 +109,11 @@ namespace zasz.develop.Utils
                 _Fg = ColorPick.Color;
                 ForeG.BackColor = _Fg;
             }
+        }
+
+        private void TagCloudFormClosing(object sender, FormClosingEventArgs e)
+        {
+            _Service.Dispose();
         }
     }
 }
