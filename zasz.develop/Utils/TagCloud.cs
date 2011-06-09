@@ -63,6 +63,7 @@ namespace zasz.develop.Utils
             TagCloudService.Crop = Cropper.Checked;
             List<Rectangle> Borders;
             Bitmap Bitmap = TagCloudService.Construct(out Borders);
+            Skipped.Text = string.Join("; ", TagCloudService.WordsSkipped.Select(It => It.Key));
             Bitmap.Save(SystemPath + @"\Cloud.png", ImageFormat.Png);
             Cloud.Image = Bitmap;
             Borders.ForEach((It) => Cloud.Controls.Add(GetBorder(It)));

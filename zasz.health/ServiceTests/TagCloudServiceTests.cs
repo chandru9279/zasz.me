@@ -44,7 +44,7 @@ namespace zasz.health.ServiceTests
         public void TestGetNextPointInSpiral()
         {
             _Service._CurrentEdgeSize = 1;
-            _Service._EdgeUnused = true;
+            _Service._SleepingEdge = true;
 
             Assert.AreEqual(P(3, 2), _Service.GetSpiralNext(P(2, 2)));
             Assert.AreEqual(P(3, 3), _Service.GetSpiralNext(P(3, 2)));
@@ -62,8 +62,8 @@ namespace zasz.health.ServiceTests
         public void TestGetNextPointInEdge()
         {
             _Service._CurrentEdgeSize = 1;
-            _Service._EdgeUnused = true;
-            _Service._CurrentEdgeLimit = P(2, 2);
+            _Service._SleepingEdge = true;
+            _Service._CurrentCorner = P(2, 2);
             _Service._Center = P(2, 2);
 
             Assert.AreEqual(P(3, 2), _Service.GetNextPointInEdge(P(2, 2)));
@@ -100,7 +100,7 @@ namespace zasz.health.ServiceTests
             Assert.AreEqual(P(3, 0), _Service.GetNextPointInEdge(P(2, 0)));
             Assert.AreEqual(P(4, 0), _Service.GetNextPointInEdge(P(3, 0)));
             Assert.AreEqual(P(5, 0), _Service.GetNextPointInEdge(P(4, 0)));
-        }
+        } 
 
         /**
          * 

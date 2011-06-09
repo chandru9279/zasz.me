@@ -58,6 +58,8 @@
             this.ShowBoundaries = new System.Windows.Forms.CheckBox();
             this.Cropper = new System.Windows.Forms.CheckBox();
             this.Margin = new System.Windows.Forms.TextBox();
+            this.Skipped = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Cloud)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,7 +78,7 @@
             this.Words.Location = new System.Drawing.Point(44, 35);
             this.Words.Multiline = true;
             this.Words.Name = "Words";
-            this.Words.Size = new System.Drawing.Size(246, 160);
+            this.Words.Size = new System.Drawing.Size(246, 139);
             this.Words.TabIndex = 1;
             this.Words.Text = "asp.net, 15\r\ngames, 10\r\nfun, 18\r\nbooks, 5\r\nmusic, 9\r\ncrapo, 8\r\ndota, 6\r\n";
             // 
@@ -319,11 +321,29 @@
             this.Margin.Size = new System.Drawing.Size(100, 20);
             this.Margin.TabIndex = 29;
             // 
+            // Skipped
+            // 
+            this.Skipped.Location = new System.Drawing.Point(116, 180);
+            this.Skipped.Name = "Skipped";
+            this.Skipped.Size = new System.Drawing.Size(174, 20);
+            this.Skipped.TabIndex = 30;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(61, 183);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(46, 13);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "Skipped";
+            // 
             // TagCloud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 596);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.Skipped);
             this.Controls.Add(this.Margin);
             this.Controls.Add(this.Cropper);
             this.Controls.Add(this.ShowBoundaries);
@@ -395,5 +415,7 @@
         private System.Windows.Forms.CheckBox ShowBoundaries;
         private System.Windows.Forms.CheckBox Cropper;
         private System.Windows.Forms.TextBox Margin;
+        private System.Windows.Forms.TextBox Skipped;
+        private System.Windows.Forms.Label label10;
     }
 }

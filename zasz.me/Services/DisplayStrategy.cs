@@ -6,8 +6,8 @@ namespace zasz.me.Services
 {
     public abstract class DisplayStrategy
     {
-        protected static readonly StringFormat HorizontalFormat;
-        protected static readonly StringFormat VerticalFormat;
+        public static readonly StringFormat HorizontalFormat;
+        public static readonly StringFormat VerticalFormat;
         protected static readonly Random Seed;
         private static readonly Dictionary<TagDisplayStrategy, DisplayStrategy> _Set;
 
