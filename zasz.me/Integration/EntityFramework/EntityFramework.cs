@@ -36,6 +36,8 @@ namespace zasz.me.Integration.EntityFramework
 
         public DbSet<Log> ErrorLogs { get; set; }
 
+        public DbSet<Tag> Tags { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder ModelBuilder)
         {
         }

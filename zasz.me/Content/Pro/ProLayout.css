@@ -184,7 +184,6 @@ a
     border-left: 2px solid #FFAE7F;
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 20px;
 }
         
 .Status-History
@@ -255,7 +254,7 @@ a
 
 .Sidebar-Control
 {
-    margin-top: 10px;
+    margin-top: 25px;
     margin-bottom: 10px;
 }
 

@@ -380,6 +380,7 @@
     <Content Include="Areas\Rest\Views\Writings\_PostShortView.cshtml" />
     <Content Include="Areas\Shared\Views\Post\_SyntaxHighlight.cshtml" />
     <Content Include="Areas\Shared\Views\Post\_PostFooter.cshtml" />
+    <Content Include="Areas\Pro\Views\Writings\TagCloudControl.cshtml" />
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>

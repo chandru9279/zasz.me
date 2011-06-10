@@ -23,5 +23,16 @@ namespace zasz.me.Integration.EntityFramework
                     where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == "Both"
                     select EachPost).Count();
         }
+
+        public Dictionary<string, int> WeightedList(Site ProOrRest)
+        {
+            return (from EachTag in _Session.Tags
+                    let Count = (from EachPost in EachTag.Posts
+                                 where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == "Both"
+                                 select EachPost).Count()
+                    where Count > 0
+                    select new {EachTag.Name, Count}).ToDictionary(It => It.Name, It => It.Count);
+
+        }
     }
 }

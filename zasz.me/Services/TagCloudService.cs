@@ -139,7 +139,7 @@ namespace zasz.me.Services
             _Occupied.Add(new RectangleF(_Width, 0, 1, _Height));
         }
 
-        public Bitmap Construct(out List<Rectangle> Borders)
+        public Bitmap Construct(out Dictionary<string, RectangleF> Borders)
         {
             if (_ServiceObjectNew)
                 _ServiceObjectNew = false;
@@ -192,7 +192,9 @@ namespace zasz.me.Services
             _Occupied.RemoveRange(0, 4);
             if (Crop)
                 TheCloudBitmap = CropAndTranslate(TheCloudBitmap);
-            Borders = new List<Rectangle>(_Occupied.Select(Rectangle.Round));
+            Borders = _Occupied
+                .Zip(_TagsSorted.Keys, (Rect, Tag) => new {Rect, Tag})
+                .ToDictionary(It => It.Tag, It => It.Rect);
             return TheCloudBitmap;
         }
 

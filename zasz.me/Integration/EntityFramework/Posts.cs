@@ -4,6 +4,10 @@ using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
+    /* This condition occurs everywhere, instead of being pushed into the Post or Site
+     * Domain itself, because EF4 cant convert it to SQL if it is so extracted into a 
+     * method  :
+     * EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == "Both"*/
     public class Posts : RepoBase<Post>, IPostRepository
     {
         private readonly ITagRepository _Tags;

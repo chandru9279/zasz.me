@@ -7,7 +7,7 @@ namespace zasz.me.Areas.Shared.Controllers
 {
     public class WritingsBase : PostController
     {
-        private readonly Site _Site;
+        protected readonly Site _Site;
 
         public WritingsBase(IPostRepository Posts, ITagRepository Tags, string SiteName) : base(Posts, Tags)
         {

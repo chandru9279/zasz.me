@@ -154,3 +154,30 @@
     border-color: #FFE2C5;
     border: 1px solid;
 }
+
+.TagCloud
+{
+    margin: 20px auto;
+    display: block;
+    height: 350px;
+}
+
+.TagHover
+{
+    display:block;
+    border-style: none;
+    position:absolute;
+    z-index:5;
+}
+
+.TagHover:HOVER
+{
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    display:block;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #FFAE7F;
+    cursor: pointer;  
+}

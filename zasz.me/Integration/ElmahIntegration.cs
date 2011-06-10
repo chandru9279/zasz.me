@@ -28,8 +28,8 @@ namespace zasz.me.Integration
 
         public override int GetErrors(int PageIndex, int PageSize, IList ErrorEntryList)
         {
-            var logs = _Repo.Page(PageIndex, PageSize);
-            ErrorEntryList.Add(logs);
+            var Logs = _Repo.Page(PageIndex, PageSize);
+            ErrorEntryList.Add(Logs);
             return _Repo.Count() > int.MaxValue ? int.MaxValue : (int) _Repo.Count();
         }
     }

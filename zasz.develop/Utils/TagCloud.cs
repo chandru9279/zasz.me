@@ -61,16 +61,17 @@ namespace zasz.develop.Utils
             TagCloudService.VerticalTextRight = VerticalTextRight.Checked;
             TagCloudService.ShowWordBoundaries = ShowBoundaries.Checked;
             TagCloudService.Crop = Cropper.Checked;
-            List<Rectangle> Borders;
+            Dictionary<string, RectangleF> Borders;
             Bitmap Bitmap = TagCloudService.Construct(out Borders);
             Skipped.Text = string.Join("; ", TagCloudService.WordsSkipped.Select(It => It.Key));
             Bitmap.Save(SystemPath + @"\Cloud.png", ImageFormat.Png);
             Cloud.Image = Bitmap;
-            Borders.ForEach((It) => Cloud.Controls.Add(GetBorder(It)));
+            Borders.Values.ToList().ForEach((It) => Cloud.Controls.Add(GetBorder(It)));
         }
 
-        private Control GetBorder(Rectangle It)
+        private Control GetBorder(RectangleF Borders)
         {
+            Rectangle It = Rectangle.Round(Borders);
             Label Border = new Label
                                {
                                    Top = It.Top,

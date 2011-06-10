@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Elmah;
 using Microsoft.Practices.Unity;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
+using zasz.me.Services;
 
 namespace zasz.me.Areas.Shared.Controllers
 {
@@ -126,6 +130,37 @@ namespace zasz.me.Areas.Shared.Controllers
             List<string> Sluglets =
                 (from object Match in Regex.Matches(NearlySlug, @"[a-zA-Z0-9.-]+") select Match.ToString()).ToList();
             return string.Join("-", Sluglets);
+        }
+
+        protected ActionResult TagCloud(Site ProOrRest, int Width, int Height)
+        {
+            Dictionary<string, int> WeightedTags = _Tags.WeightedList(ProOrRest);
+            var FontsService = new FontsService();
+            FontsService.LoadFonts(Request.MapPath(@"~\Content\Shared\Fonts"));
+            var TagCloudService = new TagCloudService(WeightedTags, Width, Height)
+                                      {
+                                          MaximumFontSize = 52f,
+                                          MinimumFontSize = 18f,
+                                          Margin = 10,
+                                          SelectedFont = FontsService.AvailableFonts["Kenyan Coffee"],
+                                          DisplayChoice =
+                                              DisplayStrategy.Get(TagDisplayStrategy.EqualHorizontalAndVertical),
+                                          ColorChoice = ColorStrategy.Get(Theme.LightBgDarkFg, Style.Varied, Color.FromArgb(0, Color.White), Color.Red),
+                                          VerticalTextRight = true,
+                                          Crop = true
+                                      };
+
+            Dictionary<string, RectangleF> Borders;
+            Bitmap Bitmap = TagCloudService.Construct(out Borders);
+            if (TagCloudService.WordsSkipped.Count() > 0)
+            {
+                string Msg = "Need a bigger Image - these words skipped : " +
+                             string.Join("; ", TagCloudService.WordsSkipped.Select(It => It.Key));
+                Console.WriteLine(Msg);
+                ErrorSignal.FromCurrentContext().Raise(new Exception(Msg));
+            }
+            Bitmap.Save(Request.MapPath(@"~\Content\Pro\Images\Cloud.png"), ImageFormat.Png);
+            return View(Borders);
         }
 
         #region Nested type: PostListModel
