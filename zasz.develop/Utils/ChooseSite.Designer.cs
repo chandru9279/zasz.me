@@ -1,4 +1,5 @@
-﻿namespace zasz.develop.Utils
+﻿using Domain = zasz.me.Areas.Shared.Models.Site;
+namespace zasz.develop.Utils
 {
     partial class ChooseSite
     {
@@ -31,39 +32,39 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChooseSite));
             this.Pro = new System.Windows.Forms.Button();
             this.Rest = new System.Windows.Forms.Button();
-            this.Both = new System.Windows.Forms.Button();
+            this.Shared = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Pro
             // 
             this.Pro.Location = new System.Drawing.Point(18, 85);
-            this.Pro.Name = "Pro";
+            this.Pro.Name = Domain.PRO;
             this.Pro.Size = new System.Drawing.Size(70, 30);
             this.Pro.TabIndex = 0;
-            this.Pro.Text = "Pro";
+            this.Pro.Text = Domain.PRO;
             this.Pro.UseVisualStyleBackColor = true;
             this.Pro.Click += new System.EventHandler(this.AnyClick);
             // 
             // Rest
             // 
             this.Rest.Location = new System.Drawing.Point(94, 85);
-            this.Rest.Name = "Rest";
+            this.Rest.Name = Domain.REST;
             this.Rest.Size = new System.Drawing.Size(70, 30);
             this.Rest.TabIndex = 1;
-            this.Rest.Text = "Rest";
+            this.Rest.Text = Domain.REST;
             this.Rest.UseVisualStyleBackColor = true;
             this.Rest.Click += new System.EventHandler(this.AnyClick);
             // 
-            // Both
+            // Shared
             // 
-            this.Both.Location = new System.Drawing.Point(170, 85);
-            this.Both.Name = "Both";
-            this.Both.Size = new System.Drawing.Size(70, 30);
-            this.Both.TabIndex = 2;
-            this.Both.Text = "Both";
-            this.Both.UseVisualStyleBackColor = true;
-            this.Both.Click += new System.EventHandler(this.AnyClick);
+            this.Shared.Location = new System.Drawing.Point(170, 85);
+            this.Shared.Name = Domain.SHARED;
+            this.Shared.Size = new System.Drawing.Size(70, 30);
+            this.Shared.TabIndex = 2;
+            this.Shared.Text = Domain.SHARED;
+            this.Shared.UseVisualStyleBackColor = true;
+            this.Shared.Click += new System.EventHandler(this.AnyClick);
             // 
             // Title
             // 
@@ -80,7 +81,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(254, 128);
             this.Controls.Add(this.Title);
-            this.Controls.Add(this.Both);
+            this.Controls.Add(this.Shared);
             this.Controls.Add(this.Rest);
             this.Controls.Add(this.Pro);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -100,7 +101,7 @@
 
         private System.Windows.Forms.Button Pro;
         private System.Windows.Forms.Button Rest;
-        private System.Windows.Forms.Button Both;
+        private System.Windows.Forms.Button Shared;
         private System.Windows.Forms.Label Title;
 
     }

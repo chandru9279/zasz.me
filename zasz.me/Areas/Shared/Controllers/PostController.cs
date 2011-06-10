@@ -100,7 +100,7 @@ namespace zasz.me.Areas.Shared.Controllers
 
             Entry.Title = Title;
             Entry.Content = PostContent;
-            Entry.Site = Site.WithName(ChosenSite);
+            Entry.Site = Site.With(ChosenSite);
             Entry.Tags.Clear();
             Entry.Tags =
                 Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(

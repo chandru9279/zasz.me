@@ -7,12 +7,11 @@ namespace zasz.me.Areas.Pro
     {
         public override string AreaName
         {
-            get { return Domain.Pro.ToString(); }
+            get { return Site.PRO; }
         }
 
         public override void RegisterArea(AreaRegistrationContext Context)
         {
-            Site.Register("chandruon.net", Domain.Pro);
         }
     }
 }

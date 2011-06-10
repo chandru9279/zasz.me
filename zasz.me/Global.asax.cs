@@ -1,10 +1,10 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using zasz.me.Integration;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Integration.MVC;
+using Domain = zasz.me.Areas.Shared.Models.Site;
 
 namespace zasz.me
 {
@@ -60,29 +60,29 @@ namespace zasz.me
 
         private static void DomainMappedRoute(RouteCollection Routes, string RouteName, string Pattern, object Defaults)
         {
-            Routes.MapRoute("Pro " + RouteName, "Pro/" + Pattern, Defaults).DataTokens["area"] = "Pro";
-            Routes.MapRoute("Rest " + RouteName, "Rest/" + Pattern, Defaults).DataTokens["area"] = "Rest";
+            Routes.MapRoute("Pro " + RouteName, "Pro/" + Pattern, Defaults).DataTokens["area"] = Domain.PRO;
+            Routes.MapRoute("Rest " + RouteName, "Rest/" + Pattern, Defaults).DataTokens["area"] = Domain.REST;
 
             Routes.MapRoute(
                 "zasz.me " + RouteName,
                 Pattern,
                 Defaults,
                 new { DomainConstraint = new DomainRouteConstraint("zasz.me") }
-                ).DataTokens["area"] = "Pro";
+                ).DataTokens["area"] = Domain.PRO;
 
             Routes.MapRoute(
                 "localhost " + RouteName,
                 Pattern,
                 Defaults,
                 new { DomainConstraint = new DomainRouteConstraint("localhost") }
-                ).DataTokens["area"] = "Pro";
+                ).DataTokens["area"] = Domain.PRO;
 
             Routes.MapRoute(
                 "chandruon.net " + RouteName,
                 Pattern,
                 Defaults,
                 new { DomainConstraint = new DomainRouteConstraint("chandruon.net") }
-                ).DataTokens["area"] = "Pro";
+                ).DataTokens["area"] = Domain.PRO;
         }
 
         protected void Application_Start()

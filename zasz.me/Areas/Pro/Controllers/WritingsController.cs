@@ -7,7 +7,7 @@ namespace zasz.me.Areas.Pro.Controllers
     public class WritingsController : WritingsBase
     {
         public WritingsController(IPostRepository Posts, ITagRepository Tags)
-            : base(Posts, Tags, "Pro")
+            : base(Posts, Tags, Site.Pro)
         {
         }
 

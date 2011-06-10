@@ -1,20 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace zasz.me.Areas.Shared.Models
 {
     [ComplexType]
     public class Site
     {
-        private static readonly List<Site> _Sites = new List<Site>();
+        public const string PRO = "Pro";
+        public const string REST = "Rest";
+        public const string SHARED = "Shared";
 
-        private Site(string Host, Domain AreaName)
+        public static readonly Site Pro = new Site("chandruon.net", PRO);
+        public static readonly Site Rest = new Site("zasz.me", REST);
+        public static readonly Site Shared = new Site("chandruon.net", SHARED);
+
+
+        private Site(string Host, string Domain)
         {
             this.Host = Host;
-            Name = AreaName.ToString();
+            Name = Domain;
         }
 
-        /* Should not be used in code, present for use by entity framework only*/
+        [Obsolete("Should not be used in code, present for use by entity framework only", true)]
         public Site()
         {
         }
@@ -24,21 +32,11 @@ namespace zasz.me.Areas.Shared.Models
 
         public string Name { get; set; }
 
-        public static void Register(string Host, Domain Domain)
+        public static Site With(string DomainName)
         {
-            _Sites.Add(new Site(Host, Domain));
+            return (from Domain in new[] {Pro, Rest, Shared}
+                    where Domain.Name == DomainName
+                    select Domain).FirstOrDefault();
         }
-
-        public static Site WithName(string Name)
-        {
-            return _Sites.Find(Site => Site.Name == Name);
-        }
-    }
-
-    public enum Domain
-    {
-        Pro,
-        Rest,
-        Both
     }
 }

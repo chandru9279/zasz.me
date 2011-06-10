@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
-using My = zasz.me.Areas.Shared.Models;
+using Domain = zasz.me.Areas.Shared.Models.Site;
 
 namespace zasz.develop.Utils
 {
@@ -25,7 +25,6 @@ namespace zasz.develop.Utils
             _FullContext = new FullContext();
             _TagRepository = new Tags(_FullContext);
             _PostRepository = new Posts(_FullContext, _TagRepository);
-            PostsData.RegisterSites();
         }
 
         public string Current { get; set; }
@@ -40,18 +39,18 @@ namespace zasz.develop.Utils
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {
                     Current = NewPost.Title;
-                    if (AllPro.Checked) NewPost.Site = My.Site.WithName("Pro");
-                    else if (AllBoth.Checked) NewPost.Site = My.Site.WithName("Both");
-                    else if (AllRest.Checked) NewPost.Site = My.Site.WithName("Rest");
+                    if (AllPro.Checked) NewPost.Site = Domain.Pro;
+                    else if (AllBoth.Checked) NewPost.Site = Domain.Shared;
+                    else if (AllRest.Checked) NewPost.Site = Domain.Rest;
                     else if (Default.Checked)
                     {
-                        NewPost.Site = My.Site.WithName(PostsData.DefaultSiteMap[NewPost.Slug]);
+                        NewPost.Site = Domain.With(PostsData.DefaultSiteMap[NewPost.Slug]);
                     }
                     else
                     {
                         DialogResult Dialog = _ChooseSiteDialog.ShowDialog(this);
                         if (Dialog == DialogResult.Cancel) Die("You cancelled");
-                        NewPost.Site = My.Site.WithName(ChooseSite.MapSites[Dialog]);
+                        NewPost.Site = Domain.With(ChooseSite.MapSites[Dialog]);
                     }
                     _PostRepository.Save(NewPost);
                 }
@@ -87,23 +86,18 @@ namespace zasz.develop.Utils
         private void ClearColdStorageClick(object Sender, EventArgs E)
         {
             DeleteByType<Post>();
+            Log("Done");
         }
 
         private void DeleteByType<T>() where T : class
         {
-            Log("Deleting All {0} from ColdStorage.. ", typeof(T));
+            Log("Deleting All {0} from ColdStorage.. ", typeof (T));
             foreach (T Model in _FullContext.Set<T>())
                 _FullContext.Set<T>().Remove(Model);
             _FullContext.SaveChanges();
-            Log("Done (All {0} Deleted from ColdStorage..) !", typeof(T));
+            Log("Done (All {0} Deleted from ColdStorage..) !", typeof (T));
+            Log("Done");
         }
-
-        /*
-         * Converts tags like
-         * <img src="/ThonHttpHandlers/Image.ashx?picturepath=~/App_Data/ZaszBlog/Files\Image328.jpg" alt="" width="60%" height="60%">
-         * to 
-         * <img src="/ThonHttpHandlers/Image.ashx?picturepath=~/App_Data/ZaszBlog/Files\Image328.jpg" alt="" width="60%" height="60%">
-         */
 
         private void ClearPostContentClick(object Sender, EventArgs E)
         {
@@ -111,29 +105,52 @@ namespace zasz.develop.Utils
             foreach (Post Post in Posts)
                 Post.Content = "Content";
             _PostRepository.Commit();
+            Log("Done");
         }
 
         private void CommentsToWxrClick(object Sender, EventArgs E)
         {
             string Path = Environment.GetEnvironmentVariable("SampleDataPath");
             new CommentsExport {CommentsProgress = CommentsProgress, SpamAmount = SpamAmount}.ConvertComments(Path, Log);
+            Log("Done");
         }
 
-        private void ShowTagCloud_Click(object sender, EventArgs e)
+// ReSharper disable MemberCanBeMadeStatic.Local
+        private void ShowTagCloudClick(object Sender, EventArgs E)
         {
             new TagCloud().Show();
+            Log("Done");
         }
 
-//        private void ProcessPostsClick(object Sender, EventArgs E)
-//        {
-//            var AllPosts = _PostRepository.Page(0, 50, My.Site.WithName("Both"));
-//            foreach(Post It in AllPosts)
-//            {
-//                HtmlDocument Node = new HtmlDocument();
-//                Node.LoadHtml(It.Content);
-//                var ImageNodes = Node.DocumentNode.SelectNodes("//img");
-//            }
-//        }
+// ReSharper restore MemberCanBeMadeStatic.Local
+
+        private void ClearUnusedTagsClick(object Sender, EventArgs E)
+        {
+            foreach (var TheTag in _FullContext.Tags.Include("Posts"))
+            {
+                if (TheTag.Posts.Count <= 0)
+                {
+                    Log(TheTag.Name + " had no posts, and was deleted.");
+                    _TagRepository.Delete(TheTag);
+                }
+            }
+            _TagRepository.Commit();
+            Log("Done");
+        }
+
+        private void ChangeSiteNameClick(object Sender, EventArgs E)
+        {
+            List<Post> Posts = _PostRepository.Page(0, 100);
+            Posts.ForEach(ChangeSite);
+            _PostRepository.Commit();
+            Log("Done");
+        }
+
+        private static void ChangeSite(Post Entry)
+        {
+            if (Entry.Site.Name == "Both")
+//                 Entry.Site = Domain.Shared;
+                throw new Exception("Both still exists! : " + Entry.Title);
+        }
     }
 }
-

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using zasz.me.Services;
+using Domain = zasz.me.Areas.Shared.Models.Site;
+
 
 namespace zasz.develop.Utils
 {
@@ -14,7 +16,7 @@ namespace zasz.develop.Utils
 
             if (MapSites == null)
                 MapSites = new Pairs<string, DialogResult>(
-                    new[] {"Pro", "Rest", "Both"},
+                    new[] {Domain.PRO, Domain.REST, Domain.SHARED},
                     new[] {DialogResult.Ignore, DialogResult.Abort, DialogResult.Retry}
                     );
         }

@@ -33,8 +33,8 @@ namespace zasz.me.Areas.Shared.Models
         [Required]
         public Site Site
         {
-            get { return Site.WithName(_Site.Name); }
-            set { _Site = Site.WithName(value.Name); }
+            get { return Site.With(_Site.Name); }
+            set { _Site = Site.With(value.Name); }
         }
 
 

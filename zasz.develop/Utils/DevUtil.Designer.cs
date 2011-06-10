@@ -45,6 +45,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ShowTagCloud = new System.Windows.Forms.Button();
+            this.ClearUnusedTags = new System.Windows.Forms.Button();
+            this.ChangeSiteName = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +62,7 @@
             // 
             // ClearZaszStore
             // 
-            this.ClearZaszStore.Location = new System.Drawing.Point(28, 101);
+            this.ClearZaszStore.Location = new System.Drawing.Point(28, 72);
             this.ClearZaszStore.Name = "ClearZaszStore";
             this.ClearZaszStore.Size = new System.Drawing.Size(140, 30);
             this.ClearZaszStore.TabIndex = 1;
@@ -147,7 +149,7 @@
             // 
             // ClearPostContent
             // 
-            this.ClearPostContent.Location = new System.Drawing.Point(28, 190);
+            this.ClearPostContent.Location = new System.Drawing.Point(28, 131);
             this.ClearPostContent.Name = "ClearPostContent";
             this.ClearPostContent.Size = new System.Drawing.Size(140, 29);
             this.ClearPostContent.TabIndex = 5;
@@ -157,7 +159,7 @@
             // 
             // CommentsToWxr
             // 
-            this.CommentsToWxr.Location = new System.Drawing.Point(28, 278);
+            this.CommentsToWxr.Location = new System.Drawing.Point(28, 190);
             this.CommentsToWxr.Name = "CommentsToWxr";
             this.CommentsToWxr.Size = new System.Drawing.Size(140, 29);
             this.CommentsToWxr.TabIndex = 6;
@@ -201,19 +203,41 @@
             // 
             // ShowTagCloud
             // 
-            this.ShowTagCloud.Location = new System.Drawing.Point(28, 366);
+            this.ShowTagCloud.Location = new System.Drawing.Point(28, 252);
             this.ShowTagCloud.Name = "ShowTagCloud";
             this.ShowTagCloud.Size = new System.Drawing.Size(140, 23);
             this.ShowTagCloud.TabIndex = 11;
             this.ShowTagCloud.Text = "Tag Cloud";
             this.ShowTagCloud.UseVisualStyleBackColor = true;
-            this.ShowTagCloud.Click += new System.EventHandler(this.ShowTagCloud_Click);
+            this.ShowTagCloud.Click += new System.EventHandler(this.ShowTagCloudClick);
+            // 
+            // ClearUnusedTags
+            // 
+            this.ClearUnusedTags.Location = new System.Drawing.Point(28, 307);
+            this.ClearUnusedTags.Name = "ClearUnusedTags";
+            this.ClearUnusedTags.Size = new System.Drawing.Size(140, 23);
+            this.ClearUnusedTags.TabIndex = 12;
+            this.ClearUnusedTags.Text = "Clear Unused Tags";
+            this.ClearUnusedTags.UseVisualStyleBackColor = true;
+            this.ClearUnusedTags.Click += new System.EventHandler(this.ClearUnusedTagsClick);
+            // 
+            // ChangeSiteName
+            // 
+            this.ChangeSiteName.Location = new System.Drawing.Point(28, 362);
+            this.ChangeSiteName.Name = "ChangeSiteName";
+            this.ChangeSiteName.Size = new System.Drawing.Size(140, 23);
+            this.ChangeSiteName.TabIndex = 13;
+            this.ChangeSiteName.Text = "Change Site Name";
+            this.ChangeSiteName.UseVisualStyleBackColor = true;
+            this.ChangeSiteName.Click += new System.EventHandler(this.ChangeSiteNameClick);
             // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.ChangeSiteName);
+            this.Controls.Add(this.ClearUnusedTags);
             this.Controls.Add(this.ShowTagCloud);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -254,6 +278,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button ShowTagCloud;
+        private System.Windows.Forms.Button ClearUnusedTags;
+        private System.Windows.Forms.Button ChangeSiteName;
     }
 }
 

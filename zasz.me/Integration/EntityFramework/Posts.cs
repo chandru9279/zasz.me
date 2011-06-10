@@ -7,7 +7,7 @@ namespace zasz.me.Integration.EntityFramework
     /* This condition occurs everywhere, instead of being pushed into the Post or Site
      * Domain itself, because EF4 cant convert it to SQL if it is so extracted into a 
      * method  :
-     * EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == "Both"*/
+     * EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == Site.SHARED*/
     public class Posts : RepoBase<Post>, IPostRepository
     {
         private readonly ITagRepository _Tags;
@@ -38,7 +38,7 @@ namespace zasz.me.Integration.EntityFramework
         public List<Post> Page(int PageNumber, int PageSize, Site ProOrRest)
         {
             return (from Model in _ModelSet
-                    where Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both"
+                    where Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED
                     orderby Model.Timestamp descending 
                     select Model).Skip(PageNumber * PageSize).Take(PageSize).ToList();
         }
@@ -46,21 +46,21 @@ namespace zasz.me.Integration.EntityFramework
         public List<Post> Archive(int Year, int Month, Site ProOrRest)
         {
             return (from Model in _ModelSet
-                    where (Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both")
+                    where (Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED)
                     && Model.Timestamp.Year == Year && Model.Timestamp.Month == Month
                     select Model).ToList();
         }
 
         public int Count(Site ProOrRest)
         {
-            return _ModelSet.Where(Model => Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both").Count();
+            return _ModelSet.Where(Model => Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED).Count();
         }
 
         /// <returns> A Dictionary of year as Key and the list of formatted months on which posts have been published as value</returns>
         public Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped(Site ProOrRest)
         {
             var Dates = (from Model in _ModelSet
-                         where Model.Site.Name == ProOrRest.Name || Model.Site.Name == "Both"
+                         where Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED
                          select Model.Timestamp).ToList();
 
             var GroupingByYear = from Date in Dates

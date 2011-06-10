@@ -9,9 +9,9 @@ namespace zasz.me.Areas.Shared.Controllers
     {
         protected readonly Site _Site;
 
-        public WritingsBase(IPostRepository Posts, ITagRepository Tags, string SiteName) : base(Posts, Tags)
+        public WritingsBase(IPostRepository Posts, ITagRepository Tags, Site Domain) : base(Posts, Tags)
         {
-            _Site = Site.WithName(SiteName);
+            _Site = Domain;
         }
 
         [DefaultAction]

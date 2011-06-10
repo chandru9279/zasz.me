@@ -7,7 +7,7 @@ namespace zasz.me.Areas.Shared
     {
         public override string AreaName
         {
-            get { return "Shared"; }
+            get { return Site.SHARED; }
         }
 
         public override void RegisterArea(AreaRegistrationContext Context)
@@ -20,7 +20,6 @@ namespace zasz.me.Areas.Shared
                 new {Controller = "Home", Action = "Default", id = UrlParameter.Optional}
                 );
 
-            Site.Register("chandruon.net", Domain.Both);
         }
     }
 }

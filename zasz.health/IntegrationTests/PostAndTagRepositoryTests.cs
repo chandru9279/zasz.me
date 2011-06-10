@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using zasz.develop.SampleData;
-using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
 
@@ -21,7 +20,6 @@ namespace zasz.health.IntegrationTests
         public void Setup()
         {
             Database.SetInitializer(new ColdStorageInitializer());
-            PostsData.RegisterSites();
             _FullContext = new FullContext();
             _Tags = new Tags(_FullContext);
             _Posts = new Posts(_FullContext, _Tags);
@@ -31,7 +29,7 @@ namespace zasz.health.IntegrationTests
                 var SamplePosts = PostsData.GetFromFolder(Environment.GetEnvironmentVariable("SampleDataPath", EnvironmentVariableTarget.Machine), Log);
                 foreach (Post SamplePost in SamplePosts)
                 {
-                    SamplePost.Site = Site.WithName("Both");
+                    SamplePost.Site = Site.Shared;
                     _Posts.Save(SamplePost);
                 }
                 _Posts.Commit();
@@ -52,9 +50,9 @@ namespace zasz.health.IntegrationTests
         public void TestCount()
         {
             var Posts = _Posts.Count();
-            var Both = _Posts.Count(Site.WithName("Both"));
-            var Pro = _Posts.Count(Site.WithName("Pro"));
-            var Rest = _Posts.Count(Site.WithName("Rest"));
+            var Both = _Posts.Count(Site.Shared);
+            var Pro = _Posts.Count(Site.Pro);
+            var Rest = _Posts.Count(Site.Rest);
             Assert.AreEqual(Both, Posts);
             Assert.AreEqual(Pro, Posts);
             Assert.AreEqual(Rest, Posts);
@@ -63,16 +61,16 @@ namespace zasz.health.IntegrationTests
         [TestMethod]
         public void TestTagPagingQuery()
         {
-            var Posts = _Tags.PagePosts("asp.net", 0, 2, Site.WithName("Pro"));
+            var Posts = _Tags.PagePosts("asp.net", 0, 2, Site.Pro);
             Assert.AreEqual(2, Posts.Count);
 
-            Posts = _Tags.PagePosts("asp.net", 0, 100, Site.WithName("Pro"));
+            Posts = _Tags.PagePosts("asp.net", 0, 100, Site.Pro);
             Assert.AreEqual(7, Posts.Count);
 
-            Posts = _Tags.PagePosts("games", 0, 100, Site.WithName("Pro"));
+            Posts = _Tags.PagePosts("games", 0, 100, Site.Pro);
             Assert.AreEqual(7, Posts.Count);
 
-            Posts = _Tags.PagePosts("dota", 0, 100, Site.WithName("Pro"));
+            Posts = _Tags.PagePosts("dota", 0, 100, Site.Pro);
             Assert.AreEqual(8, Posts.Count);
         }
 

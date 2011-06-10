@@ -4,54 +4,67 @@ Status-History widget
 */
 
 $(document).ready(function () {
-AttachClickHandlers();
-$('.Modal').modalpop({ speed: 300 });
+
+    AttachClickHandlers();
+
+    jQuery.fn.center = function () {
+        this.css("position","absolute");
+        this.css("top", ( $(window).height() - this.outerHeight() ) / 2+$(window).scrollTop() + "px");
+        this.css("left", ( $(window).width() - this.outerWidth() ) / 2+$(window).scrollLeft() + "px");
+        return this;
+    }
+
+    $('.Modal').modalpop({ speed: 300 });
+
 });
 
 var StatusExpanded = false;
 var BodyClickedHandlers = new Array();
 
 function AttachClickHandlers() {
-
-$('body').click(BodyClicked)
-$('#Status-History-Expand-Button').click(ExpandStatus);
+    $('body').click(BodyClicked)
+    $('#Status-History-Expand-Button').click(ExpandStatus);
 }
 
 
 function BodyClicked() {
-jQuery.each(BodyClickedHandlers, function () {
-this();
-})
+    jQuery.each(BodyClickedHandlers, function () {
+        this();
+    })
 }
 
 function ExpandStatus() {
-if (StatusExpanded)
-CloseStatus();
-else {
-BodyClickedHandlers.push(CloseStatus);
-$('#Status-History').toggleClass('Status-History Status-History-Expanded')
-StatusExpanded = true;
-}
-return false;
+    if (StatusExpanded)
+        CloseStatus();
+    else {
+        BodyClickedHandlers.push(CloseStatus);
+        $('#Status-History').toggleClass('Status-History Status-History-Expanded')
+        StatusExpanded = true;
+    }
+    return false;
 }
 
 function CloseStatus() {
-if (StatusExpanded) {
-$('#Status-History').removeClass('Status-History-Expanded')
-$('#Status-History').addClass('Status-History')
-StatusExpanded = false;
-}
+    if (StatusExpanded) {
+        $('#Status-History').removeClass('Status-History-Expanded')
+        $('#Status-History').addClass('Status-History')
+        StatusExpanded = false;
+    }
 }
 
 
 /*
-ModalPop
+ModalPop 
+
 Author: Owain Lewis
 Author URL: www.Owainlewis.com
 Simple Modal Dialog for jQuery
 The idea here was to keep this plugin as lightweight and easy to customize as possible
 You are free to use this plugin for whatever you want.
 If you enjoy this plugin, I'd love to hear from you
+
+With minor edits to the way the popup is centered based on
+http://stackoverflow.com/questions/210717/what-is-the-best-way-to-center-a-div-on-the-screen-using-jquery
 */
 
 (function () {
@@ -75,17 +88,7 @@ If you enjoy this plugin, I'd love to hear from you
             jQuery(this).click(function () {
                 $this = jQuery(this);
                 var id = $this.attr('href');
-                //Get the window height and width
-                var winH = height;
-                var winW = width;
-
-                //Set the popup window to center if required
-                if (defaults.center == true) {
-                    $(id).css('top', winH / 2 - $(id).height() / 2);
-                } else {
-                    $(id).css('top', 200);
-                }
-                $(id).css('left', winW / 2 - $(id).width() / 2);
+                $(id).center();
                 jQuery('#mask').fadeIn(defaults.speed);
                 jQuery(id).fadeIn(defaults.speed);
                 return false;
