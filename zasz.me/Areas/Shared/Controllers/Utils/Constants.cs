@@ -26,6 +26,22 @@ namespace zasz.me.Areas.Shared.Controllers.Utils
         public static Pairs<string, int> Months = new Pairs<string, int>(new[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"},
                                                                          new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
 
+        public static string DefaultWordList =
+            @"asp.net, 15
+games, 10
+fun, 15
+books, 5
+music, 5
+crapo, 4
+dota, 5
+concept, 2
+.net, 5
+fiction, 5
+sci-fi, 3
+mystery, 5
+romance, 4
+";
+
         public static Dictionary<string, string> GoWords()
         {
             var Dictionary = new Dictionary<string, string>(_GoWords.Length);
