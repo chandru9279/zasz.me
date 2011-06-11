@@ -167,7 +167,7 @@
     display:block;
     border-style: none;
     position:absolute;
-    z-index:5;
+    z-index:10;
 }
 
 .TagHover:HOVER
