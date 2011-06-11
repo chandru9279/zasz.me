@@ -97,9 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Pro\Controllers\ContactController.cs" />
+    <Compile Include="Areas\Pro\Controllers\DisorganizerController.cs" />
     <Compile Include="Areas\Pro\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Pro\Controllers\PortfolioController.cs" />
     <Compile Include="Areas\Pro\Controllers\WritingsController.cs" />
+    <Compile Include="Areas\Pro\Models\TinkerModel.cs" />
     <Compile Include="Areas\Rest\Controllers\AboutController.cs" />
     <Compile Include="Areas\Rest\Controllers\GalleryController.cs" />
     <Compile Include="Areas\Rest\Controllers\WritingsController.cs" />
@@ -332,7 +334,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\ColdStorage\" />
-    <Folder Include="Areas\Pro\Models\" />
     <Folder Include="Areas\Rest\Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -381,6 +382,7 @@
     <Content Include="Areas\Shared\Views\Post\_SyntaxHighlight.cshtml" />
     <Content Include="Areas\Shared\Views\Post\_PostFooter.cshtml" />
     <Content Include="Areas\Pro\Views\Writings\TagCloudControl.cshtml" />
+    <Content Include="Areas\Pro\Views\Disorganizer\Tinker.cshtml" />
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>

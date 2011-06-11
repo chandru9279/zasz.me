@@ -19,6 +19,11 @@ namespace zasz.me.Areas.Shared.Controllers.Utils
                        : WordList.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
+        public static T Enumize<T>(this string EnumValue)
+        {
+            return (T)Enum.Parse(typeof(T), EnumValue);
+        }
+
         public static void GenerateThumbnail(string SavedFileName, string ThumbsDir, int ThumbWidth, int ThumbHeight)
         {
             try

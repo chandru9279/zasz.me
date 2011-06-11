@@ -1,0 +1,68 @@
+﻿@model zasz.me.Areas.Pro.Models.TinkerModel
+
+@{
+    ViewBag.Title = "Tinker";
+}
+
+<h2>Tinker</h2>
+
+
+@using (var Form = Html.BeginForm())
+{
+    <div class="Label">Words</div>
+    @Html.TextAreaFor(It => It.Words);
+    <div class="Label">Skipped</div>
+    @Html.TextBoxFor(It => It.Skipped);
+    
+    <div class="Label">Max Font Size</div>    
+    @Html.TextBoxFor(It => It.MaxFontSize);
+    <div class="Label">Min Font Size</div>
+    @Html.TextBoxFor(It => It.MinFontSize);
+    <div class="Label">Width</div>
+    @Html.TextBoxFor(It => It.Width);
+    <div class="Label">Height</div>
+    @Html.TextBoxFor(It => It.Height);
+    <div>Angle will break CSS hover animation</div>
+    <div class="Label">Angle</div>
+    @Html.TextBoxFor(It => It.Angle);
+    
+    
+    <div class="Label">Font</div>
+    @Html.DropDownListFor(It => It.SelectedFont, Model.Fonts.Select(It => new SelectListItem{Text = It, Value = It}));
+    <div class="Label">Display Strategy</div>
+    @Html.DropDownListFor(It => It.SelectedStrategy, Model.Strategies.Select(It => new SelectListItem { Text = It, Value = It }))
+    <div class="Label">Theme</div>
+    @Html.DropDownListFor(It => It.SelectedTheme, Model.Themes.Select(It => new SelectListItem { Text = It, Value = It }))
+    <div class="Label">Style</div>
+    @Html.DropDownListFor(It => It.SelectedStyle, Model.Styles.Select(It => new SelectListItem { Text = It, Value = It }))
+    
+    
+    <div class="Label">Crop</div>
+    @Html.CheckBoxFor(It => It.Crop)
+    <div class="Label">Margin</div>
+    @Html.TextBoxFor(It => It.Margin)
+    <div class="Label">Vertical Text Right</div>
+    @Html.CheckBoxFor(It => It.VerticalTextRight)
+    <div class="Label">Show Boundaries</div>
+    @Html.CheckBoxFor(It => It.ShowBoundaries)
+     <input type="submit" value="Generate" /> 
+    Html.EndForm();
+}
+
+@if (null != Model.Borders)
+{
+    <div class="Sidebar-Control">
+    <div class="Sidebar-Title">Disorganizer&trade;</div>
+    <div class="TagCloud" style="width:@(Model.Width)px; height:@(Model.Height)px;">
+    @foreach (var Bounds in Model.Borders)
+    {
+        <a class="TagHover" 
+        href="/Writings/Tag/@(Bounds.Key)"
+        style="margin-left: @(Bounds.Value.Left)px; margin-top: @(Bounds.Value.Top)px; width: @(Bounds.Value.Width)px; height: @(Bounds.Value.Height)px">
+        </a>
+    }
+    <img style="position:absolute;" src="@Url.Content("~/Content/Pro/Images/TinkeringCloud.png")" alt="Tag cloud" />
+    </div>
+    </div>
+}
+
