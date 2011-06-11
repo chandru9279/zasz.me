@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Elmah;
 
@@ -15,10 +16,17 @@ namespace zasz.me.Areas.Shared.Models
 
         public Error Error { get; set; }
 
-        public Log(string ID, Error Error)
+        public Log(Error Error)
         {
-            this.ID = ID;
+            GuID = Guid.NewGuid();
             this.Error = Error;
+        }
+
+        [NotMapped]
+        public Guid GuID
+        {
+            get { return Guid.Parse(ID); }
+            set { ID = value.ToString(); }
         }
     }
 

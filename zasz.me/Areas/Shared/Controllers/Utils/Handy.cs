@@ -7,6 +7,7 @@ using System.Runtime.Caching;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Elmah;
 
 namespace zasz.me.Areas.Shared.Controllers.Utils
 {
@@ -22,6 +23,16 @@ namespace zasz.me.Areas.Shared.Controllers.Utils
         public static T Enumize<T>(this string EnumValue)
         {
             return (T)Enum.Parse(typeof(T), EnumValue);
+        }
+
+        public static void Log(string Message)
+        {
+            ErrorSignal.FromCurrentContext().Raise(new ZaszDotMeException(Message));
+        }
+        
+        public static void Log(string Message, Exception E)
+        {
+            ErrorSignal.FromCurrentContext().Raise(new ZaszDotMeException(Message, E));
         }
 
         public static void GenerateThumbnail(string SavedFileName, string ThumbsDir, int ThumbWidth, int ThumbHeight)
@@ -103,5 +114,16 @@ namespace zasz.me.Areas.Shared.Controllers.Utils
         ///     Recovers from up to 30% erroneous data.
         /// </summary>
         High
+    }
+
+    class ZaszDotMeException : Exception
+    {
+        public ZaszDotMeException(string Message) : base(Message)
+        {
+        }
+
+        public ZaszDotMeException(string Message, Exception InnerException) : base(Message, InnerException)
+        {
+        }
     }
 }

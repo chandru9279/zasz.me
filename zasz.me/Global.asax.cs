@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using zasz.me.Areas.Shared.Controllers;
 using zasz.me.Integration;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Integration.MVC;
@@ -16,6 +17,8 @@ namespace zasz.me
         public static void RegisterGlobalFilters(GlobalFilterCollection Filters)
         {
             Filters.Add(new HandleErrorAttribute());
+            Filters.Add(new LogonAuthorize());
+            // Filters.Add(new RequireHttpsAttribute()); 
         }
 
         public static void RegisterRoutes(RouteCollection Routes)

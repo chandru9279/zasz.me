@@ -47,14 +47,15 @@
             this.ShowTagCloud = new System.Windows.Forms.Button();
             this.ClearUnusedTags = new System.Windows.Forms.Button();
             this.ChangeSiteName = new System.Windows.Forms.Button();
+            this.ClearErrorLogs = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ImportPosts
             // 
-            this.ImportPosts.Location = new System.Drawing.Point(28, 18);
+            this.ImportPosts.Location = new System.Drawing.Point(28, 41);
             this.ImportPosts.Name = "ImportPosts";
-            this.ImportPosts.Size = new System.Drawing.Size(140, 30);
+            this.ImportPosts.Size = new System.Drawing.Size(140, 40);
             this.ImportPosts.TabIndex = 0;
             this.ImportPosts.Text = "Import Posts (BE.NET)";
             this.ImportPosts.UseVisualStyleBackColor = true;
@@ -62,9 +63,9 @@
             // 
             // ClearZaszStore
             // 
-            this.ClearZaszStore.Location = new System.Drawing.Point(28, 72);
+            this.ClearZaszStore.Location = new System.Drawing.Point(28, 87);
             this.ClearZaszStore.Name = "ClearZaszStore";
-            this.ClearZaszStore.Size = new System.Drawing.Size(140, 30);
+            this.ClearZaszStore.Size = new System.Drawing.Size(140, 40);
             this.ClearZaszStore.TabIndex = 1;
             this.ClearZaszStore.Text = "Clear ColdStorage";
             this.ClearZaszStore.UseVisualStyleBackColor = true;
@@ -149,9 +150,9 @@
             // 
             // ClearPostContent
             // 
-            this.ClearPostContent.Location = new System.Drawing.Point(28, 131);
+            this.ClearPostContent.Location = new System.Drawing.Point(28, 133);
             this.ClearPostContent.Name = "ClearPostContent";
-            this.ClearPostContent.Size = new System.Drawing.Size(140, 29);
+            this.ClearPostContent.Size = new System.Drawing.Size(140, 40);
             this.ClearPostContent.TabIndex = 5;
             this.ClearPostContent.Text = "Clear Post Content";
             this.ClearPostContent.UseVisualStyleBackColor = true;
@@ -159,9 +160,9 @@
             // 
             // CommentsToWxr
             // 
-            this.CommentsToWxr.Location = new System.Drawing.Point(28, 190);
+            this.CommentsToWxr.Location = new System.Drawing.Point(28, 179);
             this.CommentsToWxr.Name = "CommentsToWxr";
-            this.CommentsToWxr.Size = new System.Drawing.Size(140, 29);
+            this.CommentsToWxr.Size = new System.Drawing.Size(140, 40);
             this.CommentsToWxr.TabIndex = 6;
             this.CommentsToWxr.Text = "Comments to WXR";
             this.CommentsToWxr.UseVisualStyleBackColor = true;
@@ -203,9 +204,9 @@
             // 
             // ShowTagCloud
             // 
-            this.ShowTagCloud.Location = new System.Drawing.Point(28, 252);
+            this.ShowTagCloud.Location = new System.Drawing.Point(28, 225);
             this.ShowTagCloud.Name = "ShowTagCloud";
-            this.ShowTagCloud.Size = new System.Drawing.Size(140, 23);
+            this.ShowTagCloud.Size = new System.Drawing.Size(140, 40);
             this.ShowTagCloud.TabIndex = 11;
             this.ShowTagCloud.Text = "Tag Cloud";
             this.ShowTagCloud.UseVisualStyleBackColor = true;
@@ -213,9 +214,9 @@
             // 
             // ClearUnusedTags
             // 
-            this.ClearUnusedTags.Location = new System.Drawing.Point(28, 307);
+            this.ClearUnusedTags.Location = new System.Drawing.Point(28, 271);
             this.ClearUnusedTags.Name = "ClearUnusedTags";
-            this.ClearUnusedTags.Size = new System.Drawing.Size(140, 23);
+            this.ClearUnusedTags.Size = new System.Drawing.Size(140, 40);
             this.ClearUnusedTags.TabIndex = 12;
             this.ClearUnusedTags.Text = "Clear Unused Tags";
             this.ClearUnusedTags.UseVisualStyleBackColor = true;
@@ -223,19 +224,30 @@
             // 
             // ChangeSiteName
             // 
-            this.ChangeSiteName.Location = new System.Drawing.Point(28, 362);
+            this.ChangeSiteName.Location = new System.Drawing.Point(28, 317);
             this.ChangeSiteName.Name = "ChangeSiteName";
-            this.ChangeSiteName.Size = new System.Drawing.Size(140, 23);
+            this.ChangeSiteName.Size = new System.Drawing.Size(140, 40);
             this.ChangeSiteName.TabIndex = 13;
             this.ChangeSiteName.Text = "Change Site Name";
             this.ChangeSiteName.UseVisualStyleBackColor = true;
             this.ChangeSiteName.Click += new System.EventHandler(this.ChangeSiteNameClick);
+            // 
+            // ClearErrorLogs
+            // 
+            this.ClearErrorLogs.Location = new System.Drawing.Point(28, 363);
+            this.ClearErrorLogs.Name = "ClearErrorLogs";
+            this.ClearErrorLogs.Size = new System.Drawing.Size(140, 40);
+            this.ClearErrorLogs.TabIndex = 14;
+            this.ClearErrorLogs.Text = "Clear Error Logs";
+            this.ClearErrorLogs.UseVisualStyleBackColor = true;
+            this.ClearErrorLogs.Click += new System.EventHandler(this.ClearErrorLogsClick);
             // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.ClearErrorLogs);
             this.Controls.Add(this.ChangeSiteName);
             this.Controls.Add(this.ClearUnusedTags);
             this.Controls.Add(this.ShowTagCloud);
@@ -280,6 +292,7 @@
         private System.Windows.Forms.Button ShowTagCloud;
         private System.Windows.Forms.Button ClearUnusedTags;
         private System.Windows.Forms.Button ChangeSiteName;
+        private System.Windows.Forms.Button ClearErrorLogs;
     }
 }
 

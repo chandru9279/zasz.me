@@ -10,9 +10,18 @@ namespace zasz.me.Integration.EntityFramework
         {
         }
 
+        public override void Save(Log Instance)
+        {
+            using (var NewTransaction = new FullContext())
+            {
+                NewTransaction.ErrorLogs.Add(Instance);
+                NewTransaction.SaveChanges();
+            }
+        }
+
         public List<Log> Page(int PageNumber, int PageSize)
         {
-            return _ModelSet.OrderBy(Model => Model.ID).Skip(PageNumber * PageSize).Take(PageSize).ToList();
+            return _ModelSet.OrderBy(Model => Model.ID).Skip(PageNumber*PageSize).Take(PageSize).ToList();
         }
     }
 }

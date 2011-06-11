@@ -152,5 +152,11 @@ namespace zasz.develop.Utils
 //                 Entry.Site = Domain.Shared;
                 throw new Exception("Both still exists! : " + Entry.Title);
         }
+
+        private void ClearErrorLogsClick(object Sender, EventArgs E)
+        {
+            _FullContext.Database.ExecuteSqlCommand("DELETE FROM Logs");
+            Log("Done.");
+        }
     }
 }

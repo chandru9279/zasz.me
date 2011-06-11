@@ -36,6 +36,10 @@ namespace zasz.me.Services
 
         public TagCloudService(Dictionary<string, int> Tags, int Width, int Height)
         {
+            if (null == Tags || 0 == Tags.Count)
+                _Die("Argument Exception, No Tags to disorganize");
+            if (Width < 30 || Height < 30)
+                _Die("Way too low Width or Height for the cloud to be useful");
             _Width = Width;
             _Height = Height;
             _MainArea = new RectangleF(0, 0, Width, Height);
@@ -152,7 +156,7 @@ namespace zasz.me.Services
             if (Angle != 0) GImage.Rotate(_Center, Angle);
             _WeightSpan = _HighestWeight - _LowestWeight;
             if (MaximumFontSize < MinimumFontSize)
-                throw new Exception("MaximumFontSize is less than MinimumFontSize");
+                _Die("MaximumFontSize is less than MinimumFontSize");
             _FontHeightSpan = MaximumFontSize - MinimumFontSize;
             GImage.Clear(ColorChoice.GetBackGroundColor());
 
