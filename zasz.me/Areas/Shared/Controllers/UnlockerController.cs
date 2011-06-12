@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -31,9 +30,9 @@ namespace zasz.me.Areas.Shared.Controllers
         {
 //            if (_PassphraseRepository.Authenticate(PassPhrase))
             var Algorithm = new SHA256Cng();
-            var Unicoding=new UnicodeEncoding();
+            var Unicoding = new UnicodeEncoding();
             string Hashed = Unicoding.GetString(Algorithm.ComputeHash(Unicoding.GetBytes(PassPhrase)));
-            if (Hashed == "竽鼶੥惞⢭邽靱讘朮堢�ଣ疪糧܍")
+            if (Hashed == "竽鼶੥惞⢭邽靱讘朮堢�ଣ疪糧܍") /* I put this especially for that idiot who deleted my Posts :P */
             {
                 FormsAuthentication.SetAuthCookie("Manager", false);
                 return Redirect(ReturnUrl ?? "/Home");

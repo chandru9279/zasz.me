@@ -128,7 +128,7 @@ namespace zasz.develop.Utils
 
         private void ClearUnusedTagsClick(object Sender, EventArgs E)
         {
-            foreach (var TheTag in _FullContext.Tags.Include("Posts"))
+            foreach (Tag TheTag in _FullContext.Tags.Include("Posts"))
             {
                 if (TheTag.Posts.Count <= 0)
                 {
@@ -151,7 +151,7 @@ namespace zasz.develop.Utils
         private static void ChangeSite(Post Entry)
         {
             if (Entry.Site.Name == "Both")
-//                 Entry.Site = Domain.Shared;
+                //Entry.Site = Domain.Shared;
                 throw new Exception("Both still exists! : " + Entry.Title);
         }
 
@@ -163,7 +163,7 @@ namespace zasz.develop.Utils
 
         private void HashPasswordClick(object Sender, EventArgs E)
         {
-            if(string.IsNullOrEmpty(Password.Text))
+            if (string.IsNullOrEmpty(Password.Text))
             {
                 Log("Password Empty");
                 return;
