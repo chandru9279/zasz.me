@@ -18,6 +18,7 @@ namespace zasz.me.Integration.MVC
             if (MethodsFlaggedWithDefaultAction.Count() == 0)
                 throw new ConfigurationErrorsException(string.Format("{0} does not have an Action flagged with the {1} attribute", GetType().Name, DefaultAction.Name));
 
+            /* This method shows the current area in the URL :( */
             return RedirectToActionPermanent(MethodsFlaggedWithDefaultAction.First().Name);
         }
     }

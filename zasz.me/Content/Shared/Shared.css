@@ -28,8 +28,48 @@
 .Admin-Title
 {
     font-size: x-large; 
-    width: 300px; 
     margin: 12px auto; 
     color: #FF7700;
-    display: block;    
+    display: table;    
+}
+
+.Login-Box
+{
+    background-color: #FFEBE0;
+    margin: 20px auto;
+    width: 500px;
+    padding: 20px auto;
+    padding-bottom: 20px;
+    text-align: center;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    border: 2px solid #FFAE7F;
+}
+
+a
+{
+    color: #FF6060;
+    text-decoration: none;   
+}
+
+a:HOVER
+{
+    color: #A83500;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.Control-Panel
+{
+    margin: 20px auto;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.Control-Panel li
+{
+    line-height: 30px;
+    list-style-type: none;
 }

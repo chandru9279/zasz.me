@@ -1,13 +1,15 @@
 ﻿@{
     ViewBag.Title = "Unlock";
+    ViewBag.Submit = "/Shared/Unlocker/Unlock";
 }
 
-<h2>Unlock</h2>
-
-<form action="@Url.Action("Unlock", "Unlocker")" method="post">
+<div class="Login-Box">
+<div class="Admin-Title">Unlock</div>
 
 <label for="PassPhrase">Passphrase : </label>
 <input id="PassPhrase" name="PassPhrase" type="password" value="" />
+<br />
+<br />
 <input type="submit" value="Unlock" />
+</div>
 
-</form>

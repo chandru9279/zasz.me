@@ -17,7 +17,7 @@ namespace zasz.me.Areas.Shared.Controllers
 {
     public abstract class PostController : BaseController
     {
-        private const string ManageViewPath = "~/Areas/Shared/Views/Post/Manage.cshtml";
+        private const string MANAGE_VIEW_PATH = "~/Areas/Shared/Views/Post/Manage.cshtml";
         protected readonly IPostRepository _Posts;
         private readonly ITagRepository _Tags;
 
@@ -72,16 +72,21 @@ namespace zasz.me.Areas.Shared.Controllers
                                     });
         }
 
+        [Authorize]
+        [Secure]
         public ActionResult Create()
         {
-            return View(ManageViewPath, new Post());
+            return View(MANAGE_VIEW_PATH, new Post());
         }
 
+        [Authorize]
+        [Secure]
         public ActionResult Edit(string Id)
         {
-            return View(ManageViewPath, _Posts.Get(Id));
+            return View(MANAGE_VIEW_PATH, _Posts.Get(Id));
         }
 
+        [Authorize]
         public ActionResult Delete(string Id)
         {
             /* Todo : Need to figure out a way to delete without fetching */
@@ -91,6 +96,8 @@ namespace zasz.me.Areas.Shared.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Secure]
         [ValidateInput(false)]
         public ActionResult Manage(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
         {
@@ -113,7 +120,7 @@ namespace zasz.me.Areas.Shared.Controllers
                 if (ModelState.IsValid)
                     _Posts.Save(Entry);
                 else
-                    return View(ManageViewPath, Entry);
+                    return View(MANAGE_VIEW_PATH, Entry);
 
             _Posts.Commit();
             return Redirect("/Writings/Post/" + Slug);

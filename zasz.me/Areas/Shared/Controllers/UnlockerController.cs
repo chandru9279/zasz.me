@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
 using zasz.me.Areas.Shared.Models;
@@ -17,46 +19,34 @@ namespace zasz.me.Areas.Shared.Controllers
         }
 
         [DefaultAction]
+        [Secure]
         public ActionResult Unlock()
         {
             return View();
         }
 
         [HttpPost]
+        [Secure]
         public ActionResult Unlock(string PassPhrase, string ReturnUrl)
         {
 //            if (_PassphraseRepository.Authenticate(PassPhrase))
-            if (PassPhrase == "JustPass")
+            var Algorithm = new SHA256Cng();
+            var Unicoding=new UnicodeEncoding();
+            string Hashed = Unicoding.GetString(Algorithm.ComputeHash(Unicoding.GetBytes(PassPhrase)));
+            if (Hashed == "竽鼶੥惞⢭邽靱讘朮堢�ଣ疪糧܍")
             {
                 FormsAuthentication.SetAuthCookie("Manager", false);
-                return Redirect(ReturnUrl);
+                return Redirect(ReturnUrl ?? "/Home");
             }
             ModelState.AddModelError("AuthenticationFailed", "Wrong Passphrase");
             return View();
         }
 
-        public ActionResult Lock(string Controller = "Home", string Action = "Show")
+        [Secure]
+        public ActionResult Lock()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction(Action, Controller);
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public sealed class AllowAnonymousAttribute : Attribute
-    {
-    }
-
-    public sealed class LogonAuthorize : AuthorizeAttribute
-    {
-        public override void OnAuthorization(AuthorizationContext FilterContext)
-        {
-            bool SkipAuthorization = FilterContext.ActionDescriptor.
-                                         IsDefined(typeof (AllowAnonymousAttribute), true) ||
-                                     FilterContext.ActionDescriptor.ControllerDescriptor
-                                         .IsDefined(typeof (AllowAnonymousAttribute), true);
-            if (!SkipAuthorization)
-                base.OnAuthorization(FilterContext);
+            return Redirect("/Home");
         }
     }
 }

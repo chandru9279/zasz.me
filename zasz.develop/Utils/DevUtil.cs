@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
@@ -157,6 +159,18 @@ namespace zasz.develop.Utils
         {
             _FullContext.Database.ExecuteSqlCommand("DELETE FROM Logs");
             Log("Done.");
+        }
+
+        private void HashPasswordClick(object Sender, EventArgs E)
+        {
+            if(string.IsNullOrEmpty(Password.Text))
+            {
+                Log("Password Empty");
+                return;
+            }
+            var Algorithm = new SHA256Cng();
+            var Unicoding = new UnicodeEncoding();
+            PassHash.Text = Unicoding.GetString(Algorithm.ComputeHash(Unicoding.GetBytes(Password.Text)));
         }
     }
 }

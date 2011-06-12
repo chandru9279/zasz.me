@@ -137,6 +137,7 @@
     <Compile Include="Integration\MVC\BaseController.cs" />
     <Compile Include="Integration\MVC\DefaultActionAttribute.cs" />
     <Compile Include="Integration\MVC\DomainRouteConstraint.cs" />
+    <Compile Include="Integration\MVC\Security.cs" />
     <Compile Include="Integration\UnityIntegration.cs" />
     <Compile Include="Configuration\UploadsConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -380,6 +381,7 @@
     <Content Include="Areas\Shared\Views\Post\_PostFooter.cshtml" />
     <Content Include="Areas\Pro\Views\Writings\TagCloudControl.cshtml" />
     <Content Include="Areas\Pro\Views\Disorganizer\Tinker.cshtml" />
+    <Content Include="Areas\Shared\Views\Unlocker\_UnlockStatus.cshtml" />
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>

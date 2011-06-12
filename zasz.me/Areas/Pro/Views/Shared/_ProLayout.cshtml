@@ -63,13 +63,13 @@
                 <div class="Pro-Body">
                     <div class="Pro-Body-Left">
                         <div class="Pro-Body-Left-Min-Height">
-                        @RenderBody()    
-                                        
+                        @RenderBody()                                         
                         </div>
                         
                     </div>                
-                    <div class="Pro-Body-Right">
+                    <div class="Pro-Body-Right">                      
                         @RenderSection("Right", false)
+                        @Html.Partial("~/Areas/Shared/Views/Unlocker/_UnlockStatus.cshtml")
                     </div>
                 </div>          
             </div>

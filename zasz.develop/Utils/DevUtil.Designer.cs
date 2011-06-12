@@ -48,6 +48,11 @@
             this.ClearUnusedTags = new System.Windows.Forms.Button();
             this.ChangeSiteName = new System.Windows.Forms.Button();
             this.ClearErrorLogs = new System.Windows.Forms.Button();
+            this.HashPassword = new System.Windows.Forms.Button();
+            this.Password = new System.Windows.Forms.TextBox();
+            this.PassHash = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -242,11 +247,58 @@
             this.ClearErrorLogs.UseVisualStyleBackColor = true;
             this.ClearErrorLogs.Click += new System.EventHandler(this.ClearErrorLogsClick);
             // 
+            // HashPassword
+            // 
+            this.HashPassword.Location = new System.Drawing.Point(28, 409);
+            this.HashPassword.Name = "HashPassword";
+            this.HashPassword.Size = new System.Drawing.Size(140, 40);
+            this.HashPassword.TabIndex = 15;
+            this.HashPassword.Text = "Hash Password";
+            this.HashPassword.UseVisualStyleBackColor = true;
+            this.HashPassword.Click += new System.EventHandler(this.HashPasswordClick);
+            // 
+            // Password
+            // 
+            this.Password.Location = new System.Drawing.Point(289, 385);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(272, 20);
+            this.Password.TabIndex = 16;
+            // 
+            // PassHash
+            // 
+            this.PassHash.Location = new System.Drawing.Point(289, 420);
+            this.PassHash.Name = "PassHash";
+            this.PassHash.Size = new System.Drawing.Size(272, 20);
+            this.PassHash.TabIndex = 17;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(230, 388);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Password";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(251, 423);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Hash";
+            // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.PassHash);
+            this.Controls.Add(this.Password);
+            this.Controls.Add(this.HashPassword);
             this.Controls.Add(this.ClearErrorLogs);
             this.Controls.Add(this.ChangeSiteName);
             this.Controls.Add(this.ClearUnusedTags);
@@ -293,6 +345,11 @@
         private System.Windows.Forms.Button ClearUnusedTags;
         private System.Windows.Forms.Button ChangeSiteName;
         private System.Windows.Forms.Button ClearErrorLogs;
+        private System.Windows.Forms.Button HashPassword;
+        private System.Windows.Forms.TextBox Password;
+        private System.Windows.Forms.TextBox PassHash;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 

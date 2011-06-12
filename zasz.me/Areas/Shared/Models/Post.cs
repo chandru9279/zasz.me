@@ -8,7 +8,7 @@ namespace zasz.me.Areas.Shared.Models
 {
     public class Post : IModel
     {
-        private Site _Site;
+        private Site _Site = Site.Shared;
 
         [Key]
         public string Slug { get; set; }

@@ -22,24 +22,41 @@
 @section Right{
 
 <div class="Admin-Title">Post Fields</div>
+<table class="Control-Panel">
 
-<div>Site : </div> @Html.ValidationMessageFor(X => X.Site)
-@Html.DropDownList("ChosenSite",
-                    new [] {Site.PRO, Site.REST, Site.SHARED}
-                    .Select(Name => new SelectListItem()
-                    {
-                        Text = Name,
-                        Value = Name,
-                        Selected = Name.Equals(Model.Site.Name, StringComparison.InvariantCultureIgnoreCase)
-                    })
-                )
+<tr>
+<td colspan="2">@Html.ValidationMessageFor(X => X.Site) </td>
+</tr>
 
-<div>Tags : </div> 
-<input type="text" name="Tags" value="@Model.TagsLine"/>
+<tr>
+<td>Site : </td>
+<td>@Html.DropDownList("ChosenSite",
+        new [] {Site.PRO, Site.REST, Site.SHARED}
+        .Select(Name => new SelectListItem()
+        {
+            Text = Name,
+            Value = Name,
+            Selected = Name.Equals(Model.Site.Name, StringComparison.InvariantCultureIgnoreCase)
+        })
+    )
+</td>
+</tr>
+
+<tr>
+<td>Tags : </td>
+<td><input type="text" name="Tags" value="@Model.TagsLine"/></td>
+</tr>
+
+<tr>
+<td colspan="2">@Html.ValidationMessageFor(X => X.Title)</td>
+</tr>
+
+<tr>
+<td>Title : </td>
+<td><input type="text" name="Title" value="@Model.Title"/></td>
+</tr>
 
 
-<div>Title : </div> @Html.ValidationMessageFor(X => X.Title)
-<input type="text" name="Title" value="@Model.Title"/>
-
+</table>
 }
 
