@@ -23,10 +23,10 @@ namespace zasz.develop.Utils
         {
             InitializeComponent();
             _ChooseSiteDialog = new ChooseSite();
-            Database.SetInitializer(new ColdStorageInitializer());
+            //Database.SetInitializer(new ColdStorageInitializer());
             _FullContext = new FullContext();
             _TagRepository = new Tags(_FullContext);
-            _PostRepository = new Posts(_FullContext, _TagRepository);
+            _PostRepository = new Posts(_FullContext);
         }
 
         public string Current { get; set; }

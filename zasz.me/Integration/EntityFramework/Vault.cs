@@ -2,7 +2,7 @@
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class Vault : RepoBase<Passphrase>, IPassphraseRepository
+    public class Vault : RepoBase<Passphrase, string>, IPassphraseRepository
     {
         public Vault(FullContext Session) : base(Session)
         {

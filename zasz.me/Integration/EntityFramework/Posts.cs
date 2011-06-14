@@ -8,30 +8,20 @@ namespace zasz.me.Integration.EntityFramework
      * Domain itself, because EF4 cant convert it to SQL if it is so extracted into a 
      * method  :
      * EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == Site.SHARED*/
-    public class Posts : RepoBase<Post>, IPostRepository
-    {
-        private readonly ITagRepository _Tags;
 
-        public Posts(FullContext Session, ITagRepository Tags)
+    public class Posts : RepoBase<Post, string>, IPostRepository
+    {
+        public Posts(FullContext Session)
             : base(Session)
         {
-            _Tags = Tags;
         }
 
         #region IPostRepository Members
 
-        public override void Save(Post Instance)
-        {
-            var PersistantTags = new List<Tag>(Instance.Tags.Count);
-            PersistantTags.AddRange(from Tag in Instance.Tags
-                                    select _Tags.FindOrNew(Tag.Name));
-            Instance.Tags = PersistantTags;
-            base.Save(Instance);
-        }
-
         public List<Post> Page(int PageNumber, int PageSize)
         {
-            return _ModelSet.OrderByDescending(Model => Model.Timestamp).Skip(PageNumber * PageSize).Take(PageSize).ToList();
+            return
+                _ModelSet.OrderByDescending(Model => Model.Timestamp).Skip(PageNumber*PageSize).Take(PageSize).ToList();
         }
 
         /// <param name = "PageNumber">Zero-Based Index</param>
@@ -39,15 +29,15 @@ namespace zasz.me.Integration.EntityFramework
         {
             return (from Model in _ModelSet
                     where Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED
-                    orderby Model.Timestamp descending 
-                    select Model).Skip(PageNumber * PageSize).Take(PageSize).ToList();
+                    orderby Model.Timestamp descending
+                    select Model).Skip(PageNumber*PageSize).Take(PageSize).ToList();
         }
 
         public List<Post> Archive(int Year, int Month, Site ProOrRest)
         {
             return (from Model in _ModelSet
                     where (Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED)
-                    && Model.Timestamp.Year == Year && Model.Timestamp.Month == Month
+                          && Model.Timestamp.Year == Year && Model.Timestamp.Month == Month
                     select Model).ToList();
         }
 
@@ -64,9 +54,9 @@ namespace zasz.me.Integration.EntityFramework
                          select Model.Timestamp).ToList();
 
             var GroupingByYear = from Date in Dates
-                                 orderby Date.Year descending 
+                                 orderby Date.Year descending
                                  group Date by Date.Year
-                                 into YearGroup 
+                                 into YearGroup
                                  select new
                                             {
                                                 Year = YearGroup.Key,
@@ -76,12 +66,15 @@ namespace zasz.me.Integration.EntityFramework
                                                             into MonthGroup
                                                             select new
                                                                        {
-                                                                           DateString = string.Format("{0:MMMM yyyy}", MonthGroup.First()),
+                                                                           DateString =
+                                                                string.Format("{0:MMMM yyyy}", MonthGroup.First()),
                                                                            Count = MonthGroup.Count()
                                                                        }
                                             };
 
-            return GroupingByYear.ToDictionary(It => It.Year, It => It.Formatted.ToDictionary(Month => Month.DateString, Month => Month.Count));
+            return GroupingByYear.ToDictionary(It => It.Year,
+                                               It =>
+                                               It.Formatted.ToDictionary(Month => Month.DateString, Month => Month.Count));
         }
 
         #endregion

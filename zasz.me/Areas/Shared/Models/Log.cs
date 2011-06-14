@@ -5,32 +5,35 @@ using Elmah;
 
 namespace zasz.me.Areas.Shared.Models
 {
-    public class Log : IModel
+    public class Log : IModel<Log, Guid>
     {
         public Log()
         {
         }
 
-        [Key]
-        public string ID { get; set; }
-
-        public Error Error { get; set; }
-
         public Log(Error Error)
         {
-            GuID = Guid.NewGuid();
+            Id = Guid.NewGuid();
             this.Error = Error;
         }
 
-        [NotMapped]
-        public Guid GuID
+        [Key]
+        public Guid Id { get; set; }
+
+        public Error Error { get; set; }
+
+        public string IdString
         {
-            get { return Guid.Parse(ID); }
-            set { ID = value.ToString(); }
+            get { return Id.ToString(); }
+        }
+
+        public Func<Log, bool> NaturalEquals(Guid NewId)
+        {
+            return It=> It.Id == NewId;
         }
     }
 
-    public interface ILogsRepository : IRepository<Log>
+    public interface ILogsRepository : IRepository<Log, Guid>
     {
         List<Log> Page(int PageNumber, int PageSize);
     }

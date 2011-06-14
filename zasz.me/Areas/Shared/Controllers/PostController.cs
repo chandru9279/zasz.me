@@ -108,10 +108,10 @@ namespace zasz.me.Areas.Shared.Controllers
             Entry.Title = Title;
             Entry.Content = PostContent;
             Entry.Site = Site.With(ChosenSite);
-            Entry.Tags.Clear();
+            if (Entry.Tags != null) Entry.Tags.Clear();
             Entry.Tags =
                 Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(
-                    It => _Tags.Get(It) ?? new Tag(It)).
+                    It => _Tags.Get(It) ?? _Tags.Save(new Tag(It))).
                     ToList();
             if (New) Entry.Slug = GetSlug(Title);
             if (New) Entry.Timestamp = DateTime.Now;
@@ -123,7 +123,7 @@ namespace zasz.me.Areas.Shared.Controllers
                     return View(MANAGE_VIEW_PATH, Entry);
 
             _Posts.Commit();
-            return Redirect("/Writings/Post/" + Slug);
+            return Redirect("/Writings/Post/" + Entry.Slug);
         }
 
         public static string GetSlug(string Title)
@@ -142,6 +142,7 @@ namespace zasz.me.Areas.Shared.Controllers
         protected ActionResult TagCloud(Site ProOrRest, int Width, int Height)
         {
             Dictionary<string, int> WeightedTags = _Tags.WeightedList(ProOrRest);
+            if (WeightedTags.Count == 0) return View();
             var FontsService = new FontsService();
             FontsService.LoadFonts(Request.MapPath(@"~\Content\Shared\Fonts"));
             var TagCloudService = new TagCloudService(WeightedTags, Width, Height)
@@ -152,7 +153,9 @@ namespace zasz.me.Areas.Shared.Controllers
                                           SelectedFont = FontsService.AvailableFonts["Kenyan Coffee"],
                                           DisplayChoice =
                                               DisplayStrategy.Get(TagDisplayStrategy.EqualHorizontalAndVertical),
-                                          ColorChoice = ColorStrategy.Get(Theme.LightBgDarkFg, Style.Varied, Color.FromArgb(0, Color.White), Color.Red),
+                                          ColorChoice =
+                                              ColorStrategy.Get(Theme.LightBgDarkFg, Style.Varied,
+                                                                Color.FromArgb(0, Color.White), Color.Red),
                                           VerticalTextRight = true,
                                           Crop = true
                                       };

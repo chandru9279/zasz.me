@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using HtmlAgilityPack;
 
 namespace zasz.me.Areas.Shared.Models
 {
-    public class Post : IModel
+    public class Post : IModel<Post, string>
     {
         private Site _Site = Site.Shared;
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+        
         public string Slug { get; set; }
 
         [Required]
@@ -69,9 +73,14 @@ namespace zasz.me.Areas.Shared.Models
                 else ProcessNode(ChildNode, ref Description, Threshold);
             }
         }
+
+        public Func<Post, bool> NaturalEquals(string NewSlug)
+        {
+            return It => It.Slug == NewSlug;
+        }
     }
 
-    public interface IPostRepository : IRepository<Post>
+    public interface IPostRepository : IRepository<Post, string>
     {
         List<Post> Page(int PageNumber, int PageSize);
 

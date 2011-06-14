@@ -1,10 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public abstract class RepoBase<Model> : IRepository<Model> where Model : class, IModel, new()
+    public abstract class RepoBase<Model, NaturalKeyType> : IRepository<Model, NaturalKeyType> where Model : class, IModel<Model, NaturalKeyType>, new()
     {
         protected readonly DbSet<Model> _ModelSet;
         protected readonly FullContext _Session;
@@ -17,12 +18,15 @@ namespace zasz.me.Integration.EntityFramework
 
         #region IRepository<Model> Members
 
-        public virtual void Save(Model Instance)
+        public virtual Model Save(Model Instance)
         {
-            _ModelSet.Add(Instance);
+            return _ModelSet.Add(Instance);
         }
 
-        public Model Get(string Id)
+        /// <summary>
+        /// When a model does not have a natural key, then Load() & Get() has the same functionality.
+        /// </summary>
+        public Model Load(Guid Id)
         {
             return _ModelSet.Find(Id);
         }
@@ -37,9 +41,9 @@ namespace zasz.me.Integration.EntityFramework
             return _ModelSet.Count();
         }
 
-        public Model FindOrNew(string Id)
+        public Model Get(NaturalKeyType MainProperty)
         {
-            return Get(Id) ?? _ModelSet.Add(new Model());
+            return _ModelSet.Where(new Model().NaturalEquals(MainProperty)).FirstOrDefault();
         }
 
         /// <summary>

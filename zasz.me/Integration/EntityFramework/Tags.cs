@@ -4,7 +4,7 @@ using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class Tags : RepoBase<Tag>, ITagRepository
+    public class Tags : RepoBase<Tag, string>, ITagRepository
     {
         public Tags(FullContext Session) : base(Session)
         {

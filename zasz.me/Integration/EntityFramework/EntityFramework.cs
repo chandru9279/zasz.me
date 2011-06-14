@@ -9,7 +9,7 @@ namespace zasz.me.Integration.EntityFramework
         public static void Bootstrap()
         {
             /* TODO: The next line needs to be removed in production. Manual modification only afterwards. */
-            Database.SetInitializer(new ColdStorageInitializer());
+            // Database.SetInitializer(new ColdStorageInitializer());
             /* TODO: The table EdmMetadata can also be deleted, with the above line. */
             SetupUnityToGiveDbContextSingletonPerWebRequest();
         }
@@ -45,7 +45,7 @@ namespace zasz.me.Integration.EntityFramework
         }
     }
 
-    public class ColdStorageInitializer : DropCreateDatabaseIfModelChanges<FullContext>
+    public class ColdStorageInitializer : DropCreateDatabaseAlways<FullContext>
     {
     }
 }

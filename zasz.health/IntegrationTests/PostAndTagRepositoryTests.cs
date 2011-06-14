@@ -22,7 +22,7 @@ namespace zasz.health.IntegrationTests
             Database.SetInitializer(new ColdStorageInitializer());
             _FullContext = new FullContext();
             _Tags = new Tags(_FullContext);
-            _Posts = new Posts(_FullContext, _Tags);
+            _Posts = new Posts(_FullContext);
             var Count = _Posts.Count();
             if (Count == 0)
             {
