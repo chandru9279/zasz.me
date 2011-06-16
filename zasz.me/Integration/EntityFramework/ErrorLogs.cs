@@ -21,6 +21,11 @@ namespace zasz.me.Integration.EntityFramework
             return Instance;
         }
 
+        public override Log Get(Guid TheId)
+        {
+            return _ModelSet.Where(It => It.Id == TheId).FirstOrDefault();
+        }
+
         public List<Log> Page(int PageNumber, int PageSize)
         {
             return _ModelSet.OrderBy(Model => Model.Id).Skip(PageNumber*PageSize).Take(PageSize).ToList();

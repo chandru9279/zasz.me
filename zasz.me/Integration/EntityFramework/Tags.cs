@@ -34,5 +34,10 @@ namespace zasz.me.Integration.EntityFramework
                     select new {EachTag.Name, Count}).ToDictionary(It => It.Name, It => It.Count);
 
         }
+
+        public override Tag Get(string TagName)
+        {
+            return _ModelSet.Where(It => It.Name == TagName).FirstOrDefault();
+        }
     }
 }

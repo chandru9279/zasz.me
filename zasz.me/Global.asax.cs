@@ -22,6 +22,7 @@ namespace zasz.me
             Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             Routes.IgnoreRoute("{CustomEndpoint}.axd");
             Routes.IgnoreRoute("Content/");
+            Routes.IgnoreRoute("Uploads/{*AnyFile}");
             Routes.IgnoreRoute("Integration/ckeditor");
             
             AreaRegistration.RegisterAllAreas();

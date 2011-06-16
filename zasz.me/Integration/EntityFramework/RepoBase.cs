@@ -5,7 +5,7 @@ using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public abstract class RepoBase<Model, NaturalKeyType> : IRepository<Model, NaturalKeyType> where Model : class, IModel<Model, NaturalKeyType>, new()
+    public abstract class RepoBase<Model, NaturalKey> : IRepository<Model, NaturalKey> where Model : class, IModel, new()
     {
         protected readonly DbSet<Model> _ModelSet;
         protected readonly FullContext _Session;
@@ -16,7 +16,7 @@ namespace zasz.me.Integration.EntityFramework
             _ModelSet = _Session.Set<Model>();
         }
 
-        #region IRepository<Model> Members
+        #region IRepository<ModelType> Members
 
         public virtual Model Save(Model Instance)
         {
@@ -31,6 +31,8 @@ namespace zasz.me.Integration.EntityFramework
             return _ModelSet.Find(Id);
         }
 
+        public abstract Model Get(NaturalKey MainProperty);
+
         public void Delete(Model Entity)
         {
             _ModelSet.Remove(Entity);
@@ -39,11 +41,6 @@ namespace zasz.me.Integration.EntityFramework
         public long Count()
         {
             return _ModelSet.Count();
-        }
-
-        public Model Get(NaturalKeyType MainProperty)
-        {
-            return _ModelSet.Where(new Model().NaturalEquals(MainProperty)).FirstOrDefault();
         }
 
         /// <summary>

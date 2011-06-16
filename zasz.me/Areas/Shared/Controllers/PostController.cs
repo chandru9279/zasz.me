@@ -152,7 +152,7 @@ namespace zasz.me.Areas.Shared.Controllers
                                           Margin = 10,
                                           SelectedFont = FontsService.AvailableFonts["Kenyan Coffee"],
                                           DisplayChoice =
-                                              DisplayStrategy.Get(TagDisplayStrategy.EqualHorizontalAndVertical),
+                                              DisplayStrategy.Get(TagDisplayStrategy.RandomHorizontalOrVertical),
                                           ColorChoice =
                                               ColorStrategy.Get(Theme.LightBgDarkFg, Style.Varied,
                                                                 Color.FromArgb(0, Color.White), Color.Red),

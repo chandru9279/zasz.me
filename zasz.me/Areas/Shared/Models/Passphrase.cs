@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
 
 namespace zasz.me.Areas.Shared.Models
 {
     /* The new Creadential especially for personal sites*/
 
-    public class Passphrase : IModel<Passphrase, string>
+    public class Passphrase : IModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,11 +17,6 @@ namespace zasz.me.Areas.Shared.Models
         public string Name { get; set; }
 
         public bool OneTime { get; set; }
-
-        public Func<Passphrase, bool> NaturalEquals(string IncomingDigest)
-        {
-            return It => It.PhraseDigest == IncomingDigest;
-        }
     }
 
     public interface IPassphraseRepository : IRepository<Passphrase, string>

@@ -89,7 +89,7 @@ namespace zasz.me.Services
             string Extension = Path.GetExtension(FileName);
             for (int I = 0; I < _Settings.Mappings.Count; I++)
             {
-                if (DoesExtensionMatch(_Settings.Mappings[I].FileExtensions, Extension))
+                if (DoesExtensionMatch(Extension, _Settings.Mappings[I].FileExtensions))
                     return _Settings.Mappings[I].Folder;
             }
             return "Files";

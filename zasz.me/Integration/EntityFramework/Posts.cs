@@ -78,5 +78,10 @@ namespace zasz.me.Integration.EntityFramework
         }
 
         #endregion
+
+        public override Post Get(string Slug)
+        {
+            return _ModelSet.Where(It => It.Slug == Slug).FirstOrDefault();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using zasz.me.Areas.Shared.Models;
+﻿using System.Linq;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
@@ -16,5 +17,10 @@ namespace zasz.me.Integration.EntityFramework
         }
 
         #endregion
+
+        public override Passphrase Get(string MainProperty)
+        {
+            return _ModelSet.Where(It => It.PhraseDigest == MainProperty).FirstOrDefault();
+        }
     }
 }

@@ -12,14 +12,11 @@
                                                                                              
 @section Head{
     @Html.Partial("~/Areas/Shared/Views/Post/_SyntaxHighlight.cshtml")
-    <script type="text/javascript">
-
-    </script>
 }
 
 @section Right{
     @Html.Action("TagCloudControl")
-    <a class="Normal-Link Modal" href="#TagCloud">More</a>
+    
     <div class="Sidebar-Control">
     <div class="Sidebar-Title">QR - Code</div>
     @Html.QrCode(Model.Permalink, Size: 214)
@@ -28,7 +25,6 @@
     @Html.Action("ArchiveControl")
     
 }
-
 
 @Html.Partial("~/Areas/Pro/Views/Writings/_PostFullView.cshtml", (object)Model)
 
@@ -55,25 +51,6 @@
     <a class="Normal-Link" target="_blank" href="http://appworld.blackberry.com/webstore/content/5781?lang=en">BeeTag</a> for Blackberry and
     <a class="Normal-Link" target="_blank" href="http://get.neoreader.com/">NeoReader</a> or
     <a class="Normal-Link" target="_blank" href="http://get.beetagg.com">BeeTag</a> for Windows Phone 7.</p>
-</div>
-
-
-<div id='TagCloud' style="display: none; width: 400px" class="Pro-Popup">	
-    <h1 class="Sidebar-Title" style="text-align:center;">Disorganizer&trade; Tag Cloud by &copy;Chandru</h1>
-	<p>The Disorganizer&trade; Tag Cloud is inspired by <a class="Normal-Link" target="_blank" href="http://www.wordle.net/">Wordle</a> and 
-    <a class="Normal-Link" target="_blank" href="http://www.tagcloud.com/">TagCloud</a>.</p> 
-    <br />
-    <p>Both of those sites do not give you an on-the-fly
-    cloud generation functionality which can be put into a blog, or a profile. Nor do they allow you to click on the tags and show hover animation on the tags,
-     so I wrote this one using tools and classes in the .net 
-    System.Drawing namespace.</p> 
-    <br />
-    <p>Go <a class="Normal-Link" href="/Disorganizer/Tinker" target="_blank">here</a> to see what features you have with this utility.
-    Hit F5 key or Refresh button on the browser to see a new Cloud :)
-    </p>
-    <br />
-    <p>Thanks to <a class="Normal-Link" href="http://www.cooltext.com/">Cooltext</a> for the nice fonts, and to <a class="Normal-Link" href="http://www.stackoverflow.com/">StackOverflow</a>
-     community for the invaluable answers.</p> 
 </div>
 
 @section Bottom{

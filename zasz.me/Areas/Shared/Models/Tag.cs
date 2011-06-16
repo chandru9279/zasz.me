@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace zasz.me.Areas.Shared.Models
 {
-    public class Tag : IModel<Tag, string>
+    public class Tag : IModel
     {
         public Tag(string TagName)
         {
@@ -22,15 +22,6 @@ namespace zasz.me.Areas.Shared.Models
         public string Name { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
-
-        #region IModel<Tag,string> Members
-
-        public Func<Tag, bool> NaturalEquals(string TagName)
-        {
-            return It => It.Name == TagName;
-        }
-
-        #endregion
     }
 
     public interface ITagRepository : IRepository<Tag, string>

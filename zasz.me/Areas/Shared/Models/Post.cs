@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Linq.Expressions;
 using HtmlAgilityPack;
 
 namespace zasz.me.Areas.Shared.Models
 {
-    public class Post : IModel<Post, string>
+    public class Post : IModel
     {
         private Site _Site = Site.Shared;
 
@@ -72,11 +71,6 @@ namespace zasz.me.Areas.Shared.Models
                 }
                 else ProcessNode(ChildNode, ref Description, Threshold);
             }
-        }
-
-        public Func<Post, bool> NaturalEquals(string NewSlug)
-        {
-            return It => It.Slug == NewSlug;
         }
     }
 

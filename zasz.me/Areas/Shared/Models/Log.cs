@@ -5,7 +5,7 @@ using Elmah;
 
 namespace zasz.me.Areas.Shared.Models
 {
-    public class Log : IModel<Log, Guid>
+    public class Log : IModel
     {
         public Log()
         {
@@ -25,11 +25,6 @@ namespace zasz.me.Areas.Shared.Models
         public string IdString
         {
             get { return Id.ToString(); }
-        }
-
-        public Func<Log, bool> NaturalEquals(Guid NewId)
-        {
-            return It=> It.Id == NewId;
         }
     }
 

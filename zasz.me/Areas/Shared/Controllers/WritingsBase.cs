@@ -41,5 +41,11 @@ namespace zasz.me.Areas.Shared.Controllers
         {
             return Archive(_Site, Year, Constants.Months[Month]);
         }
+
+        [OutputCache(Duration = 10)]
+        public ActionResult TagCloudControl()
+        {
+            return TagCloud(_Site, 214, 500);
+        }
     }
 }

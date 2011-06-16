@@ -11,7 +11,7 @@ namespace zasz.me.Areas.Shared.Models
     ///     This is not meant to be implemented directly - Only sub-interfaces are Expected to have implementations
     /// </summary>
     /// <typeparam name = "Model">The Model for which the implementation is the Repository</typeparam>
-    public interface IRepository<Model, NaturalKeyType> where Model : IModel<Model, NaturalKeyType>
+    public interface IRepository<Model, NaturalKeyType> where Model : IModel
     {
         Model Save(Model Instance);
 
@@ -31,8 +31,7 @@ namespace zasz.me.Areas.Shared.Models
     ///     This interface flags all the Model classes.
     ///     Its there to restrict the types that an IRepository can take on.
     /// </summary>
-    public interface IModel<Model, NaturalKeyType>
+    public interface IModel
     {
-        Func<Model, bool> NaturalEquals(NaturalKeyType NaturalKey);
     }
 }
