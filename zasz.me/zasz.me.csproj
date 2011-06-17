@@ -91,6 +91,12 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebMatrix.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Pro\Controllers\ContactController.cs" />
@@ -282,6 +288,16 @@
     <Content Include="Content\Thumbnails\xls.png" />
     <Content Include="Content\Thumbnails\xlsx.png" />
     <Content Include="Content\Thumbnails\zip.png" />
+    <Content Include="Facebook\Docs\content\images\FBCoreSettings.png" />
+    <Content Include="Facebook\Docs\content\images\FBCreateApplication.png" />
+    <Content Include="Facebook\Docs\content\images\webx-bkg.png" />
+    <Content Include="Facebook\Docs\content\images\webx-content-bkg.jpg" />
+    <Content Include="Facebook\Docs\content\images\webx-icon.png" />
+    <Content Include="Facebook\Docs\content\images\wm-mysite-settings.png" />
+    <Content Include="Facebook\Docs\content\images\wm-site-settings.png" />
+    <Content Include="Facebook\Docs\content\Site.css" />
+    <Content Include="Facebook\Docs\reference.htm" />
+    <Content Include="Facebook\Docs\startHere.htm" />
     <Content Include="Global.asax" />
     <Content Include="Content\ForHtmlHelpers.css" />
     <Content Include="Content\jQuery-UI\jQuery-UI.css" />
@@ -353,6 +369,8 @@
     <Content Include="Areas\Rest\Views\Home\Show.cshtml" />
     <Content Include="Areas\Pro\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Rest\Views\About\_DiabloRed.cshtml" />
+    <Content Include="App_Code\TwitterGoodies.cshtml" />
+    <Content Include="App_Code\Facebook.cshtml" />
     <None Include="App_Data\Setup\Build.bat" />
     <None Include="App_Data\Setup\HyperionEnv.bat" />
     <None Include="App_Data\Setup\LapEnv.bat" />
@@ -399,6 +417,7 @@
     <None Include="Content\Shared\Fonts\Sexsmith.ttf" />
     <None Include="Content\Shared\Fonts\Steelfish.ttf" />
     <None Include="Content\Shared\Fonts\VenusRising.ttf" />
+    <Content Include="Facebook\Login.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
