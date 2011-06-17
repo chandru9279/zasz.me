@@ -38,7 +38,7 @@ namespace zasz.me.Areas.Shared.Controllers
             return View(new PostListModel
                             {
                                 Posts = _Posts.Page(PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                NumberOfPages = _Posts.Count(ProOrRest)/MaxPostsPerPage,
+                                NumberOfPages = (int)Math.Ceiling(_Posts.Count(ProOrRest)/(double)MaxPostsPerPage),
                                 DescriptionLength = DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
                             });
@@ -143,14 +143,18 @@ namespace zasz.me.Areas.Shared.Controllers
         {
             Dictionary<string, int> WeightedTags = _Tags.WeightedList(ProOrRest);
             if (WeightedTags.Count == 0) return View();
-            var FontsService = new FontsService();
-            FontsService.LoadFonts(Request.MapPath(@"~\Content\Shared\Fonts"));
+            FontFamily TheFont;
+            using(var FontsService = new FontsService())
+            {
+                FontsService.LoadFonts(Request.MapPath(@"~\Content\Shared\Fonts"));
+                TheFont = FontsService.AvailableFonts["Kenyan Coffee"];
+            }
             var TagCloudService = new TagCloudService(WeightedTags, Width, Height)
                                       {
                                           MaximumFontSize = 52f,
                                           MinimumFontSize = 18f,
                                           Margin = 10,
-                                          SelectedFont = FontsService.AvailableFonts["Kenyan Coffee"],
+                                          SelectedFont = TheFont,
                                           DisplayChoice =
                                               DisplayStrategy.Get(TagDisplayStrategy.RandomHorizontalOrVertical),
                                           ColorChoice =
