@@ -1,15 +1,8 @@
-﻿using System.Web.Mvc;
-using zasz.me.Integration.MVC;
+﻿using zasz.me.Areas.Shared.Controllers;
 
 namespace zasz.me.Areas.Pro.Controllers
 {
-    public class ContactController : BaseController
+    public class ContactController : BaseContactController
     {
-        [DefaultAction]
-        public ActionResult Form()
-        {
-            return View();
-        }
-
     }
 }

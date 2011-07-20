@@ -14,6 +14,7 @@
     <AssemblyName>zasz.me</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -108,6 +109,7 @@
     <Compile Include="Areas\Rest\Controllers\AboutController.cs" />
     <Compile Include="Areas\Rest\Controllers\GalleryController.cs" />
     <Compile Include="Areas\Rest\Controllers\WritingsController.cs" />
+    <Compile Include="Areas\Shared\Controllers\BaseContactController.cs" />
     <Compile Include="Areas\Shared\Controllers\WritingsBase.cs" />
     <Compile Include="Areas\Shared\Models\IRepository.cs" />
     <Compile Include="Areas\Shared\Models\Log.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Areas\Shared\Models\Tag.cs" />
     <Compile Include="Areas\Shared\SharedAreaRegistration.cs" />
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\SettingsConfig.cs" />
     <Compile Include="Configuration\WritingsConfig.cs" />
     <Compile Include="Areas\Shared\Controllers\Utils\Constants.cs" />
     <Compile Include="Integration\EntityFramework\EntityFramework.cs" />
@@ -143,6 +146,7 @@
     <Compile Include="Integration\MVC\BaseController.cs" />
     <Compile Include="Integration\MVC\DefaultActionAttribute.cs" />
     <Compile Include="Integration\MVC\DomainRouteConstraint.cs" />
+    <Compile Include="Integration\MVC\EmailAttribute.cs" />
     <Compile Include="Integration\MVC\Security.cs" />
     <Compile Include="Integration\UnityIntegration.cs" />
     <Compile Include="Configuration\UploadsConfig.cs" />
@@ -400,6 +404,7 @@
     <Content Include="Areas\Pro\Views\Writings\TagCloudControl.cshtml" />
     <Content Include="Areas\Pro\Views\Disorganizer\Tinker.cshtml" />
     <Content Include="Areas\Shared\Views\Unlocker\_UnlockStatus.cshtml" />
+    <Content Include="Areas\Pro\Views\Contact\Mail.cshtml" />
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>

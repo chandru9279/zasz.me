@@ -69,6 +69,10 @@ textarea
 .field-validation-error
 {
     color: #ff0000;
+    background-color: #FFEBE0;
+    padding: 1px 15px;
+    border: 1px solid red;
+    margin: 0px 10px;
 }
 
 .field-validation-valid
@@ -86,6 +90,7 @@ textarea
 {
     font-weight: bold;
     color: #ff0000;
+    background-color: #FFEBE0;
 }
 
 .validation-summary-valid
