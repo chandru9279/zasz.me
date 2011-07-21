@@ -17,3 +17,11 @@ If VisualStudio ASP.NET development server :
 7) Open zasz.me.sln and press f5 xD
 
 
+IIS Advanced Changes :
+
+1) Changed "binding" settings of the various sites to include a host name. Added HTTPS   
+   binding to zasz.me, Similar change in AWS Security group if using AWS.
+2) Turned on SMTP and FTP feature. Set SMTP server to accept max two connections only,
+   and that too only from localhost.
+
+

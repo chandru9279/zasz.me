@@ -18,7 +18,9 @@ else
 <br />
 Share\Bookmark this post by dragging this <a href="@Model.Permalink" class="Normal-Link">Permalink</a> onto the browser.
 <br />
-@Facebook.LikeButton()
+@Facebook.LikeButton(width:260,height:24)
+@TwitterGoodies.TweetButton(url:Model.Permalink, dataCount:TwitterGoodies.DataCount.Horizontal)
+@TwitterGoodies.FollowButton("zasz9279", TwitterGoodies.FollowStyles.Text, TwitterGoodies.FollowColors.Silver)
 <br />
 @if (Request.IsAuthenticated)
 {

@@ -101,20 +101,6 @@ a
     display: block;
     float:left;
 }
-
-.Header-Link
-{
-    margin: 10px 3px;
-    opacity:0.6;
-    filter:alpha(opacity=60);
-}
-
-.Header-Link:HOVER
-{
-    opacity:1.0;
-    filter:alpha(opacity=100);
-    cursor: pointer;
-}
         
 .Sub-Header
 {
@@ -244,6 +230,21 @@ a
 .Focus-Description a:HOVER
 {
     color: #A83500;
+    cursor: pointer;
+}
+
+.Header-Links img
+{
+    margin: 10px 3px;
+    opacity:0.6;
+    filter:alpha(opacity=60);
+    display: inline;
+}
+
+.Header-Links img:HOVER
+{
+    opacity:1.0;
+    filter:alpha(opacity=100);
     cursor: pointer;
 }
         
