@@ -13,6 +13,7 @@ a
     background-image: url('Images/bgpuzzle.png');
     background-repeat: repeat;
     background-position: center top;
+    display: inline-block;
     width: 100%;
     color: #FF5400;
 }
@@ -300,7 +301,8 @@ a
     left:0;
     z-index:101;
     background:#111;
-    opacity:0.8;
+    opacity:0.8;    
+    filter:alpha(opacity=80);
     display:none;
 }
 

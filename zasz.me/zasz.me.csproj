@@ -168,6 +168,7 @@
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
+    <Content Include="Content\ie-css3.htc" />
     <Content Include="Content\Pro\Images\bgpuzzle.png" />
     <Content Include="Content\Pro\Images\expand-down.png" />
     <Content Include="Content\Pro\Images\github_32.png" />

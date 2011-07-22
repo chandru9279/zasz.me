@@ -7,12 +7,12 @@ $(document).ready(function () {
 
     AttachClickHandlers();
 
-    jQuery.fn.center = function () {
-        this.css("position","absolute");
-        this.css("top", ( $(window).height() - this.outerHeight() ) / 2+$(window).scrollTop() + "px");
-        this.css("left", ( $(window).width() - this.outerWidth() ) / 2+$(window).scrollLeft() + "px");
+    jQuery.fn.center = function() {
+        this.css("position", "absolute");
+        this.css("top", ($(window).height() - this.outerHeight()) / 2 + $(window).scrollTop() + "px");
+        this.css("left", ($(window).width() - this.outerWidth()) / 2 + $(window).scrollLeft() + "px");
         return this;
-    }
+    };
 
     $('.Modal').modalpop({ speed: 300 });
 
@@ -22,7 +22,7 @@ var StatusExpanded = false;
 var BodyClickedHandlers = new Array();
 
 function AttachClickHandlers() {
-    $('body').click(BodyClicked)
+    $('body').click(BodyClicked);
     $('#Status-History-Expand-Button').click(ExpandStatus);
 }
 
@@ -38,7 +38,7 @@ function ExpandStatus() {
         CloseStatus();
     else {
         BodyClickedHandlers.push(CloseStatus);
-        $('#Status-History').toggleClass('Status-History Status-History-Expanded')
+        $('#Status-History').toggleClass('Status-History Status-History-Expanded');
         StatusExpanded = true;
     }
     return false;
@@ -46,8 +46,8 @@ function ExpandStatus() {
 
 function CloseStatus() {
     if (StatusExpanded) {
-        $('#Status-History').removeClass('Status-History-Expanded')
-        $('#Status-History').addClass('Status-History')
+        $('#Status-History').removeClass('Status-History-Expanded');
+        $('#Status-History').addClass('Status-History');
         StatusExpanded = false;
     }
 }
@@ -89,6 +89,7 @@ http://stackoverflow.com/questions/210717/what-is-the-best-way-to-center-a-div-o
                 $this = jQuery(this);
                 var id = $this.attr('href');
                 $(id).center();
+                $('#mask').css('filter', 'alpha(opacity=80)');
                 jQuery('#mask').fadeIn(defaults.speed);
                 jQuery(id).fadeIn(defaults.speed);
                 return false;

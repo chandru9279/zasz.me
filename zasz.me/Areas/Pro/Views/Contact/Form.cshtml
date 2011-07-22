@@ -9,8 +9,11 @@
 
 <div style="margin:20px 40px">
 <h2>Form</h2>
-@{ViewContext.FormContext = new FormContext(); }
-<form method="post" action="/Contact/Mail">
+@using (Html.BeginForm(
+     null, null, FormMethod.Post,
+     new {@action="/Contact/Mail"}
+)){
+
     <fieldset>
         <p>
         @Html.LabelFor(M => M.Name)
@@ -38,6 +41,5 @@
         </p>    
     </fieldset>    
     <input type="submit" value="Send Mail"/>
-</form>
-@{ViewContext.FormContext = null; }
+}
 </div>
