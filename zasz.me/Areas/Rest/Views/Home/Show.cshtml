@@ -1,8 +1,10 @@
-﻿@{
+﻿@using Microsoft.Web.Helpers
+@{
     ViewBag.Title = "Show";
     Layout = "_StarcraftBlue.cshtml";
 }
 
 <p>Show</p>
-@TwitterGoodies.FollowButton("zasz9279", TwitterGoodies.FollowStyles.LogoBig, TwitterGoodies.FollowColors.Silver)
-@TwitterGoodies.FollowButton("zasz9279", TwitterGoodies.FollowStyles.Text, TwitterGoodies.FollowColors.Silver)
+@Twitter.Faves("zasz9279")
+@Twitter.FollowButton("zasz9279")
+

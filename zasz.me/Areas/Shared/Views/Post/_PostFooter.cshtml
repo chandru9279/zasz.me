@@ -1,4 +1,5 @@
-﻿@model zasz.me.Areas.Shared.Models.Post
+﻿@using Microsoft.Web.Helpers
+@model zasz.me.Areas.Shared.Models.Post
 
 <div class="Post-Footer">
 @if(Model.Tags.Count == 0) 
@@ -19,7 +20,7 @@ else
 Share\Bookmark this post by dragging this <a href="@Model.Permalink" class="Normal-Link">Permalink</a> onto the browser.
 <br />
 @Facebook.LikeButton(width:260,height:24)
-@TwitterGoodies.TweetButton(url:Model.Permalink, dataCount:TwitterGoodies.DataCount.Horizontal)
+@Twitter.TweetButton(url:Model.Permalink, dataCount:"horizontal")
 <br />
 @if (Request.IsAuthenticated)
 {
