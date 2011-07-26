@@ -146,6 +146,7 @@
     border-color: #FF9400;
     background: #FFBE94;
     color: #FF6400;
+    cursor: pointer;
 }
 
 .Paging span.DisabledPrevNext

@@ -15,7 +15,7 @@
      new {@action="/Contact/Mail"}
 )){
 
-    <fieldset>
+    <fieldset>        
         <p>
         @Html.LabelFor(M => M.Name)
         @Html.ValidationMessageFor(M => M.Name)<br />
@@ -41,6 +41,12 @@
         @Html.TextAreaFor(M => M.Message, AreaAttribs)<br />
         </p>    
     </fieldset>    
-    <input type="submit" value="Send Mail"/>
+    <input type="submit" class="Pro-Button" value="Send Mail"/>
 }
 </div>
+
+@section Right{
+<div class="Sidebar-Control">
+<img src="/Content/Pro/Images/mail.svg" style="width:80%; height:80%; border: 1px solid #FF6400; display: block; margin:10px auto" alt="Chandirasekar's Mailbox"/>
+</div>
+}
