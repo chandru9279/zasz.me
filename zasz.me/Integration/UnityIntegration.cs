@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.SessionState;
 using Microsoft.Practices.Unity;
+using zasz.me.Areas.Pro.Controllers;
 using zasz.me.Configuration;
 
 namespace zasz.me.Integration
@@ -33,27 +34,37 @@ namespace zasz.me.Integration
 
         public IController CreateController(RequestContext RequestContext, string ControllerName)
         {
-            var AreaName = (string) RequestContext.RouteData.DataTokens["area"];
-            ControllerName = String.Format("zasz.me.Areas.{0}.Controllers.{1}Controller", AreaName, ControllerName);
-            if (String.IsNullOrWhiteSpace(ControllerName)) throw new ArgumentException("Controller name was NULL");
-            var ControllerType = Type.GetType(ControllerName);
+            try
+            {
+                
+                ControllerName = String.Format("zasz.me.Areas.{0}.Controllers.{1}Controller", AreaName, ControllerName);
+                if (String.IsNullOrWhiteSpace(ControllerName)) throw new ArgumentException("Controller name was NULL");
+                var ControllerType = Type.GetType(ControllerName);
 
-            if (null == ControllerType) throw new ArgumentException("Controller type not found");
-            if (!(typeof (IController).IsAssignableFrom(ControllerType))) throw new ArgumentException("The type requested is not a controller");
-            var Controller = BigBox.Resolve(Type.GetType(ControllerName)) as IController;
+                if (null == ControllerType) throw new ArgumentException("Controller type not found");
+                if (!(typeof(IController).IsAssignableFrom(ControllerType))) throw new ArgumentException("The type requested is not a controller");
+                var Controller = BigBox.Resolve(Type.GetType(ControllerName)) as IController;
 
-            if (null == Controller) throw new ArgumentException("Unity could not resolve the controller : " + ControllerName);
-            return Controller;
+                if (null == Controller) throw new ArgumentException("Unity could not resolve the controller : " + ControllerName);
+                return Controller;
+            }
+            catch (Exception Error)
+            {
+                var OriginalAction = (string)RequestContext.RouteData.DataTokens["action"];
+                RequestContext.RouteData.DataTokens["OriginalAction"] = OriginalAction;
+                RequestContext.RouteData.DataTokens["action"] = "Default";
+                return BigBox.Resolve<ErrorController>();
+            }
         }
 
-        public SessionStateBehavior GetControllerSessionBehavior(RequestContext requestContext, string controllerName)
+        public SessionStateBehavior GetControllerSessionBehavior(RequestContext RequestContext, string ControllerName)
         {
             return SessionStateBehavior.Disabled;
         }
 
-        public void ReleaseController(IController controller)
+        public void ReleaseController(IController Controller)
         {
-            BigBox.Teardown(controller);
+            BigBox.Teardown(Controller);
         }
 
         #endregion
@@ -80,7 +91,7 @@ namespace zasz.me.Integration
         }
 
         #endregion
-        
+
         public SingletonPerRequest(string Name)
         {
             _Name = Name;

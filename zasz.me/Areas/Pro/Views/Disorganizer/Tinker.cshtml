@@ -2,51 +2,115 @@
 
 @{
     ViewBag.Title = "Tinker";
+    var Attribs = new {@class = "ProTextBox"};
+    var AttribsArea = new {@class = "ProTextArea", rows = 10};
 }
 
-<h2>Warning: Concurrent users will interfere with each other in this page :)</h2>
 
-
-@using (var Form = Html.BeginForm())
+@section Head
 {
-    <div class="Label">Words</div>
-    @Html.TextAreaFor(It => It.Words);
-    <div class="Label">Skipped</div>
-    @Html.TextBoxFor(It => It.Skipped);
+<style type="text/css">
+   .Field
+   {
+       display: inline-block;
+   }
+   select
+   {
+       width : 241px !important;
+   }
+   .Box
+   {
+       margin: 2px 10px;
+       padding: 2px 10px;
+       border:1px solid #FFAE7F;
+   }
+</style>
+}
+
+@using (Html.BeginForm())
+{
+    <div style="text-align: center">
+        <div class="Field">Warning: Concurrent users will interfere with each other in this page :)</div><br />
+
+        <div class="Field">Words
+        @Html.ValidationMessageFor(It => It.Words)<br />
+        @Html.TextAreaFor(It => It.Words, AttribsArea)
+        </div>
+
+        <div class="Field">Skipped<br/>
+        @Html.TextBoxFor(It => It.Skipped, Attribs)
+        </div>
+        <br />
+        <div class="Field">Max Font Size   
+        @Html.ValidationMessageFor(It => It.MaxFontSize)<br />
+        @Html.TextBoxFor(It => It.MaxFontSize, Attribs)
+        </div> 
+
+        <div class="Field">Min Font Size
+        @Html.ValidationMessageFor(It => It.MinFontSize)<br />
+        @Html.TextBoxFor(It => It.MinFontSize, Attribs)
+        </div> 
+        <br />
     
-    <div class="Label">Max Font Size</div>    
-    @Html.TextBoxFor(It => It.MaxFontSize);
-    <div class="Label">Min Font Size</div>
-    @Html.TextBoxFor(It => It.MinFontSize);
-    <div class="Label">Width</div>
-    @Html.TextBoxFor(It => It.Width);
-    <div class="Label">Height</div>
-    @Html.TextBoxFor(It => It.Height);
-    <div>Angle will break CSS hover animation</div>
-    <div class="Label">Angle</div>
-    @Html.TextBoxFor(It => It.Angle);
+        <div class="Field">Width
+        @Html.ValidationMessageFor(It => It.Width)<br />
+        @Html.TextBoxFor(It => It.Width, Attribs)
+        </div> 
     
+        <div class="Field">Height
+        @Html.ValidationMessageFor(It => It.Height)<br />
+        @Html.TextBoxFor(It => It.Height, Attribs)
+        </div> 
+        <br />
     
-    <div class="Label">Font</div>
-    @Html.DropDownListFor(It => It.SelectedFont, Model.Fonts.Select(It => new SelectListItem{Text = It, Value = It}));
-    <div class="Label">Display Strategy</div>
-    @Html.DropDownListFor(It => It.SelectedStrategy, Model.Strategies.Select(It => new SelectListItem { Text = It, Value = It }))
-    <div class="Label">Theme</div>
-    @Html.DropDownListFor(It => It.SelectedTheme, Model.Themes.Select(It => new SelectListItem { Text = It, Value = It }))
-    <div class="Label">Style</div>
-    @Html.DropDownListFor(It => It.SelectedStyle, Model.Styles.Select(It => new SelectListItem { Text = It, Value = It }))
+        <div>Note : Angle will break CSS hover animation</div>
+        <div class="Field">Angle
+        @Html.ValidationMessageFor(It => It.Angle)<br />
+        @Html.TextBoxFor(It => It.Angle, Attribs)
+        </div> 
     
+        <div class="Field">Font<br />
+        @Html.DropDownListFor(It => It.SelectedFont, Model.Fonts.Select(It => new SelectListItem { Text = It, Value = It }), Attribs)
+        </div> 
+        <br />
+
+        <div class="Field">Display Strategy<br />
+        @Html.DropDownListFor(It => It.SelectedStrategy, Model.Strategies.Select(It => new SelectListItem { Text = It, Value = It }), Attribs)
+        </div> 
+        <div class="Field">Theme<br />
+        @Html.DropDownListFor(It => It.SelectedTheme, Model.Themes.Select(It => new SelectListItem { Text = It, Value = It }), Attribs)
+        </div> 
+        <br />
+
+        <div class="Field">Style<br />
+        @Html.DropDownListFor(It => It.SelectedStyle, Model.Styles.Select(It => new SelectListItem { Text = It, Value = It }), Attribs)
+        </div> 
     
-    <div class="Label">Crop</div>
-    @Html.CheckBoxFor(It => It.Crop)
-    <div class="Label">Margin</div>
-    @Html.TextBoxFor(It => It.Margin)
-    <div class="Label">Vertical Text Right</div>
-    @Html.CheckBoxFor(It => It.VerticalTextRight)
-    <div class="Label">Show Boundaries</div>
-    @Html.CheckBoxFor(It => It.ShowBoundaries)
-     <input type="submit" value="Generate" /> 
-    Html.EndForm();
+         <div class="Field">Margin
+        @Html.ValidationMessageFor(It => It.Margin)<br />
+        @Html.TextBoxFor(It => It.Margin, Attribs)
+        </div> 
+        <br />
+    
+        <div class="Field Box">Crop
+        @Html.CheckBoxFor(It => It.Crop)
+        </div> 
+    
+        <div class="Field Box">Vertical Text Right
+        @Html.CheckBoxFor(It => It.VerticalTextRight)
+        </div> 
+    
+        <div class="Field Box">Show Boundaries
+        @Html.CheckBoxFor(It => It.ShowBoundaries)
+        </div> 
+        <br />
+        <br />
+
+        <div class="Field">
+        <input type="submit" value="Generate" class="Pro-Button"/> 
+        </div>
+
+    </div>
 }
 
 @if (null != Model.Borders)

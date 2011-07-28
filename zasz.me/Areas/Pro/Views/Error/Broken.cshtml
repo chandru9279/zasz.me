@@ -1,7 +1,24 @@
-﻿@{
+﻿@model HandleErrorInfo
+           
+@{
     ViewBag.Title = "Broken";
 }
 
-<h2>Broken</h2>
-
+<span style="font-size: 42px;font-family: sans-serif">BROKEN xD</span>
+<img src="@Url.Content("/Content/Pro/Images/broken.png")" alt="Broken xD"/>
 Paaaaaaaaack! You've broken it!
+
+@if (Model != null){
+<div> For those who are technically inclined :
+        Exception while trying out @Model.ActionName in @Model.ControllerName :<br />
+        @Model.Exception.Message
+
+<div class="Expand-Panel">
+<div class="Expand-Button">&darr;&nbsp; Trace &nbsp;&darr;</div>
+  <div class="Panel">
+    @Model.Exception
+  </div>
+</div>
+
+</div>
+}

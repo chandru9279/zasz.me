@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Services;
@@ -22,12 +23,21 @@ namespace zasz.me.Areas.Pro.Models
         public string SelectedTheme { get; set; }
         public string SelectedStyle { get; set; }
 
+        [StringLength(800, MinimumLength = 10, ErrorMessage = "You must enter text only between 10 and 800 characters")]
         public string Words { get; set; }
+        [Range(-360, 360, ErrorMessage = "Angle has to be between -360 and 360")]
         public string Angle { get; set; }
+        [Range(0, 200, ErrorMessage = "Range has to be between 0 and 200 pixels only")]
         public string Margin { get; set; }
+        [Range(2, 200, ErrorMessage = "MaxFontSize has to be between 2 and 200 pixels only")]
         public string MaxFontSize { get; set; }
+        [Range(2, 2100, ErrorMessage = "MinFontSize has to be between 0 and 200 pixels only")]
         public string MinFontSize { get; set; }
+        [Required(ErrorMessage = "Width is required for generating the cloud image.")]
+        [Range(10, 5000, ErrorMessage = "Width has to be between 10 and 5000 pixels only")]
         public string Width { get; set; }
+        [Required(ErrorMessage = "Height is required for generating the cloud image.")]
+        [Range(10, 5000, ErrorMessage = "Height has to be between 10 and 5000 pixels only")]
         public string Height { get; set; }
         public string Skipped { get; set; }
 

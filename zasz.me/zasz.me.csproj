@@ -171,18 +171,6 @@
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
-    <Content Include="Content\ie-css3.htc" />
-    <Content Include="Content\Pro\Images\bgpuzzle.png" />
-    <Content Include="Content\Pro\Images\expand-down.png" />
-    <Content Include="Content\Pro\Images\github_32.png" />
-    <Content Include="Content\Pro\Images\linked-in.jpeg" />
-    <Content Include="Content\Pro\Images\Paging.png" />
-    <Content Include="Content\Pro\Images\rss.jpeg" />
-    <Content Include="Content\Pro\Images\scan-qr-codes.jpg" />
-    <Content Include="Content\Pro\Images\shadow-right.png" />
-    <Content Include="Content\Pro\Images\shadow-top.png" />
-    <Content Include="Content\Pro\Images\shadow-topright.png" />
-    <Content Include="Content\Pro\Images\stackoverflow.png" />
     <Content Include="Content\Pro\Writings.css" />
     <Content Include="Content\Pro\ProLayout.css" />
     <Content Include="Content\Rest\DiabloBlue\Images\bg2.jpg" />
@@ -351,7 +339,6 @@
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Areas\Shared\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Shared\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Pro\Views\Shared\_ProLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>

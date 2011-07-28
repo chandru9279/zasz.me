@@ -372,9 +372,8 @@ a
     float: left;
     padding: 3px 5px 3px 5px;
     margin-right: 3px;
-    border-color: #FF6400;
     background: url('Images/Paging.png') bottom left repeat-x;
-    border: 1px solid;
+    border: 1px solid #FF6400;
     text-decoration: none;
 }
 
@@ -384,4 +383,43 @@ a
     background: #FFBE94;
     color: #FF6400;
     cursor: pointer;
+}
+
+.Expand-Panel
+{
+    width: 670px;
+    padding: 10px;
+}
+
+.Expand-Button:hover
+{
+    border-color: #FF9400;
+    background: #FFBE94;
+    color: #FF6400;
+    cursor: pointer;
+}
+
+.Expand-Button 
+{
+    text-align: center;
+    padding: 3px;
+    border: 1px solid #FF6400;
+    background: url('Images/Paging.png') bottom left repeat-x;
+    border: 1px solid;
+    cursor: pointer;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+.Panel 
+{
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #FF6400;
+    background-color: #FFF5EF;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
 }

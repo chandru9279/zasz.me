@@ -29,6 +29,7 @@ namespace zasz.me.Areas.Pro.Controllers
         }
 
         [HttpPost]
+        [HandleError(View = "~/Areas/Pro/Views/Error/Broken.cshtml")]
         public ActionResult Tinker(TinkerModel Model)
         {
             Model.Strategies.AddRange(Enum.GetNames(typeof (TagDisplayStrategy)));

@@ -15,7 +15,9 @@ $(document).ready(function () {
     };
 
     $('.Modal').modalpop({ speed: 300 });
-
+    $(".Expand-Button").click(function () {
+        $(this).next().slideToggle();
+    });
 });
 
 var StatusExpanded = false;
@@ -28,9 +30,9 @@ function AttachClickHandlers() {
 
 
 function BodyClicked() {
-    jQuery.each(BodyClickedHandlers, function () {
+    jQuery.each(BodyClickedHandlers, function() {
         this();
-    })
+    });
 }
 
 function ExpandStatus() {
