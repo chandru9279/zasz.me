@@ -423,3 +423,8 @@ a
     -webkit-border-radius:5px;
     border-radius:5px;
 }
+
+#haackroutedebugger
+{
+    display: inline-block;
+}

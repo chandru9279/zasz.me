@@ -26,7 +26,7 @@ namespace zasz.me.Configuration
             get { return WebConfigurationManager.GetWebApplicationSection("zasz.me/Settings") as SettingsConfig; }
         }
 
-        public static void PutConfigIn(IUnityContainer BigBox)
+        public static void PutConfigurationAndSettingsInside(IUnityContainer BigBox)
         {
             // Type auto inferred
             BigBox.RegisterInstance("MaxPostsPerPage", Writings.MaxPostsPerPage);

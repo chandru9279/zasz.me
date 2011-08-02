@@ -1,0 +1,92 @@
+﻿@model Exception
+
+@{
+    ViewBag.Title = "title";
+}
+
+@section Head
+{
+
+<style type="text/css">
+.Message
+{
+    text-align: center;
+    overflow: visible;
+    font-size: 32px;
+    margin: 10px auto;
+    width : 300px;
+}
+
+.PageNotFoundImage
+{
+    text-align: center;
+    margin: 10px auto;
+    width : 400px;
+}
+</style>
+
+<script type="text/javascript">
+    window.setInterval(AnimateNotFound, 10000);
+    window.setInterval(AnimateText, 2500);
+    var Messages = [
+        "This page hit a temporal anomaly and vanished sometime tomorrow.",
+        "This page does not exist. It never existed. It was a hoax. A figment of your imagination.",
+        "You're not cleared for this page.",
+        "The world isn't ready for This Page yet.",
+        "The Web Page you seek cannot be located but endless others exist.",
+        "The ten thousand things, How long do any persist? This page you seek, too, has gone.",
+        "My dog seems to have eaten this page, I have given it some regurgitation tablets. Please wait while we are testing your patience.."
+    ];
+    
+    function AnimateNotFound() {
+        var source = $("#PageNotFoundImage").attr("src");
+        var imageName = source.substr(0, source.length - 4);
+        var number = imageName.charAt(imageName.length - 1);
+        number = number == '1' ? '2' : '1';
+        var newSource = imageName.substr(0, imageName.length - 1) + number + ".gif";
+        $("#PageNotFoundImage").attr("src", newSource);
+    }
+
+    function AnimateText() {
+        var index = Math.floor(Math.random() * Messages.length);
+        $("#Message").text(Messages[index]);
+    }
+</script>
+}
+
+<div style="margin: 10px 20px"> For those who are technically inclined :
+@{
+    if (!string.IsNullOrEmpty((string)ViewBag.OriginalUrl))
+    {
+        <p>Unmatched URL : @ViewBag.OriginalUrl</p>
+    }
+    else if (!string.IsNullOrEmpty((string)ViewBag.MissingAction))
+    {
+        <p>Unknown Action : @ViewBag.MissingAction</p>
+    }
+    else
+    {
+        <p>Action : @ViewBag.OriginalAction <br /> 
+        Controller :@ViewBag.OriginalController<br />
+        Model : @Model.Message
+        </p>
+        <div class="Expand-Panel">
+        <div class="Expand-Button">&darr;&nbsp; Trace &nbsp;&darr;</div>
+        <div class="Panel">
+        @Model.ToString()
+        </div>
+        </div>
+    }
+}
+        
+</div>
+
+<div class="PageNotFoundImage">
+<img id="PageNotFoundImage" src="@Url.Content("~/Content/Pro/Images/error1.gif")" alt="404 : Address not found xD"/>
+</div>
+<div id="Message" class="Message">
+
+</div>
+
+
+

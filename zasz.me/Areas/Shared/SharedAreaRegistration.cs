@@ -12,8 +12,6 @@ namespace zasz.me.Areas.Shared
 
         public override void RegisterArea(AreaRegistrationContext Context)
         {
-            Context.MapRoute("Favicon", "favicon.ico", new {Controller = "Indirection", Action = "Favicon"});
-
             Context.MapRoute(
                 "Shared_default",
                 "Shared/{controller}/{action}/{id}",

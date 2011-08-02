@@ -15,19 +15,19 @@ namespace zasz.me.Integration
         {
             var BigBox = new UnityContainer();
             Config.Unity.Configure(BigBox, "BigBox");
-            Config.PutConfigIn(BigBox);
-            ControllerBuilder.Current.SetControllerFactory(new UnityControllerBuilder(BigBox));
+            Config.PutConfigurationAndSettingsInside(BigBox);
             HugeBox.Swallow(BigBox);
+            ControllerBuilder.Current.SetControllerFactory(new UnityControllerBuilder());
         }
     }
 
     public class UnityControllerBuilder : IControllerFactory
     {
-        private readonly UnityContainer BigBox;
+        private readonly UnityContainer _BigBox;
 
-        public UnityControllerBuilder(UnityContainer BigBox)
+        public UnityControllerBuilder()
         {
-            this.BigBox = BigBox;
+            _BigBox = HugeBox.BigBox;
         }
 
         #region IControllerFactory Members
@@ -36,24 +36,26 @@ namespace zasz.me.Integration
         {
             try
             {
-                
+                var AreaName = (string)RequestContext.RouteData.DataTokens["area"];
                 ControllerName = String.Format("zasz.me.Areas.{0}.Controllers.{1}Controller", AreaName, ControllerName);
                 if (String.IsNullOrWhiteSpace(ControllerName)) throw new ArgumentException("Controller name was NULL");
                 var ControllerType = Type.GetType(ControllerName);
 
-                if (null == ControllerType) throw new ArgumentException("Controller type not found");
-                if (!(typeof(IController).IsAssignableFrom(ControllerType))) throw new ArgumentException("The type requested is not a controller");
-                var Controller = BigBox.Resolve(Type.GetType(ControllerName)) as IController;
+                if (null == ControllerType) throw new ArgumentException("Controller type not found : " + ControllerName);
+                if (!(typeof(IController).IsAssignableFrom(ControllerType))) throw new ArgumentException("The type requested is not a controller : " + ControllerName);
+                var Controller = _BigBox.Resolve(Type.GetType(ControllerName)) as IController;
 
                 if (null == Controller) throw new ArgumentException("Unity could not resolve the controller : " + ControllerName);
                 return Controller;
             }
             catch (Exception Error)
             {
-                var OriginalAction = (string)RequestContext.RouteData.DataTokens["action"];
-                RequestContext.RouteData.DataTokens["OriginalAction"] = OriginalAction;
-                RequestContext.RouteData.DataTokens["action"] = "Default";
-                return BigBox.Resolve<ErrorController>();
+                RequestContext.RouteData.DataTokens["OriginalAction"] = RequestContext.RouteData.Values["Action"];
+                RequestContext.RouteData.DataTokens["OriginalController"] = RequestContext.RouteData.Values["Controller"];
+                RequestContext.RouteData.DataTokens["OriginalError"] = Error;
+                RequestContext.RouteData.Values["Action"] = "NotFound";
+                RequestContext.RouteData.Values["Controller"] = "Error";
+                return _BigBox.Resolve<ErrorController>();
             }
         }
 
@@ -64,7 +66,7 @@ namespace zasz.me.Integration
 
         public void ReleaseController(IController Controller)
         {
-            BigBox.Teardown(Controller);
+            _BigBox.Teardown(Controller);
         }
 
         #endregion

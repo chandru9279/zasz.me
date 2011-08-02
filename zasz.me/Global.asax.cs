@@ -24,6 +24,9 @@ namespace zasz.me
             Routes.IgnoreRoute("Content/");
             Routes.IgnoreRoute("Uploads/{*AnyFile}");
             Routes.IgnoreRoute("Integration/ckeditor");
+            Routes.MapRoute("Favicon", "favicon.ico", 
+                new { Controller = "Indirection", Action = "Favicon" }).DataTokens["area"] = "Shared";
+
             
             AreaRegistration.RegisterAllAreas();
             
@@ -46,6 +49,13 @@ namespace zasz.me
                 "Usual",
                 "{Controller}/{Action}/{Id}",
                 new { Controller = "Home", Action = "Default", Id = UrlParameter.Optional }
+                );
+            
+            DomainMappedRoute(
+                Routes,
+                "NotFound-Catch-All",
+                "{*Url}",
+                new { controller = "Error", action = "NotFound" }
                 );
         }
 

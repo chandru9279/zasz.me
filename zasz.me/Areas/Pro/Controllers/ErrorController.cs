@@ -6,10 +6,13 @@ namespace zasz.me.Areas.Pro.Controllers
     public class ErrorController : BaseController
     {
         [DefaultAction]
-        public ActionResult Broken()
+        public ActionResult NotFound(string ActionName = "")
         {
-            return View();
+            ViewBag.OriginalAction = RouteData.DataTokens["OriginalAction"];
+            ViewBag.OriginalController = RouteData.DataTokens["OriginalController"];
+            ViewBag.OriginalUrl = RouteData.Values["Url"];
+            ViewBag.MissingAction = ActionName;
+            return View(RouteData.DataTokens["OriginalError"]);
         }
-
     }
 }
