@@ -36,7 +36,7 @@ namespace zasz.me.Integration
         {
             try
             {
-                
+                var AreaName = (string)RequestContext.RouteData.DataTokens["area"];
                 ControllerName = String.Format("zasz.me.Areas.{0}.Controllers.{1}Controller", AreaName, ControllerName);
                 if (String.IsNullOrWhiteSpace(ControllerName)) throw new ArgumentException("Controller name was NULL");
                 var ControllerType = Type.GetType(ControllerName);
