@@ -4,21 +4,35 @@
     ViewBag.Title = "Broken";
 }
 
-<span style="font-size: 42px;font-family: sans-serif">BROKEN xD</span>
+@section Head
+{
+<style type="text/css">
+.Value
+{
+    font-weight: bold;
+}
+</style>
+}
+
+<div style="margin: 10px 20px">
+<p style="text-align: center; font-size: 42px;font-family: sans-serif">BROKEN xD</p>
+
 <img src="@Url.Content("/Content/Pro/Images/broken.png")" alt="Broken xD"/>
 Paaaaaaaaack! You've broken it!
 
-@if (Model != null){
-<div> For those who are technically inclined :
-        Exception while trying out @Model.ActionName in @Model.ControllerName :<br />
-        @Model.Exception.Message
+@if (Model != null)
+{
+    <div> For those who are technically inclined <br/>
+        Exception while trying out <span class="Value">@Model.ActionName</span> in <span class="Value">@Model.ControllerName</span> <br />
+        <span class="Value">@Model.Exception.Message</span> 
 
-<div class="Expand-Panel">
-<div class="Expand-Button">&darr;&nbsp; Trace &nbsp;&darr;</div>
-  <div class="Panel">
-    @Model.Exception
-  </div>
-</div>
+        <div class="Expand-Panel">
+            <div class="Expand-Button">&darr;&nbsp; Trace &nbsp;&darr;</div>
+            <div class="Panel">
+                @Model.Exception
+            </div>
+        </div>
 
-</div>
+    </div>
 }
+</div>

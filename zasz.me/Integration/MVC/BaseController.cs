@@ -1,9 +1,7 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.MVC
 {
@@ -36,12 +34,6 @@ namespace zasz.me.Integration.MVC
                         "{0} does not have an Action flagged with the {1} attribute",
                         GetType().Name, DefaultAction.Name));
             return MethodsFlaggedWithDefaultAction.First().Name;
-        }
-
-        private bool IsShared()
-        {
-            return ((string)RouteData.DataTokens["area"]).Equals(Site.SHARED,
-                                                                 StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

@@ -73,3 +73,24 @@ a:HOVER
     line-height: 30px;
     list-style-type: none;
 }
+
+.Pro-Button
+{
+    color: #FF6400;
+    background: #FFFFFF;
+    display: block;
+    float: left;
+    padding: 3px 5px 3px 5px;
+    margin-right: 3px;
+    background: url('Images/Paging.png') bottom left repeat-x;
+    border: 1px solid #FF6400;
+    text-decoration: none;
+}
+
+.Pro-Button:hover
+{
+    border-color: #FF9400;
+    background: #FFBE94;
+    color: #FF6400;
+    cursor: pointer;
+}
