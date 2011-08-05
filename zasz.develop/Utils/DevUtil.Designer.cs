@@ -53,6 +53,7 @@
             this.PassHash = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.RebuildLucene = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -289,11 +290,22 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Hash";
             // 
+            // RebuildLucene
+            // 
+            this.RebuildLucene.Location = new System.Drawing.Point(28, 455);
+            this.RebuildLucene.Name = "RebuildLucene";
+            this.RebuildLucene.Size = new System.Drawing.Size(140, 40);
+            this.RebuildLucene.TabIndex = 20;
+            this.RebuildLucene.Text = "ReBuild Lucene Index";
+            this.RebuildLucene.UseVisualStyleBackColor = true;
+            this.RebuildLucene.Click += new System.EventHandler(this.RebuildLuceneClick);
+            // 
             // DevUtil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 550);
+            this.Controls.Add(this.RebuildLucene);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.PassHash);
@@ -350,6 +362,7 @@
         private System.Windows.Forms.TextBox PassHash;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button RebuildLucene;
     }
 }
 

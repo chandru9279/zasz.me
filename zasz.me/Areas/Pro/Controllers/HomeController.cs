@@ -15,5 +15,10 @@ namespace zasz.me.Areas.Pro.Controllers
         {
             return View();
         }
+
+        public ViewResult Search()
+        {
+            return View();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using zasz.me.Integration;
 using zasz.me.Integration.EntityFramework;
+using zasz.me.Integration.Lucene;
 using zasz.me.Integration.MVC;
 using Domain = zasz.me.Areas.Shared.Models.Site;
 
@@ -103,6 +104,7 @@ namespace zasz.me
             ViewEngines.Engines.Add(new RazorViewEngine());
             UnityIntegration.Bootstrap();
             EntityFramework.Bootstrap();
+            LuceneIntegration.Bootstrap();
         }
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using SimpleLucene.Impl;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
+using zasz.me.Integration.Lucene;
 using Domain = zasz.me.Areas.Shared.Models.Site;
 
 namespace zasz.develop.Utils
@@ -171,6 +173,14 @@ namespace zasz.develop.Utils
             var Algorithm = new SHA256Cng();
             var Unicoding = new UnicodeEncoding();
             PassHash.Text = Unicoding.GetString(Algorithm.ComputeHash(Unicoding.GetBytes(Password.Text)));
+        }
+
+        private void RebuildLuceneClick(object Sender, EventArgs E)
+        {
+            var Writer = new DirectoryIndexWriter(new DirectoryInfo(@"c:\index"), true);
+            var Service = new IndexService(Writer);
+            var Posts = _PostRepository.Page(0, 100);
+            Service.IndexEntities(Posts, new PostLuceneExtensions());
         }
     }
 }
