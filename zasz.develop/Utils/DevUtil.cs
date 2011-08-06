@@ -4,7 +4,6 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using SimpleLucene.Impl;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
@@ -177,10 +176,7 @@ namespace zasz.develop.Utils
 
         private void RebuildLuceneClick(object Sender, EventArgs E)
         {
-            var Writer = new DirectoryIndexWriter(new DirectoryInfo(@"c:\index"), true);
-            var Service = new IndexService(Writer);
-            var Posts = _PostRepository.Page(0, 100);
-            Service.IndexEntities(Posts, new PostLuceneExtensions());
+            
         }
     }
 }

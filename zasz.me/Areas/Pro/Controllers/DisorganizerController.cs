@@ -68,8 +68,8 @@ namespace zasz.me.Areas.Pro.Controllers
                                  ? Model.SelectedStyle.Enumize<Style>()
                                  : Style.Varied;
 
-            TagCloudService.ColorChoice = ColorStrategy.Get(BgfgScheme, FgScheme, Color.FromArgb(0, Color.White),
-                                                            Color.Red);
+            TagCloudService.ColorChoice = ColorStrategy.Get(BgfgScheme, FgScheme, 
+                Model.GetBackgroundColor(), Model.GetForegroundColor());
 
             TagCloudService.VerticalTextRight = Model.VerticalTextRight;
             TagCloudService.ShowWordBoundaries = Model.ShowBoundaries;

@@ -175,6 +175,7 @@
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
+    <Content Include="Content\jPicker\jPicker-1.1.6.css" />
     <Content Include="Content\Pro\Writings.css" />
     <Content Include="Content\Pro\ProLayout.css" />
     <Content Include="Content\Rest\DiabloBlue\Images\bg2.jpg" />
@@ -304,6 +305,7 @@
     <Content Include="Content\jQuery-UI\Images\ui-icons_454545_256x240.png" />
     <Content Include="Content\jQuery-UI\Images\ui-icons_888888_256x240.png" />
     <Content Include="Content\jQuery-UI\Images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\jpicker-1.1.6.js" />
     <Content Include="Scripts\MyScripts.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

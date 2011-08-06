@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Globalization;
+using System.Web;
+using Elmah;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Services;
 
@@ -39,6 +42,8 @@ namespace zasz.me.Areas.Pro.Models
         [Required(ErrorMessage = "Height is required for generating the cloud image.")]
         [Range(10, 5000, ErrorMessage = "Height has to be between 10 and 5000 pixels only")]
         public string Height { get; set; }
+        public string BackgroundColor { get; set; }
+        public string ForegroundColor { get; set; }
         public string Skipped { get; set; }
 
         public bool VerticalTextRight { get; set; }
@@ -69,6 +74,34 @@ namespace zasz.me.Areas.Pro.Models
         public string[] Lines
         {
             get { return Words.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries); }
+        }
+
+        public static Color ToColor(string HexColor, Color Default)
+        {
+            try
+            {
+                if (HexColor.Length == 8)
+                    HexColor = HexColor.Substring(6, 2) + HexColor.Substring(0, 6);
+                return Color.FromArgb(Int32.Parse(HexColor,
+                                                  NumberStyles.AllowHexSpecifier |
+                                                  NumberStyles.AllowLeadingWhite |
+                                                  NumberStyles.AllowTrailingWhite));
+            }
+            catch (Exception e)
+            {
+                ErrorSignal.FromContext(HttpContext.Current).Raise(e);
+                return Default;
+            }
+        }
+
+        public Color GetBackgroundColor()
+        {
+            return ToColor(BackgroundColor, Color.FromArgb(0, Color.White));
+        }
+
+        public Color GetForegroundColor()
+        {
+            return ToColor(ForegroundColor, Color.Red);
         }
     }
 }
