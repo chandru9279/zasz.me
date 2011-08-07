@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace zasz.develop.Utils
 
         private void TagCloudLoad(object Sender, EventArgs E)
         {
-            string SystemPath = Environment.GetEnvironmentVariable("ProjectRootPath") + @"\zasz.me\Content\Shared\Fonts";
+            string SystemPath = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\zasz.me\Content\Shared\Fonts";
             _Service = new FontsService();
             _Service.LoadFonts(SystemPath);
             FontsCombo.Items.AddRange(_Service.AvailableFonts.Keys.ToArray());
@@ -33,8 +34,8 @@ namespace zasz.develop.Utils
         private void GenerateClick(object Sender, EventArgs E)
         {
             Cloud.Controls.Clear();
-            string SystemPath = Environment.GetEnvironmentVariable("ProjectRootPath") +
-                                @"\zasz.develop\SampleData\TagCloud";
+            string GenCloudSysPath = ConfigurationManager.AppSettings["ProjectRootPath"] +
+                                @"\zasz.develop\Data\TagCloud\Cloud.png";
             Dictionary<string, int> Tags = Words.Lines.Select(
                 Line => Line.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
                 .Where(Splits => Splits.Length == 2)
@@ -64,7 +65,7 @@ namespace zasz.develop.Utils
             Dictionary<string, RectangleF> Borders;
             Bitmap Bitmap = TagCloudService.Construct(out Borders);
             Skipped.Text = string.Join("; ", TagCloudService.WordsSkipped.Select(It => It.Key));
-            Bitmap.Save(SystemPath + @"\Cloud.png", ImageFormat.Png);
+            Bitmap.Save(GenCloudSysPath, ImageFormat.Png);
             Cloud.Image = Bitmap;
             Borders.Values.ToList().ForEach((It) => Cloud.Controls.Add(GetBorder(It)));
         }

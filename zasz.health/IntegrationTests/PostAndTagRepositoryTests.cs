@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,16 +25,14 @@ namespace zasz.health.IntegrationTests
             _Tags = new Tags(_FullContext);
             _Posts = new Posts(_FullContext);
             var Count = _Posts.Count();
-            if (Count == 0)
+            if (Count != 0) return;
+            var SamplePosts = PostsData.GetFromFolder(ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Data-Tools-Setup\Posts", Log);
+            foreach (Post SamplePost in SamplePosts)
             {
-                var SamplePosts = PostsData.GetFromFolder(Environment.GetEnvironmentVariable("SampleDataPath", EnvironmentVariableTarget.Machine), Log);
-                foreach (Post SamplePost in SamplePosts)
-                {
-                    SamplePost.Site = Site.Shared;
-                    _Posts.Save(SamplePost);
-                }
-                _Posts.Commit();
+                SamplePost.Site = Site.Shared;
+                _Posts.Save(SamplePost);
             }
+            _Posts.Commit();
         }
 
         [TestMethod]

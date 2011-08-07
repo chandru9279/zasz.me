@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using zasz.develop.Data;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
@@ -37,7 +39,7 @@ namespace zasz.develop.Utils
         {
             try
             {
-                string Path = Environment.GetEnvironmentVariable("ProjectRootPath") + @"\zasz.develop\SampleData\Posts";
+                string Path = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Data-Tools-Setup\Posts";
 
                 foreach (Post NewPost in PostsData.GetFromFolder(Path, Log))
                 {
@@ -113,7 +115,7 @@ namespace zasz.develop.Utils
 
         private void CommentsToWxrClick(object Sender, EventArgs E)
         {
-            string Path = Environment.GetEnvironmentVariable("SampleDataPath");
+            string Path = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Data-Tools-Setup\Posts";
             new CommentsExport {CommentsProgress = CommentsProgress, SpamAmount = SpamAmount}.ConvertComments(Path, Log);
             Log("Done");
         }

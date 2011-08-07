@@ -2,10 +2,14 @@
 
 Installation :
 
-1) Go to zasz.me\App_data\Setup and run Packages.bat - This will fetch the Nuget packages
-2) Need an account in MS SQLSERVER, that has permission to create and drop databases.
-3) Go to zasz.me\App_data\Setup and run Build.bat
-4) For running DevUtil and Integration Tests, create batch file similar to *Env.bat and run it.
+1) Go to Data-Tools-Setup folder and run Packages.bat - This will fetch the Nuget packages
+2) Need an account in MS SQLSERVER, that has permission to create and drop databases. 
+    Run 0-zasz-login.sql in Data-Tools-Setup folder, which will create the login, and since it is
+	disabled by default, go and enable it using Management studio.
+3) Note the VisualStudio configurations - holds the different environments, keep this up to date.
+	
+Server Installation :
+4) Go to Data-Tools-Setup folder and run ServerBuild.bat
 
 If using IIS : 
 
@@ -14,7 +18,7 @@ If using IIS :
 
 If VisualStudio ASP.NET development server :
 
-7) Open zasz.me.sln and press f5 xD
+7) Open zasz.me.sln and press F5 xD
 
 
 IIS Advanced Changes :

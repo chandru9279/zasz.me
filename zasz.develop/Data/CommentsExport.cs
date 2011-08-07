@@ -10,8 +10,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using Joel.Net;
+using zasz.develop.Utils;
 
-namespace zasz.develop.Utils
+namespace zasz.develop.Data
 {
     internal class CommentsExport
     {
