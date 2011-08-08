@@ -72,6 +72,12 @@ namespace zasz.me.Areas.Shared.Models
                 else ProcessNode(ChildNode, ref Description, Threshold);
             }
         }
+
+        public string GetBodyForIndexing()
+        {
+            return Content + string.Format("\n Tagged : {0} \n Slug : {1} \n Title : {2} \n Dated : {3}",
+                TagsLine, Slug, Title, Timestamp.ToString("f"));
+        }
     }
 
     public interface IPostRepository : IRepository<Post, string>

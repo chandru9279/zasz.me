@@ -144,7 +144,7 @@ namespace zasz.develop.Data
                 }
             }
 
-            WXR.Save(FolderSystemPath + @"\CommentsWXRAksimetFiltered.xml");
+            WXR.Save(FolderSystemPath + @"\Comments\CommentsWXRAksimetFiltered.xml");
         }
 
         private static string get(XmlNode Node, string Element)

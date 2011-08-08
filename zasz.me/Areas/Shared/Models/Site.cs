@@ -38,5 +38,11 @@ namespace zasz.me.Areas.Shared.Models
                     where Domain.Name == DomainName
                     select Domain).FirstOrDefault();
         }
+
+        // DOnt use in EF4
+        public bool Equals(Site Site)
+        {
+            return (Name.Equals(Site.Name) || Site.Name.Equals(SHARED)) && Host.Equals(Site.Host);
+        }
     }
 }

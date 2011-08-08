@@ -394,9 +394,9 @@
         private System.Windows.Forms.TextBox MinFontSize;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox Width;
+        private new System.Windows.Forms.TextBox Width;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox Height;
+        private new System.Windows.Forms.TextBox Height;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox Angle;
         private System.Windows.Forms.ComboBox FontsCombo;
@@ -414,7 +414,7 @@
         private System.Windows.Forms.CheckBox VerticalTextRight;
         private System.Windows.Forms.CheckBox ShowBoundaries;
         private System.Windows.Forms.CheckBox Cropper;
-        private System.Windows.Forms.TextBox Margin;
+        private new System.Windows.Forms.TextBox Margin;
         private System.Windows.Forms.TextBox Skipped;
         private System.Windows.Forms.Label label10;
     }
