@@ -16,14 +16,12 @@ namespace zasz.me.Integration.Lucene
         {
             string LuceneIndexPath = ConfigurationManager.AppSettings["ProjectRootPath"] +
                                      ConfigurationManager.AppSettings["DataFilesPath"];
-            /* Here we create two singleton writers : 
+            /* Here we create a singleton writer : 
              * http://stackoverflow.com/questions/5420566/lucene-net-writing-reading-synchronization 
              */
-            CreateAndStoreWriters(LuceneIndexPath, "ProIndex");
-            CreateAndStoreWriters(LuceneIndexPath, "RestIndex");
-            /* Here two singleton searchers */
-            CreateAndStoreSearchers(LuceneIndexPath, "ProIndex", "ProSearcher");
-            CreateAndStoreSearchers(LuceneIndexPath, "RestIndex", "RestSearcher");
+            CreateAndStoreWriters(LuceneIndexPath, "FullIndex");
+            /* And, here a singleton searcher */
+            CreateAndStoreSearchers(LuceneIndexPath, "FullIndex", "FullSearcher");
         }
 
         private static void CreateAndStoreWriters(string LuceneIndexPath, string IndexName)
