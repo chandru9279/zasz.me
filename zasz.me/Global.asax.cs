@@ -104,7 +104,7 @@ namespace zasz.me
             ViewEngines.Engines.Add(new RazorViewEngine());
             UnityIntegration.Bootstrap();
             EntityFramework.Bootstrap();
-            LuceneIntegration.Bootstrap();
+            SolrIntegration.Bootstrap();
         }
     }
 }
