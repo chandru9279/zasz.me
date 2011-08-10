@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
 using System.Web.Mvc;
+using Elmah;
 using Microsoft.Practices.Unity;
 using zasz.me.Integration.MVC;
 
@@ -28,7 +30,14 @@ namespace zasz.me.Areas.Shared.Controllers
                                    Subject = "Contact - from zasz.me - Name: " + ContactModel.Name
                                };
                 if (!Request.IsLocal)
-                    new SmtpClient("127.0.0.1", 25).Send(Mail);
+                    try
+                    {
+                        new SmtpClient("127.0.0.1", 25).Send(Mail);
+                    }
+                    catch (Exception E)
+                    {
+                        ErrorSignal.FromCurrentContext().Raise(E);
+                    }
                 return View();
             }
             return View("Form", ContactModel);

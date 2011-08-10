@@ -1,31 +1,39 @@
     Zasz.ME  Revamping ChandruOn.NET
 
-Installation :
+To install do as outlined in Common Installation, and then depending on the environment, do either DevEnv or Server Installation. 
 
-1) Go to Data-Tools-Setup folder and run Packages.bat - This will fetch the Nuget packages
-2) Need an account in MS SQLSERVER, that has permission to create and drop databases. 
+	Common Installation :
+
+0) Need	 [.NET 4] and [MS SQLSERVER 2008] running.
+1) Need an account in MS SQLSERVER, that has permission to create and drop databases. 
     Run 0-zasz-login.sql in Data-Tools-Setup folder, which will create the login, and since it is
 	disabled by default, go and enable it using Management studio.
-3) Note the VisualStudio configurations - holds the different environments, keep this up to date.
+2) Create a database ColdStorage and set the zasz.me login as owner.
+3) Run the  2 latest sql files on the ColdStorage database.  X-Data.sql & X-Schema.sql.
+4) Need [Apache Solr] and [Apache Tomcat Windows] running. With [JRE6] installed and PATH set.
+    It also needs setup 'admin-gui, manager-gui' user in tomcat-users.xml. After 'service.bat install'
+	start up the service, check if you can access manager and host-manager apps.
+5) Put latest *solr*.war from dist folder to tomcat/webapps and rename it to just solr.war
 	
-Server Installation :
-4) Go to Data-Tools-Setup folder and run ServerBuild.bat
-
-If using IIS : 
-
-5) Create an application pool in IIS, create a site (zasz.me), point it to folder zasz.me\
-6) Optionally change the Temp Compilation directory to some suitable directory
-
-If VisualStudio ASP.NET development server :
-
-7) Open zasz.me.sln and press F5 xD
-
-
-IIS Advanced Changes :
-
-1) Changed "binding" settings of the various sites to include a host name. Added HTTPS   
-   binding to zasz.me, Similar change in AWS Security group if using AWS.
-2) Turned on SMTP and FTP feature. Set SMTP server to accept max two connections only,
+	Server Installation :
+	
+1) Go to Data-Tools-Setup folder and run ServerBuild.bat
+2) Create an application pool in IIS, create a site (zasz.me), point it to folder zasz.me\
+(The next few are Advanced Changes, they are needed for mail and https functionality.)
+3) Go to Data-Tools-Setup folder and use the Readme.txt and SelfSSL7.exe to install a SSCert into IIS
+4) Changed "binding" settings of the various sites to include a host name. Added HTTPS   
+   binding to zasz.me, using the installed SSCert. Allow https in AWS Security group if using AWS.
+5) Turned on SMTP and FTP feature. Set SMTP server to accept max two connections only,
    and that too only from localhost.
+6) Optionally change the Temp Compilation directory to some suitable directory
+7) Start the website.
+
+	DevEnv Installation :
+	
+1) Go to Data-Tools-Setup folder and run Packages.bat - This will fetch the Nuget packages
+2) Open zasz.me.sln and press F5 xD
+3) Note the VisualStudio configurations - holds the different environments, keep this up to date.
+
+
 
 
