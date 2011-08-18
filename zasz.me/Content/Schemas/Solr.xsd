@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:element name="schema">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="types"/>
+        <xs:element ref="fields"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="defaultSearchField"/>
+          <xs:element ref="uniqueKey"/>
+          <xs:element ref="copyField"/>
+          <xs:element ref="solrQueryParser"/>
+          <xs:element ref="similarity"/>
+          <xs:element ref="similarityProvider"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="name"/>
+      <xs:attribute name="version"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="types">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="fieldType"/>
+        <xs:element ref="fieldtype"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fields">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="field"/>
+        <xs:element ref="dynamicField"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fieldType">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="fieldTypeOptions">
+          <xs:attribute name="name" use="required"/>
+          <xs:attribute name="class" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fieldtype">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="fieldTypeOptions">
+          <xs:attribute name="name" use="required"/>
+          <xs:attribute name="class" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="field">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="fieldTypeOptions">
+          <xs:attribute name="name" use="required"/>
+          <xs:attribute name="type" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dynamicField">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="fieldTypeOptions">
+          <xs:attribute name="name" use="required"/>
+          <xs:attribute name="type" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="fieldTypeOptions">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="analyzer"/>
+      <xs:element ref="similarity"/>
+    </xs:choice>
+    <xs:attribute name="sortMissingLast">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="sortMissingFirst">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="indexed">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="stored">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="multiValued">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="omitNorms">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="omitTermFreqAndPositions">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="positionIncrementGap" type="xs:int"/>
+    <xs:attribute name="compressed">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="compressThreshold" type="xs:int"/>
+    <xs:anyAttribute processContents="skip"/>
+  </xs:complexType>
+  <xs:element name="analyzer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="charFilter"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="tokenizer"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="filter"/>
+      </xs:sequence>
+      <xs:attribute name="type">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="index"/>
+            <xs:enumeration value="query"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="class"/>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="charFilter">
+    <xs:complexType>
+      <xs:attribute name="class" use="required"/>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tokenizer">
+    <xs:complexType>
+      <xs:attribute name="class" use="required"/>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="filter">
+    <xs:complexType>
+      <xs:attribute name="class" use="required"/>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="similarity">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="similarityProvider">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="defaultSearchField" type="xs:string"/>
+  <xs:element name="uniqueKey" type="xs:string"/>
+  <xs:element name="copyField">
+    <xs:complexType>
+      <xs:attribute name="source" use="required"/>
+      <xs:attribute name="dest" use="required"/>
+      <xs:attribute ref="xml:base"/>
+      <xs:attribute name="maxChars" type="xs:int"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="solrQueryParser">
+    <xs:complexType>
+      <xs:attribute ref="xml:base"/>
+      <xs:attribute name="defaultOperator" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="AND"/>
+            <xs:enumeration value="OR"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="config">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="luceneMatchVersion"/>
+        <xs:element ref="lib"/>
+        <xs:element ref="dataDir"/>
+        <xs:element ref="directoryFactory"/>
+        <xs:element ref="indexDefaults"/>
+        <xs:element ref="mainIndex"/>
+        <xs:element ref="indexReaderFactory"/>
+        <xs:element ref="jmx"/>
+        <xs:element ref="updateHandler"/>
+        <xs:element ref="query"/>
+        <xs:element ref="queryConverter"/>
+        <xs:element ref="requestDispatcher"/>
+        <xs:element ref="requestHandler"/>
+        <xs:element ref="searchComponent"/>
+        <xs:element ref="updateRequestProcessorChain"/>
+        <xs:element ref="queryResponseWriter"/>
+        <xs:element ref="queryParser"/>
+        <xs:element ref="valueSourceParser"/>
+        <xs:element ref="transformer"/>
+        <xs:element ref="admin"/>
+        <xs:element ref="propTest"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="propTest">
+    <xs:complexType mixed="true">
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="luceneMatchVersion">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="xs:anyType">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="LUCENE_20"/>
+              <xs:enumeration value="LUCENE_21"/>
+              <xs:enumeration value="LUCENE_22"/>
+              <xs:enumeration value="LUCENE_23"/>
+              <xs:enumeration value="LUCENE_24"/>
+              <xs:enumeration value="LUCENE_29"/>
+              <xs:enumeration value="LUCENE_30"/>
+              <xs:enumeration value="LUCENE_31"/>
+              <xs:enumeration value="LUCENE_32"/>
+              <xs:enumeration value="LUCENE_40"/>
+              <xs:enumeration value="LUCENE_CURRENT"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:attribute ref="xml:base"/>
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lib">
+    <xs:complexType>
+      <xs:attribute name="dir"/>
+      <xs:attribute ref="xml:base"/>
+      <xs:attribute name="regex"/>
+      <xs:attribute name="path"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dataDir">
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="directoryFactory">
+    <xs:complexType>
+      <xs:attribute ref="xml:base"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="indexDefaults">
+    <xs:complexType>
+      <xs:group ref="indexOptions"/>
+      <xs:attributeGroup ref="indexOptions"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mainIndex">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="indexOptions"/>
+        <xs:element ref="unlockOnStartup"/>
+        <xs:element ref="reopenReaders"/>
+        <xs:element ref="deletionPolicy"/>
+        <xs:element ref="infoStream"/>
+      </xs:choice>
+      <xs:attributeGroup ref="indexOptions"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="unlockOnStartup">
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:enumeration value="true"/>
+        <xs:enumeration value="false"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="reopenReaders">
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:enumeration value="true"/>
+        <xs:enumeration value="false"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="deletionPolicy">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="str">
+          <xs:complexType mixed="true">
+            <xs:attribute name="name" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="class" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="infoStream">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="xs:anyType">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="false"/>
+              <xs:enumeration value="true"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:attribute name="file" use="required"/>
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="indexOptions">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="useCompoundFile"/>
+        <xs:element ref="mergeFactor"/>
+        <xs:element ref="ramBufferSizeMB"/>
+        <xs:element ref="maxBufferedDocs"/>
+        <xs:element ref="maxMergeDocs"/>
+        <xs:element ref="maxFieldLength"/>
+        <xs:element ref="writeLockTimeout"/>
+        <xs:element ref="commitLockTimeout"/>
+        <xs:element ref="lockType"/>
+        <xs:element ref="mergePolicy"/>
+        <xs:element ref="mergeScheduler"/>
+        <xs:element ref="termIndexInterval"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="useCompoundFile">
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:enumeration value="true"/>
+        <xs:enumeration value="false"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="mergeFactor" type="xs:int"/>
+  <xs:element name="ramBufferSizeMB" type="xs:int"/>
+  <xs:element name="maxBufferedDocs" type="xs:int"/>
+  <xs:element name="maxMergeDocs" type="xs:int"/>
+  <xs:element name="maxFieldLength" type="xs:int"/>
+  <xs:element name="writeLockTimeout" type="xs:int"/>
+  <xs:element name="commitLockTimeout" type="xs:int"/>
+  <xs:element name="lockType" type="xs:string"/>
+  <xs:element name="mergePolicy">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" ref="plugin-elements"/>
+      <xs:attribute name="class"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mergeScheduler">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" ref="plugin-elements"/>
+      <xs:attribute name="class"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="termIndexInterval" type="xs:int"/>
+  <xs:attributeGroup name="indexOptions">
+    <xs:attribute ref="xml:base"/>
+  </xs:attributeGroup>
+  <xs:element name="indexReaderFactory">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="jmx">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="updateHandler">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="maxPendingDeletes"/>
+        <xs:element ref="listener"/>
+        <xs:element ref="autoCommit"/>
+        <xs:element ref="commitIntervalLowerBound"/>
+      </xs:choice>
+      <xs:attribute name="class" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="maxPendingDeletes" type="xs:int"/>
+  <xs:element name="commitIntervalLowerBound" type="xs:int"/>
+  <xs:element name="autoCommit">
+    <xs:complexType>
+      <xs:all>
+        <xs:element minOccurs="0" ref="maxDocs"/>
+        <xs:element minOccurs="0" ref="maxTime"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="maxDocs" type="xs:int"/>
+  <xs:element name="maxTime" type="xs:int"/>
+  <xs:element name="listener">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="event" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enabled">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="data-elements">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="str"/>
+      <xs:element ref="bool"/>
+      <xs:element ref="int"/>
+      <xs:element ref="float"/>
+      <xs:element ref="double"/>
+      <xs:element ref="arr"/>
+      <xs:element ref="lst"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="str">
+    <xs:complexType mixed="true">
+      <xs:attribute name="name"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bool">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="xs:anyType">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="false"/>
+              <xs:enumeration value="true"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:attribute name="name"/>
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="int">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:int">
+          <xs:attribute name="name"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="float">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:float">
+          <xs:attribute name="name"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="double">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:double">
+          <xs:attribute name="name"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="arr">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="data-elements">
+          <xs:attribute name="name"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lst">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="data-elements">
+          <xs:attribute name="name"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="plugin-content">
+    <xs:sequence>
+      <xs:group ref="plugin-elements"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="plugin-content">
+    <xs:attribute name="name" use="required"/>
+    <xs:attribute name="class" use="required"/>
+    <xs:attribute name="enable">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:anyAttribute processContents="skip"/>
+  </xs:attributeGroup>
+  <xs:group name="plugin-elements">
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="query">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="maxBooleanClauses"/>
+        <xs:element ref="filterCache"/>
+        <xs:element ref="queryResultCache"/>
+        <xs:element ref="documentCache"/>
+        <xs:element ref="fieldValueCache"/>
+        <xs:element ref="cache"/>
+        <xs:element ref="enableLazyFieldLoading"/>
+        <xs:element ref="useFilterForSortedQuery"/>
+        <xs:element ref="queryResultWindowSize"/>
+        <xs:element ref="queryResultMaxDocsCached"/>
+        <xs:element ref="listener"/>
+        <xs:element ref="useColdSearcher"/>
+        <xs:element ref="maxWarmingSearchers"/>
+        <xs:element ref="HashDocSet"/>
+        <xs:element ref="boolTofilterOptimizer"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="maxBooleanClauses" type="xs:int"/>
+  <xs:element name="filterCache">
+    <xs:complexType>
+      <xs:attributeGroup ref="cacheOptions"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="queryResultCache">
+    <xs:complexType>
+      <xs:attributeGroup ref="cacheOptions"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="documentCache">
+    <xs:complexType>
+      <xs:attributeGroup ref="cacheOptions"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fieldValueCache">
+    <xs:complexType>
+      <xs:attributeGroup ref="cacheOptions"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enableLazyFieldLoading">
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:enumeration value="true"/>
+        <xs:enumeration value="false"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="useFilterForSortedQuery">
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:enumeration value="true"/>
+        <xs:enumeration value="false"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="queryResultWindowSize" type="xs:int"/>
+  <xs:element name="queryResultMaxDocsCached" type="xs:int"/>
+  <xs:element name="useColdSearcher">
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:enumeration value="true"/>
+        <xs:enumeration value="false"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="maxWarmingSearchers" type="xs:int"/>
+  <xs:element name="HashDocSet">
+    <xs:complexType>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="boolTofilterOptimizer">
+    <xs:complexType>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="queryConverter">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="cacheOptions">
+    <xs:attribute name="class" use="required"/>
+    <xs:attribute name="size" use="required" type="xs:int"/>
+    <xs:attribute name="initialSize" use="required" type="xs:int"/>
+    <xs:attribute name="autowarmCount" use="required" type="xs:int"/>
+  </xs:attributeGroup>
+  <xs:element name="cache">
+    <xs:complexType>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="regenerator"/>
+      <xs:attributeGroup ref="cacheOptions"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="requestDispatcher">
+    <xs:complexType>
+      <xs:all>
+        <xs:element minOccurs="0" ref="requestParsers"/>
+        <xs:element minOccurs="0" ref="httpCaching"/>
+      </xs:all>
+      <xs:attribute name="handleSelect" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="requestParsers">
+    <xs:complexType>
+      <xs:attribute name="enableRemoteStreaming" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="multipartUploadLimitInKB" use="required" type="xs:int"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="httpCaching">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="cacheControl"/>
+      </xs:sequence>
+      <xs:attribute name="never304">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="false"/>
+            <xs:enumeration value="true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="lastModFrom">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="openTime"/>
+            <xs:enumeration value="dirLastMod"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="lastModifiedFrom">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="openTime"/>
+            <xs:enumeration value="dirLastMod"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="etagSeed"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cacheControl" type="xs:string"/>
+  <xs:element name="requestHandler">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="default">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="startup"/>
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="searchComponent">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="updateRequestProcessorChain">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="processor"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="default">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="processor">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="class" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="queryResponseWriter">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="default">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="queryParser">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="valueSourceParser">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="transformer">
+    <xs:complexType>
+      <xs:group ref="plugin-elements"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="enable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="admin">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="defaultQuery"/>
+        <xs:element minOccurs="0" ref="pingQuery"/>
+        <xs:element minOccurs="0" ref="gettableFiles"/>
+        <xs:element minOccurs="0" ref="healthcheck"/>
+      </xs:all>
+      <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="defaultQuery" type="xs:string"/>
+  <xs:element name="pingQuery" type="xs:string"/>
+  <xs:element name="gettableFiles" type="xs:string"/>
+  <xs:element name="healthcheck">
+    <xs:complexType mixed="true">
+      <xs:attribute name="type" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="file"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="solr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
+        <xs:element ref="cores"/>
+      </xs:sequence>
+      <xs:attribute name="persistent">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="sharedLib"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cores">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="core"/>
+      </xs:sequence>
+      <xs:attribute ref="xml:base"/>
+      <xs:attribute name="adminPath"/>
+      <xs:attribute name="defaultCoreName"/>
+      <xs:attribute name="shareSchema">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="adminHandler"/>
+      <xs:attribute name="host"/>
+      <xs:attribute name="hostPort" type="xs:int"/>
+      <xs:attribute name="hostContext"/>
+      <xs:attribute name="zkClientTimeout" type="xs:int"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="core">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
+      </xs:sequence>
+      <xs:attribute ref="xml:base"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="instanceDir" use="required"/>
+      <xs:attribute name="config"/>
+      <xs:attribute name="schema"/>
+      <xs:attribute name="dataDir"/>
+      <xs:attribute name="properties"/>
+      <xs:attribute name="shard"/>
+      <xs:attribute name="collection"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="property">
+    <xs:complexType>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="value" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="elevate">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="anyElement"/>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="root">
+    <xs:complexType/>
+  </xs:element>
+  <xs:attributeGroup name="xmlbase">
+    <xs:attribute ref="xml:base" use="required"/>
+  </xs:attributeGroup>
+  <xs:group name="anyElement">
+    <xs:sequence>
+      <xs:any processContents="lax"/>
+    </xs:sequence>
+  </xs:group>
+</xs:schema>
