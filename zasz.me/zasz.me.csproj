@@ -167,8 +167,8 @@
     <Compile Include="Integration\EntityFramework\RepoBase.cs" />
     <Compile Include="Integration\EntityFramework\Vault.cs" />
     <Compile Include="Integration\HugeBox.cs" />
-    <Compile Include="Integration\Lucene\SolrIntegration.cs" />
-    <Compile Include="Integration\Lucene\PostLuceneExtensions.cs" />
+    <Compile Include="Integration\SolrIntegration\SolrIntegration.cs" />
+    <Compile Include="Integration\SolrIntegration\PostSolrExtensions.cs" />
     <Compile Include="Integration\MVC\BaseController.cs" />
     <Compile Include="Integration\MVC\DefaultActionAttribute.cs" />
     <Compile Include="Integration\MVC\DomainRouteConstraint.cs" />

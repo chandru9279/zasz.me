@@ -9,7 +9,6 @@ using zasz.develop.Data;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
-using zasz.me.Integration.Lucene;
 using Domain = zasz.me.Areas.Shared.Models.Site;
 
 namespace zasz.develop.Utils

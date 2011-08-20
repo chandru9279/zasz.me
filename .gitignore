@@ -4,6 +4,7 @@
 *.suo
 *.cache
 *.user
+*.iws
 *.db
 
 packages/
@@ -15,5 +16,6 @@ zasz.develop/SampleData/TagCloud/
 
 zasz.vitalize/content/tomcat/logs
 zasz.vitalize/content/tomcat/work
+zasz.vitalize/content/solrhome/data
 
 .metadata/

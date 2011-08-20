@@ -3,8 +3,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using zasz.me.Integration;
 using zasz.me.Integration.EntityFramework;
-using zasz.me.Integration.Lucene;
 using zasz.me.Integration.MVC;
+using zasz.me.Integration.SolrIntegration;
 using Domain = zasz.me.Areas.Shared.Models.Site;
 
 namespace zasz.me

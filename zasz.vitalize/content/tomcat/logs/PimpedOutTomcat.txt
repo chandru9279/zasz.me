@@ -4,7 +4,7 @@ This is a Windows 32-bit tomcat, pimped out for zasz.me project.
 Removed the text files at the home directory.
 Removed all the linux shell scripts in bin. And all the daemon related JARS and native compilations.
 Removed all the example apps.
-WARed all the mager apps, and set unpackWars=false in server.xml
+WARed all the manager apps, and set unpackWars=false in server.xml
 Removed AJP connector in server.xml
 Created 2 services in server.xml each pointing to its own set of webapps
 Added zasz user in tomcat-users for admin and management

@@ -1,4 +1,4 @@
-﻿namespace zasz.me.Integration.Lucene
+﻿namespace zasz.me.Integration.SolrIntegration
 {
     public class SolrIntegration
     {

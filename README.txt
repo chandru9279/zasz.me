@@ -10,10 +10,7 @@ To install do as outlined in Common Installation, and then depending on the envi
 	disabled by default, go and enable it using Management studio.
 2) Create a database ColdStorage and set the zasz.me login as owner.
 3) Run the  2 latest sql files on the ColdStorage database.  X-Data.sql & X-Schema.sql.
-4) Need [Apache Solr] and [Apache Tomcat Windows] running. With [JRE6] installed and PATH set.
-    It also needs setup 'admin-gui, manager-gui' user in tomcat-users.xml. After 'service.bat install'
-	start up the service, check if you can access manager and host-manager apps.
-5) Put latest *solr*.war from dist folder to tomcat/webapps and rename it to just solr.war
+4) Need With [JRE6] installed and environment variable JRE_HOME set.    
 	
 	Server Installation :
 	
