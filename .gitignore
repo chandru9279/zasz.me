@@ -8,10 +8,12 @@
 
 packages/
 TestResults/
-zasz.me/App_Data/ColdStorage/
-zasz.me/Uploads/
-zasz.me/Facebook/
-zasz.develop/SampleData/TagCloud/
 _ReSharper.zasz.me/
-Raven.ravendb
+
+zasz.me/Uploads/
+zasz.develop/SampleData/TagCloud/
+
+
+zasz.vitalize/content/tomcat/work
+
 .metadata/

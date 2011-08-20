@@ -1,6 +1,0 @@
-<module>
-	<inherits name="com.google.gwt.user.User"/>
-	<inherits name="zasz.vitalize.Shared"/>
-	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
-	<entry-point class="zasz.vitalize.rest.client.Rest"/>
-</module>
