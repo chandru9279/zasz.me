@@ -500,7 +500,7 @@
        when adding a document.
    -->
 
-   <field name="Id" type="string" indexed="false" stored="true" />
+   <field name="Id" type="string" indexed="true" stored="true" />
    <field name="Post.Content" type="html_en_splitting" indexed="true" stored="true" />
    <field name="Post.Tags" type="lowercase" indexed="true" stored="true" multiValued="true" />
    <field name="Post.Slug" type="text_en_splitting_tight" indexed="true" stored="true" />
@@ -516,6 +516,8 @@
    <copyField source="Post.Tags" dest="Post.FullSearch"/>
    <copyField source="Post.Slug" dest="Post.FullSearch"/>
    <copyField source="Post.Title" dest="Post.FullSearch"/>
+
+   Opting to use a dismax handler instead of such a catchall field, as it honours field boosting.
      -->
 
    <!-- Common metadata fields, named specifically to match up with
