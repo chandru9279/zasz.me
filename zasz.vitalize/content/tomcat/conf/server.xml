@@ -115,7 +115,7 @@
              that are performed against this UserDatabase are immediately
              available for use by the Realm.  -->
         <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
-               resourceName="UserDatabase"/>
+               resourceName="UserDatabase" digest="md5"/>
       </Realm>
 
       <Host name="externalhost"  appBase="webapps/external"  unpackWARs="false" autoDeploy="true">
@@ -142,8 +142,8 @@
     <Connector port="5000" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" />
     <Engine name="internalengine" defaultHost="internalhost">
 
-      <Realm className="org.apache.catalina.realm.LockOutRealm">
-        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+      <Realm className="org.apache.catalina.realm.LockOutRealm" >
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase" digest="md5"/>
       </Realm>
 
       <Host name="internalhost"  appBase="webapps/internal"  unpackWARs="false" autoDeploy="true">
