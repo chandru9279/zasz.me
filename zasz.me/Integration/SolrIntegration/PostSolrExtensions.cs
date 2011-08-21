@@ -13,9 +13,9 @@ namespace zasz.me.Integration.SolrIntegration
             Manager.Add(IdentityProperty, "Id");
             Manager.SetUniqueKey(IdentityProperty);
             Manager.Add(PostType.GetProperty("Content"), "Post.Content");
-            Manager.Add(PostType.GetProperty("Tags"), "Post.Tags");
+            Manager.Add(PostType.GetProperty("Tags"), "Post.Tags", 1.5f);
             Manager.Add(PostType.GetProperty("Slug"), "Post.Slug");
-            Manager.Add(PostType.GetProperty("Title"), "Post.Title");
+            Manager.Add(PostType.GetProperty("Title"), "Post.Title", 2.0f);
         }
     }
 
