@@ -10,6 +10,7 @@ using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
 using Domain = zasz.me.Areas.Shared.Models.Site;
+using System.Xml;
 
 namespace zasz.develop.Utils
 {
@@ -19,6 +20,7 @@ namespace zasz.develop.Utils
         private readonly FullContext _FullContext;
         private readonly IPostRepository _PostRepository;
         private readonly ITagRepository _TagRepository;
+        private const string SolrConfigMain = @"..\..\..\..\zasz.vitalize\content\solrhome\conf\";
 
 
         public DevUtil()
@@ -175,9 +177,26 @@ namespace zasz.develop.Utils
             PassHash.Text = Unicoding.GetString(Algorithm.ComputeHash(Unicoding.GetBytes(Password.Text)));
         }
 
-        private void RebuildLuceneClick(object Sender, EventArgs E)
+        private void BuildSolrIndexClick(object Sender, EventArgs E)
         {
             
+        }
+
+        private void DecommentSolrClick(object sender, EventArgs e)
+        {
+            RemoveComments("solrconfig-verbose.xml");
+            RemoveComments("schema-verbose.xml");
+        }
+
+        private static void RemoveComments(string FileName)
+        {
+            XmlReader Reader = XmlReader.Create(SolrConfigMain + FileName, new XmlReaderSettings
+            {
+                IgnoreComments = true
+            });
+            var Doc = new XmlDocument();
+            Doc.Load(Reader);
+            Doc.Save(SolrConfigMain + FileName.Replace("-verbose", ""));
         }
     }
 }
