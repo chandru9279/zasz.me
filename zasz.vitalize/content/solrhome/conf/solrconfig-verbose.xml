@@ -267,8 +267,10 @@
 
     <!--
         The default high-performance update handler.
-        The Update Handler section mostly relates to low level information about how updates are handled internally
-        (do not confuse with higher level configuration of "Request Handlers" for dealing with updates sent by clients)
+        The Update Handler section mostly relates to low level information
+        about how updates are handled internally (do not confuse with higher
+        level configuration of "Request Handlers" for dealing with updates
+        sent by clients)
     -->
     <updateHandler class="solr.DirectUpdateHandler2">
 
@@ -346,13 +348,13 @@
         correctly. See SOLR-1366 for details.
 
         <indexReaderFactory name="IndexReaderFactory" class="package.class">
-        <str name="someArg">Some Value</str>
+            <str name="someArg">Some Value</str>
         </indexReaderFactory >
 
         By explicitly declaring the Factory, the termIndexDivisor can be specified.
 
         <indexReaderFactory name="IndexReaderFactory" class="solr.StandardIndexReaderFactory">
-        <int name="setTermIndexDivisor">12</int>
+            <int name="setTermIndexDivisor">12</int>
         </indexReaderFactory >
     -->
 
@@ -403,20 +405,14 @@
              autowarmCount - the number of entries to prepopulate from
                  and old cache.
         -->
-        <filterCache class="solr.FastLRUCache"
-                     size="512"
-                     initialSize="512"
-                     autowarmCount="0"/>
+        <filterCache class="solr.FastLRUCache" size="512" initialSize="512" autowarmCount="0"/>
 
         <!-- Query Result Cache
 
            Caches results of searches - ordered lists of document ids
            (DocList) based on a query, a sort, and the range of documents requested.
         -->
-        <queryResultCache class="solr.LRUCache"
-                          size="512"
-                          initialSize="512"
-                          autowarmCount="0"/>
+        <queryResultCache class="solr.LRUCache" size="512" initialSize="512" autowarmCount="0"/>
 
         <!-- Document Cache
 
@@ -424,10 +420,7 @@
            document).  Since Lucene internal document ids are transient,
            this cache will not be autowarmed.
         -->
-        <documentCache class="solr.LRUCache"
-                       size="512"
-                       initialSize="512"
-                       autowarmCount="0"/>
+        <documentCache class="solr.LRUCache" size="512" initialSize="512" autowarmCount="0"/>
 
         <!-- Field Value Cache
 
@@ -611,7 +604,7 @@
             never304="true"
 
             <httpCaching never304="true" >
-            <cacheControl>max-age=30, public</cacheControl>
+                <cacheControl>max-age=30, public</cacheControl>
             </httpCaching>
 
             To enable Solr to respond with automatically generated HTTP
@@ -663,8 +656,7 @@
        If a Request Handler is declared with startup="lazy", then it will
        not be initialized until the first request that uses it.
 
-    -->
-    <!-- SearchHandler
+    --><!-- SearchHandler
 
        http://wiki.apache.org/solr/SearchHandler
 
@@ -678,67 +670,121 @@
            will be overridden by parameters in the request
         -->
         <lst name="defaults">
-            <!-- The echoParams parameter tells Solr what kinds of Request parameters should be included in the response
-            for debugging purposes, legal values include: none, explicit, all -->
+            <!-- The echoParams parameter tells Solr what kinds of Request
+            parameters should be included in the response for debugging
+            purposes, legal values include: none, explicit, all -->
             <str name="echoParams">explicit</str>
 
-            <!-- This parameter is used to paginate results from a query. When specified, it indicates the maximum number
-            of documents from the complete result set to return to the client for every request. (You can consider it as
-            the maximum number of result appear in the page) The default value is "10"-->
+            <!-- This parameter is used to paginate results from a query.
+             When specified, it indicates the maximum number of documents
+             from the complete result set to return to the client for
+             every request. (You can consider it as the maximum number
+             of result appear in the page) The default value is "10"-->
             <int name="rows">10</int>
 
-            <!-- The defType parameter can be used to specify the query parser to use with this request -->
+            <!-- The defType parameter can be used to specify the query
+            parser to use with this request -->
             <str name="defType">edismax</str>
 
-            <!-- q.alt - An alternate query to be used in cases where the main query (q) is not specified (or blank).
-            This query should be expressed in the Standard SolrQueryParser syntax (you can use q.alt=*:* to denote that
-            all documents should be returned when no query is specified)-->
+            <!-- q.alt - An alternate query to be used in cases where
+            the main query (q) is not specified (or blank).
+            This query should be expressed in the Standard SolrQueryParser
+            syntax (you can use q.alt=*:* to denote that all documents
+            should be returned when no query is specified)-->
             <str name="q.alt">*:*</str>
 
-            <!-- FieldList parameter can be used to specify a set of fields to return, limiting the amount of information in the
-            response. When returning the results to the client, only fields in this list will be included.
-            The set of fields to be returned can be specified as a space (or comma) separated list of field names. The
-            string "score" can be used to indicate that the score of each document for the particular query should be
-            returned as a field, and the string "*" can be used to indicate all stored fields the document has.-->
-            <str name="fl">Post.Slug, Post.Title, Post.Tags, score</str>
+            <!-- FieldList parameter can be used to specify a set of fields
+            to return, limiting the amount of information in the response.
+            When returning the results to the client, only fields in this
+            list will be included.
+            The set of fields to be returned can be specified as a space
+            (or comma) separated list of field names. The string "score"
+            can be used to indicate that the score of each document for the
+            particular query should be returned as a field, and the string
+            "*" can be used to indicate all stored fields the document has.
+            -->
+            <str name="fl">Post_Slug, Post_Title, Post_Tags, score</str>
 
-            <!-- 'true' to enable MoreLikeThis results. It looks at the fields' term vectors (specified in mlt.fl) of every result
-            construct a Lucene query from the terms and returns 3 more results for every result if available. I suspect this is a
+            <!-- 'true' to enable MoreLikeThis results. It looks at the
+            fields' term vectors (specified in mlt.fl) of every result
+            construct a Lucene query from the terms and returns 3 more
+            results for every result if available. I suspect this is a
             costly operation, and so turned it off by default -->
             <str name="mlt">false</str>
 
-            <!-- The number of similar documents to return for each result. -->
+            <!-- The number of similar documents to return for each result-->
             <str name="mlt.count">3</str>
 
-            <!-- MoreLikeThis default boosting.
-            Query fields and their boosts using the same format as that used in DisMaxQParserPlugin.
+            <!-- MoreLikeThis default boosting. Query fields and their
+            boosts using the same format as that used in DisMaxQParserPlugin.
             These fields must also be specified in mlt.fl. -->
-            <str name="mlt.qf">Post.Title^1.5 Post.Content^1.0</str>
+            <str name="mlt.qf">Post_Title^1.5 Post_Content^1.0</str>
 
-            <!-- MoreLikeThis Minimum Term Frequency - the frequency below which terms will be ignored in the source doc.-->
+            <!-- MoreLikeThis Minimum Term Frequency - the frequency below
+            which terms will be ignored in the source doc.-->
             <str name="mlt.mintf">4</str>
 
-            <!-- The fields to use for similarity. NOTE: if possible, these should have a stored TermVector -->
-            <str name="mlt.fl">Post.Title, Post.Content</str>
+            <!-- The fields to use for similarity. NOTE: if possible, these
+            should have a stored TermVector -->
+            <str name="mlt.fl">Post_Title, Post_Content</str>
 
-            <!-- This is for the Dismax QueryParser Plugin and it is query time boosting of fields. Since I've
-             decided to do all boosting at index time (eg : Post.Title) this one is not needed
+            <!-- This is for the Dismax QueryParser Plugin and it is query
+            time boosting of fields. Since I've decided to do all boosting
+            at index time (eg : Post_Title) this one is not needed
             <str name="qf">
                 text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4
             </str>
             -->
 
-            <!-- This is for the Highlighter search component and it is query time boosting of fields. Since I've -->
-            <str name="hl">on</str>
-            <str name="hl.fl">text features name</str>
-            <str name="f.name.hl.fragsize">0</str>
-            <str name="f.name.hl.alternateField">name</str>
+            <!-- Set to "true" enables highlighted snippets to be generated
+            in the query response. Any blank or missing value, or "false" will
+            disable highlighting. -->
+            <str name="hl">true</str>
+
+            <!-- A comma- or space- delimited list of fields to generate
+            highlighted snippets for. If left blank, the fields highlighted for
+            the LuceneQParser are the defaultSearchField (or the df param
+            if used) and for the DisMax parser the qf fields are used.
+            A '*' can be used to match field globs, e.g. 'text_*' or even '*'
+            to highlight on all fields where highlighting is possible. When
+            using '*', consider adding hl.requireFieldMatch=true.
+            If the specified field is termVectors=on, termPositions=on and
+            termOffsets=on, DefaultSolrHighlighter uses FastVectorHighlighter
+            if the hl.useFastVectorHighlighter parameter set to on. -->
+            <str name="hl.fl">Post_Title Post_Content</str>
+
+            <!-- The maximum number of highlighted snippets to generate per
+            field. Note: it is possible for any number of snippets from zero
+            to this value to be generated. This parameter accepts per-field
+            overrides. The default value is "1". -->
+            <str name="hl.snippets">2</str>
+
+            <!-- Collapse contiguous fragments into a single fragment. "true"
+            indicates contiguous fragments will be collapsed into single
+            fragment. This parameter accepts per-field overrides.-->
+            <str name="hl.mergeContiguous">2</str>
+
+            <!-- The size, in characters, of fragments to consider for
+            highlighting. "0" indicates that the whole field value should
+            be used (no fragmenting). (Highlighter only) This parameter
+            accepts per-field overrides. The default value is "100". -->
+            <str name="f.Post_Title.hl.fragsize">0</str>
+            <str name="f.Post_Tags.hl.fragsize">0</str>
+            <str name="f.Post_Content.hl.fragsize">150</str>
+
+            <!-- If a snippet cannot be generated (due to no terms matching),
+            you can specify a field to use as the backup/default summary.
+            This parameter accepts per-field overrides -->
+            <str name="f.Post_Title.hl.alternateField">Post_Title</str>
+            <str name="f.Post_Tags.hl.alternateField">Post_Tags</str>
+            <str name="f.Post_Content.hl.alternateField">Post_Title</str>
 
         </lst>
 
         <lst name="invariants">
-            <!-- The wt (writer type) parameter is used by Solr to determine which QueryResponseWriter should be used
-             to process the request. Valid values are any of the names specified by <queryResponseWriter... />
+            <!-- The wt (writer type) parameter is used by Solr to determine
+            which QueryResponseWriter should be used to process the request.
+            Valid values are any of the names specified by <queryResponseWriter... />
             default is "standard" -->
             <str name="wt">xml</str>
         </lst>
@@ -800,43 +846,9 @@
         -->
     </requestHandler>
 
-    <!-- A Robust Example
-
-       This example SearchHandler declaration shows off usage of the
-       SearchHandler with many defaults declared
-
-       Note that multiple instances of the same Request Handler
-       (SearchHandler) can be registered multiple times with different
-       names (and different init parameters)
-    -->
-            <str name="facet">on</str>
-            <str name="facet.field">cat</str>
-            <str name="facet.field">manu_exact</str>
-            <str name="facet.query">ipod</str>
-            <str name="facet.query">GB</str>
-            <str name="facet.mincount">1</str>
-            <str name="facet.pivot">cat,inStock</str>
-            <str name="facet.range">price</str>
-            <int name="f.price.facet.range.start">0</int>
-            <int name="f.price.facet.range.end">600</int>
-            <int name="f.price.facet.range.gap">50</int>
-            <str name="f.price.facet.range.other">after</str>
-            <str name="facet.range">manufacturedate_dt</str>
-            <str name="f.manufacturedate_dt.facet.range.start">NOW/YEAR-10YEARS</str>
-            <str name="f.manufacturedate_dt.facet.range.end">NOW</str>
-            <str name="f.manufacturedate_dt.facet.range.gap">+1YEAR</str>
-            <str name="f.manufacturedate_dt.facet.range.other">before</str>
-            <str name="f.manufacturedate_dt.facet.range.other">after</str>
-
-        </lst>
-
-        <!--
-        <str name="url-scheme">httpx</str>
-        -->
-    </requestHandler>
 
     <!-- XML Update Request Handler.
-       
+
        http://wiki.apache.org/solr/UpdateXmlMessages
 
        The canonical Request Handler for Modifying the Index through
@@ -946,9 +958,11 @@
     <!-- Admin Handlers
 
        Admin Handlers - This will register all the standard admin
-       RequestHandlers.  
+       RequestHandlers.
     -->
+
     <requestHandler name="/admin/" class="solr.admin.AdminHandlers"/>
+
     <!--
         This single handler is equivalent to the following...
 
@@ -992,7 +1006,7 @@
        The SolrReplicationHandler supports replicating indexes from a
        "master" used for indexing and "salves" used for queries.
 
-       http://wiki.apache.org/solr/SolrReplication 
+       http://wiki.apache.org/solr/SolrReplication
 
        In the example below, remove the <lst name="master"> section if
        this is just a slave and remove  the <lst name="slave"> section
@@ -1239,7 +1253,7 @@
 
        This is purely as an example.
 
-       In reality you will likely want to add the component to your 
+       In reality you will likely want to add the component to your
        already specified request handlers.
 
     <requestHandler name="/clustering"
@@ -1312,15 +1326,15 @@
     </searchComponent>
 
     <!-- A request handler for demonstrating the elevator component
-    <requestHandler name="/elevate" class="solr.SearchHandler" startup="lazy">
-        <lst name="defaults">
-            <str name="echoParams">explicit</str>
-        </lst>
-        <arr name="last-components">
-            <str>elevator</str>
-        </arr>
-    </requestHandler>
-     -->
+   <requestHandler name="/elevate" class="solr.SearchHandler" startup="lazy">
+       <lst name="defaults">
+           <str name="echoParams">explicit</str>
+       </lst>
+       <arr name="last-components">
+           <str>elevator</str>
+       </arr>
+   </requestHandler>
+    -->
 
     <!-- Highlighting Component
 
@@ -1328,11 +1342,8 @@
     -->
     <searchComponent class="solr.HighlightComponent" name="highlight">
         <highlighting>
-            <!-- Configure the standard fragmenter -->
-            <!-- This could most likely be commented out in the "default" case -->
-            <fragmenter name="gap"
-                        default="true"
-                        class="solr.highlight.GapFragmenter">
+            <!-- Configure the standard fragmenter --><!-- This could most likely be commented out in the "default" case -->
+            <fragmenter name="gap" default="true" class="solr.highlight.GapFragmenter">
                 <lst name="defaults">
                     <int name="hl.fragsize">100</int>
                 </lst>
@@ -1341,8 +1352,7 @@
             <!-- A regular-expression-based fragmenter
                (for sentence extraction)
             -->
-            <fragmenter name="regex"
-                        class="solr.highlight.RegexFragmenter">
+            <fragmenter name="regex" class="solr.highlight.RegexFragmenter">
                 <lst name="defaults">
                     <!-- slightly smaller fragsizes work better because of slop -->
                     <int name="hl.fragsize">70</int>
@@ -1354,9 +1364,7 @@
             </fragmenter>
 
             <!-- Configure the standard formatter -->
-            <formatter name="html"
-                       default="true"
-                       class="solr.highlight.HtmlFormatter">
+            <formatter name="html" default="true" class="solr.highlight.HtmlFormatter">
                 <lst name="defaults">
                     <str name="hl.simple.pre"><![CDATA[<span class="Result-Highlight">]]></str>
                     <str name="hl.simple.post"><![CDATA[</span>]]></str>
@@ -1370,8 +1378,7 @@
             <fragListBuilder name="simple" default="true" class="solr.highlight.SimpleFragListBuilder"/>
 
             <!-- Configure the single fragListBuilder -->
-            <fragListBuilder name="single"
-                             class="solr.highlight.SingleFragListBuilder"/>
+            <fragListBuilder name="single" class="solr.highlight.SingleFragListBuilder"/>
 
             <!-- default tag FragmentsBuilder -->
             <fragmentsBuilder name="default" default="true" class="solr.highlight.ScoreOrderFragmentsBuilder">
@@ -1383,8 +1390,7 @@
             </fragmentsBuilder>
 
             <!-- multi-colored tag FragmentsBuilder -->
-            <fragmentsBuilder name="colored"
-                              class="solr.highlight.ScoreOrderFragmentsBuilder">
+            <fragmentsBuilder name="colored" class="solr.highlight.ScoreOrderFragmentsBuilder">
                 <lst name="defaults">
                     <str name="hl.tag.pre"><![CDATA[
                <b style="background:yellow">,<b style="background:lawgreen">,
@@ -1406,17 +1412,14 @@
 
        http://wiki.apache.org/solr/UpdateRequestProcessor
 
-    -->
-    <!-- Deduplication
+    --><!-- Deduplication
 
        An example dedup update processor that creates the "id" field
        on the fly based on the hash code of some other fields.  This
        example has overwriteDupes set to false since we are using the
        id field as the signatureField and Solr will maintain
        uniqueness based on that anyway.  
-       
-    -->
-    <!--
+
      <updateRequestProcessorChain name="dedupe">
        <processor class="solr.processor.SignatureUpdateProcessorFactory">
          <bool name="enabled">true</bool>

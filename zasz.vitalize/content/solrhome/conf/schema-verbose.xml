@@ -501,10 +501,10 @@
    -->
 
    <field name="Id" type="string" indexed="true" stored="true" />
-   <field name="Post.Content" type="html_en_splitting" indexed="true" stored="true" termVectors="true" termPositions="false" termOffsets="false"/>
-   <field name="Post.Tags" type="lowercase" indexed="true" stored="true" multiValued="true" />
-   <field name="Post.Slug" type="text_en_splitting_tight" indexed="true" stored="true" />
-   <field name="Post.Title" type="text_general" indexed="true" stored="true" termVectors="true" termPositions="false" termOffsets="false"/>
+   <field name="Post_Content" type="html_en_splitting" indexed="true" stored="true" termVectors="true" termPositions="false" termOffsets="false"/>
+   <field name="Post_Tags" type="lowercase" indexed="true" stored="true" multiValued="true" />
+   <field name="Post_Slug" type="text_en_splitting_tight" indexed="true" stored="true" />
+   <field name="Post_Title" type="text_general" indexed="true" stored="true" termVectors="true" termPositions="false" termOffsets="false"/>
 
      <!-- catchall field, containing all other searchable text fields,
      implemented via copyField further on in this schema -->
@@ -514,10 +514,10 @@
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster searching.
      -->
-   <copyField source="Post.Content" dest="FullSearch"/>
-   <copyField source="Post.Tags" dest="FullSearch"/>
-   <copyField source="Post.Slug" dest="FullSearch"/>
-   <copyField source="Post.Title" dest="FullSearch"/>
+   <copyField source="Post_Content" dest="FullSearch"/>
+   <copyField source="Post_Tags" dest="FullSearch"/>
+   <copyField source="Post_Slug" dest="FullSearch"/>
+   <copyField source="Post_Title" dest="FullSearch"/>
 
    <!--
         For search from application -
@@ -609,7 +609,7 @@
  <uniqueKey>Id</uniqueKey>
 
  <!-- field for the QueryParser to use when an explicit fieldname is absent -->
- <defaultSearchField>Post.Content</defaultSearchField>
+ <defaultSearchField>Post_Content</defaultSearchField>
 
  <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
  <solrQueryParser defaultOperator="OR"/>

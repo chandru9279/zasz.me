@@ -58,58 +58,34 @@
     <lst name="defaults">
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
-    </lst>
-  </requestHandler>
-  <requestHandler name="/browse" class="solr.SearchHandler">
-    <lst name="defaults">
-      <str name="echoParams">explicit</str>
-      <str name="wt">velocity</str>
-      <str name="v.template">browse</str>
-      <str name="v.layout">layout</str>
-      <str name="title">Solritas</str>
       <str name="defType">edismax</str>
       <str name="q.alt">*:*</str>
-      <str name="rows">10</str>
-      <str name="fl">*,score</str>
-      <str name="mlt.qf">
-                text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4
-            </str>
-      <str name="mlt.fl">text,features,name,sku,id,manu,cat</str>
-      <int name="mlt.count">3</int>
-      <str name="qf">
-                text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4
-            </str>
-      <str name="facet">on</str>
-      <str name="facet.field">cat</str>
-      <str name="facet.field">manu_exact</str>
-      <str name="facet.query">ipod</str>
-      <str name="facet.query">GB</str>
-      <str name="facet.mincount">1</str>
-      <str name="facet.pivot">cat,inStock</str>
-      <str name="facet.range">price</str>
-      <int name="f.price.facet.range.start">0</int>
-      <int name="f.price.facet.range.end">600</int>
-      <int name="f.price.facet.range.gap">50</int>
-      <str name="f.price.facet.range.other">after</str>
-      <str name="facet.range">manufacturedate_dt</str>
-      <str name="f.manufacturedate_dt.facet.range.start">NOW/YEAR-10YEARS</str>
-      <str name="f.manufacturedate_dt.facet.range.end">NOW</str>
-      <str name="f.manufacturedate_dt.facet.range.gap">+1YEAR</str>
-      <str name="f.manufacturedate_dt.facet.range.other">before</str>
-      <str name="f.manufacturedate_dt.facet.range.other">after</str>
-      <str name="hl">on</str>
-      <str name="hl.fl">text features name</str>
-      <str name="f.name.hl.fragsize">0</str>
-      <str name="f.name.hl.alternateField">name</str>
+      <str name="fl">Post_Slug, Post_Title, Post_Tags, score</str>
+      <str name="mlt">false</str>
+      <str name="mlt.count">3</str>
+      <str name="mlt.qf">Post_Title^1.5 Post_Content^1.0</str>
+      <str name="mlt.mintf">4</str>
+      <str name="mlt.fl">Post_Title, Post_Content</str>
+      <str name="hl">true</str>
+      <str name="hl.fl">Post_Title Post_Content</str>
+      <str name="hl.snippets">2</str>
+      <str name="hl.mergeContiguous">2</str>
+      <str name="f.Post_Title.hl.fragsize">0</str>
+      <str name="f.Post_Tags.hl.fragsize">0</str>
+      <str name="f.Post_Content.hl.fragsize">150</str>
+      <str name="f.Post_Title.hl.alternateField">Post_Title</str>
+      <str name="f.Post_Tags.hl.alternateField">Post_Tags</str>
+      <str name="f.Post_Content.hl.alternateField">Post_Title</str>
+    </lst>
+    <lst name="invariants">
+      <str name="wt">xml</str>
     </lst>
     <arr name="last-components">
-      <str>spellcheck</str>
+      <str>spellchecker</str>
     </arr>
   </requestHandler>
   <requestHandler name="/update" class="solr.XmlUpdateRequestHandler">
   </requestHandler>
-  <requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler" />
-  <requestHandler name="/analysis/document" class="solr.DocumentAnalysisRequestHandler" startup="lazy" />
   <requestHandler name="/admin/" class="solr.admin.AdminHandlers" />
   <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
     <lst name="defaults">
@@ -124,7 +100,7 @@
       <str name="echoHandler">true</str>
     </lst>
   </requestHandler>
-  <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
+  <searchComponent name="spellchecker" class="solr.SpellCheckComponent">
     <str name="queryAnalyzerFieldType">textSpell</str>
     <lst name="spellchecker">
       <str name="name">default</str>
@@ -154,8 +130,8 @@
       </fragmenter>
       <formatter name="html" default="true" class="solr.highlight.HtmlFormatter">
         <lst name="defaults">
-          <str name="hl.simple.pre"><![CDATA[<em>]]></str>
-          <str name="hl.simple.post"><![CDATA[</em>]]></str>
+          <str name="hl.simple.pre"><![CDATA[<span class="Result-Highlight">]]></str>
+          <str name="hl.simple.post"><![CDATA[</span>]]></str>
         </lst>
       </formatter>
       <encoder name="html" class="solr.highlight.HtmlEncoder" />

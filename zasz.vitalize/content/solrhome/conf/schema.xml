@@ -164,17 +164,17 @@
   </types>
   <fields>
     <field name="Id" type="string" indexed="true" stored="true" />
-    <field name="Post.Content" type="html_en_splitting" indexed="true" stored="true" />
-    <field name="Post.Tags" type="lowercase" indexed="true" stored="true" multiValued="true" />
-    <field name="Post.Slug" type="text_en_splitting_tight" indexed="true" stored="true" />
-    <field name="Post.Title" type="text_general" indexed="true" stored="true" />
+    <field name="Post_Content" type="html_en_splitting" indexed="true" stored="true" termVectors="true" termPositions="false" termOffsets="false" />
+    <field name="Post_Tags" type="lowercase" indexed="true" stored="true" multiValued="true" />
+    <field name="Post_Slug" type="text_en_splitting_tight" indexed="true" stored="true" />
+    <field name="Post_Title" type="text_general" indexed="true" stored="true" termVectors="true" termPositions="false" termOffsets="false" />
     <field name="FullSearch" type="html_en_splitting" indexed="true" stored="false" />
-    <copyField source="Post.Content" dest="FullSearch" />
-    <copyField source="Post.Tags" dest="FullSearch" />
-    <copyField source="Post.Slug" dest="FullSearch" />
-    <copyField source="Post.Title" dest="FullSearch" />
+    <copyField source="Post_Content" dest="FullSearch" />
+    <copyField source="Post_Tags" dest="FullSearch" />
+    <copyField source="Post_Slug" dest="FullSearch" />
+    <copyField source="Post_Title" dest="FullSearch" />
   </fields>
   <uniqueKey>Id</uniqueKey>
-  <defaultSearchField>Post.Content</defaultSearchField>
+  <defaultSearchField>Post_Content</defaultSearchField>
   <solrQueryParser defaultOperator="OR" />
 </schema>
