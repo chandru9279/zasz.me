@@ -263,6 +263,14 @@
       </item>
     </group>
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="Chandirasekar Thiaga">
+      <words>
+        <w>dismax</w>
+        <w>solr</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/zasz.vitalize.iml" filepath="$PROJECT_DIR$/zasz.vitalize.iml" />

@@ -265,7 +265,11 @@
         <jmx serviceUrl="service:jmx:rmi:///jndi/rmi://localhost:9999/solr"/>
     -->
 
-    <!-- The default high-performance update handler -->
+    <!--
+        The default high-performance update handler.
+        The Update Handler section mostly relates to low level information about how updates are handled internally
+        (do not confuse with higher level configuration of "Request Handlers" for dealing with updates sent by clients)
+    -->
     <updateHandler class="solr.DirectUpdateHandler2">
 
         <!-- AutoCommit
@@ -282,44 +286,42 @@
            maxTime - Maximum amount of time that is allowed to pass
                      since a document was added before automaticly
                      triggering a new commit.
-        -->
-        <!--
+
          <autoCommit>
            <maxDocs>10000</maxDocs>
            <maxTime>1000</maxTime>
          </autoCommit>
         -->
 
-        <!-- Update Related Event Listeners
-
-           Various IndexWriter related events can trigger Listeners to
-           take actions.
-
-           postCommit - fired after every commit or optimize command
-           postOptimize - fired after every optimize command
-        -->
-        <!-- The RunExecutableListener executes an external command from a
-           hook such as postCommit or postOptimize.
-
-           exe - the name of the executable to run
-           dir - dir to use as the current working directory. (default=".")
-           wait - the calling thread waits until the executable returns.
-                  (default="true")
-           args - the arguments to pass to the program.  (default is none)
-           env - environment variables to set.  (default is none)
-        -->
-        <!-- This example shows how RunExecutableListener could be used
-           with the script based replication...
-           http://wiki.apache.org/solr/CollectionDistribution
-        -->
         <!--
-         <listener event="postCommit" class="solr.RunExecutableListener">
-           <str name="exe">solr/bin/snapshooter</str>
-           <str name="dir">.</str>
-           <bool name="wait">true</bool>
-           <arr name="args"> <str>arg1</str> <str>arg2</str> </arr>
-           <arr name="env"> <str>MYVAR=val1</str> </arr>
-         </listener>
+            Update Related Event Listeners
+
+            Various IndexWriter related events can trigger Listeners to
+            take actions.
+
+            postCommit - fired after every commit or optimize command
+            postOptimize - fired after every optimize command
+
+            The RunExecutableListener executes an external command from a
+            hook such as postCommit or postOptimize.
+
+            exe - the name of the executable to run
+            dir - dir to use as the current working directory. (default=".")
+            wait - the calling thread waits until the executable returns. (default="true")
+            args - the arguments to pass to the program.  (default is none)
+            env - environment variables to set.  (default is none)
+
+            This example shows how RunExecutableListener could be used
+            with the script based replication...
+            http://wiki.apache.org/solr/CollectionDistribution
+
+            <listener event="postCommit" class="solr.RunExecutableListener">
+                <str name="exe">solr/bin/snapshooter</str>
+                <str name="dir">.</str>
+                <bool name="wait">true</bool>
+                <arr name="args"> <str>arg1</str> <str>arg2</str> </arr>
+                <arr name="env"> <str>MYVAR=val1</str> </arr>
+            </listener>
         -->
     </updateHandler>
 
@@ -588,8 +590,7 @@
            using enableRemoteStreaming="true"
 
         -->
-        <requestParsers enableRemoteStreaming="true"
-                        multipartUploadLimitInKB="2048000"/>
+        <requestParsers enableRemoteStreaming="true" multipartUploadLimitInKB="2048000"/>
 
         <!-- HTTP Caching
 
@@ -677,9 +678,75 @@
            will be overridden by parameters in the request
         -->
         <lst name="defaults">
+            <!-- The echoParams parameter tells Solr what kinds of Request parameters should be included in the response
+            for debugging purposes, legal values include: none, explicit, all -->
             <str name="echoParams">explicit</str>
+
+            <!-- This parameter is used to paginate results from a query. When specified, it indicates the maximum number
+            of documents from the complete result set to return to the client for every request. (You can consider it as
+            the maximum number of result appear in the page) The default value is "10"-->
             <int name="rows">10</int>
+
+            <!-- The defType parameter can be used to specify the query parser to use with this request -->
+            <str name="defType">edismax</str>
+
+            <!-- q.alt - An alternate query to be used in cases where the main query (q) is not specified (or blank).
+            This query should be expressed in the Standard SolrQueryParser syntax (you can use q.alt=*:* to denote that
+            all documents should be returned when no query is specified)-->
+            <str name="q.alt">*:*</str>
+
+            <!-- FieldList parameter can be used to specify a set of fields to return, limiting the amount of information in the
+            response. When returning the results to the client, only fields in this list will be included.
+            The set of fields to be returned can be specified as a space (or comma) separated list of field names. The
+            string "score" can be used to indicate that the score of each document for the particular query should be
+            returned as a field, and the string "*" can be used to indicate all stored fields the document has.-->
+            <str name="fl">Post.Slug, Post.Title, Post.Tags, score</str>
+
+            <!-- 'true' to enable MoreLikeThis results. It looks at the fields' term vectors (specified in mlt.fl) of every result
+            construct a Lucene query from the terms and returns 3 more results for every result if available. I suspect this is a
+            costly operation, and so turned it off by default -->
+            <str name="mlt">false</str>
+
+            <!-- The number of similar documents to return for each result. -->
+            <str name="mlt.count">3</str>
+
+            <!-- MoreLikeThis default boosting.
+            Query fields and their boosts using the same format as that used in DisMaxQParserPlugin.
+            These fields must also be specified in mlt.fl. -->
+            <str name="mlt.qf">Post.Title^1.5 Post.Content^1.0</str>
+
+            <!-- MoreLikeThis Minimum Term Frequency - the frequency below which terms will be ignored in the source doc.-->
+            <str name="mlt.mintf">4</str>
+
+            <!-- The fields to use for similarity. NOTE: if possible, these should have a stored TermVector -->
+            <str name="mlt.fl">Post.Title, Post.Content</str>
+
+            <!-- This is for the Dismax QueryParser Plugin and it is query time boosting of fields. Since I've
+             decided to do all boosting at index time (eg : Post.Title) this one is not needed
+            <str name="qf">
+                text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4
+            </str>
+            -->
+
+            <!-- This is for the Highlighter search component and it is query time boosting of fields. Since I've -->
+            <str name="hl">on</str>
+            <str name="hl.fl">text features name</str>
+            <str name="f.name.hl.fragsize">0</str>
+            <str name="f.name.hl.alternateField">name</str>
+
         </lst>
+
+        <lst name="invariants">
+            <!-- The wt (writer type) parameter is used by Solr to determine which QueryResponseWriter should be used
+             to process the request. Valid values are any of the names specified by <queryResponseWriter... />
+            default is "standard" -->
+            <str name="wt">xml</str>
+        </lst>
+
+        <arr name="last-components">
+            <str>spellchecker</str>
+        </arr>
+
         <!--
             In addition to defaults, "appends" params can be specified
             to identify values which should be appended to the list of
@@ -742,31 +809,6 @@
        (SearchHandler) can be registered multiple times with different
        names (and different init parameters)
     -->
-    <requestHandler name="/browse" class="solr.SearchHandler">
-        <lst name="defaults">
-            <str name="echoParams">explicit</str>
-
-            <!-- VelocityResponseWriter settings -->
-            <str name="wt">velocity</str>
-
-            <str name="v.template">browse</str>
-            <str name="v.layout">layout</str>
-            <str name="title">Solritas</str>
-
-            <str name="defType">edismax</str>
-            <str name="q.alt">*:*</str>
-            <str name="rows">10</str>
-            <str name="fl">*,score</str>
-            <str name="mlt.qf">
-                text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4
-            </str>
-            <str name="mlt.fl">text,features,name,sku,id,manu,cat</str>
-            <int name="mlt.count">3</int>
-
-            <str name="qf">
-                text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4
-            </str>
-
             <str name="facet">on</str>
             <str name="facet.field">cat</str>
             <str name="facet.field">manu_exact</str>
@@ -786,16 +828,8 @@
             <str name="f.manufacturedate_dt.facet.range.other">before</str>
             <str name="f.manufacturedate_dt.facet.range.other">after</str>
 
-
-            <!-- Highlighting defaults -->
-            <str name="hl">on</str>
-            <str name="hl.fl">text features name</str>
-            <str name="f.name.hl.fragsize">0</str>
-            <str name="f.name.hl.alternateField">name</str>
         </lst>
-        <arr name="last-components">
-            <str>spellcheck</str>
-        </arr>
+
         <!--
         <str name="url-scheme">httpx</str>
         -->
@@ -871,8 +905,10 @@
         query analysis is performed, the produced tokens of the
         field value analysis will be marked as "matched" for every
         token that is produces by the query analysis
-    -->
+
     <requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler"/>
+
+    -->
 
 
     <!-- Document Analysis Handler http://wiki.apache.org/solr/AnalysisRequestHandler
@@ -902,8 +938,10 @@
         also supports the "analysis.showmatch" parameter which when set to
         true, all field tokens that match the query tokens will be marked
         as a "match".
-    -->
+
     <requestHandler name="/analysis/document" class="solr.DocumentAnalysisRequestHandler" startup="lazy"/>
+
+    -->
 
     <!-- Admin Handlers
 
@@ -1024,7 +1062,7 @@
 
        http://wiki.apache.org/solr/SpellCheckComponent
     -->
-    <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
+    <searchComponent name="spellchecker" class="solr.SpellCheckComponent">
 
         <str name="queryAnalyzerFieldType">textSpell</str>
 
@@ -1320,8 +1358,8 @@
                        default="true"
                        class="solr.highlight.HtmlFormatter">
                 <lst name="defaults">
-                    <str name="hl.simple.pre"><![CDATA[<em>]]></str>
-                    <str name="hl.simple.post"><![CDATA[</em>]]></str>
+                    <str name="hl.simple.pre"><![CDATA[<span class="Result-Highlight">]]></str>
+                    <str name="hl.simple.post"><![CDATA[</span>]]></str>
                 </lst>
             </formatter>
 
