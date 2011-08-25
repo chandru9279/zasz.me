@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace zasz.me.Integration.MVC
 {
-    public class BaseController : Controller
+    public abstract class BaseController : Controller
     {
         public ActionResult Default()
         {
@@ -22,10 +22,8 @@ namespace zasz.me.Integration.MVC
         {
             var DefaultAction = typeof(DefaultActionAttribute);
 
-            var MethodsFlaggedWithDefaultAction = from Member in GetType().GetMembers()
-                                                  where
-                                                      Member.MemberType == MemberTypes.Method &&
-                                                      Member.GetCustomAttributes(DefaultAction, false).Length > 0
+            var MethodsFlaggedWithDefaultAction = from Member in GetType().GetMethods()
+                                                  where Member.GetCustomAttributes(DefaultAction, false).Length > 0
                                                   select Member;
 
             if (MethodsFlaggedWithDefaultAction.Count() == 0)
