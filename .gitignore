@@ -4,7 +4,7 @@
 *.suo
 *.cache
 *.user
-*.iws
+*iws
 *.db
 
 packages/

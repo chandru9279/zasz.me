@@ -76,15 +76,47 @@
       <str name="f.Post_Title.hl.alternateField">Post_Title</str>
       <str name="f.Post_Tags.hl.alternateField">Post_Tags</str>
       <str name="f.Post_Content.hl.alternateField">Post_Title</str>
+      <str name="spellcheck">true</str>
     </lst>
     <lst name="invariants">
       <str name="wt">xml</str>
     </lst>
     <arr name="last-components">
       <str>spellchecker</str>
+      <str>elevator</str>
     </arr>
   </requestHandler>
   <requestHandler name="/update" class="solr.XmlUpdateRequestHandler">
+  </requestHandler>
+  <requestHandler name="autocomplete" class="solr.SearchHandler" startup="lazy">
+    <lst name="defaults">
+      <str name="terms.regex">zasz.*</str>
+      <str name="terms.regex.flag">case_insensitive</str>
+    </lst>
+    <lst name="invariants">
+      <str name="q.alt">*:*</str>
+      <str name="terms.fl">FullSearch</str>
+      <str name="wt">json</str>
+      <bool name="terms">true</bool>
+    </lst>
+    <arr name="components">
+      <str>terms</str>
+    </arr>
+  </requestHandler>
+  <requestHandler name="cloud" class="solr.SearchHandler" startup="lazy">
+    <lst name="defaults">
+      <str name="q.alt">*:*</str>
+    </lst>
+    <lst name="invariants">
+      <str name="fl">Post_Content, Post_Title</str>
+      <str name="wt">xml</str>
+      <bool name="tv">true</bool>
+      <bool name="tv.tf">true</bool>
+      <bool name="tv.df">false</bool>
+    </lst>
+    <arr name="components">
+      <str>termVectors</str>
+    </arr>
   </requestHandler>
   <requestHandler name="/admin/" class="solr.admin.AdminHandlers" />
   <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
@@ -108,7 +140,7 @@
       <str name="spellcheckIndexDir">spellchecker</str>
     </lst>
   </searchComponent>
-  <searchComponent name="tvComponent" class="solr.TermVectorComponent" />
+  <searchComponent name="termVectors" class="solr.TermVectorComponent" />
   <searchComponent name="terms" class="solr.TermsComponent" />
   <searchComponent name="elevator" class="solr.QueryElevationComponent">
     <str name="queryFieldType">string</str>

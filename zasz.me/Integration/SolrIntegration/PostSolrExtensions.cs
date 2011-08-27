@@ -12,25 +12,25 @@ namespace zasz.me.Integration.SolrIntegration
             var IdentityProperty = PostType.GetProperty("Id");
             Manager.Add(IdentityProperty, "Id");
             Manager.SetUniqueKey(IdentityProperty);
-            Manager.Add(PostType.GetProperty("Content"), "Post.Content");
-            Manager.Add(PostType.GetProperty("Tags"), "Post.Tags", 1.5f);
-            Manager.Add(PostType.GetProperty("Slug"), "Post.Slug");
-            Manager.Add(PostType.GetProperty("Title"), "Post.Title", 2.0f);
+            Manager.Add(PostType.GetProperty("Content"), "Post_Content");
+            Manager.Add(PostType.GetProperty("Tags"), "Post_Tags", 1.5f);
+            Manager.Add(PostType.GetProperty("Slug"), "Post_Slug");
+            Manager.Add(PostType.GetProperty("Title"), "Post_Title", 2.0f);
         }
     }
 
 
     public class PostSearchResult
     {
-        public PostSearchResult(string Id, string Permalink, string Context)
+        public PostSearchResult(string Id, string Link, string Snippet)
         {
             this.Id = Id;
-            this.Permalink = Permalink;
-            this.Context = Context;
+            this.Link = Link;
+            this.Snippet = Snippet;
         }
 
         public string Id { get; set; }
-        public string Permalink { get; set; }
-        public string Context { get; set; }
+        public string Link { get; set; }
+        public string Snippet { get; set; }
     }
 }

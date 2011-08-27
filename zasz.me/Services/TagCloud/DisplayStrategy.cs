@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace zasz.me.Services
+namespace zasz.me.Services.TagCloud
 {
     public abstract class DisplayStrategy
     {

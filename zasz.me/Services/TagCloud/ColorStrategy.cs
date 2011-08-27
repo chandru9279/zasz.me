@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace zasz.me.Services
+namespace zasz.me.Services.TagCloud
 {
-    using ColorStrategies =
-        Dictionary<Style, Func<Color, HslColor, Theme, ColorStrategy>>;
-
     public abstract class ColorStrategy
     {
-        private static readonly ColorStrategies _Set;
+        private static readonly Dictionary<Style, Func<Color, HslColor, Theme, ColorStrategy>> _Set;
 
         protected readonly HslColor _Foreground;
         protected Color _Background;
@@ -17,7 +14,7 @@ namespace zasz.me.Services
 
         static ColorStrategy()
         {
-            _Set = new ColorStrategies(3);
+            _Set = new Dictionary<Style, Func<Color, HslColor, Theme, ColorStrategy>>(3);
             _Set.Add(Style.Fixed, (BgHsl, FgHsl, TheTheme) => new FixedForeground(BgHsl, FgHsl));
             _Set.Add(Style.Varied, (BgHsl, FgHsl, TheTheme) => new VariedForeground(BgHsl, FgHsl, TheTheme));
             _Set.Add(Style.RandomVaried, (BgHsl, FgHsl, TheTheme) => new RandomVaried(BgHsl, FgHsl, TheTheme));

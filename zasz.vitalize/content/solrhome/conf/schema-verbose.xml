@@ -507,7 +507,8 @@
    <field name="Post_Title" type="text_general" indexed="true" stored="true" termVectors="true" termPositions="false" termOffsets="false"/>
 
      <!-- catchall field, containing all other searchable text fields,
-     implemented via copyField further on in this schema -->
+     implemented via copyField further on in this schema. This is used
+      by spellchecker, and the autosuggest response handler with terms component to create a full cloud -->
    <field name="FullSearch" type="html_en_splitting" indexed="true" stored="false"/>
      <!--
         copyField commands copy one field to another at the time a document

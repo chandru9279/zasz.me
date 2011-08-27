@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace zasz.me.Services
+namespace zasz.me.Services.TagCloud
 {
     /// <summary>
     /// Color class shown in Rich Newman's Post http://richnewman.wordpress.com/hslcolor-class/

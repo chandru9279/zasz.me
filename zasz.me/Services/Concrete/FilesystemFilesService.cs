@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Web;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Configuration;
+using zasz.me.Services.Contracts;
 
-namespace zasz.me.Services
+namespace zasz.me.Services.Concrete
 {
     public class FilesystemFilesService : IFilesService
     {

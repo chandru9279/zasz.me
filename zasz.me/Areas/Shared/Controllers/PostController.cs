@@ -12,6 +12,7 @@ using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
 using zasz.me.Services;
+using zasz.me.Services.TagCloud;
 
 namespace zasz.me.Areas.Shared.Controllers
 {

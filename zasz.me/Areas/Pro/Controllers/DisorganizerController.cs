@@ -8,6 +8,7 @@ using zasz.me.Areas.Pro.Models;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Integration.MVC;
 using zasz.me.Services;
+using zasz.me.Services.TagCloud;
 
 namespace zasz.me.Areas.Pro.Controllers
 {

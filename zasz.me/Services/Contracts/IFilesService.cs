@@ -1,8 +1,7 @@
-﻿
 using System;
 using System.Web;
 
-namespace zasz.me.Services
+namespace zasz.me.Services.Contracts
 {
     public interface IFilesService
     {

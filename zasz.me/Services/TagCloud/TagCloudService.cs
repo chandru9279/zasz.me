@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
 
-namespace zasz.me.Services
+namespace zasz.me.Services.TagCloud
 {
     public class TagCloudService
     {
@@ -115,7 +115,7 @@ namespace zasz.me.Services
         public float Margin { get; set; }
 
         /// <summary>
-        ///   Words that were not rendered because of non-availability 
+        ///   Words that were not rendered because of non-availability
         ///   of free area to render them. If count is anything other than 0
         ///   use a bigger bitmap as input with more area.
         /// </summary>
@@ -197,7 +197,7 @@ namespace zasz.me.Services
             if (Crop)
                 TheCloudBitmap = CropAndTranslate(TheCloudBitmap);
             Borders = _Occupied
-                .Zip(_TagsSorted.Keys, (Rect, Tag) => new {Rect, Tag})
+                .Zip(_TagsSorted.Keys.Where(Word => !WordsSkipped.ContainsKey(Word)), (Rect, Tag) => new {Rect, Tag})
                 .ToDictionary(It => It.Tag, It => It.Rect);
             return TheCloudBitmap;
         }

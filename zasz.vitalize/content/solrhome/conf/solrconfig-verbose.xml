@@ -779,6 +779,9 @@
             <str name="f.Post_Tags.hl.alternateField">Post_Tags</str>
             <str name="f.Post_Content.hl.alternateField">Post_Title</str>
 
+            <!-- This search handler is now also a Suggester.-->
+            <str name="spellcheck">true</str>
+
         </lst>
 
         <lst name="invariants">
@@ -791,6 +794,7 @@
 
         <arr name="last-components">
             <str>spellchecker</str>
+            <str>elevator</str>
         </arr>
 
         <!--
@@ -869,6 +873,78 @@
             </lst>
         -->
     </requestHandler>
+
+    <requestHandler name="autocomplete" class="solr.SearchHandler" startup="lazy">
+        <lst name="defaults">
+            <!--  Optional. Restrict matches to terms that start with the prefix
+                <str name="terms.prefix">zasz</str>
+            -->
+
+            <!-- Optional. Restrict matches to terms that match the regular expression.  -->
+            <str name="terms.regex">zasz.*</str>
+
+            <!-- {case_insensitive|comments|multiline|literal|dotall|unicode_case|canon_eq|unix_lines}
+            - Optional. Flags to be used when evaluating the regular expression defined in the
+            "terms.regex" parameter (see
+            http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html#compile%28java.lang.String,%20int%29
+            for more details). This parameter can be defined multiple times (each time with different flag) -->
+            <str name="terms.regex.flag">case_insensitive</str>
+        </lst>
+        <lst name="invariants">
+            <!-- Autocomplete should always look for words to complete from all fields -->
+            <str name="q.alt">*:*</str>
+
+            <!-- Field List on which we get the terms on the given document Id -->
+            <str name="terms.fl">FullSearch</str>
+
+            <!-- Writer hard set to JSON -->
+            <str name="wt">json</str>
+
+            <!-- Turning on the terms component -->
+            <bool name="terms">true</bool>
+
+             <!-- If count, sorts the terms by the term frequency (highest count first).
+             If index, returns the terms in index order. Default is to sort by count.
+                <bool name="terms.sort">count</bool>
+            -->
+        </lst>
+        <!-- This is the only component for this search handler -->
+        <arr name="components">
+            <str>terms</str>
+        </arr>
+    </requestHandler>
+
+    <!-- This can be used to return a set of terms out of which a cloud can be created. -->
+    <requestHandler name="cloud" class="solr.SearchHandler" startup="lazy">
+        <lst name="defaults">
+            <!-- If you give a valid Document Id then you get term vectors
+             for that document. Else you get term vectors for all the friggin'
+             doucments.
+            <str name="q">Id:GiveValidDocumentId</str> -->
+            <str name="q.alt">*:*</str>
+        </lst>
+        <lst name="invariants">
+            <!-- Field List on which we get the terms on the given document Id -->
+            <str name="fl">Post_Content, Post_Title</str>
+
+            <!-- Writer hard set to xml -->
+            <str name="wt">xml</str>
+
+            <!-- Turning on the term vector component -->
+            <bool name="tv">true</bool>
+
+            <!-- Return document term frequency info per term in the document. -->
+            <bool name="tv.tf">true</bool>
+
+            <!--  Return the Document Frequency (DF) of the term in the collection. This can be expensive. -->
+            <bool name="tv.df">false</bool>
+        </lst>
+        <!-- This is the only component for this search handler -->
+        <arr name="components">
+            <str>termVectors</str>
+        </arr>
+    </requestHandler>
+
     <!--
         Binary Update Request Handler http://wiki.apache.org/solr/javabin
         <requestHandler name="/update/javabin" class="solr.BinaryUpdateRequestHandler"/>
@@ -1160,7 +1236,7 @@
     -->
 
     <!-- Term Vector Component http://wiki.apache.org/solr/TermVectorComponent -->
-    <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
+    <searchComponent name="termVectors" class="solr.TermVectorComponent"/>
 
     <!--
         A request handler for demonstrating the term vector component
@@ -1176,6 +1252,26 @@
                 <str>tvComponent</str>
             </arr>
         </requestHandler>
+    -->
+
+    <!-- Terms Component
+
+       http://wiki.apache.org/solr/TermsComponent
+
+       A component to return terms and document frequency of those
+       terms
+    -->
+    <searchComponent name="terms" class="solr.TermsComponent"/>
+
+    <!-- A request handler for demonstrating the terms component
+    <requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
+        <lst name="defaults">
+            <bool name="terms">true</bool>
+        </lst>
+        <arr name="components">
+            <str>terms</str>
+        </arr>
+    </requestHandler>
     -->
 
     <!-- Clustering Component
@@ -1291,25 +1387,6 @@
     -->
 
 
-    <!-- Terms Component
-
-       http://wiki.apache.org/solr/TermsComponent
-
-       A component to return terms and document frequency of those
-       terms
-    -->
-    <searchComponent name="terms" class="solr.TermsComponent"/>
-
-    <!-- A request handler for demonstrating the terms component
-    <requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
-        <lst name="defaults">
-            <bool name="terms">true</bool>
-        </lst>
-        <arr name="components">
-            <str>terms</str>
-        </arr>
-    </requestHandler>
-    -->
 
     <!-- Query Elevation Component
 

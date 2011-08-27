@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using zasz.me.Integration.MVC;
 using zasz.me.Services;
+using zasz.me.Services.Contracts;
 
 namespace zasz.me.Areas.Shared.Controllers
 {

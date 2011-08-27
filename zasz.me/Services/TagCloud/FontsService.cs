@@ -5,14 +5,14 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 
-namespace zasz.me.Services
+namespace zasz.me.Services.TagCloud
 {
     public class FontsService : IDisposable
     {
 
-// ReSharper disable InconsistentNaming
+        // ReSharper disable InconsistentNaming
         private readonly Action<string> Die = Message => { throw new Exception(Message); };
-// ReSharper restore InconsistentNaming
+        // ReSharper restore InconsistentNaming
 
         private PrivateFontCollection _Fonts;
 
@@ -28,13 +28,12 @@ namespace zasz.me.Services
         {
             if (string.IsNullOrEmpty(FontsFolderPath)) Die("Null Fonts Path");
             string[] Files = Directory.GetFiles(FontsFolderPath);
-            IEnumerable<string> FontFiles = from AFile in Files
-                                            where AFile.EndsWith(".ttf")
-                                            select AFile;
+            List<string> FontFiles = (from AFile in Files
+                                      where AFile.EndsWith(".ttf")
+                                      select AFile).ToList();
             if (FontFiles.Count() == 0) Die("No Fonts Found");
             _Fonts = new PrivateFontCollection();
-            foreach (string File in FontFiles)
-                _Fonts.AddFontFile(File);
+            FontFiles.ForEach(F => _Fonts.AddFontFile(F));
             AvailableFonts = _Fonts.Families.ToDictionary(It => It.Name);
         }
 

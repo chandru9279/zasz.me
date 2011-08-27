@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 using zasz.me.Services;
+using zasz.me.Services.TagCloud;
 
 namespace zasz.develop.Utils
 {

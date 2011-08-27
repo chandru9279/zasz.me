@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using zasz.me.Services;
+using zasz.me.Services.TagCloud;
 
 namespace zasz.health.ServiceTests
 {
