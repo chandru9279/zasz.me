@@ -81,8 +81,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Refs\Joel.Net.Akismet.dll</HintPath>
     </Reference>
-    <Reference Include="Lucene.Net">
-      <HintPath>..\packages\Lucene.2.9.2.2\lib\Lucene.Net.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="SolrNet, Version=0.3.0.0, Culture=neutral, PublicKeyToken=bc21753e8aa334cb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolrNet.0.3.1\lib\SolrNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

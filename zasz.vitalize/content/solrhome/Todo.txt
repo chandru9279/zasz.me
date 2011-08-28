@@ -1,0 +1,7 @@
+Suspect Slug and tag were never indexed
+  
+Logging does not work
+
+Mapping manager does not work
+
+Spelling Check does not work

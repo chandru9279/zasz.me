@@ -762,7 +762,7 @@
             <!-- Collapse contiguous fragments into a single fragment. "true"
             indicates contiguous fragments will be collapsed into single
             fragment. This parameter accepts per-field overrides.-->
-            <str name="hl.mergeContiguous">2</str>
+            <str name="hl.mergeContiguous">true</str>
 
             <!-- The size, in characters, of fragments to consider for
             highlighting. "0" indicates that the whole field value should
@@ -891,8 +891,6 @@
             <str name="terms.regex.flag">case_insensitive</str>
         </lst>
         <lst name="invariants">
-            <!-- Autocomplete should always look for words to complete from all fields -->
-            <str name="q.alt">*:*</str>
 
             <!-- Field List on which we get the terms on the given document Id -->
             <str name="terms.fl">FullSearch</str>
@@ -922,10 +920,19 @@
              doucments.
             <str name="q">Id:GiveValidDocumentId</str> -->
             <str name="q.alt">*:*</str>
+
+            <!-- Made it so only one document's term vectors can be pulled out at a time.
+            Override if we need to pull term vectors for a set of Posts/Docs -->
+            <int name="rows">1</int>
         </lst>
         <lst name="invariants">
-            <!-- Field List on which we get the terms on the given document Id -->
-            <str name="fl">Post_Content, Post_Title</str>
+            <!-- Field List on which we get the terms on the given document Id
+            Surprisingly commas not allowed here, to seperate fields. -->
+            <str name="tv.fl">FullSearch</str>
+
+            <!-- While creating cloud, we only need the title and the terms.
+            Surprisingly commas not allowed here, to seperate fields. -->
+            <str name="fl">Post_Title</str>
 
             <!-- Writer hard set to xml -->
             <str name="wt">xml</str>
@@ -939,8 +946,9 @@
             <!--  Return the Document Frequency (DF) of the term in the collection. This can be expensive. -->
             <bool name="tv.df">false</bool>
         </lst>
-        <!-- This is the only component for this search handler -->
+        <!-- This replaces the usual set of componants.  -->
         <arr name="components">
+            <str>query</str>
             <str>termVectors</str>
         </arr>
     </requestHandler>
@@ -1154,7 +1162,7 @@
     -->
     <searchComponent name="spellchecker" class="solr.SpellCheckComponent">
 
-        <str name="queryAnalyzerFieldType">textSpell</str>
+        <str name="queryAnalyzerFieldType">text_general</str>
 
         <!-- Multiple "Spell Checkers" can be declared and used by this
            component
@@ -1164,8 +1172,11 @@
         <lst name="spellchecker">
             <str name="name">default</str>
             <str name="field">FullSearch</str>
-            <str name="spellcheckIndexDir">spellchecker</str>
-            <!-- uncomment this to require terms to occur in 1% of the documents in order to be included in the dictionary
+            <!--
+
+                <str name="spellcheckIndexDir">spellchecker</str>
+
+            uncomment this to require terms to occur in 1% of the documents in order to be included in the dictionary
                 <float name="thresholdTokenFrequency">.01</float>
             -->
         </lst>

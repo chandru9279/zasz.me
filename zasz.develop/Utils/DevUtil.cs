@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Practices.ServiceLocation;
+using SolrNet;
 using zasz.develop.Data;
 using zasz.develop.SampleData;
 using zasz.me.Areas.Shared.Models;
+using zasz.me.Integration;
 using zasz.me.Integration.EntityFramework;
+using zasz.me.Integration.SolrIntegration;
+using zasz.me.Services.Concrete;
 using Domain = zasz.me.Areas.Shared.Models.Site;
 using System.Xml;
 
@@ -21,6 +26,7 @@ namespace zasz.develop.Utils
         private readonly IPostRepository _PostRepository;
         private readonly ITagRepository _TagRepository;
         private const string SolrConfigMain = @"..\..\..\..\zasz.vitalize\content\solrhome\conf\";
+        private readonly SolrSearchService Search;
 
 
         public DevUtil()
@@ -31,6 +37,8 @@ namespace zasz.develop.Utils
             _FullContext = new FullContext();
             _TagRepository = new Tags(_FullContext);
             _PostRepository = new Posts(_FullContext);
+            SolrIntegration.Bootstrap();
+            Search = new SolrSearchService(ServiceLocator.Current.GetInstance<ISolrOperations<Post>>());
         }
 
         public string Current { get; set; }
@@ -97,11 +105,11 @@ namespace zasz.develop.Utils
 
         private void DeleteByType<T>() where T : class
         {
-            Log("Deleting All {0} from ColdStorage.. ", typeof (T));
+            Log("Deleting All {0} from ColdStorage.. ", typeof(T));
             foreach (T Model in _FullContext.Set<T>())
                 _FullContext.Set<T>().Remove(Model);
             _FullContext.SaveChanges();
-            Log("Done (All {0} Deleted from ColdStorage..) !", typeof (T));
+            Log("Done (All {0} Deleted from ColdStorage..) !", typeof(T));
             Log("Done");
         }
 
@@ -117,18 +125,18 @@ namespace zasz.develop.Utils
         private void CommentsToWxrClick(object Sender, EventArgs E)
         {
             string Path = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Data-Tools-Setup\Posts";
-            new CommentsExport {CommentsProgress = CommentsProgress, SpamAmount = SpamAmount}.ConvertComments(Path, Log);
+            new CommentsExport { CommentsProgress = CommentsProgress, SpamAmount = SpamAmount }.ConvertComments(Path, Log);
             Log("Done");
         }
 
-// ReSharper disable MemberCanBeMadeStatic.Local
+        // ReSharper disable MemberCanBeMadeStatic.Local
         private void ShowTagCloudClick(object Sender, EventArgs E)
         {
             new TagCloud().Show();
             Log("Done");
         }
 
-// ReSharper restore MemberCanBeMadeStatic.Local
+        // ReSharper restore MemberCanBeMadeStatic.Local
 
         private void ClearUnusedTagsClick(object Sender, EventArgs E)
         {
@@ -179,13 +187,16 @@ namespace zasz.develop.Utils
 
         private void BuildSolrIndexClick(object Sender, EventArgs E)
         {
-            
+            List<Post> Posts = _PostRepository.Page(0, 100);
+            Search.Index(Posts.Where(P => !string.IsNullOrEmpty(P.Content)).ToList());
+            Log("Done");
         }
 
         private void DecommentSolrClick(object sender, EventArgs e)
         {
             RemoveComments("solrconfig-verbose.xml");
             RemoveComments("schema-verbose.xml");
+            Log("Done Decommenting");
         }
 
         private static void RemoveComments(string FileName)
@@ -197,6 +208,7 @@ namespace zasz.develop.Utils
             var Doc = new XmlDocument();
             Doc.Load(Reader);
             Doc.Save(SolrConfigMain + FileName.Replace("-verbose", ""));
+            Reader.Close();
         }
     }
 }

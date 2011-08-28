@@ -69,7 +69,7 @@
       <str name="hl">true</str>
       <str name="hl.fl">Post_Title Post_Content</str>
       <str name="hl.snippets">2</str>
-      <str name="hl.mergeContiguous">2</str>
+      <str name="hl.mergeContiguous">true</str>
       <str name="f.Post_Title.hl.fragsize">0</str>
       <str name="f.Post_Tags.hl.fragsize">0</str>
       <str name="f.Post_Content.hl.fragsize">150</str>
@@ -94,7 +94,6 @@
       <str name="terms.regex.flag">case_insensitive</str>
     </lst>
     <lst name="invariants">
-      <str name="q.alt">*:*</str>
       <str name="terms.fl">FullSearch</str>
       <str name="wt">json</str>
       <bool name="terms">true</bool>
@@ -106,15 +105,18 @@
   <requestHandler name="cloud" class="solr.SearchHandler" startup="lazy">
     <lst name="defaults">
       <str name="q.alt">*:*</str>
+      <int name="rows">1</int>
     </lst>
     <lst name="invariants">
-      <str name="fl">Post_Content, Post_Title</str>
+      <str name="tv.fl">FullSearch</str>
+      <str name="fl">Post_Title</str>
       <str name="wt">xml</str>
       <bool name="tv">true</bool>
       <bool name="tv.tf">true</bool>
       <bool name="tv.df">false</bool>
     </lst>
     <arr name="components">
+      <str>query</str>
       <str>termVectors</str>
     </arr>
   </requestHandler>
@@ -133,11 +135,10 @@
     </lst>
   </requestHandler>
   <searchComponent name="spellchecker" class="solr.SpellCheckComponent">
-    <str name="queryAnalyzerFieldType">textSpell</str>
+    <str name="queryAnalyzerFieldType">text_general</str>
     <lst name="spellchecker">
       <str name="name">default</str>
       <str name="field">FullSearch</str>
-      <str name="spellcheckIndexDir">spellchecker</str>
     </lst>
   </searchComponent>
   <searchComponent name="termVectors" class="solr.TermVectorComponent" />

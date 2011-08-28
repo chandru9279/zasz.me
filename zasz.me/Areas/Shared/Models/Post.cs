@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HtmlAgilityPack;
+using SolrNet.Attributes;
 
 namespace zasz.me.Areas.Shared.Models
 {
@@ -12,15 +13,19 @@ namespace zasz.me.Areas.Shared.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [SolrField("Id")]
         public Guid Id { get; set; }
         
         public string Slug { get; set; }
 
         [Required]
+        [SolrField("Post_Title")]
         public string Title { get; set; }
 
+        [SolrField("Post_Content")]
         public string Content { get; set; }
 
+        [SolrField("Post_Tags")]
         public virtual ICollection<Tag> Tags { get; set; }
 
         [NotMapped]
