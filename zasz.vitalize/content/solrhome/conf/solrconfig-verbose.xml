@@ -665,7 +665,7 @@
        of SearchComponents (see below) and supports distributed
        queries across multiple shards
     -->
-    <requestHandler name="search" class="solr.SearchHandler" default="true">
+    <requestHandler name="/search" class="solr.SearchHandler" default="true">
         <!-- default values for query parameters can be specified, these
            will be overridden by parameters in the request
         -->
@@ -874,14 +874,15 @@
         -->
     </requestHandler>
 
-    <requestHandler name="autocomplete" class="solr.SearchHandler" startup="lazy">
+    <requestHandler name="/autocomplete" class="solr.SearchHandler" startup="lazy">
         <lst name="defaults">
             <!--  Optional. Restrict matches to terms that start with the prefix
                 <str name="terms.prefix">zasz</str>
             -->
 
-            <!-- Optional. Restrict matches to terms that match the regular expression.  -->
+            <!-- Optional. Restrict matches to terms that match the regular expression.
             <str name="terms.regex">zasz.*</str>
+            -->
 
             <!-- {case_insensitive|comments|multiline|literal|dotall|unicode_case|canon_eq|unix_lines}
             - Optional. Flags to be used when evaluating the regular expression defined in the
@@ -913,7 +914,7 @@
     </requestHandler>
 
     <!-- This can be used to return a set of terms out of which a cloud can be created. -->
-    <requestHandler name="cloud" class="solr.SearchHandler" startup="lazy">
+    <requestHandler name="/cloud" class="solr.SearchHandler" startup="lazy">
         <lst name="defaults">
             <!-- If you give a valid Document Id then you get term vectors
              for that document. Else you get term vectors for all the friggin'

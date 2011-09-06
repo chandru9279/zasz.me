@@ -54,7 +54,7 @@
     <requestParsers enableRemoteStreaming="true" multipartUploadLimitInKB="2048000" />
     <httpCaching never304="true" />
   </requestDispatcher>
-  <requestHandler name="search" class="solr.SearchHandler" default="true">
+  <requestHandler name="/search" class="solr.SearchHandler" default="true">
     <lst name="defaults">
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
@@ -88,9 +88,9 @@
   </requestHandler>
   <requestHandler name="/update" class="solr.XmlUpdateRequestHandler">
   </requestHandler>
-  <requestHandler name="autocomplete" class="solr.SearchHandler" startup="lazy">
+  <requestHandler name="/autocomplete" class="solr.SearchHandler" startup="lazy">
     <lst name="defaults">
-      <str name="terms.regex">zasz.*</str>
+      <!--<str name="terms.regex">zasz.*</str>-->
       <str name="terms.regex.flag">case_insensitive</str>
     </lst>
     <lst name="invariants">
@@ -102,7 +102,7 @@
       <str>terms</str>
     </arr>
   </requestHandler>
-  <requestHandler name="cloud" class="solr.SearchHandler" startup="lazy">
+  <requestHandler name="/cloud" class="solr.SearchHandler" startup="lazy">
     <lst name="defaults">
       <str name="q.alt">*:*</str>
       <int name="rows">1</int>
