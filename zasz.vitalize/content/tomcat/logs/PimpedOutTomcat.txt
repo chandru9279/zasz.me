@@ -10,3 +10,4 @@ Created 2 services in server.xml each pointing to its own set of webapps
 Added zasz user in tomcat-users for admin and management.
 Also added digest="md5" on the <Realm> in server.xml and put in an MD5 in tomcat-users, with digest.bat
 Renamed apache-solr-3.3.0.war into solr.war for easy url access
+Changed tomcat/conf/logging.properties to include SOLR logs
