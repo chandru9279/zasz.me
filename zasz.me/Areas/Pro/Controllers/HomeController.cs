@@ -8,9 +8,9 @@ namespace zasz.me.Areas.Pro.Controllers
     {
         private readonly ISearchService _Search;
 
-        public HomeController(ISearchService Search)
+        public HomeController()
         {
-            _Search = Search;
+            _Search = null;
         }
 
         [DefaultAction]

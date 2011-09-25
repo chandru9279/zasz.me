@@ -330,8 +330,8 @@
         <filter class="solr.PorterStemFilterFactory"/>
       </analyzer>
     </fieldType>
-     <!-- Same as html_en_splitting but leaves out all stemming -->
-      <fieldType name="html_en_unstemmed" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+    <!-- Same as html_en_splitting but leaves out all stemming -->
+    <fieldType name="html_en_unstemmed" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
       <analyzer type="index">
         <charFilter class="solr.HTMLStripCharFilterFactory" /><!-- Note this comes before the tokenizer -->
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
