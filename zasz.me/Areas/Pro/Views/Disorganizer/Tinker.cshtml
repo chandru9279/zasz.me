@@ -59,11 +59,7 @@
             Words
             @Html.ValidationMessageFor(It => It.Words)<br />
             @Html.TextAreaFor(It => It.Words, AttribsArea)
-        </div>
-        <div class="Field">
-            Skipped<br />
-            @Html.TextBoxFor(It => It.Skipped, Attribs)
-        </div>
+        </div>        
         <br />
         <div class="Field">
             Max Font Size
@@ -126,6 +122,16 @@
         <div class="Field">
             Foreground Color<br />
             @Html.TextBoxFor(It => It.ForegroundColor, new { id = "ForegroundExpandable", @class = "ProTextBox", style = "width: 190px" })
+        </div>  
+        <br />
+        <div>
+            Note : If there is not enough space in the image to place all the words, the skipped words will appear here. Increase spiral room only when performance is bad on your server.</div>
+        <div class="Field">Words skipped (Dont fill this)<br />
+            @Html.TextBoxFor(It => It.Skipped, Attribs)
+        </div>
+        <div class="Field">Spiral Room (Fill only for performance)
+            @Html.ValidationMessageFor(It => It.SpiralRoom)<br />
+            @Html.TextBoxFor(It => It.SpiralRoom, Attribs)
         </div>
         <br />
         <div class="Field Box">
@@ -151,7 +157,7 @@
 {
     <div class="Sidebar-Control">
         <div class="Sidebar-Title">
-            Disorganizer&trade;</div>
+            Disorganizer&trade;</div> <span class="Description">Took @(Model.GenerateTime/(float)1000) seconds</span>
         <div class="TagCloud" style="width:@(Model.Width)px; height:@(Model.Height)px;">
             @foreach (var Bounds in Model.Borders)
             {

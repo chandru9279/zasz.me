@@ -8,8 +8,8 @@ namespace zasz.me.Services.TagCloud
 {
     public class TagCloudService
     {
-        private readonly Func<float, float> _Increment = It => It + 1;
-        private readonly Func<float, float> _Decrement = It => It - 1;
+        private readonly Func<float, float> _Increment;
+        private readonly Func<float, float> _Decrement;
         private readonly Action<string> _Die = Msg => { throw new Exception(Msg); };
         private Func<float, float> _EdgeDirection;
 
@@ -21,6 +21,7 @@ namespace zasz.me.Services.TagCloud
         private readonly int _LowestWeight;
         private int _WeightSpan;
         private float _FontHeightSpan;
+        private int _SpiralRoom;
 
         internal List<RectangleF> _Occupied;
         private readonly Dictionary<string, int> _TagsSorted;
@@ -36,6 +37,8 @@ namespace zasz.me.Services.TagCloud
 
         public TagCloudService(Dictionary<string, int> Tags, int Width, int Height)
         {
+            _Increment = It => It + _SpiralRoom;
+            _Decrement = It => It - _SpiralRoom;
             if (null == Tags || 0 == Tags.Count)
                 _Die("Argument Exception, No Tags to disorganize");
             if (Width < 30 || Height < 30)
@@ -115,6 +118,13 @@ namespace zasz.me.Services.TagCloud
         public float Margin { get; set; }
 
         /// <summary>
+        ///   Default is 0. The higher the number, the more roomy
+        ///   the tag cloud is, and more performant the service is.
+        ///   Don't go over 20 for good results
+        /// </summary>
+        public int SpiralRoom { get; set; }
+
+        /// <summary>
         ///   Words that were not rendered because of non-availability
         ///   of free area to render them. If count is anything other than 0
         ///   use a bigger bitmap as input with more area.
@@ -133,6 +143,7 @@ namespace zasz.me.Services.TagCloud
             VerticalTextRight = false;
             ShowWordBoundaries = false;
             Margin = 30f;
+            SpiralRoom = 0;
 
             /* Adding 4 Rectangles on the border to make sure that words dont go outside the border.
              * Words going outside the border will collide on these and hence be placed elsewhere.
@@ -158,6 +169,7 @@ namespace zasz.me.Services.TagCloud
             if (MaximumFontSize < MinimumFontSize)
                 _Die("MaximumFontSize is less than MinimumFontSize");
             _FontHeightSpan = MaximumFontSize - MinimumFontSize;
+            _SpiralRoom = 2*SpiralRoom + 1;
             GImage.Clear(ColorChoice.GetBackGroundColor());
 
             foreach (KeyValuePair<string, int> Tag in _TagsSorted)
@@ -204,7 +216,7 @@ namespace zasz.me.Services.TagCloud
 
         private PointF CalculateWhere(SizeF Measure)
         {
-            _CurrentEdgeSize = 1;
+            _CurrentEdgeSize = _SpiralRoom;
             _SleepingEdge = true;
             _CurrentCorner = _Center;
 
@@ -284,7 +296,7 @@ namespace zasz.me.Services.TagCloud
             else
             {
                 Y = EdgeSizeEven ? PreviousCorner.Y - _CurrentEdgeSize : PreviousCorner.Y + _CurrentEdgeSize;
-                _CurrentEdgeSize++;
+                _CurrentEdgeSize += _SpiralRoom;
                 _SleepingEdge = true;
             }
 
@@ -332,7 +344,8 @@ namespace zasz.me.Services.TagCloud
             if (Right > _Width) Right = _Width;
 
             var PopulatedArea = new RectangleF(NewLeft, NewTop, Right - NewLeft, Bottom - NewTop);
-            _Occupied = _Occupied.Select(It => new RectangleF(It.X - NewLeft, It.Y - NewTop, It.Width, It.Height)).ToList();
+            _Occupied =
+                _Occupied.Select(It => new RectangleF(It.X - NewLeft, It.Y - NewTop, It.Width, It.Height)).ToList();
             return CloudToCrop.Clone(PopulatedArea, CloudToCrop.PixelFormat);
         }
     }

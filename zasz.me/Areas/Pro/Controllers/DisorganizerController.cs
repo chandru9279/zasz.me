@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -7,7 +8,6 @@ using System.Web.Mvc;
 using zasz.me.Areas.Pro.Models;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Integration.MVC;
-using zasz.me.Services;
 using zasz.me.Services.TagCloud;
 
 namespace zasz.me.Areas.Pro.Controllers
@@ -75,9 +75,14 @@ namespace zasz.me.Areas.Pro.Controllers
             TagCloudService.VerticalTextRight = Model.VerticalTextRight;
             TagCloudService.ShowWordBoundaries = Model.ShowBoundaries;
             TagCloudService.Crop = Model.Crop;
+            TagCloudService.SpiralRoom = Model.SpiralRoom;
 
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
             Dictionary<string, RectangleF> Borders;
             Bitmap Bitmap = TagCloudService.Construct(out Borders);
+            watch.Stop();
+            Model.GenerateTime = watch.ElapsedMilliseconds;
             Model.Borders = Borders;
 
             Model.Skipped = string.Join("; ", TagCloudService.WordsSkipped.Select(It => It.Key));

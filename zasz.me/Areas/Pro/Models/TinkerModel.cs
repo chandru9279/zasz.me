@@ -45,11 +45,16 @@ namespace zasz.me.Areas.Pro.Models
         public string Height { get; set; }
         public string BackgroundColor { get; set; }
         public string ForegroundColor { get; set; }
+        [Range(0, 30, ErrorMessage = "Spiral room above 30 ruins the cloud")]
+        public int SpiralRoom { get; set; }
         public string Skipped { get; set; }
 
         public bool VerticalTextRight { get; set; }
         public bool ShowBoundaries { get; set; }
         public bool Crop { get; set; }
+        
+        
+        public long GenerateTime { get; set; }
 
         public TinkerModel()
         {
@@ -70,6 +75,7 @@ namespace zasz.me.Areas.Pro.Models
             MinFontSize = "12";
             Width = "500";
             Height = "500";
+            SpiralRoom = 0;
         }
 
         public string[] Lines
@@ -88,9 +94,8 @@ namespace zasz.me.Areas.Pro.Models
                                                   NumberStyles.AllowLeadingWhite |
                                                   NumberStyles.AllowTrailingWhite));
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                ErrorSignal.FromContext(HttpContext.Current).Raise(e);
                 return Default;
             }
         }
