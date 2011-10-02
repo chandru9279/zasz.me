@@ -122,7 +122,11 @@ namespace zasz.me.Services.TagCloud
         ///   the tag cloud is, and more performant the service is.
         ///   Don't go over 20 for good results
         /// </summary>
-        public int SpiralRoom { get; set; }
+        public int SpiralRoom
+        {
+            get { return _SpiralRoom / 2 - 1; }
+            set { _SpiralRoom = 2 * value + 1;}
+        }
 
         /// <summary>
         ///   Words that were not rendered because of non-availability
@@ -169,7 +173,6 @@ namespace zasz.me.Services.TagCloud
             if (MaximumFontSize < MinimumFontSize)
                 _Die("MaximumFontSize is less than MinimumFontSize");
             _FontHeightSpan = MaximumFontSize - MinimumFontSize;
-            _SpiralRoom = 2*SpiralRoom + 1;
             GImage.Clear(ColorChoice.GetBackGroundColor());
 
             foreach (KeyValuePair<string, int> Tag in _TagsSorted)
