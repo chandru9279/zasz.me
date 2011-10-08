@@ -11,7 +11,6 @@ using Microsoft.Practices.Unity;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
-using zasz.me.Services;
 using zasz.me.Services.TagCloud;
 
 namespace zasz.me.Areas.Shared.Controllers
@@ -91,7 +90,9 @@ namespace zasz.me.Areas.Shared.Controllers
         public ActionResult Delete(string Id)
         {
             /* Todo : Need to figure out a way to delete without fetching */
-            _Posts.Delete(_Posts.Get(Id));
+            Post Post = _Posts.Get(Id);
+            Post.Tags.Clear();
+            _Posts.Delete(Post);
             _Posts.Commit();
             return Redirect("/Writings/List");
         }

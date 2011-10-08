@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
@@ -35,9 +37,9 @@ namespace zasz.me.Integration.EntityFramework
 
         }
 
-        public override Tag Get(string TagName)
+        public override Expression<Func<Tag, bool>> NaturalKeyComparison(string TagName)
         {
-            return _ModelSet.Where(It => It.Name == TagName).FirstOrDefault();
+            return It => It.Name == TagName;
         }
     }
 }

@@ -33,5 +33,6 @@ namespace zasz.me.Areas.Shared.Models
     /// </summary>
     public interface IModel
     {
+        Guid Id { get; set; }
     }
 }

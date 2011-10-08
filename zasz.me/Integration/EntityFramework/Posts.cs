@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
@@ -20,8 +22,9 @@ namespace zasz.me.Integration.EntityFramework
 
         public List<Post> Page(int PageNumber, int PageSize)
         {
-            return
-                _ModelSet.OrderByDescending(Model => Model.Timestamp).Skip(PageNumber*PageSize).Take(PageSize).ToList();
+            return _ModelSet.OrderByDescending(Model => Model.Timestamp)
+                .Skip(PageNumber*PageSize)
+                .Take(PageSize).ToList();
         }
 
         /// <param name = "PageNumber">Zero-Based Index</param>
@@ -79,9 +82,9 @@ namespace zasz.me.Integration.EntityFramework
 
         #endregion
 
-        public override Post Get(string Slug)
+        public override Expression<Func<Post, bool>> NaturalKeyComparison(string Slug)
         {
-            return _ModelSet.Where(It => It.Slug == Slug).FirstOrDefault();
+            return It => It.Slug == Slug;
         }
     }
 }

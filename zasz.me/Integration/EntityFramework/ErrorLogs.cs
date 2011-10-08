@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
@@ -21,9 +22,9 @@ namespace zasz.me.Integration.EntityFramework
             return Instance;
         }
 
-        public override Log Get(Guid TheId)
+        public override Expression<Func<Log, bool>> NaturalKeyComparison(Guid Id)
         {
-            return _ModelSet.Where(It => It.Id == TheId).FirstOrDefault();
+            return It => It.Id == Id;
         }
 
         public List<Log> Page(int PageNumber, int PageSize)

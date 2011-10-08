@@ -12,7 +12,6 @@ namespace zasz.me.Areas.Shared.Models
         private Site _Site = Site.Shared;
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [SolrField("Id")]
         public Guid Id { get; set; }
         

@@ -5,11 +5,11 @@ using zasz.me.Integration.MVC;
 
 namespace zasz.me.Areas.Shared.Controllers
 {
-    public class WritingsBase : PostController
+    public class WritingsBaseController : PostController
     {
         protected readonly Site _Site;
 
-        public WritingsBase(IPostRepository Posts, ITagRepository Tags, Site Domain) : base(Posts, Tags)
+        public WritingsBaseController(IPostRepository Posts, ITagRepository Tags, Site Domain) : base(Posts, Tags)
         {
             _Site = Domain;
         }

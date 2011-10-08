@@ -13,6 +13,79 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.develop", "zasz.develop\zasz.develop.csproj", "{1F3066B6-6786-42F4-95A3-34EC0AD183B7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data-Tools-Setup", "Data-Tools-Setup", "{4C4EC51E-735F-43DE-B879-F54E1FDB2FD4}"
+	ProjectSection(SolutionItems) = preProject
+		Data-Tools-Setup\0-ColdStorage.sql = Data-Tools-Setup\0-ColdStorage.sql
+		Data-Tools-Setup\0-zasz-login.sql = Data-Tools-Setup\0-zasz-login.sql
+		Data-Tools-Setup\1-ColdStorage.sql = Data-Tools-Setup\1-ColdStorage.sql
+		Data-Tools-Setup\2-ColdStorage.sql = Data-Tools-Setup\2-ColdStorage.sql
+		Data-Tools-Setup\3-Change-Data.sql = Data-Tools-Setup\3-Change-Data.sql
+		Data-Tools-Setup\3-Data.sql = Data-Tools-Setup\3-Data.sql
+		Data-Tools-Setup\3-Schema.sql = Data-Tools-Setup\3-Schema.sql
+		Data-Tools-Setup\Clean.bat = Data-Tools-Setup\Clean.bat
+		Data-Tools-Setup\NuGet.exe = Data-Tools-Setup\NuGet.exe
+		Data-Tools-Setup\Packages.bat = Data-Tools-Setup\Packages.bat
+		Data-Tools-Setup\Readme.txt = Data-Tools-Setup\Readme.txt
+		Data-Tools-Setup\SelfSSL7.exe = Data-Tools-Setup\SelfSSL7.exe
+		Data-Tools-Setup\ServerBuild.bat = Data-Tools-Setup\ServerBuild.bat
+		Data-Tools-Setup\TomcatService.bat = Data-Tools-Setup\TomcatService.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Posts", "Posts", "{0D07D0DB-6BC2-471B-BEC8-52C3D8F546A0}"
+	ProjectSection(SolutionItems) = preProject
+		Data-Tools-Setup\Posts\065cdf31-bd43-46c9-aa9e-31264658b366.xml = Data-Tools-Setup\Posts\065cdf31-bd43-46c9-aa9e-31264658b366.xml
+		Data-Tools-Setup\Posts\1265d1a3-fb37-478d-aa59-216d48e8b1e3.xml = Data-Tools-Setup\Posts\1265d1a3-fb37-478d-aa59-216d48e8b1e3.xml
+		Data-Tools-Setup\Posts\14beb1c0-1d20-4215-a57c-f6bd6630067b.xml = Data-Tools-Setup\Posts\14beb1c0-1d20-4215-a57c-f6bd6630067b.xml
+		Data-Tools-Setup\Posts\155c12a5-df59-47b4-9f51-4c5700369e78.xml = Data-Tools-Setup\Posts\155c12a5-df59-47b4-9f51-4c5700369e78.xml
+		Data-Tools-Setup\Posts\16518d0d-3ab3-4684-9a75-bab643453da3.xml = Data-Tools-Setup\Posts\16518d0d-3ab3-4684-9a75-bab643453da3.xml
+		Data-Tools-Setup\Posts\19cbf839-fa7c-4467-9d82-bf510b2486e3.xml = Data-Tools-Setup\Posts\19cbf839-fa7c-4467-9d82-bf510b2486e3.xml
+		Data-Tools-Setup\Posts\276054c1-75e3-45e2-bb8a-a1ee7d3cf9d3.xml = Data-Tools-Setup\Posts\276054c1-75e3-45e2-bb8a-a1ee7d3cf9d3.xml
+		Data-Tools-Setup\Posts\2e4005b2-1aa5-42c3-869d-8133539aeb6a.xml = Data-Tools-Setup\Posts\2e4005b2-1aa5-42c3-869d-8133539aeb6a.xml
+		Data-Tools-Setup\Posts\3a0dd490-a2d2-4a59-aa99-273996e0b716.xml = Data-Tools-Setup\Posts\3a0dd490-a2d2-4a59-aa99-273996e0b716.xml
+		Data-Tools-Setup\Posts\3bc35c11-2ed6-43e0-be28-934e60e10fda.xml = Data-Tools-Setup\Posts\3bc35c11-2ed6-43e0-be28-934e60e10fda.xml
+		Data-Tools-Setup\Posts\400d4db8-3b29-408a-b904-ced8b1002b90.xml = Data-Tools-Setup\Posts\400d4db8-3b29-408a-b904-ced8b1002b90.xml
+		Data-Tools-Setup\Posts\4a62035e-a8a0-464a-b943-a32fc508e278.xml = Data-Tools-Setup\Posts\4a62035e-a8a0-464a-b943-a32fc508e278.xml
+		Data-Tools-Setup\Posts\50cb9115-e160-4f1f-bdb3-6a5cc631100b.xml = Data-Tools-Setup\Posts\50cb9115-e160-4f1f-bdb3-6a5cc631100b.xml
+		Data-Tools-Setup\Posts\58b554e7-1790-4ac2-95c7-952640db033e.xml = Data-Tools-Setup\Posts\58b554e7-1790-4ac2-95c7-952640db033e.xml
+		Data-Tools-Setup\Posts\5d26c9bd-1620-4a99-9b5d-2a44cc3d8bad.xml = Data-Tools-Setup\Posts\5d26c9bd-1620-4a99-9b5d-2a44cc3d8bad.xml
+		Data-Tools-Setup\Posts\60f5e969-74ed-414a-98aa-231a14419821.xml = Data-Tools-Setup\Posts\60f5e969-74ed-414a-98aa-231a14419821.xml
+		Data-Tools-Setup\Posts\6dd12a9e-5a40-4cb9-adfb-87c39a33811f.xml = Data-Tools-Setup\Posts\6dd12a9e-5a40-4cb9-adfb-87c39a33811f.xml
+		Data-Tools-Setup\Posts\70b70e74-f503-4f36-b1e6-8fe25f5d3687.xml = Data-Tools-Setup\Posts\70b70e74-f503-4f36-b1e6-8fe25f5d3687.xml
+		Data-Tools-Setup\Posts\77b7a5d9-2065-446d-9557-1afb4e2a4cd1.xml = Data-Tools-Setup\Posts\77b7a5d9-2065-446d-9557-1afb4e2a4cd1.xml
+		Data-Tools-Setup\Posts\78490c16-6006-4f9e-aa2e-3d9aa5a3b2cf.xml = Data-Tools-Setup\Posts\78490c16-6006-4f9e-aa2e-3d9aa5a3b2cf.xml
+		Data-Tools-Setup\Posts\7b0d3d1f-a572-4149-9e9c-2ada9aacff6b.xml = Data-Tools-Setup\Posts\7b0d3d1f-a572-4149-9e9c-2ada9aacff6b.xml
+		Data-Tools-Setup\Posts\7cc9fe4e-9f38-4868-903b-97d8bdd6ef2e.xml = Data-Tools-Setup\Posts\7cc9fe4e-9f38-4868-903b-97d8bdd6ef2e.xml
+		Data-Tools-Setup\Posts\86f3f7bb-d1dd-4f42-b853-161f6548a216.xml = Data-Tools-Setup\Posts\86f3f7bb-d1dd-4f42-b853-161f6548a216.xml
+		Data-Tools-Setup\Posts\88093131-55ac-4f81-80e9-ed786cf229a5.xml = Data-Tools-Setup\Posts\88093131-55ac-4f81-80e9-ed786cf229a5.xml
+		Data-Tools-Setup\Posts\92ceda47-29ab-40a3-835a-48f6d05196e9.xml = Data-Tools-Setup\Posts\92ceda47-29ab-40a3-835a-48f6d05196e9.xml
+		Data-Tools-Setup\Posts\9e661b2c-c172-48b1-9f11-e810d5656bb7.xml = Data-Tools-Setup\Posts\9e661b2c-c172-48b1-9f11-e810d5656bb7.xml
+		Data-Tools-Setup\Posts\9f136e4e-788e-42ca-bb39-fb54802801c4.xml = Data-Tools-Setup\Posts\9f136e4e-788e-42ca-bb39-fb54802801c4.xml
+		Data-Tools-Setup\Posts\a4f774fa-5b01-46d6-b3fc-6665b29c4a02.xml = Data-Tools-Setup\Posts\a4f774fa-5b01-46d6-b3fc-6665b29c4a02.xml
+		Data-Tools-Setup\Posts\a6f2de4d-97cc-406e-8296-19710d36389e.xml = Data-Tools-Setup\Posts\a6f2de4d-97cc-406e-8296-19710d36389e.xml
+		Data-Tools-Setup\Posts\affca817-2d62-4e53-9026-7d003f6d6f5c.xml = Data-Tools-Setup\Posts\affca817-2d62-4e53-9026-7d003f6d6f5c.xml
+		Data-Tools-Setup\Posts\b8cacbd9-4c25-4733-8663-0c753d13c3fe.xml = Data-Tools-Setup\Posts\b8cacbd9-4c25-4733-8663-0c753d13c3fe.xml
+		Data-Tools-Setup\Posts\bca027d2-b173-4586-8a5c-39ae749787d1.xml = Data-Tools-Setup\Posts\bca027d2-b173-4586-8a5c-39ae749787d1.xml
+		Data-Tools-Setup\Posts\c3b491e5-59ac-4f6a-81e5-27e971b903ed.xml = Data-Tools-Setup\Posts\c3b491e5-59ac-4f6a-81e5-27e971b903ed.xml
+		Data-Tools-Setup\Posts\cde1c7ac-1ec7-40fa-985f-6889f27e8c50.xml = Data-Tools-Setup\Posts\cde1c7ac-1ec7-40fa-985f-6889f27e8c50.xml
+		Data-Tools-Setup\Posts\cfa0b717-b88b-4d02-8df7-ba852191ba49.xml = Data-Tools-Setup\Posts\cfa0b717-b88b-4d02-8df7-ba852191ba49.xml
+		Data-Tools-Setup\Posts\d9611b71-b407-4f75-9235-33952e78a307.xml = Data-Tools-Setup\Posts\d9611b71-b407-4f75-9235-33952e78a307.xml
+		Data-Tools-Setup\Posts\db760e2a-5a47-4489-9a6d-b9954e994520.xml = Data-Tools-Setup\Posts\db760e2a-5a47-4489-9a6d-b9954e994520.xml
+		Data-Tools-Setup\Posts\ded0ba79-b060-41eb-ae70-901121155666.xml = Data-Tools-Setup\Posts\ded0ba79-b060-41eb-ae70-901121155666.xml
+		Data-Tools-Setup\Posts\e509252b-4443-4fa9-ad43-5aaf016909cc.xml = Data-Tools-Setup\Posts\e509252b-4443-4fa9-ad43-5aaf016909cc.xml
+		Data-Tools-Setup\Posts\e5b91a87-c644-46d9-adb6-13845d4f5237.xml = Data-Tools-Setup\Posts\e5b91a87-c644-46d9-adb6-13845d4f5237.xml
+		Data-Tools-Setup\Posts\e6792200-28f9-4188-9175-d7b07e77eeea.xml = Data-Tools-Setup\Posts\e6792200-28f9-4188-9175-d7b07e77eeea.xml
+		Data-Tools-Setup\Posts\eace5234-ab47-4d8b-969d-dc724f3dd06c.xml = Data-Tools-Setup\Posts\eace5234-ab47-4d8b-969d-dc724f3dd06c.xml
+		Data-Tools-Setup\Posts\f1618144-2004-45d3-a2f3-34f5dd8487b1.xml = Data-Tools-Setup\Posts\f1618144-2004-45d3-a2f3-34f5dd8487b1.xml
+		Data-Tools-Setup\Posts\f1b3f226-fbfd-45ce-a4ee-fd00818ce8ca.xml = Data-Tools-Setup\Posts\f1b3f226-fbfd-45ce-a4ee-fd00818ce8ca.xml
+		Data-Tools-Setup\Posts\f480e5cc-b112-499c-adc5-0abbb44fce40.xml = Data-Tools-Setup\Posts\f480e5cc-b112-499c-adc5-0abbb44fce40.xml
+		Data-Tools-Setup\Posts\f58cb294-cafe-4b33-baeb-88eae59a729e.xml = Data-Tools-Setup\Posts\f58cb294-cafe-4b33-baeb-88eae59a729e.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comments", "Comments", "{410AE19C-61C4-4C64-9BE1-F85D6DDC6735}"
+	ProjectSection(SolutionItems) = preProject
+		Data-Tools-Setup\Posts\Comments\CommentsWXRAksimetFiltered.xml = Data-Tools-Setup\Posts\Comments\CommentsWXRAksimetFiltered.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = zasz.me.vsmdi
@@ -49,6 +122,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D07D0DB-6BC2-471B-BEC8-52C3D8F546A0} = {4C4EC51E-735F-43DE-B879-F54E1FDB2FD4}
+		{410AE19C-61C4-4C64-9BE1-F85D6DDC6735} = {0D07D0DB-6BC2-471B-BEC8-52C3D8F546A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35

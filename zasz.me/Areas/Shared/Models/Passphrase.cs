@@ -8,7 +8,6 @@ namespace zasz.me.Areas.Shared.Models
     public class Passphrase : IModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]

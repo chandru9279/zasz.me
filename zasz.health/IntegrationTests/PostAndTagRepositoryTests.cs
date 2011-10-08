@@ -30,18 +30,19 @@ namespace zasz.health.IntegrationTests
             foreach (Post SamplePost in SamplePosts)
             {
                 SamplePost.Site = Site.Shared;
+                SamplePost.Tags = SamplePost.Tags.Select(It => _Tags.Get(It.Name) ?? _Tags.Save(new Tag(It.Name))).ToList();
                 _Posts.Save(SamplePost);
             }
             _Posts.Commit();
         }
 
         [TestMethod]
-        public void TestPaging()
+        public void TestPagingAndSorting()
         {
-            var Ids = new List<string> {"Fact-and-Fiction", "Getting-started-with-Apache-Struts-2-2c-with-Netbeans-61"};
+            var Ids = new List<string> { "Moving-the-MBR-to-another-DeviceHard-Disk", "Home-PC-v30" };
             var Posts = _Posts.Page(0, 10);
             var ActualIds = Posts.Select(Post => Post.Slug);
-            Assert.IsTrue(Ids.TrueForAll(ActualIds.Contains));
+            CollectionAssert.IsSubsetOf(Ids, ActualIds.ToList());
         }
 
 

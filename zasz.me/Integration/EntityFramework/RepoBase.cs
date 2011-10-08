@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
@@ -20,6 +21,7 @@ namespace zasz.me.Integration.EntityFramework
 
         public virtual Model Save(Model Instance)
         {
+            if (Guid.Empty == Instance.Id) Instance.Id = Guid.NewGuid();
             return _ModelSet.Add(Instance);
         }
 
@@ -31,7 +33,13 @@ namespace zasz.me.Integration.EntityFramework
             return _ModelSet.Find(Id);
         }
 
-        public abstract Model Get(NaturalKey MainProperty);
+        public abstract Expression<Func<Model, bool>> NaturalKeyComparison(NaturalKey MainProperty);
+
+        public Model Get(NaturalKey NaturalKey)
+        {
+            return _ModelSet.Local.Where(NaturalKeyComparison(NaturalKey).Compile()).FirstOrDefault() ??
+            _ModelSet.Where(NaturalKeyComparison(NaturalKey)).FirstOrDefault();
+        }
 
         public void Delete(Model Entity)
         {
