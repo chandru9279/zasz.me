@@ -1,0 +1,16 @@
+﻿@model zasz.me.Areas.Shared.Models.Post
+           
+
+@*      --= Pro Area =--      *@
+
+
+<div class="Post">
+
+<a class="Post-Title" href="/Writings/Post/@Model.Slug">@Model.Title</a>
+<div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
+<p>@Html.Raw(Model.GetDescription(ViewBag.DescriptionLength))  &nbsp;&nbsp; <a class="Normal-Link" href="/Writings/Post/@Model.Slug">Read the full entry</a></p>
+@Html.Partial("~/Shared/Views/Post/_PostFooter.cshtml", Model)
+<br />
+<a class="Normal-Link" href="/Writings/Post/@Model.Slug#disqus_thread" data-disqus-identifier="@Model.Slug">Comments And Reactions</a>
+
+</div>

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    
+    <link href="@Url.Content("~/Content/ForHtmlHelpers.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/BlueprintReset.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Pro/ProLayout.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Pro/Writings.css")" rel="stylesheet" type="text/css" />
+    @* Order seems to be important, 1st jQuery then other MS scripts*@
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MyScripts.js")" type="text/javascript"></script>    
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>    
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>    
+
+    <meta name="robots" content="index, follow" />
+    <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
+
+    @RenderSection("Head", false)
+</head>
+
+<body class="Pro">
+
+    <div class="Site-In-Center">
+    
+        <div class="Elevated-TopLeft-Padding"></div>
+        <div class="Elevated-Top-Shadow"></div>
+        <div class="Elevated-TopRight-Shadow"></div>
+        <div class="Clear"></div>
+
+        <div class="Elevated-Right-Shadow">
+            <div class="Elevated">
+                <div class="Header">
+                        <div class="Header-Left">
+                            <img src="@Url.Content("~/Content/Pro/Images/Name.png")" alt="CHANDIRASEKAR THIAGARAJAN"/>
+                            <ul class="Main-Menu">
+                                <li class="Main-Menu-Item"><a class="Normal-Link" href="/Home/Show">Home</a></li>
+                                <li class="Main-Menu-Item"><a class="Normal-Link" href="/Writings/List">Writings</a></li>
+                                <li class="Main-Menu-Item"><a class="Normal-Link" href="/Portfolio/All">Portfolio</a></li>
+                                <li class="Main-Menu-Item"><a class="Normal-Link" href="/Home/About">About</a></li>
+                                <li class="Main-Menu-Item"><a class="Normal-Link" href="/Contact/Form">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="Header-Right">
+                            <div class="Description">I'm a <div class="Focus-Description">Software Consultant</div></div>
+                            <div class="Description">Find me @@ 
+                            <div class="Focus-Description Header-Links">
+                                <a href="https://github.com/chandru9279" target="_blank"><img src="@Url.Content("~/Content/Pro/Images/github_32.png")" class="Header-Link"/></a>
+                                <a href="http://stackoverflow.com/users/626084/zasz" target="_blank"><img src="@Url.Content("~/Content/Pro/Images/stackoverflow.png")" class="Header-Link"/></a>
+                                <a href="http://in.linkedin.com/in/chandirasekar" target="_blank"><img src="@Url.Content("~/Content/Pro/Images/linked-in.jpeg")" class="Header-Link"></a>                                
+                                <a href="/Home/Feeds" target="_blank"><img src="@Url.Content("~/Content/Pro/Images/rss.jpeg")" class="Header-Link"></a>
+                            </div></div>
+                            <div class="Description">
+                                <div class="Status-History-Expand-Button" id="Status-History-Expand-Button"></div>
+                                <ul class="Status-History" id="Status-History">
+                                    <li>I work at <div class="Focus-Description"><a target="_blank" href="http://www.thoughtworks.com/">ThoughtWorks</a></div></li>
+                                    <li>Graduated Engineer @@ <div class="Focus-Description"><a target="_blank" href="http://www.annauniv.edu/">Anna University</a></div></li>
+                                    <li>Interned @@ <div class="Focus-Description"><a target="_blank" href="http://www.aveoit.com/">Aveo Infotech</a></div></li>
+                                    <li>I live in <div class="Focus-Description"><a target="_blank" href="http://maps.google.com/maps/place?ftid=0x3a5265ea4f7d3361:0x6e61a70b6863d433&q=Chennai,+Tamil+Nadu,+India&hl=en&sll=13.060422,80.249583&sspn=0.17394,0.256119&ie=UTF8&z=14">Chennai</a></div></li>
+                                </ul>
+                            </div>
+                        </div>                        
+                </div>
+                <div class="Pro-Body">
+                    <div class="Pro-Body-Left">
+                        <div class="Pro-Body-Left-Min-Height">
+                        @RenderBody()                                         
+                        </div>
+                        
+                    </div>                
+                    <div class="Pro-Body-Right">                        
+                        @Html.Partial("~/Shared/Views/Unlocker/_UnlockStatus.cshtml")
+                        @Html.Partial("~/Pro/Views/Home/_SearchBox.cshtml")
+                        @RenderSection("Right", false)
+                    </div>
+                </div>          
+            </div>
+            <div class="Clear"></div>
+            <div class="Bottom-Shadowless"></div>
+        </div>
+    </div>
+    @RenderSection("Bottom", false)
+</body>
+</html>
+
+

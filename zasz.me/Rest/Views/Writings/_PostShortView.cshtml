@@ -1,0 +1,21 @@
+﻿@model zasz.me.Areas.Shared.Models.Post
+
+           
+@*      --= Rest Area =--      *@
+
+
+<div class="post">
+
+<h1><a class="Normal-Link" href="/Writings/Post/@Model.Slug">@Model.Title</a></h1>
+<div class="post_body"><p>@Model.GetDescription(ViewBag.DescriptionLength)  &nbsp;&nbsp; <a class="Normal-Link" href="/Writings/Post/@Model.Slug">Read the full entry</a></p>
+@Html.Partial("~/Shared/Views/Post/_PostFooter.cshtml", Model)
+<br />
+</div>
+<div class="postedby">Posted by Zasz <a href="/Writings/Post/@Model.Slug#disqus_thread" data-disqus-identifier="@Model.Slug">Comments And Reactions</a> </div>
+
+<div class="timestamp">@Model.Timestamp.ToString("f")</div>
+
+</div>
+
+
+
