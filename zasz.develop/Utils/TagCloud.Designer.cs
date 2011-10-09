@@ -66,7 +66,8 @@
             // Cloud
             // 
             this.Cloud.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Cloud.Location = new System.Drawing.Point(321, 35);
+            this.Cloud.Location = new System.Drawing.Point(428, 43);
+            this.Cloud.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Cloud.Name = "Cloud";
             this.Cloud.Size = new System.Drawing.Size(100, 50);
             this.Cloud.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -75,18 +76,20 @@
             // 
             // Words
             // 
-            this.Words.Location = new System.Drawing.Point(44, 35);
+            this.Words.Location = new System.Drawing.Point(59, 43);
+            this.Words.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Words.Multiline = true;
             this.Words.Name = "Words";
-            this.Words.Size = new System.Drawing.Size(246, 139);
+            this.Words.Size = new System.Drawing.Size(327, 170);
             this.Words.TabIndex = 1;
             this.Words.Text = "asp.net, 15\r\ngames, 10\r\nfun, 18\r\nbooks, 5\r\nmusic, 9\r\ncrapo, 8\r\ndota, 6\r\n";
             // 
             // Generate
             // 
-            this.Generate.Location = new System.Drawing.Point(222, 212);
+            this.Generate.Location = new System.Drawing.Point(296, 261);
+            this.Generate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Generate.Name = "Generate";
-            this.Generate.Size = new System.Drawing.Size(68, 126);
+            this.Generate.Size = new System.Drawing.Size(91, 155);
             this.Generate.TabIndex = 2;
             this.Generate.Text = "Generate";
             this.Generate.UseVisualStyleBackColor = true;
@@ -94,161 +97,180 @@
             // 
             // MaxFontSize
             // 
-            this.MaxFontSize.Location = new System.Drawing.Point(116, 215);
+            this.MaxFontSize.Location = new System.Drawing.Point(155, 265);
+            this.MaxFontSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaxFontSize.Name = "MaxFontSize";
-            this.MaxFontSize.Size = new System.Drawing.Size(100, 20);
+            this.MaxFontSize.Size = new System.Drawing.Size(132, 22);
             this.MaxFontSize.TabIndex = 3;
             this.MaxFontSize.Text = "72";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 218);
+            this.label1.Location = new System.Drawing.Point(56, 268);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 13);
+            this.label1.Size = new System.Drawing.Size(88, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "MaxFontSize";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 244);
+            this.label2.Location = new System.Drawing.Point(60, 300);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.Size = new System.Drawing.Size(85, 17);
             this.label2.TabIndex = 6;
             this.label2.Text = "MinFontSize";
             // 
             // MinFontSize
             // 
-            this.MinFontSize.Location = new System.Drawing.Point(116, 241);
+            this.MinFontSize.Location = new System.Drawing.Point(155, 297);
+            this.MinFontSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MinFontSize.Name = "MinFontSize";
-            this.MinFontSize.Size = new System.Drawing.Size(100, 20);
+            this.MinFontSize.Size = new System.Drawing.Size(132, 22);
             this.MinFontSize.TabIndex = 5;
             this.MinFontSize.Text = "12";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(54, 348);
+            this.label3.Location = new System.Drawing.Point(72, 428);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 13);
+            this.label3.Size = new System.Drawing.Size(73, 17);
             this.label3.TabIndex = 8;
             this.label3.Text = "FontName";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(75, 273);
+            this.label4.Location = new System.Drawing.Point(100, 336);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.Size = new System.Drawing.Size(44, 17);
             this.label4.TabIndex = 10;
             this.label4.Text = "Width";
             // 
             // Width
             // 
-            this.Width.Location = new System.Drawing.Point(116, 266);
+            this.Width.Location = new System.Drawing.Point(155, 327);
+            this.Width.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Width.Name = "Width";
-            this.Width.Size = new System.Drawing.Size(100, 20);
+            this.Width.Size = new System.Drawing.Size(132, 22);
             this.Width.TabIndex = 9;
             this.Width.Text = "500";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(72, 295);
+            this.label5.Location = new System.Drawing.Point(96, 363);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.Size = new System.Drawing.Size(49, 17);
             this.label5.TabIndex = 12;
             this.label5.Text = "Height";
             // 
             // Height
             // 
-            this.Height.Location = new System.Drawing.Point(116, 292);
+            this.Height.Location = new System.Drawing.Point(155, 359);
+            this.Height.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Height.Name = "Height";
-            this.Height.Size = new System.Drawing.Size(100, 20);
+            this.Height.Size = new System.Drawing.Size(132, 22);
             this.Height.TabIndex = 11;
             this.Height.Text = "500";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(76, 321);
+            this.label6.Location = new System.Drawing.Point(101, 395);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(34, 13);
+            this.label6.Size = new System.Drawing.Size(44, 17);
             this.label6.TabIndex = 14;
             this.label6.Text = "Angle";
             // 
             // Angle
             // 
-            this.Angle.Location = new System.Drawing.Point(116, 318);
+            this.Angle.Location = new System.Drawing.Point(155, 391);
+            this.Angle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Angle.Name = "Angle";
-            this.Angle.Size = new System.Drawing.Size(100, 20);
+            this.Angle.Size = new System.Drawing.Size(132, 22);
             this.Angle.TabIndex = 13;
             // 
             // FontsCombo
             // 
             this.FontsCombo.FormattingEnabled = true;
-            this.FontsCombo.Location = new System.Drawing.Point(116, 344);
+            this.FontsCombo.Location = new System.Drawing.Point(155, 423);
+            this.FontsCombo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.FontsCombo.Name = "FontsCombo";
-            this.FontsCombo.Size = new System.Drawing.Size(174, 21);
+            this.FontsCombo.Size = new System.Drawing.Size(231, 24);
             this.FontsCombo.TabIndex = 15;
             // 
             // StrategyCombo
             // 
             this.StrategyCombo.FormattingEnabled = true;
-            this.StrategyCombo.Location = new System.Drawing.Point(116, 371);
+            this.StrategyCombo.Location = new System.Drawing.Point(155, 457);
+            this.StrategyCombo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.StrategyCombo.Name = "StrategyCombo";
-            this.StrategyCombo.Size = new System.Drawing.Size(174, 21);
+            this.StrategyCombo.Size = new System.Drawing.Size(231, 24);
             this.StrategyCombo.TabIndex = 17;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 374);
+            this.label7.Location = new System.Drawing.Point(36, 460);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 13);
+            this.label7.Size = new System.Drawing.Size(111, 17);
             this.label7.TabIndex = 16;
             this.label7.Text = "Display Strategy";
             // 
             // BgfgStrategyCombo
             // 
             this.BgfgStrategyCombo.FormattingEnabled = true;
-            this.BgfgStrategyCombo.Location = new System.Drawing.Point(116, 399);
+            this.BgfgStrategyCombo.Location = new System.Drawing.Point(155, 491);
+            this.BgfgStrategyCombo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BgfgStrategyCombo.Name = "BgfgStrategyCombo";
-            this.BgfgStrategyCombo.Size = new System.Drawing.Size(174, 21);
+            this.BgfgStrategyCombo.Size = new System.Drawing.Size(231, 24);
             this.BgfgStrategyCombo.TabIndex = 18;
             // 
             // FgStrategyCombo
             // 
             this.FgStrategyCombo.FormattingEnabled = true;
-            this.FgStrategyCombo.Location = new System.Drawing.Point(116, 427);
+            this.FgStrategyCombo.Location = new System.Drawing.Point(155, 526);
+            this.FgStrategyCombo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.FgStrategyCombo.Name = "FgStrategyCombo";
-            this.FgStrategyCombo.Size = new System.Drawing.Size(174, 21);
+            this.FgStrategyCombo.Size = new System.Drawing.Size(231, 24);
             this.FgStrategyCombo.TabIndex = 19;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(29, 399);
+            this.label8.Location = new System.Drawing.Point(39, 491);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.Size = new System.Drawing.Size(108, 17);
             this.label8.TabIndex = 20;
             this.label8.Text = "BG FG Strategy";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(47, 427);
+            this.label9.Location = new System.Drawing.Point(63, 526);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(63, 13);
+            this.label9.Size = new System.Drawing.Size(84, 17);
             this.label9.TabIndex = 21;
             this.label9.Text = "FG Strategy";
             // 
             // SetBg
             // 
-            this.SetBg.Location = new System.Drawing.Point(116, 454);
+            this.SetBg.Location = new System.Drawing.Point(155, 559);
+            this.SetBg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SetBg.Name = "SetBg";
-            this.SetBg.Size = new System.Drawing.Size(113, 23);
+            this.SetBg.Size = new System.Drawing.Size(151, 28);
             this.SetBg.TabIndex = 22;
             this.SetBg.Text = "Set Background";
             this.SetBg.UseVisualStyleBackColor = true;
@@ -256,9 +278,10 @@
             // 
             // SetFg
             // 
-            this.SetFg.Location = new System.Drawing.Point(116, 483);
+            this.SetFg.Location = new System.Drawing.Point(155, 594);
+            this.SetFg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SetFg.Name = "SetFg";
-            this.SetFg.Size = new System.Drawing.Size(113, 23);
+            this.SetFg.Size = new System.Drawing.Size(151, 28);
             this.SetFg.TabIndex = 23;
             this.SetFg.Text = "Set Foreground";
             this.SetFg.UseVisualStyleBackColor = true;
@@ -268,9 +291,10 @@
             // 
             this.BackG.AutoSize = true;
             this.BackG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BackG.Location = new System.Drawing.Point(69, 459);
+            this.BackG.Location = new System.Drawing.Point(92, 565);
+            this.BackG.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BackG.Name = "BackG";
-            this.BackG.Size = new System.Drawing.Size(37, 15);
+            this.BackG.Size = new System.Drawing.Size(46, 19);
             this.BackG.TabIndex = 24;
             this.BackG.Text = "BACK";
             // 
@@ -278,18 +302,20 @@
             // 
             this.ForeG.AutoSize = true;
             this.ForeG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ForeG.Location = new System.Drawing.Point(69, 483);
+            this.ForeG.Location = new System.Drawing.Point(92, 594);
+            this.ForeG.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ForeG.Name = "ForeG";
-            this.ForeG.Size = new System.Drawing.Size(38, 15);
+            this.ForeG.Size = new System.Drawing.Size(48, 19);
             this.ForeG.TabIndex = 25;
             this.ForeG.Text = "FORE";
             // 
             // VerticalTextRight
             // 
             this.VerticalTextRight.AutoSize = true;
-            this.VerticalTextRight.Location = new System.Drawing.Point(72, 538);
+            this.VerticalTextRight.Location = new System.Drawing.Point(96, 662);
+            this.VerticalTextRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.VerticalTextRight.Name = "VerticalTextRight";
-            this.VerticalTextRight.Size = new System.Drawing.Size(113, 17);
+            this.VerticalTextRight.Size = new System.Drawing.Size(145, 21);
             this.VerticalTextRight.TabIndex = 26;
             this.VerticalTextRight.Text = "Vertical Text Right";
             this.VerticalTextRight.UseVisualStyleBackColor = true;
@@ -297,9 +323,10 @@
             // ShowBoundaries
             // 
             this.ShowBoundaries.AutoSize = true;
-            this.ShowBoundaries.Location = new System.Drawing.Point(191, 538);
+            this.ShowBoundaries.Location = new System.Drawing.Point(255, 662);
+            this.ShowBoundaries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ShowBoundaries.Name = "ShowBoundaries";
-            this.ShowBoundaries.Size = new System.Drawing.Size(109, 17);
+            this.ShowBoundaries.Size = new System.Drawing.Size(140, 21);
             this.ShowBoundaries.TabIndex = 27;
             this.ShowBoundaries.Text = "Show Boundaries";
             this.ShowBoundaries.UseVisualStyleBackColor = true;
@@ -307,41 +334,45 @@
             // Cropper
             // 
             this.Cropper.AutoSize = true;
-            this.Cropper.Location = new System.Drawing.Point(73, 515);
+            this.Cropper.Location = new System.Drawing.Point(97, 634);
+            this.Cropper.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Cropper.Name = "Cropper";
-            this.Cropper.Size = new System.Drawing.Size(111, 17);
+            this.Cropper.Size = new System.Drawing.Size(143, 21);
             this.Cropper.TabIndex = 28;
             this.Cropper.Text = "Crop with Margin :";
             this.Cropper.UseVisualStyleBackColor = true;
             // 
             // Margin
             // 
-            this.Margin.Location = new System.Drawing.Point(190, 512);
+            this.Margin.Location = new System.Drawing.Point(253, 630);
+            this.Margin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Margin.Name = "Margin";
-            this.Margin.Size = new System.Drawing.Size(100, 20);
+            this.Margin.Size = new System.Drawing.Size(132, 22);
             this.Margin.TabIndex = 29;
             // 
             // Skipped
             // 
-            this.Skipped.Location = new System.Drawing.Point(116, 180);
+            this.Skipped.Location = new System.Drawing.Point(155, 222);
+            this.Skipped.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Skipped.Name = "Skipped";
-            this.Skipped.Size = new System.Drawing.Size(174, 20);
+            this.Skipped.Size = new System.Drawing.Size(231, 22);
             this.Skipped.TabIndex = 30;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(61, 183);
+            this.label10.Location = new System.Drawing.Point(81, 225);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(46, 13);
+            this.label10.Size = new System.Drawing.Size(59, 17);
             this.label10.TabIndex = 31;
             this.label10.Text = "Skipped";
             // 
             // TagCloud
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(992, 596);
+            this.ClientSize = new System.Drawing.Size(1323, 734);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.Skipped);
             this.Controls.Add(this.Margin);
