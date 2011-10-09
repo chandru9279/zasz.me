@@ -1,15 +1,15 @@
 ﻿using System.Web.Mvc;
-using zasz.me.Areas.Shared.Controllers.Utils;
-using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
+using zasz.me.Shared.Controllers.Utils;
+using zasz.me.Shared.Models;
 
-namespace zasz.me.Areas.Shared.Controllers
+namespace zasz.me.Shared.Controllers
 {
-    public class WritingsBaseController : PostController
+    public class BlogBaseController : PostController
     {
         protected readonly Site _Site;
 
-        public WritingsBaseController(IPostRepository Posts, ITagRepository Tags, Site Domain) : base(Posts, Tags)
+        public BlogBaseController(IPostRepository Posts, ITagRepository Tags, Site Domain) : base(Posts, Tags)
         {
             _Site = Domain;
         }

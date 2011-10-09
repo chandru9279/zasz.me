@@ -1,4 +1,5 @@
-﻿@model zasz.me.Areas.Shared.Controllers.PostController.PostListModel
+﻿@using zasz.me.Shared.Controllers
+@model PostController.PostListModel
 
 @{
     ViewBag.Title = "Posts";
@@ -36,7 +37,7 @@
 
 @foreach (var Post in Model.Posts)
 {
-        @Html.Partial("~/Rest/Views/Writings/_PostShortView.cshtml", Post)
+        @Html.Partial("~/Rest/Views/Blog/_PostShortView.cshtml", Post)
         <br />
         <br />
 }
@@ -46,7 +47,7 @@
 {
     <div class="Paging">
         @if (PreviousEnabled)
-        { <a class="Normal-Link" href="@PreviousPath">Previous</a> }
+        { <a href="@PreviousPath">Previous</a> }
         else
         { <span class="DisabledPrevNext">Previous</span> }
     @for (int i = 1; i <= Model.NumberOfPages; i++)
@@ -54,10 +55,10 @@
         if (i == CurrentPage)
         { <span class="Current">@i</span> }
         else
-        { <a class="Normal-Link" href="@(PagePath + i)">@i</a> }
+        { <a href="@(PagePath + i)">@i</a> }
     }
     @if (NextEnabled)
-    { <a class="Normal-Link" href="@NextPath">Next</a> }
+    { <a href="@NextPath">Next</a> }
     else
     { <span class="DisabledPrevNext">Next</span> }
     </div>

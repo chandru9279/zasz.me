@@ -1,5 +1,6 @@
 ﻿@using Microsoft.Web.Helpers
-@model zasz.me.Areas.Shared.Models.Post
+@using zasz.me.Shared.Models
+@model Post
 
 <div class="Post-Footer">
 @if(Model.Tags.Count == 0) 
@@ -10,14 +11,14 @@ else
 {
     <span>Tagged : </span>
     <ul class="Tags">
-    @foreach (zasz.me.Areas.Shared.Models.Tag Tag in Model.Tags)
+    @foreach (Tag Tag in Model.Tags)
     {
-        <li><a href="/Writings/Tag/@Tag.Name">@Tag.Name</a></li>
+        <li><a href="/Blog/Tag/@Tag.Name">@Tag.Name</a></li>
     }
     </ul>
 }
 <br />
-Share\Bookmark this post by dragging this <a href="@Model.Permalink" class="Normal-Link">Permalink</a> onto the browser.
+Share\Bookmark this post by dragging this <a href="@Model.Permalink">Permalink</a> onto the browser.
 <br />
 @Facebook.LikeButton(width:290,height:24)
 @Twitter.TweetButton(url:Model.Permalink, dataCount:"horizontal")
@@ -25,7 +26,7 @@ Share\Bookmark this post by dragging this <a href="@Model.Permalink" class="Norm
 @if (Request.IsAuthenticated)
 {
     <span>Manage :</span>
-    <a href="/Writings/Edit/@Model.Slug" class="Normal-Link">Edit</a>
-    <a href="/Writings/Delete/@Model.Slug" class="Normal-Link">Delete</a>
+    <a href="/Blog/Edit/@Model.Slug">Edit</a>
+    <a href="/Blog/Delete/@Model.Slug">Delete</a>
 }
 </div>

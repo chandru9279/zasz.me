@@ -5,7 +5,7 @@ using zasz.me.Integration.MVC;
 using zasz.me.Services;
 using zasz.me.Services.Contracts;
 
-namespace zasz.me.Areas.Shared.Controllers
+namespace zasz.me.Shared.Controllers
 {
     public class UploadsController : BaseController
     {

@@ -1,5 +1,6 @@
-﻿@using zasz.me.Areas.Shared.Controllers.Utils 
-@model zasz.me.Areas.Shared.Models.Post
+﻿@using zasz.me.Shared.Controllers.Utils
+@using zasz.me.Shared.Models
+@model Post
 
 @{
     ViewBag.Title = "Post";
@@ -21,12 +22,12 @@
     <div class="Sidebar-Title">QR - Code</div>
     @Html.QrCode(Model.Permalink, Size: 214)
     </div>
-    <a class="Normal-Link Modal" href="#WhatsQRCode">What's this?</a>
+    <a class="Modal" href="#WhatsQRCode">What's this?</a>
     @Html.Action("ArchiveControl")
     
 }
 
-@Html.Partial("~/Pro/Views/Writings/_PostFullView.cshtml", (object)Model)
+@Html.Partial("~/Pro/Views/Blog/_PostFullView.cshtml", (object)Model)
 
 <div class="Clear"></div>
 @*This div will be filled by the Disqus script in _DisqusComments.cshtml*@
@@ -38,19 +39,19 @@
 
 <div id='WhatsQRCode' style="display: none; width: 400px" class="Pro-Popup">	
     <h1 class="Sidebar-Title" style="text-align:center;">View this content from your Mobile Device</h1>
-	<p>The image is a <a class="Normal-Link" target="_blank" href="http://en.wikipedia.org/wiki/QR_code">QR-Code.</a> 
+	<p>The image is a <a target="_blank" href="http://en.wikipedia.org/wiki/QR_code">QR-Code.</a> 
     Just open the QR scanner/reader App on your device and hold it against the code, and if connected 
     to the internet, it will start displaying this content. You can complete reading the article on the go.</p>
 	<img style="margin: 10px auto; display:block;" src="@Url.Content("~/Content/Pro/Images/scan-qr-codes.jpg")" alt="Scan QR Codes" />
     <p>Download the reader app if don't have one. Use 
-    <a class="Normal-Link" target="_blank" href="http://www.androlib.com/android.application.tw-com-quickmark-jwCAt.aspx">QuickMark</a> or 
-    <a class="Normal-Link" target="_blank" href="http://www.androlib.com/android.application.com-google-zxing-client-android-xzA.aspx">Barcode Scanner</a> for Android, and
-    <a class="Normal-Link" target="_blank" href="http://itunes.apple.com/us/app/neoreader/id284973754?mt=8">NeoReader</a> or 
-    <a class="Normal-Link" target="_blank" href="http://itunes.apple.com/us/app/barcode/id285683111?mt=8">BarcodeReader</a> for iPhone, iPod Touch, iPad, and 
-    <a class="Normal-Link" target="_blank" href="http://appworld.blackberry.com/webstore/content/1102">ScanLife</a> or 
-    <a class="Normal-Link" target="_blank" href="http://appworld.blackberry.com/webstore/content/5781?lang=en">BeeTag</a> for Blackberry and
-    <a class="Normal-Link" target="_blank" href="http://get.neoreader.com/">NeoReader</a> or
-    <a class="Normal-Link" target="_blank" href="http://get.beetagg.com">BeeTag</a> for Windows Phone 7.</p>
+    <a target="_blank" href="http://www.androlib.com/android.application.tw-com-quickmark-jwCAt.aspx">QuickMark</a> or 
+    <a target="_blank" href="http://www.androlib.com/android.application.com-google-zxing-client-android-xzA.aspx">Barcode Scanner</a> for Android, and
+    <a target="_blank" href="http://itunes.apple.com/us/app/neoreader/id284973754?mt=8">NeoReader</a> or 
+    <a target="_blank" href="http://itunes.apple.com/us/app/barcode/id285683111?mt=8">BarcodeReader</a> for iPhone, iPod Touch, iPad, and 
+    <a target="_blank" href="http://appworld.blackberry.com/webstore/content/1102">ScanLife</a> or 
+    <a target="_blank" href="http://appworld.blackberry.com/webstore/content/5781?lang=en">BeeTag</a> for Blackberry and
+    <a target="_blank" href="http://get.neoreader.com/">NeoReader</a> or
+    <a target="_blank" href="http://get.beetagg.com">BeeTag</a> for Windows Phone 7.</p>
 </div>
 
 @section Bottom{

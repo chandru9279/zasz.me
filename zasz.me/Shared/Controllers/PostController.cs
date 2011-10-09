@@ -8,12 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using Elmah;
 using Microsoft.Practices.Unity;
-using zasz.me.Areas.Shared.Controllers.Utils;
-using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
 using zasz.me.Services.TagCloud;
+using zasz.me.Shared.Controllers.Utils;
+using zasz.me.Shared.Models;
 
-namespace zasz.me.Areas.Shared.Controllers
+namespace zasz.me.Shared.Controllers
 {
     public abstract class PostController : BaseController
     {
@@ -94,7 +94,7 @@ namespace zasz.me.Areas.Shared.Controllers
             Post.Tags.Clear();
             _Posts.Delete(Post);
             _Posts.Commit();
-            return Redirect("/Writings/List");
+            return Redirect("/Blog/List");
         }
 
         [HttpPost]
@@ -125,7 +125,7 @@ namespace zasz.me.Areas.Shared.Controllers
                     return View(MANAGE_VIEW_PATH, Entry);
 
             _Posts.Commit();
-            return Redirect("/Writings/Post/" + Entry.Slug);
+            return Redirect("/Blog/Post/" + Entry.Slug);
         }
 
         public static string GetSlug(string Title)

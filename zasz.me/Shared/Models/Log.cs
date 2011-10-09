@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Elmah;
 
-namespace zasz.me.Areas.Shared.Models
+namespace zasz.me.Shared.Models
 {
     public class Log : IModel
     {

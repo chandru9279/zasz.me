@@ -2,9 +2,9 @@
 using System.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using zasz.me.Areas.Pro.Controllers;
-using zasz.me.Areas.Shared.Controllers;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Pro.Controllers;
+using zasz.me.Shared.Controllers;
+using zasz.me.Shared.Models;
 
 namespace zasz.health.ControllerTests
 {
@@ -20,7 +20,7 @@ namespace zasz.health.ControllerTests
         {
             _PostRepository = new Mock<IPostRepository>();
             _TagRepository = new Mock<ITagRepository>();
-            _Controller = new WritingsController(_PostRepository.Object, _TagRepository.Object);
+            _Controller = new BlogController(_PostRepository.Object, _TagRepository.Object);
         }
 
         [TestMethod]

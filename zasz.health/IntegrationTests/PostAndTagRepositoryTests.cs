@@ -4,9 +4,9 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using zasz.develop.SampleData;
-using zasz.me.Areas.Shared.Models;
+using zasz.develop.Data;
 using zasz.me.Integration.EntityFramework;
+using zasz.me.Shared.Models;
 
 namespace zasz.health.IntegrationTests
 {

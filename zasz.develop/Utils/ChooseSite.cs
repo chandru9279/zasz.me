@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using zasz.me.Services;
-using Domain = zasz.me.Areas.Shared.Models.Site;
+using Domain = zasz.me.Shared.Models.Site;
 
 
 namespace zasz.develop.Utils

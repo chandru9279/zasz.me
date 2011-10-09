@@ -1,4 +1,5 @@
-﻿@model zasz.me.Areas.Shared.Models.Post
+﻿@using zasz.me.Shared.Models
+@model Post
 
 
 @*      --= Rest Area =--      *@
@@ -7,7 +8,7 @@
 <div class="Post">
 <br />
 <br />
-<a class="Post-Title" href="/Writings/Post/@Model.Slug">@Model.Title</a>
+<a class="Post-Title" href="/Blog/Post/@Model.Slug">@Model.Title</a>
 <div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
 <br />
 <br />

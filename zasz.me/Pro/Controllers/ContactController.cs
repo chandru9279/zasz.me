@@ -1,6 +1,6 @@
-﻿using zasz.me.Areas.Shared.Controllers;
+﻿using zasz.me.Shared.Controllers;
 
-namespace zasz.me.Areas.Pro.Controllers
+namespace zasz.me.Pro.Controllers
 {
     public class ContactController : BaseContactController
     {

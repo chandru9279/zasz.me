@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Shared.Models;
 
-namespace zasz.me.Areas.Pro
+namespace zasz.me.Pro
 {
     public class ProAreaRegistration : AreaRegistration
     {

@@ -1,5 +1,6 @@
-﻿@using zasz.me.Areas.Shared.Controllers.Utils 
-@model zasz.me.Areas.Shared.Models.Post
+﻿@using zasz.me.Shared.Controllers.Utils
+@using zasz.me.Shared.Models
+@model Post
 
 @{
     ViewBag.Title = "Post";
@@ -9,7 +10,7 @@
 @section Right{
     <div class="Sidebar-Title">QR - Code</div>
     @Html.QrCode(Model.Permalink, Size: 214)
-    <a class="Normal-Link">What's this?</a>
+    <a>What's this?</a>
     @Html.Action("ArchiveControl")
 }
 
@@ -18,7 +19,7 @@
 
 
 
-@Html.Partial("~/Rest/Views/Writings/_PostFullView.cshtml", (object)Model)
+@Html.Partial("~/Rest/Views/Blog/_PostFullView.cshtml", (object)Model)
 
 <div class="Clear"></div>
 @*This div will be filled by the Disqus script in _DisqusComments.cshtml*@

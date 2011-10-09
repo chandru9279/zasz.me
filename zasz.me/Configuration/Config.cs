@@ -16,9 +16,9 @@ namespace zasz.me.Configuration
             get { return WebConfigurationManager.GetWebApplicationSection("zasz.me/Uploads") as UploadsConfig; }
         }
 
-        public static WritingsConfig Writings
+        public static BlogConfig Blog
         {
-            get { return WebConfigurationManager.GetWebApplicationSection("zasz.me/Writings") as WritingsConfig; }
+            get { return WebConfigurationManager.GetWebApplicationSection("zasz.me/Blog") as BlogConfig; }
         }
         
         public static SettingsConfig Settings
@@ -29,8 +29,8 @@ namespace zasz.me.Configuration
         public static void PutConfigurationAndSettingsInside(IUnityContainer BigBox)
         {
             // Type auto inferred
-            BigBox.RegisterInstance("MaxPostsPerPage", Writings.MaxPostsPerPage);
-            BigBox.RegisterInstance("DescriptionLength", Writings.DescriptionLength);
+            BigBox.RegisterInstance("MaxPostsPerPage", Blog.MaxPostsPerPage);
+            BigBox.RegisterInstance("DescriptionLength", Blog.DescriptionLength);
             BigBox.RegisterInstance("MailAccount", Settings.MailAccount);
             BigBox.RegisterInstance(Uploads);
         }

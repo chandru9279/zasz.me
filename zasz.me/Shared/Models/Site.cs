@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace zasz.me.Areas.Shared.Models
+namespace zasz.me.Shared.Models
 {
     [ComplexType]
     public class Site

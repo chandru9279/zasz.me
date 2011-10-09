@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Elmah;
 
-namespace zasz.me.Areas.Shared.Controllers.Utils
+namespace zasz.me.Shared.Controllers.Utils
 {
     public static class Handy
     {

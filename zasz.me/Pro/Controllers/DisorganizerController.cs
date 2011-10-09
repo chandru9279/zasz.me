@@ -5,12 +5,12 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Web.Mvc;
-using zasz.me.Areas.Pro.Models;
-using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Integration.MVC;
+using zasz.me.Pro.Models;
 using zasz.me.Services.TagCloud;
+using zasz.me.Shared.Controllers.Utils;
 
-namespace zasz.me.Areas.Pro.Controllers
+namespace zasz.me.Pro.Controllers
 {
     public class DisorganizerController : BaseController
     {

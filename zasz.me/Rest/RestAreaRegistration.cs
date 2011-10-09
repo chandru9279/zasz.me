@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Shared.Models;
 
-namespace zasz.me.Areas.Rest
+namespace zasz.me.Rest
 {
     public class RestAreaRegistration : AreaRegistration
     {

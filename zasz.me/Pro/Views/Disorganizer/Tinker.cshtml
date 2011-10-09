@@ -1,4 +1,5 @@
-﻿@model zasz.me.Areas.Pro.Models.TinkerModel
+﻿@using zasz.me.Pro.Models
+@model TinkerModel
 @{
     ViewBag.Title = "Tinker";
     var Attribs = new { @class = "ProTextBox" };
@@ -162,7 +163,7 @@
             @foreach (var Bounds in Model.Borders)
             {
                 <a class="TagHover" 
-        href="/Writings/Tag/@(Bounds.Key)"
+        href="/Blog/Tag/@(Bounds.Key)"
         style="margin-left: @(Bounds.Value.Left)px; margin-top: @(Bounds.Value.Top)px; width: @(Bounds.Value.Width)px; height: @(Bounds.Value.Height)px">
                 </a>
             }

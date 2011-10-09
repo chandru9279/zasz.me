@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Domain = zasz.me.Areas.Shared.Models.Site;
+using Domain = zasz.me.Shared.Models.Site;
 
 namespace zasz.me.Integration.MVC
 {
@@ -36,15 +36,15 @@ namespace zasz.me.Integration.MVC
             DomainMappedRoute(
                 Routes,
                 "TagRouting",
-                "Writings/Tag/{TagName}/{PageNumber}",
-                new {Controller = "Writings", Action = "Tag", PageNumber = UrlParameter.Optional}
+                "Blog/Tag/{TagName}/{PageNumber}",
+                new {Controller = "Blog", Action = "Tag", PageNumber = UrlParameter.Optional}
                 );
 
             DomainMappedRoute(
                 Routes,
                 "ArchiveRouting",
-                "Writings/Archive/{Year}/{Month}",
-                new {Controller = "Writings", Action = "Archive"}
+                "Blog/Archive/{Year}/{Month}",
+                new {Controller = "Blog", Action = "Archive"}
                 );
 
             DomainMappedRoute(

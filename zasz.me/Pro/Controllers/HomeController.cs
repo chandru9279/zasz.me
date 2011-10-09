@@ -2,7 +2,7 @@
 using zasz.me.Integration.MVC;
 using zasz.me.Services.Contracts;
 
-namespace zasz.me.Areas.Pro.Controllers
+namespace zasz.me.Pro.Controllers
 {
     public class HomeController : BaseController
     {

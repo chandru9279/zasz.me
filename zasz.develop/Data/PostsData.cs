@@ -5,9 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using zasz.develop.Utils;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Shared.Models;
 
-namespace zasz.develop.SampleData
+namespace zasz.develop.Data
 {
     public static class PostsData
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using zasz.me.Integration.MVC;
 
-namespace zasz.me.Areas.Shared.Controllers
+namespace zasz.me.Shared.Controllers
 {
     public class HomeController : BaseController
     {

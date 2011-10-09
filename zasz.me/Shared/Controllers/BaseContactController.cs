@@ -6,7 +6,7 @@ using Elmah;
 using Microsoft.Practices.Unity;
 using zasz.me.Integration.MVC;
 
-namespace zasz.me.Areas.Shared.Controllers
+namespace zasz.me.Shared.Controllers
 {
     public abstract class BaseContactController : BaseController
     {

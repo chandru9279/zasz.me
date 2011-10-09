@@ -1,6 +1,5 @@
 ﻿.Post
 {
-    color: #333333;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -10,21 +9,12 @@
 
 .Post-Title
 {
-    color: black;
     font-size:22px; 
-    text-decoration: none;
-}
-
-.Post-Title:HOVER
-{
-    color: #A83500;
-    text-decoration:underline;
-    cursor: pointer;
 }
 
 .Metadata
 {
-    color: #6F6F6F;
+    color: #778C7A;
     font-size: 18px;
     padding-left: 20px;
     background-position: left;

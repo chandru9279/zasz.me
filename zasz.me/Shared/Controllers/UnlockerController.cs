@@ -2,10 +2,10 @@
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
+using zasz.me.Shared.Models;
 
-namespace zasz.me.Areas.Shared.Controllers
+namespace zasz.me.Shared.Controllers
 {
     [AllowAnonymous]
     public class UnlockerController : BaseController

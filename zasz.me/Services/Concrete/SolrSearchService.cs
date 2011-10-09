@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using SolrNet;
 using SolrNet.DSL;
-using zasz.me.Areas.Shared.Models;
 using zasz.me.Services.Contracts;
+using zasz.me.Shared.Models;
 
 namespace zasz.me.Services.Concrete
 {

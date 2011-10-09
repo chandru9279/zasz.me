@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using zasz.me.Services;
 
-namespace zasz.me.Areas.Shared.Controllers.Utils
+namespace zasz.me.Shared.Controllers.Utils
 {
     public static class Constants
     {

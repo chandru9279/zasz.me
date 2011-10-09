@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Globalization;
-using System.Web;
-using Elmah;
-using zasz.me.Areas.Shared.Controllers.Utils;
-using zasz.me.Services;
 using zasz.me.Services.TagCloud;
+using zasz.me.Shared.Controllers.Utils;
 
-namespace zasz.me.Areas.Pro.Models
+namespace zasz.me.Pro.Models
 {
     public class TinkerModel
     {

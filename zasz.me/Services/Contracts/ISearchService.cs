@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.SolrIntegration;
+using zasz.me.Shared.Models;
 
 namespace zasz.me.Services.Contracts
 {

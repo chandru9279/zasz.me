@@ -5,7 +5,7 @@ using System.Linq;
 using HtmlAgilityPack;
 using SolrNet.Attributes;
 
-namespace zasz.me.Areas.Shared.Models
+namespace zasz.me.Shared.Models
 {
     public class Post : IModel
     {
@@ -48,7 +48,7 @@ namespace zasz.me.Areas.Shared.Models
         [NotMapped]
         public string Permalink
         {
-            get { return string.Format("http://{0}/Writings/Post/{1}", Site.Host, Slug); }
+            get { return string.Format("http://{0}/Blog/Post/{1}", Site.Host, Slug); }
         }
 
         public string GetDescription(int Threshold)

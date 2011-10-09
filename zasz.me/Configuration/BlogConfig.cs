@@ -2,7 +2,7 @@
 
 namespace zasz.me.Configuration
 {
-    public class WritingsConfig : ConfigurationSection
+    public class BlogConfig : ConfigurationSection
     {
         [ConfigurationProperty("MaxPostsPerPage", DefaultValue = 10)]
         public int MaxPostsPerPage

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq.Expressions;
 
-namespace zasz.me.Areas.Shared.Models
+namespace zasz.me.Shared.Models
 {
     /// <summary>
     ///     This is the base interface of all Repositories. In this App there's no seperate Service Layer that accesses 

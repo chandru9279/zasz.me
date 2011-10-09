@@ -1,7 +1,7 @@
 ﻿using SolrNet;
 using SolrNet.Mapping;
 using SolrNet.Utils;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Shared.Models;
 
 namespace zasz.me.Integration.SolrIntegration
 {

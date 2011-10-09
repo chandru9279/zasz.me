@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace zasz.me.Areas.Shared.Models
+namespace zasz.me.Shared.Models
 {
     public class Tag : IModel
     {
