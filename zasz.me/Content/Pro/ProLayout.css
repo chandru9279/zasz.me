@@ -236,43 +236,24 @@ a:HOVER
     border-radius: 10px;
 }
 
-.Orange-Button
-{
-    background: url('Images/OrangeButton.png');
-    background-repeat: no-repeat;
-    background-position: top;
-    width: 150px;
-    height: 35px;
-    line-height: 26px;
-    text-align: center;
-    text-decoration: none;
-    color: #FFFFFF;
-    display: block;
-    margin: 20px auto;
-}
-
-.Orange-Button:HOVER
-{
-    cursor: pointer;
-    background-position: 0px -35px;
-}
-
 .ProTextBox
 {
-    border: 1px solid #FFAE7F;
+    border: 1px solid #425955;
+    border-style: inset;
     margin-top: 5px;
     margin-bottom: 20px;
     margin-left: 5px;
     margin-right: 5px;
     width: 230px;
     padding: 6px 5px 5px;
-    background-color: #FFF5EF;
+    background-color: #FFFFFF;
 }
 
-.ProTextBox:HOVER, .ProTextArea:HOVER
+.ProTextBox:HOVER, .ProTextArea:HOVER, .ProTextBox:FOCUS, .ProTextArea:FOCUS
 {
     cursor: text;
-    background-color: #FFEBE0;
+    border: 1px solid #1B1D26;
+    background-color: #FFFFFF;
 }
 
 .ProTextArea

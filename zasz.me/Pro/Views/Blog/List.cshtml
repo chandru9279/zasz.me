@@ -32,14 +32,12 @@
     @Html.Action("ArchiveControl", "Blog")
 }
 
-<div class="Metadata">@Model.WhatIsListed</div>
+<div class="Light-Message" style="text-align: center; font-size: 28px;">@Model.WhatIsListed</div>
 
 @foreach (var Post in Model.Posts)
 {
-    <div style="margin: 20px auto;">
+    <div style="margin: 10px auto;">
         @Html.Partial("~/Pro/Views/Blog/_PostShortView.cshtml", Post)
-        <br />
-        <br />
     </div>    
 }
 

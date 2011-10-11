@@ -1,32 +1,33 @@
 ﻿@using Microsoft.Web.Helpers
 @using zasz.me.Shared.Models
 @model Post
-
 <div class="Post-Footer">
-@if(Model.Tags.Count == 0) 
-{
-    <span>No tags on this one</span>
-}
-else
-{
-    <span>Tagged : </span>
-    <ul class="Tags">
-    @foreach (Tag Tag in Model.Tags)
+    @if (Model.Tags.Count == 0)
     {
-        <li><a href="/Blog/Tag/@Tag.Name">@Tag.Name</a></li>
+        <span>No tags!</span>
     }
-    </ul>
-}
-<br />
-Share\Bookmark this post by dragging this <a href="@Model.Permalink">Permalink</a> onto the browser.
-<br />
-@Facebook.LikeButton(width:290,height:24)
-@Twitter.TweetButton(url:Model.Permalink, dataCount:"horizontal")
-<br />
-@if (Request.IsAuthenticated)
-{
-    <span>Manage :</span>
-    <a href="/Blog/Edit/@Model.Slug">Edit</a>
-    <a href="/Blog/Delete/@Model.Slug">Delete</a>
-}
+    else
+    {
+        <span>Tagged </span>
+        <ul class="Tags">
+            @foreach (Tag Tag in Model.Tags)
+            {
+                <li><a href="/Blog/Tag/@Tag.Name">@Tag.Name</a></li>
+            }
+        </ul>
+    }
+    &nbsp;|&nbsp; <a href="@Model.Permalink">Permalink</a>
+    &nbsp;|&nbsp; <a href="/Blog/Post/@Model.Slug#disqus_thread" data-disqus-identifier="@Model.Slug">Comments and Reactions</a>
+    <div style="margin-top: 5px">
+    @Facebook.LikeButton(width: 290, height: 24, colorScheme:"dark" )
+    @Twitter.TweetButton(url: Model.Permalink, dataCount: "horizontal")
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        <div style="margin-top: 5px">
+        <span>Manage :</span>
+        <a href="/Blog/Edit/@Model.Slug">Edit</a>
+        <a href="/Blog/Delete/@Model.Slug">Delete</a>
+        </div>
+    }
 </div>

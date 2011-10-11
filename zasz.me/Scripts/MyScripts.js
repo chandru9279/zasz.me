@@ -5,27 +5,29 @@ Status-History widget
 
 $(document).ready(function () {
 
-    AttachClickHandlers();
+    AttachHandlers();
 
-    jQuery.fn.center = function() {
+    jQuery.fn.center = function () {
         this.css("position", "absolute");
         this.css("top", ($(window).height() - this.outerHeight()) / 2 + $(window).scrollTop() + "px");
         this.css("left", ($(window).width() - this.outerWidth()) / 2 + $(window).scrollLeft() + "px");
         return this;
     };
-
-    $('.Modal').modalpop({ speed: 300 });
-    $(".Expand-Button").click(function () {
-        $(this).next().slideToggle();
-    });
 });
 
 var StatusExpanded = false;
 var BodyClickedHandlers = new Array();
 
-function AttachClickHandlers() {
+function AttachHandlers() {
+    /* ClickHandlers */
     $('body').click(BodyClicked);
     $('#Status-History-Expand-Button').click(ExpandStatus);
+    $(".Expand-Button").click(function () {
+        $(this).next().slideToggle();
+    });
+    /* OtherWireup */
+    $('.Modal').modalpop({ speed: 300 });
+    $.watermark.options.className = 'Light-Message';
 }
 
 
@@ -77,7 +79,7 @@ http://stackoverflow.com/questions/210717/what-is-the-best-way-to-center-a-div-o
             center: false
         };
 
-        var options = $.extend(defaults, options);
+        $.extend(defaults, options);
         var width = $(window).width();
         //Get the full page height including the scroll area
         var height = $(document).height();

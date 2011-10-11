@@ -7,11 +7,11 @@
     <link href="@Url.Content("~/Content/BlueprintReset.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Pro/ProLayout.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Pro/Blog.css")" rel="stylesheet" type="text/css" />
-    @* Order seems to be important, 1st jQuery then other MS scripts*@
-    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    @* Order seems to be important, 1st jQuery then other related scripts*@
+    <script src="@Url.Content("~/Scripts/jquery-1.6.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>    
+    <script src="@Url.Content("~/Scripts/jquery.watermark.min.js")" type="text/javascript"></script>    
     <script src="@Url.Content("~/Scripts/MyScripts.js")" type="text/javascript"></script>    
-    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>    
-    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>    
 
     <meta name="robots" content="index, follow" />
     <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
@@ -59,9 +59,9 @@
                         
             </div>                
             <div class="Pro-Body-Right">                        
-                @Html.Partial("~/Shared/Views/Unlocker/_UnlockStatus.cshtml")
                 @Html.Partial("~/Pro/Views/Home/_SearchBox.cshtml")
                 @RenderSection("Right", false)
+                @Html.Partial("~/Shared/Views/Unlocker/_UnlockStatus.cshtml")
             </div>
         </div>          
     </div>
