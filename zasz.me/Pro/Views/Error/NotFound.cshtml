@@ -1,35 +1,35 @@
 ﻿@model Exception
 @{
-    ViewBag.Title = "404 : You are lost!";
+    ViewBag.Title = "Lost!";
 }
 
 @section Head
 {
 
-<style type="text/css">
-.Message
-{
-    text-align: center;
-    overflow: visible;
-    font-size: 32px;
-    margin: 10px auto;
-    width : 640px;
-}
+    <style type="text/css">
+        .Message
+        {
+            text-align: center;
+            overflow: visible;
+            font-size: 32px;
+            margin: 10px auto;
+            width: 640px;
+        }
 
-.PageNotFoundImage
-{
-    text-align: center;
-    margin: 10px auto;
-    width : 225px;
-}
+        .PageNotFoundImage
+        {
+            text-align: center;
+            margin: 10px auto;
+            width: 225px;
+        }
 
-.Value
-{
-    font-weight: bold;
-}
-</style>
+        .Value
+        {
+            font-weight: bold;
+        }
+    </style>
 
-<script type="text/javascript">
+    <script type="text/javascript">
     window.setInterval(AnimateText, 8000);
     var Messages = [
         "This page hit a temporal anomaly and vanished sometime tomorrow.",
@@ -52,7 +52,7 @@
 
 @if (Request.IsAuthenticated || Request.IsLocal)
 {
-    <div style="margin: 10px 20px"> Error Details
+    <div> Error Details
         @{
             if (!string.IsNullOrEmpty((string) ViewBag.OriginalUrl))
             {
@@ -65,8 +65,8 @@
                  else
                  {
                      <p>Action : <span class="Value">@ViewBag.OriginalAction</span> <br /> 
-                        Controller :<span class="Value">@ViewBag.OriginalController</span> <br />
-                        Message : <span class="Value">@Model.Message</span>
+                         Controller :<span class="Value">@ViewBag.OriginalController</span> <br />
+                         Message : <span class="Value">@Model.Message</span>
                      </p>
                      <div class="Expand-Panel">
                          <div class="Expand-Button">&darr;&nbsp; Trace &nbsp;&darr;</div>
@@ -84,11 +84,7 @@
 
 @section Right
 {
-<div class="PageNotFoundImage">
-<img id="PageNotFoundImage" src="@Url.Content("~/Content/Pro/Images/404.png")" alt="404 : Address not found xD"/>
-</div>
+    <div class="PageNotFoundImage">
+        <img id="PageNotFoundImage" src="@Url.Content("~/Content/Pro/Images/404.png")" alt="404 : Address not found xD"/>
+    </div>
 }
-
-
-
-

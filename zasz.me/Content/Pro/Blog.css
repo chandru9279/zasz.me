@@ -1,10 +1,5 @@
 ﻿.Post
 {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    padding: 5px;
-    margin: auto 20px;
 }
 
 .Post-Title
@@ -15,6 +10,11 @@
 .Light-Message
 {
     color: #BFBD9F;
+}
+
+.Light-Message em
+{
+    font-weight: bold;
 }
 
 .Metadata
@@ -67,7 +67,7 @@
     display: inline;
     margin: 3px;
     padding: 0px 3px 3px 3px;
-    background-color: #1B1D26;
+    background-color: #425955;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;    
@@ -76,7 +76,7 @@
 .Tags li:HOVER
 {
     cursor: pointer;
-    background-color: #425955;
+    background-color: #1B1D26;
 }
     
 .Tags li a
@@ -99,62 +99,34 @@
 .Paging 
 {
     display: table;
-    padding: 10px;
-    margin: 20px auto;
+    margin: 0px auto;
     clear: left;
-    font-size: 9pt;
+    font-size: 20px;
 }
 
 .Paging a, .Paging span
 {
-    color: #FF6400;
-    border-color: #FFFFFF;
-    background: #FFFFFF;
     display: block;
     float: left;
     padding: 3px 5px 3px 5px;
     margin-right: 3px;
-    border: 1px solid;
-
 }
 
 .Paging span.Current
 {
-    background: #FFBE94;
-    color: #FF6400;
-    border-color: #FF6400;
-    border: 1px solid;
+    color: #425955;
     font-weight: bold;
-}
-
-.Paging a
-{
-    border-color: #FF6400;
-    background: url('Images/Paging.png') bottom left repeat-x;
-    border: 1px solid;
-    text-decoration: none;
-}
-
-.Paging a:hover
-{
-    border-color: #FF9400;
-    background: #FFBE94;
-    color: #FF6400;
-    cursor: pointer;
 }
 
 .Paging span.DisabledPrevNext
 {
-    color: #FFE2C5;
-    border-color: #FFE2C5;
-    border: 1px solid;
+    color: #BFBD9F;
 }
 
 .TagCloud
 {
     margin: 20px auto;
-    display: block;
-    height: 450px;
+    display: inline-block;
 }
 
 .TagHover
@@ -166,13 +138,13 @@
 }
 
 .TagHover:HOVER
-{
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
+{    
     display:block;
     border-style: solid;
     border-width: 2px;
-    border-color: #FFAE7F;
+    border-color: #425955;
     cursor: pointer;  
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 }

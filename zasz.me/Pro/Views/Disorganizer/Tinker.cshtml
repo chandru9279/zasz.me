@@ -41,13 +41,7 @@
         select
         {
             width: 241px !important;
-        }
-        .Box
-        {
-            margin: 2px 10px;
-            padding: 2px 10px;
-            border: 1px solid #FFAE7F;
-        }
+        }        
     </style>
 }
 @using (Html.BeginForm())
@@ -135,15 +129,15 @@
             @Html.TextBoxFor(It => It.SpiralRoom, Attribs)
         </div>
         <br />
-        <div class="Field Box">
+        <div class="Field">
             Crop
             @Html.CheckBoxFor(It => It.Crop)
         </div>
-        <div class="Field Box">
+        <div class="Field">
             Vertical Text Right
             @Html.CheckBoxFor(It => It.VerticalTextRight)
         </div>
-        <div class="Field Box">
+        <div class="Field">
             Show Boundaries
             @Html.CheckBoxFor(It => It.ShowBoundaries)
         </div>
