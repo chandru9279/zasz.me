@@ -103,24 +103,21 @@ namespace zasz.me.Integration.MVC
         private static void SetupRazor()
         {
             ViewEngines.Engines.Clear();
-            var RazorViewEngine = new RazorViewEngine();
+            var Razor = new RazorViewEngine();
             var AreaViewLocations = new string[2]
                                         {
                                             "~/{2}/Views/{1}/{0}.cshtml",
                                             "~/{2}/Views/Shared/{0}.cshtml"
                                         };
-            var ViewLocations = new string[2]
-                                    {
-                                        "~/Views/{1}/{0}.cshtml",
-                                        "~/Views/Shared/{0}.cshtml"
-                                    };
-            RazorViewEngine.AreaMasterLocationFormats = AreaViewLocations;
-            RazorViewEngine.AreaPartialViewLocationFormats = AreaViewLocations;
-            RazorViewEngine.AreaViewLocationFormats = AreaViewLocations;
-            RazorViewEngine.MasterLocationFormats = ViewLocations;
-            RazorViewEngine.PartialViewLocationFormats = ViewLocations;
-            RazorViewEngine.ViewLocationFormats = ViewLocations;
-            ViewEngines.Engines.Add(RazorViewEngine);
+            // Not using anything outside of the areas.
+            var ViewLocations = new string[0];
+            Razor.AreaMasterLocationFormats = AreaViewLocations;
+            Razor.AreaPartialViewLocationFormats = AreaViewLocations;
+            Razor.AreaViewLocationFormats = AreaViewLocations;
+            Razor.MasterLocationFormats = ViewLocations;
+            Razor.PartialViewLocationFormats = ViewLocations;
+            Razor.ViewLocationFormats = ViewLocations;
+            ViewEngines.Engines.Add(Razor);
         }
     }
 }
