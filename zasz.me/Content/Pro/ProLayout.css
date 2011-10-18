@@ -236,6 +236,11 @@ a:HOVER
     border-radius: 10px;
 }
 
+select.ProTextBox:HOVER, select.ProTextBox:focus
+{
+    cursor: pointer;    
+}
+
 .ProTextBox
 {
     border-width: 1px;

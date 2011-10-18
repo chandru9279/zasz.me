@@ -25,6 +25,11 @@ namespace zasz.me.Shared.Controllers.Utils
             return (T)Enum.Parse(typeof(T), EnumValue);
         }
 
+        public static IEnumerable<SelectListItem> ToSelectList(this List<string> AnyList)
+        {
+            return AnyList.Select(It => new SelectListItem {Text = It, Value = It});
+        }
+
         public static void Log(string Message)
         {
             ErrorSignal.FromCurrentContext().Raise(new ZaszDotMeException(Message));

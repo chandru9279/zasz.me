@@ -1,4 +1,5 @@
 ﻿@using zasz.me.Pro.Models
+@using zasz.me.Shared.Controllers.Utils
 @model TinkerModel
 @{
     ViewBag.Title = "Tinker";
@@ -87,21 +88,21 @@
         </div>
         <div class="Field">
             Font<br />
-            @Html.DropDownListFor(It => It.SelectedFont, Model.Fonts.Select(It => new SelectListItem { Text = It, Value = It }), Attribs)
+            @Html.DropDownListFor(It => It.SelectedFont, Model.Fonts.ToSelectList(), Attribs)
         </div>
         <br />
         <div class="Field">
             Display Strategy<br />
-            @Html.DropDownListFor(It => It.SelectedStrategy, Model.Strategies.Select(It => new SelectListItem { Text = It, Value = It }), Attribs)
+            @Html.DropDownListFor(It => It.SelectedStrategy, Model.Strategies.ToSelectList(), Attribs)
         </div>
         <div class="Field">
             Theme<br />
-            @Html.DropDownListFor(It => It.SelectedTheme, Model.Themes.Select(It => new SelectListItem { Text = It, Value = It }), Attribs)
+            @Html.DropDownListFor(It => It.SelectedTheme, Model.Themes.ToSelectList(), Attribs)
         </div>
         <br />
         <div class="Field">
             Style<br />
-            @Html.DropDownListFor(It => It.SelectedStyle, Model.Styles.Select(It => new SelectListItem { Text = It, Value = It }), Attribs)
+            @Html.DropDownListFor(It => It.SelectedStyle, Model.Styles.ToSelectList(), Attribs)
         </div>
         <div class="Field">
             Margin
