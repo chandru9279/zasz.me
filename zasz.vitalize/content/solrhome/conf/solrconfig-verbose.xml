@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!--
+<?xml version="1.0" encoding="UTF-8" ?><!--
  Licensed to the Apache Software Foundation (ASF) under one or more
  contributor license agreements.  See the NOTICE file distributed with
  this work for additional information regarding copyright ownership.
@@ -673,7 +672,7 @@
             <!-- The echoParams parameter tells Solr what kinds of Request
             parameters should be included in the response for debugging
             purposes, legal values include: none, explicit, all -->
-            <str name="echoParams">explicit</str>
+            <str name="echoParams">none</str>
 
             <!-- This parameter is used to paginate results from a query.
              When specified, it indicates the maximum number of documents
@@ -703,30 +702,7 @@
             particular query should be returned as a field, and the string
             "*" can be used to indicate all stored fields the document has.
             -->
-            <str name="fl">Post_Slug, Post_Title, Post_Tags, score</str>
-
-            <!-- 'true' to enable MoreLikeThis results. It looks at the
-            fields' term vectors (specified in mlt.fl) of every result
-            construct a Lucene query from the terms and returns 3 more
-            results for every result if available. I suspect this is a
-            costly operation, and so turned it off by default -->
-            <str name="mlt">false</str>
-
-            <!-- The number of similar documents to return for each result-->
-            <str name="mlt.count">3</str>
-
-            <!-- MoreLikeThis default boosting. Query fields and their
-            boosts using the same format as that used in DisMaxQParserPlugin.
-            These fields must also be specified in mlt.fl. -->
-            <str name="mlt.qf">Post_Title^1.5 Post_Content^1.0</str>
-
-            <!-- MoreLikeThis Minimum Term Frequency - the frequency below
-            which terms will be ignored in the source doc.-->
-            <str name="mlt.mintf">4</str>
-
-            <!-- The fields to use for similarity. NOTE: if possible, these
-            should have a stored TermVector -->
-            <str name="mlt.fl">Post_Title, Post_Content</str>
+            <str name="fl">Post_Slug, Post_Title, Post_Tags, Id</str>
 
             <!-- This is for the Dismax QueryParser Plugin and it is query
             time boosting of fields. Since I've decided to do all boosting
@@ -751,7 +727,7 @@
             If the specified field is termVectors=on, termPositions=on and
             termOffsets=on, DefaultSolrHighlighter uses FastVectorHighlighter
             if the hl.useFastVectorHighlighter parameter set to on. -->
-            <str name="hl.fl">Post_Title Post_Content</str>
+            <str name="hl.fl">Post_Content</str>
 
             <!-- The maximum number of highlighted snippets to generate per
             field. Note: it is possible for any number of snippets from zero
@@ -781,7 +757,9 @@
 
             <!-- This search handler is now also a Suggester.-->
             <str name="spellcheck">true</str>
-
+            <!-- This takes the top suggestions in the spellcheck for each query term and
+            collates into a new query with the suggestions. - Did you mean functionality -->
+            <str name="spellcheck.collate">true</str>
         </lst>
 
         <lst name="invariants">
@@ -792,7 +770,9 @@
             <str name="wt">xml</str>
         </lst>
 
-        <arr name="last-components">
+        <arr name="components">
+            <str>query</str>
+            <str>highlight</str>
             <str>spellchecker</str>
             <str>elevator</str>
         </arr>
@@ -850,28 +830,34 @@
         -->
     </requestHandler>
 
+    <requestHandler name="/mlt" class="solr.MoreLikeThisHandler">
+            <str name="fl">Id</str>
+            <!--Should the response include the matched document? If false,
+            the response will look exactly like a normal /select response-->
+            <str name="mlt.match.include">false</str>
 
-    <!-- XML Update Request Handler.
+            <!-- 'true' to enable MoreLikeThis results. It looks at the
+            fields' term vectors (specified in mlt.fl) of every result
+            construct a Lucene query from the terms and returns 3 more
+            results for every result if available. I suspect this is a
+            costly operation, and so turned it off by default -->
+            <str name="mlt">false</str>
 
-       http://wiki.apache.org/solr/UpdateXmlMessages
+            <!-- The number of similar documents to return for each result-->
+            <str name="mlt.count">3</str>
 
-       The canonical Request Handler for Modifying the Index through
-       commands specified using XML.
+            <!-- MoreLikeThis default boosting. Query fields and their
+            boosts using the same format as that used in DisMaxQParserPlugin.
+            These fields must also be specified in mlt.fl. -->
+            <str name="mlt.qf">Post_Title^1.5 Post_Content^1.0</str>
 
-       Note: Since solr1.1 requestHandlers requires a valid content
-       type header if posted in the body. For example, curl now
-       requires: -H 'Content-type:text/xml; charset=utf-8'
-    -->
-    <requestHandler name="/update" class="solr.XmlUpdateRequestHandler">
-        <!--
-            See below for information on defining
-            updateRequestProcessorChains that can be used by name
-            on each Update Request
+            <!-- MoreLikeThis Minimum Term Frequency - the frequency below
+            which terms will be ignored in the source doc.-->
+            <str name="mlt.mintf">4</str>
 
-            <lst name="defaults">
-                <str name="update.chain">dedupe</str>
-            </lst>
-        -->
+            <!-- The fields to use for similarity. NOTE: if possible, these
+            should have a stored TermVector -->
+            <str name="mlt.fl">Post_Title, Post_Content</str>
     </requestHandler>
 
     <requestHandler name="/autocomplete" class="solr.SearchHandler" startup="lazy">
@@ -902,7 +888,7 @@
             <!-- Turning on the terms component -->
             <bool name="terms">true</bool>
 
-             <!-- If count, sorts the terms by the term frequency (highest count first).
+            <!-- If count, sorts the terms by the term frequency (highest count first).
              If index, returns the terms in index order. Default is to sort by count.
                 <bool name="terms.sort">count</bool>
             -->
@@ -916,42 +902,60 @@
     <!-- This can be used to return a set of terms out of which a cloud can be created. -->
     <requestHandler name="/cloud" class="solr.SearchHandler" startup="lazy">
         <lst name="defaults">
-            <!-- If you give a valid Document Id then you get term vectors
-             for that document. Else you get term vectors for all the friggin'
-             doucments.
-            <str name="q">Id:GiveValidDocumentId</str> -->
-            <str name="q.alt">*:*</str>
+            <!--The term to start at. If not specified, the empty string is used, meaning start at the beginning of the field-->
+            <str name="terms.lower">a</str>
 
-            <!-- Made it so only one document's term vectors can be pulled out at a time.
-            Override if we need to pull term vectors for a set of Posts/Docs -->
-            <int name="rows">1</int>
+            <!--The maximum number of terms to return. The default is 10. If < 0, then include all terms-->
+            <str name="terms.limit">50</str>
+
+            <!--Restrict matches to terms that match the regular expression-->
+            <str name="terms.regex">[\w]{3,}+</str>
+
+            <!--{case_insensitive|comments|multiline|literal|dotall|unicode_case|canon_eq|unix_lines} - Optional.
+            Flags to be used when evaluating the regular expression defined in the "terms.regex" parameter-->
+            <str name="terms.regex.flag">case_insensitive</str>
         </lst>
         <lst name="invariants">
+            <!-- Turn on the terms componant -->
+            <bool name="terms">true</bool>
+
+            <!-- Sort the terms by their count -->
+            <str name="terms.sort">count</str>
+
             <!-- Field List on which we get the terms on the given document Id
             Surprisingly commas not allowed here, to seperate fields. -->
-            <str name="tv.fl">FullSearch</str>
+            <str name="terms.fl">FullSearch</str>
 
-            <!-- While creating cloud, we only need the title and the terms.
-            Surprisingly commas not allowed here, to seperate fields. -->
-            <str name="fl">Post_Title</str>
-
-            <!-- Writer hard set to xml -->
-            <str name="wt">xml</str>
-
-            <!-- Turning on the term vector component -->
-            <bool name="tv">true</bool>
-
-            <!-- Return document term frequency info per term in the document. -->
-            <bool name="tv.tf">true</bool>
-
-            <!--  Return the Document Frequency (DF) of the term in the collection. This can be expensive. -->
-            <bool name="tv.df">false</bool>
+            <!-- Writer hard set to json -->
+            <str name="wt">json</str>
         </lst>
         <!-- This replaces the usual set of componants.  -->
         <arr name="components">
-            <str>query</str>
-            <str>termVectors</str>
+            <str>terms</str>
         </arr>
+    </requestHandler>
+
+    <!-- XML Update Request Handler.
+
+       http://wiki.apache.org/solr/UpdateXmlMessages
+
+       The canonical Request Handler for Modifying the Index through
+       commands specified using XML.
+
+       Note: Since solr1.1 requestHandlers requires a valid content
+       type header if posted in the body. For example, curl now
+       requires: -H 'Content-type:text/xml; charset=utf-8'
+    -->
+    <requestHandler name="/update" class="solr.XmlUpdateRequestHandler">
+        <!--
+            See below for information on defining
+            updateRequestProcessorChains that can be used by name
+            on each Update Request
+
+            <lst name="defaults">
+                <str name="update.chain">dedupe</str>
+            </lst>
+        -->
     </requestHandler>
 
     <!--
@@ -1072,7 +1076,7 @@
     <!-- ping/healthcheck -->
     <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
         <lst name="defaults">
-            <str name="qt">search</str>
+            <str name="qt">/search</str>
             <str name="q">solrpingquery</str>
             <str name="echoParams">all</str>
         </lst>
@@ -1174,11 +1178,9 @@
             <str name="name">default</str>
             <str name="field">FullSearch</str>
             <!--
-
-                <str name="spellcheckIndexDir">spellchecker</str>
-
+            <str name="spellcheckIndexDir">spellchecker</str>
             uncomment this to require terms to occur in 1% of the documents in order to be included in the dictionary
-                <float name="thresholdTokenFrequency">.01</float>
+            <float name="thresholdTokenFrequency">.01</float>
             -->
         </lst>
 
@@ -1247,10 +1249,9 @@
         </requestHandler>
     -->
 
-    <!-- Term Vector Component http://wiki.apache.org/solr/TermVectorComponent -->
+    <!-- Term Vector Component http://wiki.apache.org/solr/TermVectorComponent
     <searchComponent name="termVectors" class="solr.TermVectorComponent"/>
 
-    <!--
         A request handler for demonstrating the term vector component
         This is purely as an example.
         In reality you will likely want to add the component to your
@@ -1397,7 +1398,6 @@
         </arr>
     </requestHandler>
     -->
-
 
 
     <!-- Query Elevation Component

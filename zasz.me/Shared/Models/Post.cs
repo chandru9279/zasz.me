@@ -12,9 +12,10 @@ namespace zasz.me.Shared.Models
         private Site _Site = Site.Shared;
 
         [Key]
-        [SolrField("Id")]
+        [SolrUniqueKey("Id")]
         public Guid Id { get; set; }
-        
+
+        [SolrField("Post_Slug")]
         public string Slug { get; set; }
 
         [Required]
@@ -24,13 +25,15 @@ namespace zasz.me.Shared.Models
         [SolrField("Post_Content")]
         public string Content { get; set; }
 
-        [SolrField("Post_Tags")]
         public virtual ICollection<Tag> Tags { get; set; }
+
+        [SolrField("Post_Tags")]
+        public virtual List<string> TagStrings { get { return Tags.Select(It => It.Name).ToList(); } }
 
         [NotMapped]
         public string TagsLine
         {
-            get { return Tags == null ? "" : string.Join(" ", Tags.Select(It => It.Name)); }
+            get { return Tags == null ? "" : string.Join(" ", TagStrings); }
         }
 
 

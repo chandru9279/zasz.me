@@ -40,7 +40,7 @@ namespace zasz.me.Shared.Controllers
             return View(new PostListModel
                             {
                                 Posts = _Posts.Page(PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                NumberOfPages = (int) Math.Ceiling(_Posts.Count(ProOrRest)/(double) MaxPostsPerPage),
+                                NumberOfPages = (int)Math.Ceiling(_Posts.Count(ProOrRest) / (double)MaxPostsPerPage),
                                 DescriptionLength = DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
                             });
@@ -51,7 +51,7 @@ namespace zasz.me.Shared.Controllers
             return View("List", new PostListModel
                                     {
                                         Posts = _Tags.PagePosts(Tag, PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                        NumberOfPages = _Tags.CountPosts(Tag, ProOrRest)/MaxPostsPerPage,
+                                        NumberOfPages = _Tags.CountPosts(Tag, ProOrRest) / MaxPostsPerPage,
                                         DescriptionLength = DescriptionLength,
                                         WhatIsListed = "Posts tagged with <em>" + Tag + "</em>"
                                     });
@@ -199,7 +199,7 @@ namespace zasz.me.Shared.Controllers
 
             public string GeneratePagingHtml(string RequestPath)
             {
-                var SplitPath = RequestPath.Split(new[] {'/'});
+                var SplitPath = RequestPath.Split(new[] { '/' });
                 var LastSplit = SplitPath[SplitPath.Length - 1];
                 var PagePath = RequestPath + "/";
                 var PreviousPath = "";
@@ -218,23 +218,25 @@ namespace zasz.me.Shared.Controllers
                 }
                 var B = new StringBuilder();
                 if (NumberOfPages > 1)
-                    B.Append("<div class='Paging'>");
-                if (PreviousEnabled)
-                    B.AppendFormat("<a href='{0}'>Previous</a>", PreviousPath);
-                else
-                    B.Append("<span class='DisabledPrevNext'>Previous</span>");
-                for (int I = 1; I <= NumberOfPages; I++)
                 {
-                    if (I == CurrentPage)
-                        B.AppendFormat("<span class='Current'>{0}</span>", I);
+                    B.Append("<div class='Paging'>");
+                    if (PreviousEnabled)
+                        B.AppendFormat("<a href='{0}'>Previous</a>", PreviousPath);
                     else
-                        B.AppendFormat("<a href='{0}'>{1}</a>", PagePath + I, I);
+                        B.Append("<span class='DisabledPrevNext'>Previous</span>");
+                    for (int I = 1; I <= NumberOfPages; I++)
+                    {
+                        if (I == CurrentPage)
+                            B.AppendFormat("<span class='Current'>{0}</span>", I);
+                        else
+                            B.AppendFormat("<a href='{0}'>{1}</a>", PagePath + I, I);
+                    }
+                    if (NextEnabled)
+                        B.AppendFormat("<a href='{0}'>Next</a>", NextPath);
+                    else
+                        B.Append("<span class='DisabledPrevNext'>Next</span>");
+                    B.Append("</div>");
                 }
-                if (NextEnabled)
-                    B.AppendFormat("<a href='{0}'>Next</a>", NextPath);
-                else
-                    B.Append("<span class='DisabledPrevNext'>Next</span>");
-                B.Append("</div>");
                 return B.ToString();
             }
         }

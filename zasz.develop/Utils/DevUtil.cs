@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Practices.ServiceLocation;
 using SolrNet;
+using SolrNet.Mapping.Validation;
 using zasz.develop.Data;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Integration.SolrIntegration;
@@ -24,7 +25,7 @@ namespace zasz.develop.Utils
         private readonly IPostRepository _PostRepository;
         private readonly ITagRepository _TagRepository;
         private const string SolrConfigMain = @"..\..\..\..\zasz.vitalize\content\solrhome\conf\";
-        private readonly SolrSearchService Search;
+        private readonly SolrSearchService _Search;
 
 
         public DevUtil()
@@ -35,8 +36,8 @@ namespace zasz.develop.Utils
             _FullContext = new FullContext();
             _TagRepository = new Tags(_FullContext);
             _PostRepository = new Posts(_FullContext);
-            SolrIntegration.Bootstrap();
-            Search = new SolrSearchService(ServiceLocator.Current.GetInstance<ISolrOperations<Post>>());
+            SolrIntegration.Bootstrap(true);
+            _Search = new SolrSearchService(_PostRepository);
         }
 
         public string Current { get; set; }
@@ -133,18 +134,16 @@ namespace zasz.develop.Utils
             new TagCloud().Show();
             Log("Done");
         }
-
         // ReSharper restore MemberCanBeMadeStatic.Local
 
         private void ClearUnusedTagsClick(object Sender, EventArgs E)
         {
-            foreach (Tag TheTag in _FullContext.Tags.Include("Posts"))
+            foreach (Tag TheTag in _FullContext.Tags
+                .Include("Posts")
+                .Where(TheTag => TheTag.Posts.Count <= 0))
             {
-                if (TheTag.Posts.Count <= 0)
-                {
-                    Log(TheTag.Name + " had no posts, and was deleted.");
-                    _TagRepository.Delete(TheTag);
-                }
+                Log(TheTag.Name + " had no posts, and was deleted.");
+                _TagRepository.Delete(TheTag);
             }
             _TagRepository.Commit();
             Log("Done");
@@ -185,8 +184,16 @@ namespace zasz.develop.Utils
 
         private void BuildSolrIndexClick(object Sender, EventArgs E)
         {
+            var Errors = _Search.ValidateSchema();
+            foreach (var Error in Errors)
+                Log(Error);
+            if (Errors.Any())
+            {
+                Log("Mapping errors, aborting");
+                return;
+            }
             List<Post> Posts = _PostRepository.Page(0, 100);
-            Search.Index(Posts.Where(P => !string.IsNullOrEmpty(P.Content)).ToList());
+            _Search.Index(Posts.Where(P => !string.IsNullOrEmpty(P.Content)));
             Log("Done");
         }
 
@@ -207,6 +214,12 @@ namespace zasz.develop.Utils
             Doc.Load(Reader);
             Doc.Save(SolrConfigMain + FileName.Replace("-verbose", ""));
             Reader.Close();
+        }
+
+        private void ClearSolrIndexClick(object Sender, EventArgs E)
+        {
+            _Search.ClearIndex();
+            Log("Cleared Whole Index");
         }
     }
 }

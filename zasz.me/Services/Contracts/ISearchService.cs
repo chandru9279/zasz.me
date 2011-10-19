@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using zasz.me.Integration.SolrIntegration;
 using zasz.me.Shared.Models;
 
 namespace zasz.me.Services.Contracts
@@ -7,6 +6,10 @@ namespace zasz.me.Services.Contracts
     public interface ISearchService
     {
         SearchResults Search(string Term);
+        
+        List<Post> MoreLikeThis(string PostId);
+        
+        string AutoComplete(string Input);
 
         void Index(Post P);
 
@@ -22,21 +25,24 @@ namespace zasz.me.Services.Contracts
 
     }
 
-    public class SearchResults
+    public class SearchResults : List<SearchResult>
     {
-        public List<PostSearchResult> PostResults { get; set; }
+        public string Query { get; set; }
+        public string Spellchecking { get; set; }
     }
 
-    public class PostSearchResult
+    public class SearchResult
     {
-        public PostSearchResult(string Id, string Link, string Snippet)
+        public SearchResult(string Id, string Title, string Link, string Snippet)
         {
             this.Id = Id;
+            this.Title = Title;
             this.Link = Link;
             this.Snippet = Snippet;
         }
 
         public string Id { get; set; }
+        public string Title { get; set; }
         public string Link { get; set; }
         public string Snippet { get; set; }
     }

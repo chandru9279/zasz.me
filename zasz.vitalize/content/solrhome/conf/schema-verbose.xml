@@ -509,10 +509,10 @@ limitations under the License.
    -->
 
    <field name="Id" type="string" indexed="true" stored="true" />
-   <field name="Post_Content" type="html_en_splitting" indexed="true" stored="true" />
+   <field name="Post_Content" type="html_en_splitting" indexed="true" stored="true" termVectors="true"/>
    <field name="Post_Tags" type="lowercase" indexed="true" stored="true" multiValued="true" />
    <field name="Post_Slug" type="text_en_splitting_tight" indexed="true" stored="true" />
-   <field name="Post_Title" type="text_general" indexed="true" stored="true" />
+   <field name="Post_Title" type="text_general" indexed="true" stored="true" termVectors="true"/>
 
      <!-- catchall field, containing all other searchable text fields,
       implemented via copyField further on in this schema. This is used

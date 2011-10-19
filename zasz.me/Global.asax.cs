@@ -13,7 +13,7 @@ namespace zasz.me
             MvcIntegration.Bootstrap();
             UnityIntegration.Bootstrap();
             Ef4Integration.Bootstrap();
-            SolrIntegration.Bootstrap();
+            SolrIntegration.Bootstrap(true);
         }
     }
 }

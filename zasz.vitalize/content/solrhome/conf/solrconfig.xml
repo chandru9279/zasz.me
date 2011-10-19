@@ -56,18 +56,13 @@
   </requestDispatcher>
   <requestHandler name="/search" class="solr.SearchHandler" default="true">
     <lst name="defaults">
-      <str name="echoParams">explicit</str>
+      <str name="echoParams">none</str>
       <int name="rows">10</int>
       <str name="defType">edismax</str>
       <str name="q.alt">*:*</str>
-      <str name="fl">Post_Slug, Post_Title, Post_Tags, score</str>
-      <str name="mlt">false</str>
-      <str name="mlt.count">3</str>
-      <str name="mlt.qf">Post_Title^1.5 Post_Content^1.0</str>
-      <str name="mlt.mintf">4</str>
-      <str name="mlt.fl">Post_Title, Post_Content</str>
+      <str name="fl">Post_Slug, Post_Title, Post_Tags, Id</str>
       <str name="hl">true</str>
-      <str name="hl.fl">Post_Title Post_Content</str>
+      <str name="hl.fl">Post_Content</str>
       <str name="hl.snippets">2</str>
       <str name="hl.mergeContiguous">true</str>
       <str name="f.Post_Title.hl.fragsize">0</str>
@@ -77,20 +72,29 @@
       <str name="f.Post_Tags.hl.alternateField">Post_Tags</str>
       <str name="f.Post_Content.hl.alternateField">Post_Title</str>
       <str name="spellcheck">true</str>
+      <str name="spellcheck.collate">true</str>
     </lst>
     <lst name="invariants">
       <str name="wt">xml</str>
     </lst>
-    <arr name="last-components">
+    <arr name="components">
+      <str>query</str>
+      <str>highlight</str>
       <str>spellchecker</str>
       <str>elevator</str>
     </arr>
   </requestHandler>
-  <requestHandler name="/update" class="solr.XmlUpdateRequestHandler">
+  <requestHandler name="/mlt" class="solr.MoreLikeThisHandler">
+    <str name="fl">Id</str>
+    <str name="mlt.match.include">false</str>
+    <str name="mlt">false</str>
+    <str name="mlt.count">3</str>
+    <str name="mlt.qf">Post_Title^1.5 Post_Content^1.0</str>
+    <str name="mlt.mintf">4</str>
+    <str name="mlt.fl">Post_Title, Post_Content</str>
   </requestHandler>
   <requestHandler name="/autocomplete" class="solr.SearchHandler" startup="lazy">
     <lst name="defaults">
-      <!--<str name="terms.regex">zasz.*</str>-->
       <str name="terms.regex.flag">case_insensitive</str>
     </lst>
     <lst name="invariants">
@@ -104,26 +108,27 @@
   </requestHandler>
   <requestHandler name="/cloud" class="solr.SearchHandler" startup="lazy">
     <lst name="defaults">
-      <str name="q.alt">*:*</str>
-      <int name="rows">1</int>
+      <str name="terms.lower">a</str>
+      <str name="terms.limit">50</str>
+      <str name="terms.regex">[\w]{3,}+</str>
+      <str name="terms.regex.flag">case_insensitive</str>
     </lst>
     <lst name="invariants">
-      <str name="tv.fl">FullSearch</str>
-      <str name="fl">Post_Title</str>
-      <str name="wt">xml</str>
-      <bool name="tv">true</bool>
-      <bool name="tv.tf">true</bool>
-      <bool name="tv.df">false</bool>
+      <bool name="terms">true</bool>
+      <str name="terms.sort">count</str>
+      <str name="terms.fl">FullSearch</str>
+      <str name="wt">json</str>
     </lst>
     <arr name="components">
-      <str>query</str>
-      <str>termVectors</str>
+      <str>terms</str>
     </arr>
+  </requestHandler>
+  <requestHandler name="/update" class="solr.XmlUpdateRequestHandler">
   </requestHandler>
   <requestHandler name="/admin/" class="solr.admin.AdminHandlers" />
   <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
     <lst name="defaults">
-      <str name="qt">search</str>
+      <str name="qt">/search</str>
       <str name="q">solrpingquery</str>
       <str name="echoParams">all</str>
     </lst>
@@ -141,7 +146,6 @@
       <str name="field">FullSearch</str>
     </lst>
   </searchComponent>
-  <searchComponent name="termVectors" class="solr.TermVectorComponent" />
   <searchComponent name="terms" class="solr.TermsComponent" />
   <searchComponent name="elevator" class="solr.QueryElevationComponent">
     <str name="queryFieldType">string</str>

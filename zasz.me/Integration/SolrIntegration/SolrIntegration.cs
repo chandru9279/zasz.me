@@ -1,33 +1,44 @@
-﻿using SolrNet;
-using SolrNet.Mapping;
-using SolrNet.Utils;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using SolrNet;
+using SolrNet.Impl;
 using zasz.me.Shared.Models;
 
 namespace zasz.me.Integration.SolrIntegration
 {
     public class SolrIntegration
     {
-        public static void Bootstrap()
+        public static void Bootstrap(bool Log)
         {
-//            var Container = new Container(Startup.Container);
-//            Container.RemoveAll<IReadOnlyMappingManager>();
-//            Container.Register<IReadOnlyMappingManager>(C => GetMappings());
-            Startup.Init<Post>("http://localhost:5000/solr");
+            if (Log)
+                Startup.Init<Post>(new ConsoleLoggingConnection("http://localhost:5000/solr"));
+            else
+                Startup.Init<Post>("http://localhost:5000/solr");
         }
 
-        public static MappingManager GetMappings()
+        public class ConsoleLoggingConnection : ISolrConnection
         {
-            var Manager = new MappingManager();
-            var PostType = typeof(Post);
-            var IdentityProperty = PostType.GetProperty("Id");
-            Manager.SetUniqueKey(IdentityProperty);
-            Manager.Add(IdentityProperty, "Id");
-            Manager.Add(PostType.GetProperty("Content"), "Post_Content");
-            Manager.Add(PostType.GetProperty("Tags"), "Post_Tags", 1.5f);
-            Manager.Add(PostType.GetProperty("Slug"), "Post_Slug");
-            Manager.Add(PostType.GetProperty("Title"), "Post_Title", 2.0f);
-            return Manager;
-        }
+            private readonly ISolrConnection _Connection;
 
+            public ConsoleLoggingConnection(string Url)
+            {
+                _Connection = new SolrConnection(Url);
+            }
+
+            public string Post(string RelativeUrl, string Posted)
+            {
+                Debug.WriteLine("POSTing '{0}' to '{1}'", Posted, RelativeUrl);
+                return _Connection.Post(RelativeUrl, Posted);
+            }
+
+            public string Get(string RelativeUrl, IEnumerable<KeyValuePair<string, string>> Parameters)
+            {
+                var StringParams = string.Join(", ", Parameters.Select(P => string.Format("{0}={1}", P.Key, P.Value)).ToArray());
+                Debug.WriteLine("GETting '{0}' from '{1}'", StringParams, RelativeUrl);
+                return _Connection.Get(RelativeUrl, Parameters);
+            }
+        }
     }
 }

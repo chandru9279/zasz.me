@@ -10,6 +10,9 @@
                 return false;
             }
         });
+        $("input#Search").autocomplete({
+            source: "/Home/Autocomplete"
+        });
     });
 </script>
 <form id="SearchForm" action="/Home/Search" method="POST">

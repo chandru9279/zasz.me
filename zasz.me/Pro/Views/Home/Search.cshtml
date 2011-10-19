@@ -2,7 +2,16 @@
 @model SearchResults
 
 @{
-    ViewBag.Title = "Search Results for";
+    ViewBag.Title = "Search Results for" + Model.Query;
+}
+
+@Model.Spellchecking
+@foreach (var result in Model)
+{
+    <a href="@result.Link">@result.Title</a><br />
+    @Html.Raw(result.Snippet)<br />
+    <br />
+    <br />
 }
 
 

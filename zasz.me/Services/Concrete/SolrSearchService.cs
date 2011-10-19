@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Practices.ServiceLocation;
 using SolrNet;
+using SolrNet.Commands.Parameters;
 using SolrNet.DSL;
+using SolrNet.Mapping.Validation;
 using zasz.me.Services.Contracts;
 using zasz.me.Shared.Models;
 
@@ -8,28 +12,47 @@ namespace zasz.me.Services.Concrete
 {
     public class SolrSearchService : ISearchService
     {
-        private readonly ISolrOperations<Post> _PostOp;
+        private readonly IPostRepository _Posts;
+        private readonly ISolrOperations<Post> _PostOp; /* Pun Intended */
 
-        public SolrSearchService(ISolrOperations<Post> PostOp /* Pun Intended */)
+        public SolrSearchService(IPostRepository Posts)
         {
-            _PostOp = PostOp;
+            _Posts = Posts;
+            _PostOp = ServiceLocator.Current.GetInstance<ISolrOperations<Post>>();
+        }
+
+        public List<Post> MoreLikeThis(string PostId)
+        {
+            var MltHandler = new QueryOptions { ExtraParams = new Dictionary<string, string>{{"qt", "/mlt"}} };
+            var Results = _PostOp.Query(Query.Field("Id").Is(PostId), MltHandler);
+            return Results.Select(X => _Posts.Load(X.Id)).ToList();
+        }
+
+        public string AutoComplete(string Input)
+        {
+            return ServiceLocator.Current.GetInstance<ISolrConnection>().Get("/autocomplete",
+                new Dictionary<string, string>{{ "terms.regex", Input + ".*"}});
         }
 
         public SearchResults Search(string Term)
         {
-            var Results = _PostOp.Query(Query.Simple(Term));
-            var p = Results.SimilarResults;
-            var p1 = Results.SpellChecking;
-            var p2 = Results.Header;
-            var p3 = Results.Highlights;
-            var p4 = Results.Collapsing;
-            var p5 = Results[0];
-            var p6 = Results[1];
-            var p7 = Results[2];
-            return new SearchResults
-                       {
-                           
-                       };
+            var SearchHandler = new QueryOptions
+                                    {
+                                        Start = 0,
+                                        Rows = 10,
+                                        ExtraParams = new Dictionary<string, string> { { "qt", "/search" } }
+                                    };
+            var SearchResults = new SearchResults();
+            var Results = _PostOp.Query(Query.Simple(Term), SearchHandler);
+            for (int I = 0; I < Results.NumFound; I++)
+            {
+                var Id = Results[I].Id.ToString();
+                ICollection<string> Snippet = Results.Highlights[Id]["Post_Content"];
+                SearchResults.Add(new SearchResult(Id, Results[I].Title, "/Blog/" + Results[I].Slug, string.Join("...", Snippet)));
+            }
+            SearchResults.Spellchecking = Results.SpellChecking.Collation;
+
+            return SearchResults;
         }
 
         public void Index(Post P)
@@ -43,6 +66,22 @@ namespace zasz.me.Services.Concrete
             foreach (var Post in P)
                 _PostOp.Add(Post);
             _PostOp.Commit();
+        }
+
+        public void ClearIndex()
+        {
+            _PostOp.Delete(Query.Simple("*:*"));
+            _PostOp.Commit();
+        }
+
+        public IEnumerable<string> ValidateSchema()
+        {
+            IList<ValidationResult> Mismatches = _PostOp.EnumerateValidationResults().ToList();
+            var Errors = Mismatches.OfType<ValidationError>();
+            foreach (var Error in Errors)
+                yield return "Mapping error: " + Error.Message;
+            foreach (var Warning in Mismatches.OfType<ValidationWarning>())
+                yield return "Mapping warning: " + Warning.Message;
         }
     }
 }

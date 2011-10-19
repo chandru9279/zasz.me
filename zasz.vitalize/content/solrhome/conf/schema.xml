@@ -74,10 +74,10 @@
   </types>
   <fields>
     <field name="Id" type="string" indexed="true" stored="true" />
-    <field name="Post_Content" type="html_en_splitting" indexed="true" stored="true" />
+    <field name="Post_Content" type="html_en_splitting" indexed="true" stored="true" termVectors="true" />
     <field name="Post_Tags" type="lowercase" indexed="true" stored="true" multiValued="true" />
     <field name="Post_Slug" type="text_en_splitting_tight" indexed="true" stored="true" />
-    <field name="Post_Title" type="text_general" indexed="true" stored="true" />
+    <field name="Post_Title" type="text_general" indexed="true" stored="true" termVectors="true" />
     <field name="FullSearch" type="html_en_unstemmed" indexed="true" stored="false" multiValued="true" termVectors="true" termPositions="false" termOffsets="false" />
     <copyField source="Post_Content" dest="FullSearch" />
     <copyField source="Post_Tags" dest="FullSearch" />
