@@ -1,9 +1,4 @@
-﻿div
-{
-    font-family: georgia, serif;
-}
-
-a
+﻿a
 {
     color: #425955;
     text-decoration: none;
@@ -18,6 +13,7 @@ a:HOVER
 
 .Pro
 {
+    font-family: 'Gentium Book Basic', serif;
     background-position: center top;
     background-color: #F1F2D8;
     display: inline-block;
@@ -117,7 +113,7 @@ a:HOVER
 .Description
 {
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
     margin: 14px;
 }
 
@@ -151,7 +147,7 @@ a:HOVER
 
 .Status-History-Expanded
 {
-    margin-left: 24px;
+    margin-left: 28px;
     margin-top: -11px;
     padding-left: 10px;
     padding-right: 10px;
