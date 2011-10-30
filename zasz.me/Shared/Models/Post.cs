@@ -15,6 +15,7 @@ namespace zasz.me.Shared.Models
         [SolrUniqueKey("Id")]
         public Guid Id { get; set; }
 
+        [Required]
         [SolrField("Post_Slug")]
         public string Slug { get; set; }
 

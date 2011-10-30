@@ -119,8 +119,8 @@
 																								<xs:documentation>The dependency element specifies that Unity should resolve the value for this property by using the types and mappings registered in the container. If you do not specify a type, it uses the type defined for the  property. If you do not specify the name of a mapping or registration, it uses the default (un-named) mapping or registration.</xs:documentation>
 																							</xs:annotation>
 																						</xs:element>
-                                            <xs:element name="array" type="arrayType" minOccurs="0" />
-                                          </xs:choice>
+																						<xs:element name="array" type="arrayType" minOccurs="0" />
+																					</xs:choice>
 																					<xs:attribute ref="name" use="required">
 																						<xs:annotation>
 																							<xs:documentation>The name of the property to apply dependency injection to. </xs:documentation>
@@ -345,93 +345,93 @@
 			<xs:documentation>The global alias attribute</xs:documentation>
 		</xs:annotation>
 	</xs:attribute>
-  <xs:complexType name="arrayType">
-    <xs:annotation>
-      <xs:documentation>The array element type specifies that an array containing the registered instances of a type parameter should be resolved. The array element type has the following child elements: array, dependency, value. You can nest arrays so the array can be an array of arrays. Use the dependency element when you want only specific member instances. Use the value element to specify a value, such as one of the standard .NET Framework data types.</xs:documentation>
-    </xs:annotation>    
-    <xs:sequence minOccurs="0" maxOccurs="unbounded">
-      <xs:choice minOccurs="0">
-        <xs:element name="array" type="arrayType" minOccurs="0">
-          <xs:annotation>
-            <xs:documentation>The array element specifies that an array containing the registered instances of a type parameter should be resolved. The array element has the following child elements: array, dependency, value. You can nest arrays so the array can be an array of arrays. Use the dependency element when you want only specific member instances. Use the value element to specify a value, such as one of the standard .NET Framework data types.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="value" type="valueType" minOccurs="0">
-          <xs:annotation>
-            <xs:documentation>The value element specifies a value to apply to a property or parameter. The value can be one of the standard .NET data types such as String or Integer, and Unity will use the corresponding built-in .NET value converter to evaluate the value. Alternatively, you can use a custom object type and provide a reference to a converter for they type.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="dependency" type="dependencyType" minOccurs="0">
-          <xs:annotation>
-            <xs:documentation>The dependency element specifies that Unity should resolve the value for this property by using the types and mappings registered in the container. If you do not specify a type, it uses the type defined for the  property. If you do not specify the name of a mapping or registration, it uses the default (un-named) mapping or registration.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:choice>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="valueType">
-    <xs:annotation>
-      <xs:documentation>The value element type specifies a value to apply to a property. The value can be one of the standard .NET data types such as String or Integer, and Unity will use the corresponding built-in .NET value converter to evaluate the value. Alternatively, you can use a custom object type and provide a reference to a converter for the type.</xs:documentation>
-    </xs:annotation>
-    <xs:attribute ref="type">
-      <xs:annotation>
-        <xs:documentation>The type of the property. Can be a user-defined alias specified in the typeAliases section of the configuration, or one of the standard .NET data types. If you do not specify a type, the property parameter is assumed to be of type String.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute ref="value" use="required">
-      <xs:annotation>
-        <xs:documentation>
-          The value for this property parameter constructor.
-        </xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute ref="typeConverter">
-      <xs:annotation>
-        <xs:documentation>The type converter to use to convert the value provided to match the type of the instance. If not specified, the default converter for the specified type is used.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
-  <xs:complexType name="dependencyType">
-    <xs:annotation>
-      <xs:documentation>The dependency element type specifies that Unity should resolve the value for this property by using the types and mappings registered in the container. If you do not specify a type, it uses the type defined for the parameter or the property. If you do not specify the name of a mapping or registration, it uses the default (un-named) mapping or registration.</xs:documentation>
-    </xs:annotation>
-    <xs:attribute ref="name">
-      <xs:annotation>
-        <xs:documentation>The name of the named type or mapping registered in the container to use to resolve this dependency.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute ref="type">
-      <xs:annotation>
-        <xs:documentation>The type to use to resolve a dependency mapping or registration. This attribute is optional. If you do not specify a type, Unity will resolve the type based on the type of the parent parameter or property.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
-  <xs:complexType name="paramType">
-    <xs:annotation>
-      <xs:documentation>This corresponds to the parameter type of the parameter to the constructor or the method that you want to specify. The param element can contain either a single value element, single dependency element or a single array element. Use a value element to specify the value for the parameter, or use a dependency element to specify a non-default dependency that Unity should apply up when setting the parameter. If you do not include a child element, Unity will attempt to resolve the value of the parameter using default dependency injection resolved through the container.</xs:documentation>
-    </xs:annotation>
-    <xs:choice minOccurs="0">
-      <xs:element name="value" type="valueType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value element specifies a value to apply to a property or parameter. The value can be one of the standard .NET data types such as String or Integer, and Unity will use the corresponding built-in .NET value converter to evaluate the value. Alternatively, you can use a custom object type and provide a reference to a converter for they type.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="dependency" type="dependencyType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The dependency element specifies that Unity should resolve the value for this parameter constructor by using the types and mappings registered in the container. If you do not specify a type, it uses the type defined for the parameter or property. If you do not specify the name of a mapping or registration, it uses the default (un-named) mapping or registration.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="array" type="arrayType" minOccurs="0" />
-    </xs:choice>
-    <xs:attribute ref="name" use="required">
-      <xs:annotation>
-        <xs:documentation>The name of the method parameter.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute ref="parameterType">
-      <xs:annotation>
-        <xs:documentation>The data type of this method parameter. Can be a user-defined alias specified in the typeAliases section of the configuration.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
+	<xs:complexType name="arrayType">
+		<xs:annotation>
+			<xs:documentation>The array element type specifies that an array containing the registered instances of a type parameter should be resolved. The array element type has the following child elements: array, dependency, value. You can nest arrays so the array can be an array of arrays. Use the dependency element when you want only specific member instances. Use the value element to specify a value, such as one of the standard .NET Framework data types.</xs:documentation>
+		</xs:annotation>    
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:choice minOccurs="0">
+				<xs:element name="array" type="arrayType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The array element specifies that an array containing the registered instances of a type parameter should be resolved. The array element has the following child elements: array, dependency, value. You can nest arrays so the array can be an array of arrays. Use the dependency element when you want only specific member instances. Use the value element to specify a value, such as one of the standard .NET Framework data types.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="value" type="valueType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The value element specifies a value to apply to a property or parameter. The value can be one of the standard .NET data types such as String or Integer, and Unity will use the corresponding built-in .NET value converter to evaluate the value. Alternatively, you can use a custom object type and provide a reference to a converter for they type.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="dependency" type="dependencyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The dependency element specifies that Unity should resolve the value for this property by using the types and mappings registered in the container. If you do not specify a type, it uses the type defined for the  property. If you do not specify the name of a mapping or registration, it uses the default (un-named) mapping or registration.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="valueType">
+		<xs:annotation>
+			<xs:documentation>The value element type specifies a value to apply to a property. The value can be one of the standard .NET data types such as String or Integer, and Unity will use the corresponding built-in .NET value converter to evaluate the value. Alternatively, you can use a custom object type and provide a reference to a converter for the type.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute ref="type">
+			<xs:annotation>
+				<xs:documentation>The type of the property. Can be a user-defined alias specified in the typeAliases section of the configuration, or one of the standard .NET data types. If you do not specify a type, the property parameter is assumed to be of type String.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="value" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					The value for this property parameter constructor.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="typeConverter">
+			<xs:annotation>
+				<xs:documentation>The type converter to use to convert the value provided to match the type of the instance. If not specified, the default converter for the specified type is used.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="dependencyType">
+		<xs:annotation>
+			<xs:documentation>The dependency element type specifies that Unity should resolve the value for this property by using the types and mappings registered in the container. If you do not specify a type, it uses the type defined for the parameter or the property. If you do not specify the name of a mapping or registration, it uses the default (un-named) mapping or registration.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute ref="name">
+			<xs:annotation>
+				<xs:documentation>The name of the named type or mapping registered in the container to use to resolve this dependency.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="type">
+			<xs:annotation>
+				<xs:documentation>The type to use to resolve a dependency mapping or registration. This attribute is optional. If you do not specify a type, Unity will resolve the type based on the type of the parent parameter or property.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="paramType">
+		<xs:annotation>
+			<xs:documentation>This corresponds to the parameter type of the parameter to the constructor or the method that you want to specify. The param element can contain either a single value element, single dependency element or a single array element. Use a value element to specify the value for the parameter, or use a dependency element to specify a non-default dependency that Unity should apply up when setting the parameter. If you do not include a child element, Unity will attempt to resolve the value of the parameter using default dependency injection resolved through the container.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element name="value" type="valueType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The value element specifies a value to apply to a property or parameter. The value can be one of the standard .NET data types such as String or Integer, and Unity will use the corresponding built-in .NET value converter to evaluate the value. Alternatively, you can use a custom object type and provide a reference to a converter for they type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dependency" type="dependencyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The dependency element specifies that Unity should resolve the value for this parameter constructor by using the types and mappings registered in the container. If you do not specify a type, it uses the type defined for the parameter or property. If you do not specify the name of a mapping or registration, it uses the default (un-named) mapping or registration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="array" type="arrayType" minOccurs="0" />
+		</xs:choice>
+		<xs:attribute ref="name" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of the method parameter.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="parameterType">
+			<xs:annotation>
+				<xs:documentation>The data type of this method parameter. Can be a user-defined alias specified in the typeAliases section of the configuration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
 </xs:schema>
