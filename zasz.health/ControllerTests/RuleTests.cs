@@ -2,11 +2,11 @@
 using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
+using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
 using System.Diagnostics;
 using System;
 using System.Web.Mvc;
-using zasz.me.Shared.Models;
 
 namespace zasz.health.ControllerTests
 {

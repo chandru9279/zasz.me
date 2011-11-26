@@ -1,0 +1,18 @@
+﻿@using zasz.me.Areas.Shared.Models
+@model Post
+
+
+@*      --= Rest Area =--      *@
+
+
+<div class="Post">
+<br />
+<br />
+<a class="Post-Title" href="/Blog/Post/@Model.Slug">@Model.Title</a>
+<div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
+<br />
+<br />
+<p>@Html.Raw(Model.Content)</p>
+
+@Html.Partial("~/Areas/Shared/Views/Post/_PostFooter.cshtml", Model)
+</div>

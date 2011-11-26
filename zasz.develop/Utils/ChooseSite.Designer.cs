@@ -1,4 +1,4 @@
-﻿using Domain = zasz.me.Shared.Models.Site;
+﻿using Domain = zasz.me.Areas.Shared.Models.Site;
 namespace zasz.develop.Utils
 {
     partial class ChooseSite

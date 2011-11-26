@@ -67,7 +67,7 @@ namespace zasz.develop.Utils
             Skipped.Text = string.Join("; ", TagCloudService.WordsSkipped.Select(It => It.Key));
             Bitmap.Save(GenCloudSysPath, ImageFormat.Png);
             Cloud.Image = Bitmap;
-            Borders.Values.ToList().ForEach((It) => Cloud.Controls.Add(GetBorder(It)));
+            Borders.Values.ToList().ForEach(It => Cloud.Controls.Add(GetBorder(It)));
         }
 
         private Control GetBorder(RectangleF Borders)

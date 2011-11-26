@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Domain = zasz.me.Shared.Models.Site;
+using Domain = zasz.me.Areas.Shared.Models.Site;
 
 namespace zasz.me.Integration.MVC
 {
@@ -97,17 +97,15 @@ namespace zasz.me.Integration.MVC
                 ).DataTokens["area"] = Domain.PRO;
         }
 
-        /* Eliminated all vbhtml and removed cumbersome Areas folder 
-        * http://stackoverflow.com/questions/3734927/is-it-possible-to-rename-the-areas-folder
-        */
+        /* Eliminated all vbhtml and aspx, and unused locations, and engines*/
         private static void SetupRazor()
         {
             ViewEngines.Engines.Clear();
             var Razor = new RazorViewEngine();
-            var AreaViewLocations = new string[2]
+            var AreaViewLocations = new[]
                                         {
-                                            "~/{2}/Views/{1}/{0}.cshtml",
-                                            "~/{2}/Views/Shared/{0}.cshtml"
+                                            "~/Areas/{2}/Views/{1}/{0}.cshtml",
+                                            "~/Areas/{2}/Views/Shared/{0}.cshtml"
                                         };
             // Not using anything outside of the areas.
             var ViewLocations = new string[0];

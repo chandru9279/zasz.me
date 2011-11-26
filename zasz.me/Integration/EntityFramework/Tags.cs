@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using zasz.me.Shared.Models;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {

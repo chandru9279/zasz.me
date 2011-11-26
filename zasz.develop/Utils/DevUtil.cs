@@ -5,15 +5,12 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.Practices.ServiceLocation;
-using SolrNet;
-using SolrNet.Mapping.Validation;
 using zasz.develop.Data;
+using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Integration.SolrIntegration;
 using zasz.me.Services.Concrete;
-using zasz.me.Shared.Models;
-using Domain = zasz.me.Shared.Models.Site;
+using Domain = zasz.me.Areas.Shared.Models.Site;
 using System.Xml;
 
 namespace zasz.develop.Utils

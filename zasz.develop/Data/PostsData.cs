@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using zasz.develop.Utils;
-using zasz.me.Shared.Models;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.develop.Data
 {
@@ -66,7 +66,7 @@ namespace zasz.develop.Data
                                                new[] {"USB-Guard", Site.PRO},
                                                new[] {"Welcome-to-ZaszBlog", Site.REST},
                                                new[] {"WTF-Sadness", Site.REST},
-                                               new[] {"ZaszzasZ", Site.REST},
+                                               new[] {"ZaszzasZ", Site.REST}
                                            }.ToDictionary(Entry => Entry[0], Entry => Entry[1]));
             }
         }

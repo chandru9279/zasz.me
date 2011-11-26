@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using SolrNet;
 using SolrNet.Impl;
-using zasz.me.Shared.Models;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.SolrIntegration
 {

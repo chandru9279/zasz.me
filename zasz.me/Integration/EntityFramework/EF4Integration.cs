@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using Microsoft.Practices.Unity;
-using zasz.me.Shared.Models;
+using zasz.me.Areas.Shared.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {

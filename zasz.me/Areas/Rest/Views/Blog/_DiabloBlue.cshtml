@@ -1,0 +1,45 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Rest/DiabloBlue/DiabloBlue.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="ev_bg">
+        <div id="everything">
+            <div id="header">
+                <h1>Diablo III Fansite</h1>
+            </div>
+            <div id="middle">
+                <div id="left_column">
+                    <div id="navigation">
+                        @Html.Partial("~/Areas/Rest/Views/Shared/Menu.cshtml")
+                    </div>                    
+                    @RenderSection("Right", false)
+                    <div id="more_information">
+                        <div class="box">
+                            Poll:</div>
+                        <div class="box">
+                            Features:</div>
+                        <div class="box">
+                            Links:</div>
+                    </div>
+                </div>
+                <div id="middle_column" class="two_column">
+                    @RenderBody()
+                </div>
+                
+            </div>
+            <div id="footer">                
+                <span class="copyright">Diablo&reg; and Blizzard Entertainment&reg; are all trademarks
+                    or registered trademarks of Blizzard Entertainment in the United States and/or other
+                    countries.
+                    <br />
+                    These terms and all related materials, logos, and images are copyright &copy; Blizzard
+                    Entertainment. This site is in no way associated with or endorsed by Blizzard Entertainment&reg;.</span>
+            </div>
+        </div>
+        @RenderSection("Bottom", false)
+    </div>
+</body>
+</html> 

@@ -1,0 +1,34 @@
+﻿@using zasz.me.Areas.Shared.Controllers.Utils
+@using zasz.me.Areas.Shared.Models
+@model Post
+
+@{
+    ViewBag.Title = "Post";
+}
+
+
+@section Right{
+    <div class="Sidebar-Title">QR - Code</div>
+    @Html.QrCode(Model.Permalink, Size: 214)
+    <a>What's this?</a>
+    @Html.Action("ArchiveControl")
+}
+
+
+@*      --= Rest Area =--      *@
+
+
+
+@Html.Partial("~/Areas/Rest/Views/Blog/_PostFullView.cshtml", Model)
+
+<div class="Clear"></div>
+@*This div will be filled by the Disqus script in _DisqusComments.cshtml*@
+<div style="margin:20px;" id="disqus_thread">
+<noscript>
+    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+</div>
+
+@Html.Partial("~/Areas/Shared/Views/Post/_DisqusComments.cshtml", Model)
+
+
