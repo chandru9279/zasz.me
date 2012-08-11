@@ -1,8 +1,7 @@
 #Zasz.ME
 ##Revamping ChandruOn.NET
------------------------------
 	
-	SetupCommon Installation :
+	SetupCommon Installation
 
 1. Need [.NET 4] and [MS SQLSERVER 2008] running.
 2. Need an account in MS SQLSERVER, that has permission to create and drop databases. 
@@ -12,7 +11,7 @@
 4. Run the  2 latest sql files on the ColdStorage database.  X-Data.sql & X-Schema.sql.
 5. Need With [JRE6] installed and environment variable JRE_HOME set.    
 	
-	Server Installation :
+	Server Installation
 	
 1. Go to Data-Tools-Setup folder and run ServerBuild.bat
 2. Create an application pool in IIS, create a site (zasz.me), point it to folder zasz.me\
@@ -25,7 +24,7 @@
 6. Optionally change the Temp Compilation directory to some suitable directory
 7. Start the website.
 
-	Devbox :
+	Devbox
 	
 1. Go to Data-Tools-Setup folder and run Packages.bat - This will fetch the Nuget packages
 2. Open zasz.me.sln and press F5 xD
