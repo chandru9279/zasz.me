@@ -1,7 +1,0 @@
-Suspect Slug and Tag were never indexed - true
-  
-Logging does not work
-
-Mapping manager does not work
-
-Spelling Check & terms (autocomplete) does not work

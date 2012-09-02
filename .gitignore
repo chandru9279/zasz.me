@@ -14,9 +14,7 @@ _ReSharper.zasz.me/
 zasz.me/Uploads/
 zasz.develop/SampleData/TagCloud/
 
-zasz.vitalize/content/tomcat/logs
-zasz.vitalize/content/tomcat/work
-zasz.vitalize/content/solrhome/data
-zasz.vitalize/content/solrhome/logs
+Solr/logs/
+Solr/work/
 
 .metadata/

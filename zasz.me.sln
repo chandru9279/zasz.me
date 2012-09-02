@@ -1,17 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.me", "zasz.me\zasz.me.csproj", "{B652A23D-604D-40F7-9D13-984EEAD99B68}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.health", "zasz.health\zasz.health.csproj", "{AC97B18E-27FE-4B35-B757-3E361D073839}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28CD5063-E426-4DA9-A077-B2BB25BDF407}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
 		zasz.me.vsmdi = zasz.me.vsmdi
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.develop", "zasz.develop\zasz.develop.csproj", "{1F3066B6-6786-42F4-95A3-34EC0AD183B7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data-Tools-Setup", "Data-Tools-Setup", "{4C4EC51E-735F-43DE-B879-F54E1FDB2FD4}"
 	ProjectSection(SolutionItems) = preProject
@@ -85,6 +79,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comments", "Comments", "{41
 	ProjectSection(SolutionItems) = preProject
 		Data-Tools-Setup\Posts\Comments\CommentsWXRAksimetFiltered.xml = Data-Tools-Setup\Posts\Comments\CommentsWXRAksimetFiltered.xml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.me", "zasz.me\zasz.me.csproj", "{B652A23D-604D-40F7-9D13-984EEAD99B68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.health", "zasz.health\zasz.health.csproj", "{AC97B18E-27FE-4B35-B757-3E361D073839}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.develop", "zasz.develop\zasz.develop.csproj", "{1F3066B6-6786-42F4-95A3-34EC0AD183B7}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

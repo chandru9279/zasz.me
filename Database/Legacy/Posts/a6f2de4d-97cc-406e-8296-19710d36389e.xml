@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>Zasz</author>
+  <title>From The Studio To Release</title>
+  <description />
+  <content>&lt;p&gt;
+&lt;font face="comic sans ms,sand"&gt;&lt;font size="6"&gt;When you got a working site in Visual Studio&lt;br /&gt;
+&lt;/font&gt;&lt;/font&gt;
+&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;&lt;font size="3"&gt;First thing you&amp;#39;ll be having &amp;quot;debug=true&amp;quot; attribute as part of all the page directives. Take all this out to secure your site and increase performance. Now debug symbols and code are not inserted into the end result&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;Modify Web.Config to include &amp;lt;customErrors&amp;gt; Section to default redirect errors that might just creep in, to user friendly Aspx or Html. There is no end to web.config based modification. For full schema of elements in web.config and their meaning &lt;a href="http://msdn.microsoft.com/en-us/library/b5ysx397(VS.71).aspx" target="_blank" title="Web.config schema"&gt;go to MSDN&lt;/a&gt; &lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;ASP.NET applies configuration settings to resources in a hierarchical manner. Web.config files supply configuration information to the directories in which they are located and to all child directories. The configuration settings for a Web resource are supplied by the configuration file located in the same directory as the resource and by all configuration files in all parent directories&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;Optimizations such as white-space-stripping-csshandler and RegEx-preprocessing-JScripthandlers go a long way improving network load reduction and caching.&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;DiscountASP.net is the best host i&amp;#39;ve seen but they are not cheap. &lt;a href="http://www.discountasp.net"&gt;See&lt;/a&gt; for yourself, there are other hosts: Choose one that offers:&lt;/font&gt; 
+	&lt;ol&gt;
+		&lt;li&gt;&lt;font size="3"&gt;ASP.NET 3.5 hosting&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;MS SQL 2005 (or) MS SQL 2008 hosting&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Unlimited(or suitably large) Access hosting&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;IIS 6 is fine but IIS 7 in ASP.NET Integration mode is way better as available in DiscounASP&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Atleast 500 mb webspace &amp;amp; 50 mb SQL(Database) space&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;MySQL hosting(not necessary , but for future-proofing), with optional availability of PHP scripting(current host offers a website that can feature all three(ColdFusion&amp;amp;Pyhton) in the same site)&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Atleast 80GB per month bandwidth&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;And domain name registration facility, along with atleast 20 subdomains&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Moste Importante : 2 or more FTP accounts and an SMTP,POP3 &amp;amp; forwarding accounts for use from within code&lt;/font&gt;&lt;/li&gt;
+	&lt;/ol&gt;
+	&lt;font size="3"&gt;&lt;br /&gt;
+	&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;Get your host in order and get a ControlPanel offerred by most Hosts(usually it is the HELM control panel for windows hosting)&lt;br /&gt;
+	&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;From this controlpanel you create your database file and create a user and password for it.&lt;br /&gt;
+	&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;To transfer schema and data from your current Visual Studio created Database to your host database you need:&lt;/font&gt; 
+	&lt;ol&gt;
+		&lt;li&gt;&lt;font size="3"&gt;DTSWizard available as part of MSSQL Express Toolkit [ &lt;/font&gt;&lt;font size="2"&gt;C:\Program Files\Microsoft SQL Server\90\DTS\Binn\DTSWizard.exe&lt;/font&gt; &lt;font size="3"&gt;]&lt;/font&gt;&lt;font size="3"&gt; &lt;/font&gt;&lt;font size="2"&gt;&lt;a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=C243A5AE-4BD1-4E3D-94B8-5A0F62BF7796&amp;amp;DisplayLang=en"&gt;http://www.microsoft.com/downloads/details.aspx?FamilyId= C243A5AE-4BD1-4E3D-94B8-5A0F62BF7796&amp;amp;DisplayLang=en&lt;/a&gt;&lt;/font&gt;&lt;br /&gt;
+		&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;SSMSE(SQL Server Management Studio Express) if you&amp;#39;re using the free express editions everywhere like I am&lt;/font&gt;&lt;font face="Verdana, Arial, Helvetica" size="2"&gt;&lt;a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=C243A5AE-4BD1-4E3D-94B8-5A0F62BF7796&amp;amp;DisplayLang=en" target="_blank" title="http://www.microsoft.com/downloads/details.aspx?FamilyId=C243A5AE-4BD1-4E3D-94B8-5A0F62BF7796&amp;amp;DisplayLang=en"&gt; http://www.microsoft.com/downloads/details.aspx?FamilyId= C243A5AE-4BD1-4E3D-94B8-5A0F62BF7796&amp;amp;DisplayLang=en&lt;/a&gt;&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Both of these expect MSXML 6.0, MS SQL 2005 Express Edition, Visual Studio, .NET FX &amp;gt;2.0 to be present on your computer already.&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Using the name of the sql server your host has provided(eg: discountsql.discountasp.net) you can connect your management studio and DTSWizard to their server.&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Use DTSWizard to transfer all your tables, views, and the data.&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Use SSMSE to create a .sql file for your StoredProcs (from Generate script option you get from selecting all the storedprocs)&lt;/font&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;font size="3"&gt;Delete all comments in this .sql file and execute it in the remote database using the SSMS&lt;/font&gt;&lt;/li&gt;
+	&lt;/ol&gt;
+	&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;Once your data schema and functionality(tables,views,relationships,storedprocs) are uploaded into the host database, download an FTP software for your web site file(&lt;a href="/ZaszBlog/Admin/Pages/www.cuteftp.com" target="_blank"&gt;CuteFTP&lt;/a&gt;, &lt;a href="http://filezilla-project.org/download.php" target="_blank"&gt;FileZilla&lt;/a&gt;)&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;Change the connection strings in the web.config files and in the code files to point to your new database in the host(They would probably have given you an example)&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;Then upload all files to the wwwroot folder in your virtual directory , which is seen in the ftp client after providing the ftp connection details your Host has given&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;Then try out your domain name in the browser to check for any nonconformities, errors&lt;/font&gt;&lt;img src="/ZaszBlog/Admin/TinyMCE/plugins/emotions/images/smiley-innocent.gif" border="0" alt="Innocent" title="Innocent" width="18" height="18" /&gt;&lt;font size="3"&gt; and smoothen &amp;#39;em out. The domain name will take atleast 2-3 days to spread through the internet&lt;/font&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;font size="3"&gt;Css works in different browsers differently. Different resolutions will give odd renderings.. check all these out and hook up Google Analytics and AdSense if necessary&lt;br /&gt;
+	&lt;/font&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-05-09 08:34:00</pubDate>
+  <lastModified>2008-08-29 15:35:57</lastModified>
+  <raters>1</raters>
+  <rating>3</rating>
+  <slug>From-The-Studio-To-Release</slug>
+  <tags>
+    <tag>asp.net</tag>
+    <tag>concept</tag>
+  </tags>
+  <comments>
+    <comment id="c8657e3d-ce65-46ec-9619-2684964cd732" approved="True">
+      <date>2010-06-25 08:26:10</date>
+      <author>ff14 gil</author>
+      <email>JacquesTanguay@ffxigil365.com/</email>
+      <ip>118.249.147.98</ip>
+      <website>http://www.ffxigil365.com/</website>
+      <content>I dont really know what youre talking about here.  This cant be the only way to think about this can it?  It seems like you know a lot about the subject, so why not explore it more?  Make it more accessible to everyone else who may not agree with you?  Youd get a lot more people behind this if you just stopped making general statements.</content>
+    </comment>
+    <comment id="f9aade09-0c83-4f7a-833d-1449c6b005dc" approved="True">
+      <date>2010-06-25 11:49:15</date>
+      <author>wow gold</author>
+      <email>TalonLagrange@gamehehe.com</email>
+      <ip>118.249.147.98</ip>
+      <website>http://www.gamehehe.com/</website>
+      <content>Thanks for the info provided! I was researching for this information for quite some time, but I wasn?��t able to see a dependable source.</content>
+    </comment>
+    <comment id="04724fb3-37fe-4885-ba8f-d5b7c0404679" approved="True">
+      <date>2010-06-25 12:39:55</date>
+      <author>wow gold</author>
+      <email>JulesDAubigne@wowgold365.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.com/</website>
+      <content>Nice to be visiting your blog again, it has been months for me. Well this article that i've been waited for so long. I need this article to complete my assignment in the college, and it has same topic with your article. Thanks, great share.</content>
+    </comment>
+    <comment id="9d096119-142e-43af-a404-0fd32a3fec53" approved="True">
+      <date>2010-06-25 12:47:31</date>
+      <author>wow gold</author>
+      <email>PierreBrochu@wowgold365.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.com/</website>
+      <content>This is my first time i visit here. I found so many interesting stuff in your blog especially its discussion. From the tons of comments on your articles, I guess I am not the only one having all the enjoyment here! keep up the good work.</content>
+    </comment>
+    <comment id="9508fcca-e7e4-4bcd-a3d8-a87065969851" approved="True">
+      <date>2010-06-25 13:41:41</date>
+      <author>ff14 gil</author>
+      <email>RichardGuibord@ff14gilonline.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ff14gilonline.com/</website>
+      <content>This is an amazing entry. Thanks for the excellent article you shared! I was finding for this entry for a long time, but I was not able to see a trusted website.</content>
+    </comment>
+    <comment id="1cb4cefc-22df-449e-baed-d7749d18080e" approved="True">
+      <date>2010-06-25 14:25:13</date>
+      <author>Wow Gold en solde</author>
+      <email>FidaAbdul-MuhsiSaliba@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ffxivgilsaler.com/</website>
+      <content>You gave great points here. I made a research on the subject and found nearly all peoples will agree with your blog.</content>
+    </comment>
+    <comment id="bf995de6-dbd4-4037-b76b-0587435b8ad7" approved="True">
+      <date>2010-06-26 13:50:09</date>
+      <author>wow gold</author>
+      <email>CharlotteTachel@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.fr/</website>
+      <content>was very pleased to find this site.I wanted to thank you for this great read!! I definitely enjoying every little bit of it and I have you bookmarked to check out new stuff you post.</content>
+    </comment>
+    <comment id="b29b3964-3108-4efc-b117-6aa9692854d8" approved="True">
+      <date>2010-06-26 14:10:00</date>
+      <author>wow gold</author>
+      <email>TillyKBurton@gamesgoldsale.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gamesgoldsale.com/</website>
+      <content>Great job here.  I really enjoyed what you had to say.  Keep going because you definitely bring a new voice to this subject.  Not many people would say what youve said and still make it interesting.  Well, at least Im interested.  Cant wait to see more of this from you.</content>
+    </comment>
+    <comment id="76c8b670-5287-46d0-9f92-7d8ef31b22ca" approved="True">
+      <date>2010-06-26 15:16:42</date>
+      <author>wow gold</author>
+      <email>KaiSGreenwood@wowgold-europe.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold-europe.com/</website>
+      <content>Hey - nice website, just looking around some blogs, seems a really nice platform you are using. I'm currently using Wordpress for a few of my websites but looking to change one of them over to a platform similar to yours as a trial run. Anything in particular you would recommend about it?</content>
+    </comment>
+    <comment id="fca7bb2a-359f-4a3a-9f1b-789ae009da9d" approved="True">
+      <date>2010-06-26 15:50:52</date>
+      <author>WoW Gold visa</author>
+      <email>ArmandLaGarde@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgolders.com/</website>
+      <content>Of course, what a great site and informative posts, I will add backlink - bookmark this site? Regards, Reader.</content>
+    </comment>
+    <comment id="03d0778a-94dc-44cf-ad6d-053e7ec345c4" approved="True">
+      <date>2010-06-28 07:21:33</date>
+      <author>wow gold</author>
+      <email>SuzetteSeguin@gmail.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.co.uk/</website>
+      <content>Above the centuries, video game of golf has evolved into the video game it is today. The very first recognizable form being performed in Scotland in the early 1400's. Andrews, Scotland is the birthplace from the online game video game of golf. Originating for the east coast of Scotland, online game quickly became the Scots' national pastime and passion, bound forever to Scotland's history and folks.</content>
+    </comment>
+    <comment id="3c884a93-efce-48f5-9c9e-c3e6b39086d4" approved="True">
+      <date>2010-06-28 07:38:35</date>
+      <author>wow gold</author>
+      <email>NoohAbdul-JabbarBoutros@wowgold365.de</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.de/</website>
+      <content>Whether you are in the classroom or conference room, the sleek, contemporary design and rugged functionality of the 3M Overhead Projector Model 1711 means you can expand their minds without sacrificing your budget. An open singlet projection head makes the 3M Model 1711 easy to focus and clean, while 2,500 lumens of light ensure your image and message are clear - even when the room lights are on.</content>
+    </comment>
+    <comment id="4c57100d-ee8d-41f1-ba47-c2dab1d0c1ef" approved="True">
+      <date>2010-06-28 08:51:13</date>
+      <author>ffxiv gil</author>
+      <email>SlainieBarteaux@cheap-ffxiv-gils.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.cheap-ffxiv-gils.com/</website>
+      <content>Hi Webmaster, commenters and everybody else !!! The blog was absolutely fantastic! Lots of great information and inspiration, both of which we all need!Keep 'em coming... you all do such a great job at such Concepts... can't tell you how much I, for one appreciate all you do!</content>
+    </comment>
+    <comment id="1b83220c-188a-41f6-9be4-7ebf60b18f75" approved="True">
+      <date>2010-06-28 09:23:25</date>
+      <author>Wow Gold paypal</author>
+      <email>emileGaillard@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.yoyo-gold.com/</website>
+      <content>ab</content>
+    </comment>
+    <comment id="2ef9733e-dcd4-4eb1-a3f7-9d067c4fab2a" approved="True">
+      <date>2010-06-29 09:57:34</date>
+      <author>wow gold</author>
+      <email>TahliaPelsaert@wowgoldsale.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgoldsale.fr/</website>
+      <content>This is such a good useful resource that you're providing and you provide it away for zero cost. I really enjoy seeing web sites that comprehend the significance of offering a superior resource for totally free.</content>
+    </comment>
+    <comment id="ccd5b49a-f5be-4f54-af9d-b2229abf2ad5" approved="True">
+      <date>2010-06-29 10:37:36</date>
+      <author>wow gold</author>
+      <email>VadenLauzier@gamehehe.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gamehehe.fr/</website>
+      <content>Genuinely We have been following your site for 3 days and now I can say that I take pleasure in right here.</content>
+    </comment>
+    <comment id="57060084-39e9-447e-976e-095d18e6ba2d" approved="True">
+      <date>2010-06-30 06:36:48</date>
+      <author>wow gold</author>
+      <email>OctaveHervieux@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visongold.com/</website>
+      <content>Great post, I really like your writing style you seem like a very thoughful person.</content>
+    </comment>
+    <comment id="a9dc492d-5909-40ad-b76a-99cee3877ef2" approved="True">
+      <date>2010-06-30 06:55:31</date>
+      <author>wow gold 1000g</author>
+      <email>FlorusPhaneuf@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldteamsale.com/</website>
+      <content>I find your blog in google. And I will be back next time, thanks.</content>
+    </comment>
+    <comment id="3ec05bbd-3a09-4801-a510-c8d013316061" approved="True">
+      <date>2010-08-19 19:21:25</date>
+      <author>ffxiv gil</author>
+      <email>DamianeAchin@gil4ffxiv.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visongil.com/</website>
+      <content>What I dont understand is how youre not even more popular than you are now.  Youre just so intelligent.  You know so much about this subject, made me think about it from so many different angles.  Its like people arent interested unless it has something to do with Lady Gaga!  Your stuffs great.  Keep it up!</content>
+    </comment>
+    <comment id="5e9a60d6-fad2-4bbc-8cf9-1ce8af557bc0" approved="True">
+      <date>2010-08-19 20:27:14</date>
+      <author>cheap watches</author>
+      <email>ericChalut@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visonwatch.com/</website>
+      <content>There are some nice new and fresh articles here. you can win great prizes here too.</content>
+    </comment>
+    <comment id="a8d0580f-4fd4-43da-8aa7-a25dae6e1caf" approved="True">
+      <date>2010-08-19 21:13:38</date>
+      <author>cheap ff14 gold</author>
+      <email>SatordiBourgeois@wowgold-no1.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.buycheapff14gold.com/</website>
+      <content>Good read. I surely liked every bit of it. I have you bookmarked and will be reading more.</content>
+    </comment>
+    <comment id="68f4a89e-1342-40ca-b352-d118ba58f060" approved="True">
+      <date>2010-08-20 22:34:06</date>
+      <author>Google Buzz</author>
+      <email>OrlenePiedalue@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.buzzinfomation.com/</website>
+      <content>Whether you are in the classroom or conference room, the sleek, contemporary design and rugged functionality of the 3M Overhead Projector Model 1711 means you can expand their minds without sacrificing your budget. An open singlet projection head makes the 3M Model 1711 easy to focus and clean, while 2,500 lumens of light ensure your image and message are clear - even when the room lights are on.</content>
+    </comment>
+    <comment id="cff92966-efde-4ca0-b5d1-76880c709fc6" approved="True">
+      <date>2010-08-20 23:06:15</date>
+      <author>buy cheap wow gold</author>
+      <email>OctaveMothe@buy-ffxiv-gils.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgolders.com/</website>
+      <content>I ran across this post doing some research for my college. I have to say you sound like a very bright person and I hope someday to be able to write as well as you. I have always envied people that can write with passion and really hit the point home.</content>
+    </comment>
+    <comment id="284b2709-b813-4d8c-b455-6bfb0a8bb180" approved="True">
+      <date>2010-08-28 17:20:22</date>
+      <author>psp news</author>
+      <email>MinetteTollmache@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.vivopsp.com/</website>
+      <content>This layout is so stellar.  How did you manage to make a blog thats as smart as it is sleek? I mean, its like an Aston Martin --smart and sexy at the same time.   Ive got to say, the layout alone made me come back to this blog again.  But now that Ive read what youve got to say, Ive got to share it with the world!</content>
+    </comment>
+    <comment id="c27da057-1f2c-4821-bfbf-eb88dc043dc4" approved="True">
+      <date>2010-08-28 19:20:52</date>
+      <author>gold jewelry</author>
+      <email>AubineTetrault@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldjewelrysaler.com/</website>
+      <content>Will even my children be able to use Natural Dog Training techniques? Natural Dog Training also includes the children. Because it uses communication in place of force, Natural Dog Training can even be used by young children - as can be seen in the Home Movie Before and After Learning Dog Language. Pam tells families two things: One, the most important family member (the dog being a family member), is the youngest child. Not the dog. The dog must be 100% trustworthy and gentle around all babies and toddlers, even when adults are not present. It is not possible or practical never to leave a child alone with a dog. The dog must fit in with them, not the other way around.. All children must be able to play, run, leave toys on the floor - and the dog must not have any desire to chase them or chew their toys. The onus is not on the child to be safe around dogs. It is on the dog to be safe around children - and this is easily and gently achieved when Nature's Formula for Obedience is applied.. Next, Pam tells families - if the strongest person in the family or the one who can shout the loudest can handle the dog, he or she had better stay at home all day in case they are needed to control the dog! (Then who is going to go to work to earn money to buy his dog food!) But if the youngest member of the family can control the dog - Dad - and the person with the anger disorder can too. Sound impossible? From our current mindset of controlling the dog - it is. Working with the dog's instincts instead of against them - it is not at all impossible.</content>
+    </comment>
+    <comment id="d2be8bdc-b8d2-49b3-bf6c-b2d345e0ad5d" approved="True">
+      <date>2010-08-30 12:12:03</date>
+      <author>gazebo pergola</author>
+      <email>gazebopergola@sfyh.com</email>
+      <ip>216.83.63.50</ip>
+      <website>http://www.sfyh.com/gazebo-pergola_ss</website>
+      <content>It is very useful to me. thank you!
+</content>
+    </comment>
+    <comment id="ae0a5e6c-356b-4fb7-aed3-b350210299ab" approved="True">
+      <date>2010-09-05 14:51:08</date>
+      <author>google news</author>
+      <email>ThomasLemmone@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.utwobe.com/</website>
+      <content>I would like to thank you for the efforts you have made in writing this article. I am hoping the same best work from you in the future as well. In fact your creative writing abilities has inspired me to start my own BlogEngine blog now. Really the blogging is spreading its wings rapidly. Your write up is a fine example of it.</content>
+    </comment>
+    <comment id="5d3476b4-497d-4374-84e1-7f4787f19dd7" approved="True">
+      <date>2010-09-05 16:04:20</date>
+      <author>ff14 gil</author>
+      <email>OdoLaboissonni����re@biggoldforwow.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ffxigil365.com/</website>
+      <content>Nice Scandinavian look about this bed, very appealing.</content>
+    </comment>
+    <comment id="6da66e46-cd25-45e3-b279-cee9e55c43d1" approved="True">
+      <date>2010-09-08 20:50:32</date>
+      <author>ugamegold</author>
+      <email>DidierDurepos@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ugamegolds.com/</website>
+      <content>I am quite interesting in this topic hope you will elaborate more on it in future posts.</content>
+    </comment>
+    <comment id="01d95a30-6977-46ae-b6d3-b2bb1cd19499" approved="True">
+      <date>2010-09-08 22:03:04</date>
+      <author>wow gold EU</author>
+      <email>BarryChartier@buy-ffxiv-gils.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.warlor.com/</website>
+      <content>This article gives the light in which we can observe the reality. this is very nice one and gives indepth information. thanks for this nice article</content>
+    </comment>
+    <comment id="6822cd63-3cb9-4160-82d0-1a809a3a12b3" approved="True">
+      <date>2010-09-20 11:24:06</date>
+      <author>Breitling Emergency Watches</author>
+      <email>jfosi@hotmail.com</email>
+      <ip>222.79.19.187</ip>
+      <website>http://www.replica-watches-all.com/Replica-professional-collection-emergency_c2370</website>
+      <content>towardward [url=http://www.replicawatchessuper.com/Replica-Blancpain-Collection-Blancpain-Women-Chronographe-Flyback---Rattrapante-3485F-1130-97B-Watch-women_l483]Blancpain Women Chronographe Flyback &amp;#224; Rattrapante[/url], you cylsecretder identify titanic asas a resultrtment of [url=http://www.replicawatchessuper.com/Replica-chopard-your-hour-watches_v196]Chopard Your Hour watches[/url] alby top ofg by [url=http://www.replica-watches-net.com/Replica-burberry-watches_g1679]Replica Burberry Watches[/url] which are assist architect commodities for ladies among men. our [url=http://www.buyhangbag.com/Hermes-Kelly-32cm-Togo-Leather-Gold-Gold-Hardware-Hardware-HandB-amsNJ32lan_n1379]Hermes Kelly 32cm Togo Leather Gold Gold Hardware Hardware HandB[/url] tolerate mimic Hermes, Chanel, Gucci, Burberry, Prada, Miu Miu as well Louis Vuitton hfurthermorebags after that so on. these [url=http://www.replica-watches-net.com/Replica-sp44_g1462]BRM Watches SP44[/url] are stunning compatible with the original[url=http://www.goshoppingnet.com]Pocket Watches[/url]. rider you are infinitely receptive in the [url=http://www.replica-watches-net.com/replica-cartier-montres-santos-de-cartier-santos-100-ref-w20106x8-unisex-watch_n5558]Cartier Montres Santos de Cartier - Santos 100 ref.: W20106X8 Unisex Watch[/url] and [url=http://www.buyhangbag.com/Replica-hermes_g46]Replica Hermes handbags[/url], no more than consolidate in [url=http://www.goshoppingnet.com/Sell-jaegerlecoultre-reverso-squadra-watches_c182]Jaeger-LeCoultre Reverso Squadra Watches[/url] on 4687812345118</content>
+    </comment>
+    <comment id="35000a92-5394-4dd4-b9d8-48dafdd1c15f" approved="True">
+      <date>2010-10-05 05:52:41</date>
+      <author>wow gold</author>
+      <email>BrigitteBlais@goldteamsale.com</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.gametata.fr/</website>
+      <content>&amp;amp;lt;P&amp;amp;gt;This article gives the light in which we can observe the reality. this is rather nice one and gives in depth details. thanks for this nice article Great post.....Valuable facts for all.I will recommend my buddies to read this for sure.</content>
+    </comment>
+    <comment id="3f542d4a-8304-4f19-b9c9-c54a06ba03f0" approved="True">
+      <date>2010-10-05 11:41:35</date>
+      <author>pearls necklace</author>
+      <email>GaetaneLagueux@wowgold365.fr</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.pearlnecklace365.com/</website>
+      <content>I have a great sense of humor and I enjoy laughing the goofy of her jokes.</content>
+    </comment>
+    <comment id="f0858b0e-3020-488b-ab81-c3454a3a9903" approved="True">
+      <date>2010-10-05 17:17:07</date>
+      <author>wow gold</author>
+      <email>TempesteGarnier@ffxigil365.com/</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.wowgold-nl.com/</website>
+      <content>Hi i must say very nice blog, very good article, i hope your blog gets more visitors good luck.</content>
+    </comment>
+    <comment id="1c8724a6-ab70-4f89-8d10-cfcddd5997a1" approved="True">
+      <date>2010-10-17 21:12:20</date>
+      <author>air jordan 19</author>
+      <email>zxodbq@emox.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.air-jordan-23.com/air-jordan-19-xix.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="a7ac5abb-86ec-4999-ac55-276506dbc509" approved="True">
+      <date>2010-10-18 07:11:07</date>
+      <author>ugg Ashur Tall Boots</author>
+      <email>eehpws@qdlq.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.uggbootsuk4sale.com/ugg-5760-ashur-tall-boots.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="d89b3f9f-f916-497d-8fa3-120d036e5c76" approved="True">
+      <date>2010-10-18 07:28:15</date>
+      <author>UGG Classic tall chestnut boots</author>
+      <email>etsbdl@mtgo.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.flyinsnow.com/chestnut-genuine-australia-classic-tall-ugg-boots.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="3fdadcc4-65bb-418d-a841-cff413d7f259" approved="True">
+      <date>2010-10-19 01:27:54</date>
+      <author>Air jordan IV</author>
+      <email>tqhbcy@eexi.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.air-jordan-23.com/air-jordan-4-iv.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="292e2234-df3c-475b-9148-cb90511a1c66" approved="True">
+      <date>2010-10-20 01:24:40</date>
+      <author> ugg classic cardy boots</author>
+      <email>tawonq@uqgt.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.uggsheepskinboot.com/ugg-5819-classic-cardy-boots.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="7fc2be64-dea9-4e6c-b04d-67d4cf840d51" approved="True">
+      <date>2010-10-20 17:54:20</date>
+      <author>air jordan 19</author>
+      <email>yzjfdv@qtvc.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.air-jordan-23.com/air-jordan-19-xix.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="bc9bb5e2-9754-4f61-b29d-e71560c308ad" approved="True">
+      <date>2010-10-20 20:19:38</date>
+      <author>ugg Highkoo Boots</author>
+      <email>clhunj@olmv.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.uggsheepskinboot.com/ugg-5765-highkoo-boots.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="81a758ab-d457-4201-9c3b-fe04cb3bbd74" approved="True">
+      <date>2010-10-20 21:37:01</date>
+      <author>UGG Chrystie Boots</author>
+      <email>lsscfr@gqdf.com</email>
+      <ip>59.58.137.217</ip>
+      <website>http://www.australiaugg.us/ugg-chrystie-boots-c-16.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="b2654ddb-3386-45d5-a1d3-a78800227e0f" approved="True">
+      <date>2010-10-22 08:24:51</date>
+      <author>silkroad gold</author>
+      <email>dvjmrl@fktr.com</email>
+      <ip>117.40.112.98</ip>
+      <website>http://www.silkroadgoldbuy.com/</website>
+      <content>Hey very nice blog!!</content>
+    </comment>
+    <comment id="8538b30e-c4cc-4aa3-ba3d-8ed945d25861" approved="True">
+      <date>2010-10-23 08:24:21</date>
+      <author>wholesale ugg boots</author>
+      <email>wlaxgb@hwil.com</email>
+      <ip>218.86.49.136</ip>
+      <website>http://www.wholesale-from-china.com/ugg-boots-wholesale.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="a5f5cb7b-3b24-417e-8d52-faef7cff6cde" approved="True">
+      <date>2010-10-23 12:12:03</date>
+      <author>UGG Tall flowers</author>
+      <email>aklvqr@oczj.com</email>
+      <ip>218.86.49.136</ip>
+      <website>http://www.ugg-australia-shoes.com/ugg-5802-classic-tall-romantic-flower-boots-p-185.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="a533c5fb-e4af-4254-92a0-cfdfdf4e1f8b" approved="True">
+      <date>2010-10-26 01:22:09</date>
+      <author>Nike Air Max 360 shoes</author>
+      <email>xaulks@qnqv.com</email>
+      <ip>218.86.49.136</ip>
+      <website>http://www.lowestbestexport.com/nike-shoes_nike-air-max-360.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="b4abab38-601c-46f0-b2bc-d2a0e3ff35e7" approved="True">
+      <date>2010-10-27 08:32:51</date>
+      <author>buy wow gold</author>
+      <email>slhbpc@kcle.com</email>
+      <ip>61.131.198.138</ip>
+      <website>http://www.happyleveling.com/</website>
+      <content>Hey very nice blog!!</content>
+    </comment>
+    <comment id="4a262f3a-5634-4fc8-bd8d-a3f33ce85c02" approved="True">
+      <date>2010-10-28 08:47:39</date>
+      <author>UGG Dakota</author>
+      <email>hfodub@eviu.com</email>
+      <ip>218.86.49.136</ip>
+      <website>http://www.australiaugg.us/ugg-dakota-slippers-c-10.html</website>
+      <content>This article gives the light in which we can observe the reality. This is very nice one and gives in-depth information</content>
+    </comment>
+    <comment id="437ce485-2c9a-4db9-bef6-1d20198a1afd" approved="True">
+      <date>2010-10-29 05:23:11</date>
+      <author>buy wow gold</author>
+      <email>boqbhf@teve.com</email>
+      <ip>59.62.66.154</ip>
+      <website>http://www.happyleveling.com/</website>
+      <content>Hey very nice blog!!</content>
+    </comment>
+    <comment id="ed179981-87af-401b-8962-0e60bd19d6c5" approved="True">
+      <date>2010-10-31 08:14:04</date>
+      <author>buy wow gold</author>
+      <email>aanxqo@bpxd.com</email>
+      <ip>117.43.74.155</ip>
+      <website>http://www.happyleveling.com/</website>
+      <content>Hey very nice blog!!</content>
+    </comment>
+  </comments>
+  <categories>
+    <category>aa150520-27f4-4edb-94ac-95b33f0dac10</category>
+  </categories>
+  <notifications />
+</post>

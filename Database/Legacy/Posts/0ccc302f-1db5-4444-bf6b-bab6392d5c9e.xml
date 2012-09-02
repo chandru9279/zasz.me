@@ -1,0 +1,482 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>Zasz</author>
+  <title>Getting started with Apache Struts 2 , with Netbeans 6.1</title>
+  <description />
+  <content>&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+Same post with Images in PDF Format :&lt;a rel="enclosure" href="/ThonHttpHandlers/File.ashx?filepath=~/App_Data/ZaszBlog/Files\Getting+started+with+Apache+Struts+2.pdf"&gt;Getting started with Apache Struts 2 and Netbeans 6.1 in Windows.pdf (1.05 mb)&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;There are plenty of guides that tell you how to start with struts 2, but most of them are incomplete or don&amp;rsquo;t work. This guide even makes sure you have IDE JavaDoc support for struts 2 libraries. (Press Ctrl-Space to get details about methods and classes in struts 2 libraries)
+&lt;/p&gt;
+&lt;p&gt;
+&lt;strong&gt;Download Struts 2 here&lt;/strong&gt; : &lt;a href="http://struts.apache.org/download.cgi" target="_blank"&gt;http://struts.apache.org/download.cgi&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; Download the Full Distro, so that we get all libraries and docs. (docs are important if u want to have IDE support help and tooltips and syntax)&lt;br /&gt;
+&lt;br /&gt;
+&amp;bull; Full Distribution:&lt;br /&gt;
+o struts-2.0.11.2-all.zip (91mb) [PGP] [MD5]&lt;br /&gt;
+&lt;br /&gt;
+As of this writing , this is the latest version of Struts.&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt;Download Netbeans 6.1 here&lt;/strong&gt; : &lt;a href="http://www.netbeans.org/downloads/" target="_blank"&gt;http://www.netbeans.org/downloads/&lt;/a&gt;&lt;br /&gt;
+&lt;strong&gt;or here&lt;/strong&gt; : &lt;a href="http://dlc.sun.com.edgesuite.net/netbeans/6.1/final/"&gt;http://dlc.sun.com.edgesuite.net/netbeans/6.1/final/&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;
+Download the full bundle (under the All column) size about 220 MB. Choose a folder for all your JAVA material that has NO SPACES in its path. Like C:\Java. &amp;ldquo;C:\Program Files&amp;rdquo; has a space, so it has some issues with the Sun Application Platform, which you might need after development.&lt;br /&gt;
+&lt;br /&gt;
+&lt;font size="2"&gt;&lt;strong&gt;Other downloads &lt;/strong&gt;:&lt;/font&gt;&lt;br /&gt;
+&lt;br /&gt;
+[These are not necessary now, but just download them while working on this guide]&lt;br /&gt;
+&lt;br /&gt;
+&lt;em&gt;1. Eclipse for JavaEE Dev&lt;/em&gt; : &lt;a href="http://www.eclipse.org/downloads/"&gt;http://www.eclipse.org/downloads/&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;
+Eclipse IDE for Java EE Developers (163 MB)&lt;br /&gt;
+&lt;br /&gt;
+&lt;em&gt;2. Java Application Platform&lt;/em&gt; : &lt;a href="http://java.sun.com/javaee/downloads/index.jsp" target="_blank"&gt;http://java.sun.com/javaee/downloads/index.jsp&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;
+App Platform + JDK&amp;dagger;&lt;br /&gt;
+&lt;br /&gt;
+&lt;em&gt;3. Java Standard Edition [SE]&lt;/em&gt; : &lt;a href="http://java.sun.com/javase/downloads/index.jsp" target="_blank"&gt;http://java.sun.com/javase/downloads/index.jsp&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;
+JDK 6 Update 7&lt;br /&gt;
+&lt;br /&gt;
+&lt;font size="2"&gt;&lt;strong&gt;Install as follows :&lt;/strong&gt;&lt;/font&gt;&lt;br /&gt;
+&lt;br /&gt;
+This is how a pro I knew advised to set a comp up for Java EE Dev. You can install anywhere, but the Guide will use these assume, this is how you&amp;rsquo;ve installed things.&lt;br /&gt;
+&lt;br /&gt;
+0. Install Java SE (JDK 6 Update 7) to C:\Java\jdk1.6.0_07 and the packaged Java Runtime Environment (Public JRE) to C:\Java\jre1.6.0_07 Note : No Spaces in the path&lt;br /&gt;
+&lt;br /&gt;
+1. Extract struts-2.1.2-all.zip to C:\Java . This will create a folder C:\Java \struts-2.1.2&lt;br /&gt;
+&lt;br /&gt;
+2. Install Netbeans 6.1 to C:\Java\NetBeans6.1 .[ Note: There is no space in the path]&lt;br /&gt;
+Along with the Apache Server packed with netbeans, you need to press the customize or advanced button to install the packaged apache server, and to set your own path.&lt;br /&gt;
+&lt;br /&gt;
+3. After Netbeans , the packaged apache server will ask for path give C:\Java ApacheTomcat6.0.16 Note: No Space here also.&lt;br /&gt;
+&lt;br /&gt;
+My comp is set up like this :&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\ ApacheTomcat6.0.16 - from netbeans-6.1-ml-windows setup&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\ NetBeans6.1&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - from netbeans-6.1-ml-windows setup&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\ jdk1.6.0_04&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - from jdk-6u4-windows-i586-p setup&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\ jre1.6.0_04&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - from jdk-6u4-windows-i586-p setup&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\ struts-2.1.2&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - from struts-2.1.2-all.zip extract&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\ Eclipse&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - from eclipse-jee-ganymede-win32 setup&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\ AP&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - from java_app_platform_sdk-5_05-windows setup&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\glassfish-v2ur2&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - from java_app_platform_sdk-5_05-windows setup&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\Nwork&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - Netbeans WorkSpace&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\Ework&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; -Eclipse WorkSpace&lt;br /&gt;
+&lt;br /&gt;
+C:\Java\ StrutsBlank&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; -Contents of struts2-blank-2.1.2.war file&lt;br /&gt;
+&lt;br /&gt;
+I Created my POJOs i.e Plain Old Java Objects &amp;ndash; Business model classes and helper classes in Eclipse, just to know whats there in the IDE, and compiled them to JAR files. Then I used these JARs in the WebApplication fully done in NetBeans. But leave that, we&amp;rsquo;ll see how to set up struts 2 and netbeans, fully dev-ready. 
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;font size="2"&gt;&lt;strong&gt;Important Stuff (so don&amp;rsquo;t deviate!) :&lt;/strong&gt;&lt;/font&gt;&lt;br /&gt;
+&lt;br /&gt;
+Create a new Web Application in NetBeans&lt;br /&gt;
+&lt;br /&gt;
+File-&amp;gt; New Project..-&amp;gt; Category:Web -&amp;gt; Projects:Web Application&lt;br /&gt;
+&lt;br /&gt;
+Choose Java EE5 as the Java EE Version, and Apache Tomcat 6.0.16 as the Server (which we installed from the netbeans setup itself) If the server is not there Add it, choosing the path C:\Java\ApacheTomcat6.0.16 as the home directory of the server. DO NOT ADD ANY Frameworks like struts of JSF now, you can add &amp;lsquo;em later. Click Finish.&lt;br /&gt;
+&lt;br /&gt;
+Go to &lt;strong&gt;C:\Java\ struts-2.1.2\apps&lt;/strong&gt; folder. Open WinZip. Drag - Drop the struts2-blank-2.1.2.war onto the WinZip window.
+Press the Extract button on the top of the WinZip window and extract to &lt;strong&gt;C:\Java\StrutsBlank&lt;/strong&gt; . You must type this in cause &amp;ldquo;StrutsBlank&amp;rdquo; is a folder WinZip will have to create to place the contents of the WAR file. Come back to NetBeans, Go to Tools-&amp;gt; Libraries, Click on &lt;strong&gt;New Library..&lt;/strong&gt; button&lt;br /&gt;
+&lt;br /&gt;
+Type in &amp;ldquo;Struts2Library&amp;rdquo; as name and Press OK. Then Press &lt;strong&gt;Add JAR/Folder.. &lt;/strong&gt;button and in the open file dialog , navigate to &lt;strong&gt;C:\Java\StrutsBlank\WEBINF\lib &lt;/strong&gt;Select all the JAR files in there pressing the SHIFT key, and add &amp;lsquo;em. Go to Javadoc Tab, Press &lt;strong&gt;Add Zip/Folder button&lt;/strong&gt; and in the Open Folder Dialog navigate to &lt;strong&gt;C:\Java\struts-2.1.2\docs\struts2-core&lt;/strong&gt; and select apidocs folder and click &lt;strong&gt;Add Zip/Folder&lt;/strong&gt; button in the dialog.&lt;br /&gt;
+&lt;br /&gt;
+Press &lt;strong&gt;Ok&lt;/strong&gt; that closes the Library Manager dialog box. Now Right Click the Libraries folder in the Projects window in the netbeans IDE, select &lt;strong&gt;Add Library.. &lt;/strong&gt;and add the Struts2Library. Navigate to &lt;strong&gt;C:\Java\StrutsBlank &lt;/strong&gt;in windows explorer and Drag-Drop the &lt;strong&gt;C:\Java\StrutsBlank\example&lt;/strong&gt; folder into the NetBeans Web Pages treenode. Delete the &lt;strong&gt;Web Pages\WEB-INF\web.xml&lt;/strong&gt; in netbeans. Drag-Drop the &lt;strong&gt;C:\Java\StrutsBlank\WEB-INF\web.xml&lt;/strong&gt; file into the &lt;strong&gt;NetBeans Web Pages\WEB-INF&lt;/strong&gt; treenode. Delete the &lt;strong&gt;Web Pages\ index.html&lt;/strong&gt; in netbeans. Drag-Drop the &lt;strong&gt;C:\Java\StrutsBlank\index.html&lt;/strong&gt; file into the NetBeans Web Pages treenode.&lt;br /&gt;
+&lt;br /&gt;
+Right-Click the Source Packages treenode in NetBeans, and New-&amp;gt;Java Package, and type in &amp;ldquo;example&amp;rdquo; as the package name. This name is necessary to allow the blank app to get working. Drag-Drop all the 6 files in &lt;strong&gt;C:\Java\StrutsBlank\WEB-INF\src\java\example&lt;/strong&gt; onto the &lt;strong&gt;Netbeans Source Packages\example&lt;/strong&gt; treenode. Drag-Drop the 2 XML files in &lt;strong&gt;C:\Java\StrutsBlank\WEB-INF\src\java example.xml and struts.xml&lt;/strong&gt; to the &lt;strong&gt;Source Packages&lt;/strong&gt; treenode[ such that they come under the default package]. Thus we have moved all XML and .jsp and .java files from blank app to netbeans. After all that your&lt;br /&gt;
+Project Explorer will belike : [see image in the PDF; download the PDF using the link provided at the top of this post]&lt;br /&gt;
+&lt;br /&gt;
+Build using F11 key.&lt;br /&gt;
+&lt;br /&gt;
+NetBeans will have created two folders for you &lt;strong&gt;build&lt;/strong&gt; and &lt;strong&gt;dist&lt;/strong&gt;. &lt;strong&gt;build\web\WEB-INF\lib&lt;/strong&gt; and &lt;strong&gt;build\web\WEB-INF\classes&lt;/strong&gt; are automatically created and populated with the JAR files and .class files. &lt;strong&gt;dist&lt;/strong&gt; will have the WAR file that you can use to distribute your web app.
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+Run using F6 key to see the output.
+&lt;/p&gt;
+&lt;p&gt;
+&amp;nbsp;
+&lt;/p&gt;
+&lt;p&gt;
+If any error while building or running, Save everything, close netbeans AFTER closing the server by pressing the green square stop button in the serve tab of the netbeans IDE. Then go to task manager close all java.exe process and any and all server process also and reopen netbeans and press f6. I localized to Tamil. You should see Spanish instead of Tamil in the output.
+&lt;/p&gt;
+&lt;p&gt;
+&lt;br /&gt;
+Same post with Images in PDF Format :&lt;a rel="enclosure" href="/ThonHttpHandlers/File.ashx?filepath=~/App_Data/ZaszBlog/Files\Getting+started+with+Apache+Struts+2.pdf"&gt;Getting started with Apache Struts 2 and Netbeans 6.1 in Windows.pdf (1.05 mb)&lt;/a&gt;
+&amp;nbsp;
+&lt;/p&gt;
+</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-09-03 21:17:00</pubDate>
+  <lastModified>2008-09-07 22:52:40</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>Getting-started-with-Apache-Struts-2-2c-with-Netbeans-61</slug>
+  <tags>
+    <tag>web</tag>
+    <tag>java</tag>
+  </tags>
+  <comments>
+    <comment id="946addee-db59-4c85-a610-4d7d8615d09f" approved="True">
+      <date>2009-10-31 15:31:18</date>
+      <author>personal loans</author>
+      <email>jlove1982@aol.com</email>
+      <ip>79.116.139.196</ip>
+      <website>http://fastloansus.com/</website>
+      <content>I like what I see. keep it going</content>
+    </comment>
+    <comment id="c9fc9662-9f3a-42c4-8618-b3dd86a959bc" approved="True">
+      <date>2009-11-28 00:14:45</date>
+      <author>faxless payday loans</author>
+      <email>jimgracia@aol.com</email>
+      <ip>79.116.136.52</ip>
+      <website>http://www.usapaydayloan.net/</website>
+      <content>Just wanted to say thanks for this.</content>
+    </comment>
+    <comment id="70a980ff-e84a-4f6d-bd45-b07c58f53d05" approved="True">
+      <date>2010-06-25 11:57:38</date>
+      <author>wow gold</author>
+      <email>LaraHambly@gamehehe.com</email>
+      <ip>118.249.147.98</ip>
+      <website>http://www.gamehehe.com/</website>
+      <content>I wanted to thank you for this great read!! I definitely enjoying every little bit of it smile I have you bookmarked to check out new stuff you post.</content>
+    </comment>
+    <comment id="9713a6b5-943d-4554-ba28-09ae23aebae6" approved="True">
+      <date>2010-06-25 12:41:20</date>
+      <author>wow gold</author>
+      <email>ZafirAnbarTotah@wowgold365.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.com/</website>
+      <content>This would look fab in the right bedroom, great design.</content>
+    </comment>
+    <comment id="f588dab2-fc2d-4dce-b6c8-676646db0fa6" approved="True">
+      <date>2010-06-25 13:52:33</date>
+      <author>ffxiv gil</author>
+      <email>JaydenDFleming@ffxivgilsaler.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ffxivgilsaler.com/</website>
+      <content>The Zune concentrates on being a Portable Media Player. Not a web browser. Not a game machine. Maybe in the future it'll do even better in those areas, but for now it's a fantastic way to organize and listen to your music and videos, and is without peer in that regard. The iPod's strengths are its web browsing and apps. If those sound more compelling, perhaps it is your best choice.</content>
+    </comment>
+    <comment id="562bd3f4-9cfe-4cd0-9e20-1cfa1acaef4a" approved="True">
+      <date>2010-06-26 14:10:52</date>
+      <author>wow gold</author>
+      <email>AlHakamNajjarNaifeh@gamesgoldsale.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gamesgoldsale.com/</website>
+      <content>Hey - nice website, just looking around some blogs, seems a really nice platform you are using. I'm currently using Wordpress for a few of my websites but looking to change one of them over to a platform similar to yours as a trial run. Anything in particular you would recommend about it?</content>
+    </comment>
+    <comment id="614ffd10-2f03-4639-ab56-ff02d5b7b3bc" approved="True">
+      <date>2010-06-26 15:15:04</date>
+      <author>wow gold</author>
+      <email>PierretteSaurel@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldteamsale.com/</website>
+      <content>I found this is an informative and interesting post so i think so it is very useful and knowledgeable. I would like to thank you for the efforts you have made in writing this article. I am hoping the same best work from you in the future as well. In fact your creative writing ability has inspired me. Really the article is spreading its wings rapidly.</content>
+    </comment>
+    <comment id="b50e7cfe-976e-43d7-852e-106898118d89" approved="True">
+      <date>2010-06-26 15:51:44</date>
+      <author>Wow Gold paypal</author>
+      <email>MaxYHamilton@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.cataclysm-wowgold.com/</website>
+      <content>Generally I do not make comments on blogs, but I want to mention that this post really forced me to do so. Really nice post!</content>
+    </comment>
+    <comment id="d7de383f-cf7e-4a8f-9b5f-df2ae259690e" approved="True">
+      <date>2010-06-28 07:17:54</date>
+      <author>wow gold</author>
+      <email>HaddadZubairKanaan@gmail.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.co.uk/</website>
+      <content>Really enjoyed reading your articles, will be back again soon</content>
+    </comment>
+    <comment id="b06908b0-1516-43bf-a97f-92d3465516d6" approved="True">
+      <date>2010-06-28 07:39:12</date>
+      <author>wow gold</author>
+      <email>MichaelDReid@wowgold365.de</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgold365.de/</website>
+      <content>I generally do not post in Blogs but your weblog forced me to, amazing work.. beautiful</content>
+    </comment>
+    <comment id="90976933-dd44-4c3e-9fd0-8317122cfdab" approved="True">
+      <date>2010-06-28 08:50:32</date>
+      <author>wow gold</author>
+      <email>RuleLanglois@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldteamsale.com/</website>
+      <content>I wanted to thank you for this great read!! I definitely enjoying every little bit of it smile I have you bookmarked to check out new stuff you post.</content>
+    </comment>
+    <comment id="154cb323-4190-408b-95ea-b77cb4fd549c" approved="True">
+      <date>2010-06-28 09:24:16</date>
+      <author>Cheap Wow Gold</author>
+      <email>ArberArtois@wowgold365.co.uk</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldteamsale.com/</website>
+      <content>I was very pleased to find this site.I wanted to thank you for this great read!! I definitely enjoying every little bit of it and I have you bookmarked to check out new stuff you post.</content>
+    </comment>
+    <comment id="dc01d876-b9de-4aca-992c-d238b05aad47" approved="True">
+      <date>2010-06-29 09:56:44</date>
+      <author>wow gold</author>
+      <email>AncelinaPoirier@wowgoldsale.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgoldsale.fr/</website>
+      <content>This is my first time i visit here. I found so many interesting stuff in your blog especially its discussion. From the tons of comments on your articles, I guess I am not the only one having all the enjoyment here! keep up the good work.</content>
+    </comment>
+    <comment id="b0f7bd9a-7221-4505-9755-6b4a3202697f" approved="True">
+      <date>2010-06-29 10:38:27</date>
+      <author>wow gold</author>
+      <email>LyleDesnoyer@gamehehe.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.gamehehe.fr/</website>
+      <content>Great editorial, this has to be the one greatest editorial online.. thanks dude!</content>
+    </comment>
+    <comment id="c8c4268e-c6c4-4add-b587-0a6d1b7e9a31" approved="True">
+      <date>2010-06-30 06:35:58</date>
+      <author>wow gold</author>
+      <email>SomervilleSansouci@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visongold.com/</website>
+      <content>Thank you for sharing all this great information.</content>
+    </comment>
+    <comment id="98454cf9-168c-49f7-9f73-2a8b16780c24" approved="True">
+      <date>2010-06-30 06:56:21</date>
+      <author>wow gold EU</author>
+      <email>KariNarcisse@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.cataclysm-wowgold.com/</website>
+      <content>Hi, i just thought i'd post and let you know your blogs layout is really messed up on the K-Melon browser. Anyhow keep up the good work.</content>
+    </comment>
+    <comment id="797a14d4-e6eb-42cc-8975-77f79d45587f" approved="True">
+      <date>2010-07-28 08:21:36</date>
+      <author>Timberland boots</author>
+      <email>373751851@qq.com</email>
+      <ip>59.58.175.242</ip>
+      <website>http://www.timberlandshoesonline.com/</website>
+      <content>I have read your article, I think this is very good!I'm in love with this piece!It's so cool~! You can check me in http://www.timberlandshoesonline.com and give me some advises.I also like to play this game, very well,</content>
+    </comment>
+    <comment id="aa6718c1-c5d1-47f6-b988-8226efe91bc8" approved="True">
+      <date>2010-08-04 13:17:36</date>
+      <author>Timberland boots</author>
+      <email>373751851@qq.com</email>
+      <ip>59.58.175.242</ip>
+      <website>http://www.timberlandshoesonline.com/</website>
+      <content>I had just finished reading your articles，and this is very good! timberland boots uk Being a comprehensive trade solution provider offering sale services with free shipping to international buyers who are interested in shopping online.The products here are timberland boots outlet, timberland roll top boots and men timberland boots. As an online business platform mainly retailing, waterproof boots we provide our buyers with an efficient and manageable procurement process covering every phase of the international supply chain and streamlining trade channels. Also welcome wholesaling, feedback now!www.timberlandshoesonline.com</content>
+    </comment>
+    <comment id="62a2d2c5-9d0a-494e-95a5-fc54899b92bf" approved="True">
+      <date>2010-08-09 05:52:19</date>
+      <author>Retro Jordans</author>
+      <email>yuyezi3091@gmail.com</email>
+      <ip>175.42.80.249</ip>
+      <website>http://www.nikeairjordan.cc/</website>
+      <content>very cool space! I love your taste and it looks like it'd be so much fun to poke around in there... I used to live in DE but am now in VA, but if I ever go back that way to visit family I'd love to see it in person :)
+http://www.nikeairjordan.cc/</content>
+    </comment>
+    <comment id="23011e00-3eb9-4d44-849b-a7d9a6fb5645" approved="True">
+      <date>2010-08-19 09:20:31</date>
+      <author>Retro Jordans</author>
+      <email>luoace2@gmail.com</email>
+      <ip>112.111.173.63</ip>
+      <website>http://www.retrojordans.cc/</website>
+      <content>Excellent piece, this is very similar to a site that I have. Please check it out sometime and feel free to leave me a comenet on it and tell me what you think. I'm always looking for feedback.</content>
+    </comment>
+    <comment id="c513b635-8bda-4b7a-9f66-76f73804a780" approved="True">
+      <date>2010-08-19 19:19:20</date>
+      <author>world of warcraft gold</author>
+      <email>MelodieTheberge@</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.feedwowgold.com/</website>
+      <content>I wanted to thank you for this great read!! I definitely enjoyed every little bit of it. I have you bookmarked your site to check out the latest stuff you post.</content>
+    </comment>
+    <comment id="dd73bfdb-c34e-4707-ad38-8257f59301e8" approved="True">
+      <date>2010-08-19 20:30:08</date>
+      <author>wow gold</author>
+      <email>TahliaFoster@wowgold365.co.uk</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowgoldsale.co.uk/</website>
+      <content>Never knew that opinions could be this varied. Thanks for all the enthusiasm to offer such helpful information here.</content>
+    </comment>
+    <comment id="378819d9-9b14-464d-a84f-920532ebe116" approved="True">
+      <date>2010-08-19 21:10:52</date>
+      <author>ff14 gold</author>
+      <email>PhoebeJThomas@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ff14goldsaler.com/</website>
+      <content>This post was very well written, and it also contains many useful facts. I enjoyed your distinguished way of writing the post. You have made it very easy for me to understand.</content>
+    </comment>
+    <comment id="586682a7-4311-4c74-90b5-be45f48bbe57" approved="True">
+      <date>2010-08-20 22:37:11</date>
+      <author>wow map addon</author>
+      <email>PorterFremont@wowgold365.co.uk</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowmapaddon.com/</website>
+      <content>This is such a great resource that you are providing and you give it away for free. I enjoy seeing websites that understand the value of providing a prime resource for free. I truly loved reading your post. Thanks!</content>
+    </comment>
+    <comment id="503868fd-b82b-4734-b016-c8744f80b627" approved="True">
+      <date>2010-08-20 23:03:21</date>
+      <author>wow gold</author>
+      <email>BlancheRouleau@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.yoyo-gold.com/</website>
+      <content>Hello admin, good afternoon. Awesome work. You have gained a brand new reader. Please keep it up and I look forward to more of your awesome posts. Take care, ...</content>
+    </comment>
+    <comment id="70695281-0daf-4c41-8ec1-2259f03b536d" approved="True">
+      <date>2010-08-28 17:24:18</date>
+      <author>Wow Gold Quick Delivery</author>
+      <email>AurelieLereau@wowgold365.fr</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wownose.com/</website>
+      <content>Brilliant stuff, man!  What you have to say is really important and Im glad you took the time to share it.  What you said really spoke to me and I hope that I can learn more about this.  Thanks for sharing your opinion.  I am yet to find anything as enlightening as this on the web.</content>
+    </comment>
+    <comment id="69e1c959-dbe9-4727-baa1-88f8b7e2b238" approved="True">
+      <date>2010-08-28 19:10:53</date>
+      <author>wow item</author>
+      <email>RoydenLeBatelier@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.wowitem-us.com/</website>
+      <content>Useful information, many thanks to the author. It is puzzling to me now, but in general, the usefulness and significance is overwhelming. Very much thanks again and  best of luck!</content>
+    </comment>
+    <comment id="ba4e1515-7451-492f-b118-2d4b31f5d2fd" approved="True">
+      <date>2010-08-30 11:50:39</date>
+      <author>lattice gazebo</author>
+      <email>latticegazebo@sfyh.com</email>
+      <ip>216.83.63.50</ip>
+      <website>http://www.sfyh.com/lattice-gazebo_ss</website>
+      <content>Thanks for such a great post and the review, I am totally impressed! Keep stuff like this coming.
+</content>
+    </comment>
+    <comment id="87c65a3e-5a92-4dc9-8eb5-3d5422392463" approved="True">
+      <date>2010-09-05 15:00:58</date>
+      <author>Wow Money</author>
+      <email>SophiaPForster@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.money4wow.com/</website>
+      <content>I have been looking for content like this for a research project I am working. Thanks very much.</content>
+    </comment>
+    <comment id="1cd1cf9c-eeca-4967-8d29-a1a4ffba5927" approved="True">
+      <date>2010-09-05 15:54:50</date>
+      <author>Cheap Pearl Jewelry</author>
+      <email>MalagigiHarquin@goldteamsale.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.visonpearl.com/</website>
+      <content>Couldn?t be written any better. Reading this post reminds me of my old room mate! He always kept talking about this. I will forward this article to him. Pretty sure he will have a good read. Thanks for sharing!</content>
+    </comment>
+    <comment id="2d47019b-97ab-4134-ac02-56ed0822ca1c" approved="True">
+      <date>2010-09-07 15:16:47</date>
+      <author>jordan retro 5</author>
+      <email>luoace2@gmail.com</email>
+      <ip>112.111.173.68</ip>
+      <website>http://www.retrojordans.cc/air_jordan_5_v</website>
+      <content>Many thanks for taking this possibility to discuss about this, I sense strongly about it and that i advantage from understanding about this topic. If feasible, as you acquire information, please update this webpage with new data. I've located it very handy!</content>
+    </comment>
+    <comment id="ffe09a1b-09c2-4109-a07c-fe33c2d4aec6" approved="True">
+      <date>2010-09-08 12:15:08</date>
+      <author>ugg sundance ii</author>
+      <email>luoace2@gmail.com</email>
+      <ip>112.111.173.68</ip>
+      <website>http://www.uggsboot.cc/ugg_sundance_ii</website>
+      <content>I loved studying it. I need to have to study additional on this matter..&amp;lt;br&amp;gt;.I admiring time and work you place in your webpage, mainly because it can be of course 1 good location exactly where I can uncover great deal of valuable data. Bookmarked and that i will share it. Many thanks a great deal!</content>
+    </comment>
+    <comment id="2d3e5218-03d7-4555-b0e9-e3a5f93baf17" approved="True">
+      <date>2010-09-08 20:40:37</date>
+      <author>gold jewelry</author>
+      <email>ElizaArgyle@visongold.com</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.goldjewelrysaler.com/</website>
+      <content>The necessity to be more prudent with resources is not just restricted to the ascetic. Today everyone is on the lookout for places where they can get the cheapest deals for their products, not in the least those who are seeking to redeem their sexual potency via buying Viagra pills.</content>
+    </comment>
+    <comment id="c0c37223-edca-46a9-bdba-58b76ec9d3b2" approved="True">
+      <date>2010-09-08 22:12:02</date>
+      <author>ffxiv gil</author>
+      <email>DorotheeCaron@wowgolders.com/</email>
+      <ip>58.20.49.124</ip>
+      <website>http://www.ffxivgil-de.com/</website>
+      <content>hey, your post really helps, today i receive the same troubles, and i do not know on what are the best registry cleaner. thank god i look google and discovered your post, it helps me get rid of my trouble. thanks again this thing, may i paste your article on my site? i will add the source. regards!</content>
+    </comment>
+    <comment id="e49b7672-2647-4b11-a8c6-ed9bac203ea1" approved="True">
+      <date>2010-09-20 11:21:24</date>
+      <author>Breitling Emergency Watches</author>
+      <email>jfosi@hotmail.com</email>
+      <ip>222.79.19.187</ip>
+      <website>http://www.replica-watches-all.com/Replica-professional-collection-emergency_c2370</website>
+      <content>towardward [url=http://www.replicawatchessuper.com/Replica-Blancpain-Collection-Blancpain-Women-Chronographe-Flyback---Rattrapante-3485F-1130-97B-Watch-women_l483]Blancpain Women Chronographe Flyback &amp;#224; Rattrapante[/url], you cylsecretder identify titanic asas a resultrtment of [url=http://www.replicawatchessuper.com/Replica-chopard-your-hour-watches_v196]Chopard Your Hour watches[/url] alby top ofg by [url=http://www.replica-watches-net.com/Replica-burberry-watches_g1679]Replica Burberry Watches[/url] which are assist architect commodities for ladies among men. our [url=http://www.buyhangbag.com/Hermes-Kelly-32cm-Togo-Leather-Gold-Gold-Hardware-Hardware-HandB-amsNJ32lan_n1379]Hermes Kelly 32cm Togo Leather Gold Gold Hardware Hardware HandB[/url] tolerate mimic Hermes, Chanel, Gucci, Burberry, Prada, Miu Miu as well Louis Vuitton hfurthermorebags after that so on. these [url=http://www.replica-watches-net.com/Replica-sp44_g1462]BRM Watches SP44[/url] are stunning compatible with the original[url=http://www.goshoppingnet.com]Pocket Watches[/url]. rider you are infinitely receptive in the [url=http://www.replica-watches-net.com/replica-cartier-montres-santos-de-cartier-santos-100-ref-w20106x8-unisex-watch_n5558]Cartier Montres Santos de Cartier - Santos 100 ref.: W20106X8 Unisex Watch[/url] and [url=http://www.buyhangbag.com/Replica-hermes_g46]Replica Hermes handbags[/url], no more than consolidate in [url=http://www.goshoppingnet.com/Sell-jaegerlecoultre-reverso-squadra-watches_c182]Jaeger-LeCoultre Reverso Squadra Watches[/url] on 4687812345118</content>
+    </comment>
+    <comment id="9d6f2e20-8520-45de-bb45-115210709235" approved="True">
+      <date>2010-09-23 11:48:07</date>
+      <author>swatch watches</author>
+      <email>plvz1025@gmail.com</email>
+      <ip>58.22.79.210</ip>
+      <website>http://www.obwatches.com/swatch-48/</website>
+      <content>Welcome to our shop, there are many watches. The watch is top quality, get a watch now!</content>
+    </comment>
+    <comment id="92869b6d-2b30-42b8-94f1-900978ff07b4" approved="True">
+      <date>2010-09-29 16:51:38</date>
+      <author>urban burberry shoes</author>
+      <email>xiaode0@yahoo.com.cn</email>
+      <ip>120.37.200.64</ip>
+      <website>http://www.urbanhiphop.us/</website>
+      <content>[url=http://www.urbanhiphop.us]Wholesale gucci shoes[/url]
+[url=http://www.urbanhiphop.us]nike air max 2009/2010[/url]
+[url=http://www.urbanhiphop.us]replica louis vuitton[/url]
+[url=http://www.urbanhiphop.us]jordan shoes discount[/url]
+[url=http://www.urbanhiphop.us]ed hardy cheap[/url]
+[url=http://www.urbanhiphop.us]fashion coogi clothing[/url]
+[url=http://www.urbanhiphop.us]urban burberry shoes[/url]
+[url=http://www.urbanhiphop.us]dolce gabbana clothing new[/url]
+[url=http://www.urbanhiphop.us]prada handbags cheap[/url]
+[url=http://www.urbanhiphop.us]puma sneakers discount[/url]</content>
+    </comment>
+    <comment id="ff48376c-b0cd-4abc-b1a4-36009ae5c137" approved="True">
+      <date>2010-10-05 05:52:17</date>
+      <author>wow gold</author>
+      <email>CecileMethot@ffxigil365.com</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.visongold.com/</website>
+      <content>Greetings to all, This page is enjoyable and so is the way the subject matter was expanded. I like some of the comments also even if I would suggest we focus on the topic in order add value to the message. It will be also encouraging to the one who penned it down if we all could share it around (for those who use social media such as a reddit, twitter,..). Again, Thanks..</content>
+    </comment>
+    <comment id="c2dbe61c-f776-42e2-863c-5b8a07869f28" approved="True">
+      <date>2010-10-05 11:44:03</date>
+      <author>ffxiv powerleveling</author>
+      <email>SuhaTamadurKassab@wowgold365.co.uk</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.just6-pt.com/</website>
+      <content>How many packs of hair will I need for micro beading? 2 packs of 200 strands of hair will be needed for full head. If hair is purchased by 25 stands per pack you will need a total of 300 strand of hair.</content>
+    </comment>
+    <comment id="c479388b-d3b5-4659-8e5d-cfaf819eb460" approved="True">
+      <date>2010-10-05 17:14:58</date>
+      <author>buy cheap wow gold</author>
+      <email>TheophileBeauchamp@goldteamsale.com/</email>
+      <ip>118.250.69.149</ip>
+      <website>http://www.you-cataclysm.com/</website>
+      <content>Awesome blog! Its not frequently that I comment but I felt you deserve it =)</content>
+    </comment>
+  </comments>
+  <categories>
+    <category>0d8cc69b-489f-47b7-be20-41e36e530fc1</category>
+  </categories>
+  <notifications>
+    <email>xiaode0@yahoo.com.cn</email>
+  </notifications>
+</post>

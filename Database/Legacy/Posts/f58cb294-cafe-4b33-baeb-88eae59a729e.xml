@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>Zasz</author>
+  <title>Moving the MBR to another Device/Hard Disk</title>
+  <description />
+  <content>&lt;div&gt;&lt;font size="3"&gt;&lt;br /&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;The most common scenario for wanting to move the MBR to another Hard Disk is because you bought a newer faster/bigger drive and installed better OS in it and want to format the old Hard Disk so you can store other data in it.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;Every hard disk has an MBR (Master Boot Record) in its Sector 0 (1 sector = 512 bytes) - On a multiple hard disk system you have multiple MBRs and the BIOS Bootscreen shows the priority in which the devices are considered for checking for MBR.&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;Usually your old hard disk willl contain an MBR, and new hard disks MBR will be missing. If you say, installed Windows 7 on the new Hard drive, you will still need the old hard disk as it contains the MBR that loads the Windows Boot Loader (which is also on the older hard drive) and this in turn bootstraps the Windows in the new Harddisk. So you wont be able to format the old Hard drive as it is the gateway to your OS on the new Harddisk.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;Other things you will observe in this scenario are - If you see the Computer Management screen (R-Click My Computer and click manage) - &amp;gt; Storage -&amp;gt; Disk Management you will observe the old Harddisk is marked as System and you can&amp;#39;t format it as its disabled because it contains the MBR from which the OS booted from.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;strong&gt;&lt;font size="3"&gt;Steps to resolve :&lt;/font&gt;&lt;/strong&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&lt;br /&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;1) Get EasyBCD 2.0+ and go to Bootloader Setup. In the create Bootable External Media section select your new harddisks OS partition and click on Install BCD - Press OK in the confirmation dialog regarding selection of BCD store if it turns up. This step will create empty BCD file &amp;amp; data on the new HardDisk itself, where you have the new OS (Windows 7 usually).&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;2) In the MBR Configuration Options, select Install the (Windows 7/ Windows XP) bootloader to the MBR, based on what OS is in the partition you selected in step 1. I recommend choosing Windows7 bootloader, even if you want only XP. This step will make the MBR in your new harddisk bootable and it will boot into window 7 bootloader or XP bootloader&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;3) Go to the Add New Entry tab and Add an entry for all the OSes you have, including the one in your new harddisk. This step is usually done only if you choose Windows &amp;nbsp;bootloader in the previous step. Even otherwise do this no worries. This will show all the OS options while booting up.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;4) Finally restart Go to BIOS boot priority and give the New harddisk 1st priority, or atleast higher priority than the old harddisk.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;5) Optional - Format the old harddisk and do whatever you want with it - this will delete the bootable MBR on it.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;&lt;br /&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size="3"&gt;Cheers. Be sure not to FlusterCuck your Harddrives :P&lt;/font&gt;&lt;/div&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2011-01-14 18:12:00</pubDate>
+  <lastModified>2011-01-14 18:13:32</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Moving-the-MBR-to-another-DeviceHard-Disk</slug>
+  <tags />
+  <comments>
+    <comment id="8e591484-99d0-44b1-9ad7-6dc01a13a834" approved="True">
+      <date>2011-01-17 01:26:10</date>
+      <author>hiking shoes boots</author>
+      <email>hang@126.com</email>
+      <ip>61.190.27.42</ip>
+      <website>http://www.sfyh.com/hiking-shoes-boots_ss</website>
+      <content>Wow nice info you have here. I wish this will help a lot of people. I will tell my friends to read this. Thanks!</content>
+    </comment>
+    <comment id="98005f49-26f1-47f4-88f5-c0497b5da425" approved="True">
+      <date>2011-01-20 06:35:49</date>
+      <author>plastic injection mold design</author>
+      <email>hang@126.com</email>
+      <ip>216.83.63.50</ip>
+      <website>http://www.sfyh.com/plastic-injection-mold-design_ss</website>
+      <content>hey! i love shakeitphoto! with this update, you can use existing photos you already have... you can also process this photo again and again for a really cool look!</content>
+    </comment>
+    <comment id="5b34d7ab-f644-4db5-8511-6c5be7414e08" approved="True">
+      <date>2011-01-27 06:23:14</date>
+      <author>suede slouch boots</author>
+      <email>hang@126.com</email>
+      <ip>61.190.27.42</ip>
+      <website>http://www.sfyh.com/suede-slouch-boots_ss</website>
+      <content>Wow nice info you have here. I wish this will help a lot of people. I will tell my friends to read this. Thanks!</content>
+    </comment>
+    <comment id="2ee94cb1-da0e-46b5-b86d-d84525a69499" approved="True">
+      <date>2011-02-15 06:08:24</date>
+      <author>fretless bass guitar</author>
+      <email>hang@126.com</email>
+      <ip>216.83.63.50</ip>
+      <website>http://www.sfyh.com/fretless-bass-guitar_ss</website>
+      <content>Interesting article. Were did you got all this information from... </content>
+    </comment>
+    <comment id="bbe59a35-9cfa-4217-a577-71a8bc404640" approved="True">
+      <date>2011-02-17 02:54:17</date>
+      <author>germanium suppliers</author>
+      <email>bestchempp@hotmail.com</email>
+      <ip>117.88.206.73</ip>
+      <website>http://www.bestchem.net/</website>
+      <content>Easily, the post is actually the freshest subject on how to choose a sleeping bags. I concur with your conclusions and will eagerly appear forward to your incoming updates. Saying thanks will not just be enough, for the wonderful lucidity in your writing. I will instantly grab your rss feed to stay informed of any updates.</content>
+    </comment>
+    <comment id="11625c7a-a5d3-40cc-9f1a-4d75232ccf2f" approved="True">
+      <date>2011-02-17 08:48:42</date>
+      <author>childrens snow boots</author>
+      <email>hang@126.com</email>
+      <ip>216.83.63.50</ip>
+      <website>http://www.sfyh.com/childrens-snow-boots_ss</website>
+      <content>Its nice and quite, no people leaving stupid comments or having bullshit discussions.</content>
+    </comment>
+    <comment id="3384bde8-e88f-473d-ab02-988ec71991ff" approved="True">
+      <date>2011-02-17 08:50:20</date>
+      <author>five finger shoes</author>
+      <email>hang@126.com</email>
+      <ip>216.83.63.50</ip>
+      <website>http://www.sfyh.com/five-finger-shoes_ss</website>
+      <content>Excellent read, I just passed this onto a colleague who was doing a little research on that. And he actually bought me lunch because I found it for him smile So let me rephrase that: Thanks for lunch!</content>
+    </comment>
+    <comment id="1cc3ec40-3826-4141-80a3-78bca3dfc3a7" approved="True">
+      <date>2011-02-23 02:42:14</date>
+      <author>Nike Shox Clearance</author>
+      <email>xingwomeng3210@gmail.com</email>
+      <ip>175.44.9.31</ip>
+      <website>http://www.shoxnow.com/</website>
+      <content>Experience is the child of thought , and thought is the child of action. We cannot learn men from books.
+http://www.shoxnow.com/</content>
+    </comment>
+    <comment id="1c29531c-ce7c-4f46-8edc-12852a95e883" approved="True">
+      <date>2011-02-25 05:26:02</date>
+      <author>keychain led light</author>
+      <email>hang@126.com</email>
+      <ip>216.83.63.50</ip>
+      <website>http://www.sfyh.com/keychain-led-light_ss</website>
+      <content>Nice to be visiting your blog again, it has been months for me. Well this article that i've been waited for so long. I need this article to complete my assignment in the college, and it has same topic with your article. Thanks, great share. </content>
+    </comment>
+    <comment id="d7ccf19c-c223-4bf0-8fc8-37560aad229c" approved="True">
+      <date>2011-02-28 11:58:03</date>
+      <author>wow gold</author>
+      <email>goldswow.com@sohu.cn</email>
+      <ip>119.39.85.44</ip>
+      <website>http://www.goldswow.com/</website>
+      <content>Bedroom color? I have no idea what color to paint my room! one of my friends suggested one adjectives red wall and the other three gray or white wow gold,and on the red accent wall a dead black tree. I guess approaching a silhouete(sp?) I need help swiftly. I like modern type things, retro, just some.Bedroom color? I have no idea what color to paint my room! one of my friends suggested one adjectives red wall and the other three gray or white world of warcraft gold,and on the red accent wall a dead black tree. I guess approaching a silhouete(sp?) I need help swiftly. I like modern type things, retro, just some.</content>
+    </comment>
+    <comment id="f4646d36-7f64-4f59-9baf-82788ad0c770" approved="True">
+      <date>2011-03-28 11:18:20</date>
+      <author>Wooden Playsets</author>
+      <email>chris251984@gmail.com</email>
+      <ip>117.199.93.208</ip>
+      <website>http://www.treefrogsswingsets.com/</website>
+      <content>Thank you for the tips on this, i am sure they are of a great importance to me and others as well. Appreciate it as always.
+Chris Harris</content>
+    </comment>
+  </comments>
+  <categories>
+    <category>0d8cc69b-489f-47b7-be20-41e36e530fc1</category>
+  </categories>
+  <notifications />
+</post>
