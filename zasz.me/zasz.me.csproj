@@ -179,7 +179,6 @@
     <Compile Include="Areas\Shared\SharedAreaRegistration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
