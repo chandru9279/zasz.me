@@ -91,34 +91,20 @@ Global
 		CategoryFile = zasz.me.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Hyperion|Any CPU = Hyperion|Any CPU
-		MckLaptop|Any CPU = MckLaptop|Any CPU
+		Dev|Any CPU = Dev|Any CPU
 		Server|Any CPU = Server|Any CPU
-		TWLaptop|Any CPU = TWLaptop|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Hyperion|Any CPU.ActiveCfg = Hyperion|Any CPU
-		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Hyperion|Any CPU.Build.0 = Hyperion|Any CPU
-		{B652A23D-604D-40F7-9D13-984EEAD99B68}.MckLaptop|Any CPU.ActiveCfg = MckLaptop|Any CPU
-		{B652A23D-604D-40F7-9D13-984EEAD99B68}.MckLaptop|Any CPU.Build.0 = MckLaptop|Any CPU
+		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Dev|Any CPU.Build.0 = Dev|Any CPU
 		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Server|Any CPU.ActiveCfg = Server|Any CPU
 		{B652A23D-604D-40F7-9D13-984EEAD99B68}.Server|Any CPU.Build.0 = Server|Any CPU
-		{B652A23D-604D-40F7-9D13-984EEAD99B68}.TWLaptop|Any CPU.ActiveCfg = TwLaptop|Any CPU
-		{B652A23D-604D-40F7-9D13-984EEAD99B68}.TWLaptop|Any CPU.Build.0 = TwLaptop|Any CPU
-		{AC97B18E-27FE-4B35-B757-3E361D073839}.Hyperion|Any CPU.ActiveCfg = Hyperion|Any CPU
-		{AC97B18E-27FE-4B35-B757-3E361D073839}.Hyperion|Any CPU.Build.0 = Hyperion|Any CPU
-		{AC97B18E-27FE-4B35-B757-3E361D073839}.MckLaptop|Any CPU.ActiveCfg = MckLaptop|Any CPU
-		{AC97B18E-27FE-4B35-B757-3E361D073839}.MckLaptop|Any CPU.Build.0 = MckLaptop|Any CPU
-		{AC97B18E-27FE-4B35-B757-3E361D073839}.Server|Any CPU.ActiveCfg = Hyperion|Any CPU
-		{AC97B18E-27FE-4B35-B757-3E361D073839}.TWLaptop|Any CPU.ActiveCfg = TwLaptop|Any CPU
-		{AC97B18E-27FE-4B35-B757-3E361D073839}.TWLaptop|Any CPU.Build.0 = TwLaptop|Any CPU
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Hyperion|Any CPU.ActiveCfg = Hyperion|x86
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Hyperion|Any CPU.Build.0 = Hyperion|x86
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.MckLaptop|Any CPU.ActiveCfg = MckLaptop|x86
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.MckLaptop|Any CPU.Build.0 = MckLaptop|x86
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Server|Any CPU.ActiveCfg = Hyperion|x86
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.TWLaptop|Any CPU.ActiveCfg = TwLaptop|x86
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.TWLaptop|Any CPU.Build.0 = TwLaptop|x86
+		{AC97B18E-27FE-4B35-B757-3E361D073839}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{AC97B18E-27FE-4B35-B757-3E361D073839}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{AC97B18E-27FE-4B35-B757-3E361D073839}.Server|Any CPU.ActiveCfg = Dev|Any CPU
+		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Dev|Any CPU.ActiveCfg = Dev|x86
+		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Dev|Any CPU.Build.0 = Dev|x86
+		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Server|Any CPU.ActiveCfg = Dev|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

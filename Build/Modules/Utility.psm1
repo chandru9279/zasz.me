@@ -5,8 +5,19 @@ function Skip-Delete
     param(
         [Parameter(Position=0,Mandatory=1)] [string]$folder
     )
-    Get-ChildItem $folder -Recurse -File | ? { $_.FullName -notmatch ".gitkeep" } | Remove-Item
-    Get-ChildItem $folder -Recurse -Directory | ? { $_.GetFiles().Count -eq 0 } | Remove-Item
+    Get-ChildItem $folder -Recurse -File | ? { $_.FullName -notmatch ".gitkeep" } | Remove-Item -Force
+    Get-ChildItem $folder -Recurse -Directory | ? { $_.GetFiles().Count -eq 0 } | Remove-Item -Recurse -Force
 }
 
-export-modulemember -function Skip-Delete
+function Test-Solr
+{
+    try {
+    $response = (New-Object System.Net.WebClient).DownloadString("http://localhost:5000/solr")
+    }
+    catch [System.Net.WebException] {
+    return $false
+    }
+    return $response -ne $null
+}
+
+export-modulemember -function Skip-Delete, Test-Solr
