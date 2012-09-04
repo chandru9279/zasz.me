@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("zasz.develop")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ThoughtWorks Technologies India Pvt Ltd")]
+[assembly: AssemblyCompany("ZASZ Inc")]
 [assembly: AssemblyProduct("zasz.develop")]
-[assembly: AssemblyCopyright("Copyright © ThoughtWorks Technologies India Pvt Ltd 2011")]
+[assembly: AssemblyCopyright("Copyright © ZASZ Inc")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("zasz.health")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("ZASZ Inc")]
 [assembly: AssemblyProduct("zasz.health")]
 [assembly: AssemblyCopyright("Copyright © ZASZ Inc")]
 [assembly: AssemblyTrademark("")]
