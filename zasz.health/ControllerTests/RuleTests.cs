@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
+using Xunit;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
 using System.Diagnostics;
@@ -10,10 +10,9 @@ using System.Web.Mvc;
 
 namespace zasz.health.ControllerTests
 {
-    [TestClass]
     public class RuleTests
     {
-        [TestMethod]
+        [Fact]
         public void ShouldEnsureAllControllersExtendFromTheBaseController()
         {
             var BaseType = typeof (BaseController);
@@ -22,19 +21,19 @@ namespace zasz.health.ControllerTests
                                   select EachType).ToList();
             var CriminalControllers = AllControllers.FindAll(C => !BaseType.IsAssignableFrom(C));
             CriminalControllers.ForEach(C => Debug.WriteLine(C.FullName));
-            Assert.IsTrue(CriminalControllers.Count == 0);
+            Assert.True(CriminalControllers.Count == 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionTest()
         {
             string Name = Extensions.Name(X => X.Id);
-            Assert.AreEqual(Name, "Id");
-            Assert.AreEqual(Extensions.Name(X => X.Content), "Content");
-            Assert.AreEqual(Extensions.PropertyInfo(X => X.Content).Name, "Content");
+            Assert.Equal(Name, "Id");
+            Assert.Equal(Extensions.Name(X => X.Content), "Content");
+            Assert.Equal(Extensions.PropertyInfo(X => X.Content).Name, "Content");
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldEnsureAllControllersHaveADefaultAction()
         {
             var BaseType = typeof (BaseController);
@@ -43,7 +42,7 @@ namespace zasz.health.ControllerTests
                                       select EachType;
             var CriminalControllers = ConcreteControllers.ToList().FindAll(C => !C.HasOneDefaultAction());
             CriminalControllers.ForEach(C => Debug.WriteLine(C.FullName));
-            Assert.IsTrue(CriminalControllers.Count == 0);
+            Assert.True(CriminalControllers.Count == 0);
         }
     }
 

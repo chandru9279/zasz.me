@@ -8,7 +8,7 @@
 *.db
 
 packages/
-TestResults/
+Out/
 _ReSharper.zasz.me/
 
 zasz.me/Uploads/

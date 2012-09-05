@@ -20,4 +20,10 @@ function Test-Solr
     return $response -ne $null
 }
 
+function create-7zip([String] $aDirectory, [String] $aZipfile){
+    [string]$pathToZipExe = "C:\Program Files\7-zip\7z.exe";
+    [Array]$arguments = "a", "-tzip", "$aZipfile", "$aDirectory", "-r";
+    & $pathToZipExe $arguments;
+}
+
 export-modulemember -function Skip-Delete, Test-Solr

@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using zasz.develop.Data;
 using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
 
 namespace zasz.health.IntegrationTests
 {
-    [TestClass]
-    public class PostAndTagRepositoryTests
+    public class PostAndTagRepositoryTests : IDisposable
     {
         private FullContext _FullContext;
         private Posts _Posts;
         private Tags _Tags;
 
-        [TestInitialize]
-        public void Setup()
+        public PostAndTagRepositoryTests()
         {
             Database.SetInitializer(new ColdStorageInitializer());
             _FullContext = new FullContext();
@@ -36,53 +34,52 @@ namespace zasz.health.IntegrationTests
             _Posts.Commit();
         }
 
-        [TestMethod]
+        [Fact]
         public void TestPagingAndSorting()
         {
             var Ids = new List<string> { "Moving-the-MBR-to-another-DeviceHard-Disk", "Home-PC-v30" };
             var Posts = _Posts.Page(0, 10);
-            var ActualIds = Posts.Select(Post => Post.Slug);
-            CollectionAssert.IsSubsetOf(Ids, ActualIds.ToList());
+            var ActualIds = Posts.Select(Post => Post.Slug).ToList();
+            Assert.True(Ids.All(ActualIds.Contains));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestCount()
         {
             var Posts = _Posts.Count();
             var Both = _Posts.Count(Site.Shared);
             var Pro = _Posts.Count(Site.Pro);
             var Rest = _Posts.Count(Site.Rest);
-            Assert.AreEqual(Both, Posts);
-            Assert.AreEqual(Pro, Posts);
-            Assert.AreEqual(Rest, Posts);
+            Assert.Equal(Both, Posts);
+            Assert.Equal(Pro, Posts);
+            Assert.Equal(Rest, Posts);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestTagPagingQuery()
         {
             var Posts = _Tags.PagePosts("asp.net", 0, 2, Site.Pro);
-            Assert.AreEqual(2, Posts.Count);
+            Assert.Equal(2, Posts.Count);
 
             Posts = _Tags.PagePosts("asp.net", 0, 100, Site.Pro);
-            Assert.AreEqual(7, Posts.Count);
+            Assert.Equal(7, Posts.Count);
 
             Posts = _Tags.PagePosts("games", 0, 100, Site.Pro);
-            Assert.AreEqual(7, Posts.Count);
+            Assert.Equal(7, Posts.Count);
 
             Posts = _Tags.PagePosts("dota", 0, 100, Site.Pro);
-            Assert.AreEqual(8, Posts.Count);
-        }
-
-        [TestCleanup]
-        public void TearDown()
-        {
-            _FullContext.Dispose();
+            Assert.Equal(8, Posts.Count);
         }
 
         public void Log(string Log)
         {
             Console.WriteLine(Log);
+        }
+
+        public void Dispose()
+        {
+            _FullContext.Dispose();
         }
     }
 }

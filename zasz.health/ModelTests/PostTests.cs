@@ -1,16 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using zasz.me.Areas.Shared.Models;
 
 namespace zasz.health.ModelTests
 {
-    [TestClass]
     public class PostTests
     {
         private Post PostOne;
         private Post PostTwo;
 
-        [TestInitialize]
-        public void Setup()
+        public PostTests()
         {
             PostOne = new Post
                           {
@@ -24,37 +22,37 @@ namespace zasz.health.ModelTests
                           };
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetDescriptionGetsOnlyTextForThresholdLimit()
         {
             var Result = PostOne.GetDescription(100);
             // Last 3 characters will be dots
-            Assert.AreEqual(103, Result.Length);
-            Assert.IsFalse(Result.Contains("<"));
-            Assert.IsFalse(Result.Contains(">"));
+            Assert.Equal(103, Result.Length);
+            Assert.False(Result.Contains("<"));
+            Assert.False(Result.Contains(">"));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetDescriptionWorksForComplexStringsWithCSSComments()
         {
             var Result = PostTwo.GetDescription(80);
             // Last 3 characters will be dots
-            Assert.AreEqual(83, Result.Length);
-            Assert.IsFalse(Result.Contains("<"));
-            Assert.IsFalse(Result.Contains(">"));
-            Assert.IsTrue(Result.StartsWith("The browser of the future"));
+            Assert.Equal(83, Result.Length);
+            Assert.False(Result.Contains("<"));
+            Assert.False(Result.Contains(">"));
+            Assert.True(Result.StartsWith("The browser of the future"));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetDescriptionPutsNoDotsForShortPosts()
         {
             PostTwo.Content = "<p>Short<b>Content</b></p>";
             var Result = PostTwo.GetDescription(80);
             // Last 3 characters will be dots
-            Assert.AreEqual(12, Result.Length);
-            Assert.IsFalse(Result.Contains("<"));
-            Assert.IsFalse(Result.Contains(">"));
-            Assert.IsTrue(Result.Equals("ShortContent"));
+            Assert.Equal(12, Result.Length);
+            Assert.False(Result.Contains("<"));
+            Assert.False(Result.Contains(">"));
+            Assert.True(Result.Equals("ShortContent"));
         }
     }
 }
