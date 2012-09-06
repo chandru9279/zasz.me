@@ -3,7 +3,7 @@ function Skip-Delete
 {
     [CmdletBinding()]
     param(
-        [Parameter(Position=0,Mandatory=1)] [string]$folder
+        [Parameter(Position=0,Mandatory=1)] [string] $folder
     )
     Get-ChildItem $folder -Recurse -File | ? { $_.FullName -notmatch ".gitkeep" } | Remove-Item -Force
     Get-ChildItem $folder -Recurse -Directory | ? { $_.GetFiles().Count -eq 0 } | Remove-Item -Recurse -Force
@@ -12,18 +12,26 @@ function Skip-Delete
 function Test-Solr
 {
     try {
-    $response = (New-Object System.Net.WebClient).DownloadString("http://localhost:5000/solr")
+        $response = (New-Object System.Net.WebClient).DownloadString("http://localhost:5000/solr")
     }
-    catch [System.Net.WebException] {
-    return $false
+    catch [System.Net.WebException] { 
+        return $false
     }
     return $response -ne $null
 }
 
-function create-7zip([String] $aDirectory, [String] $aZipfile){
-    [string]$pathToZipExe = "C:\Program Files\7-zip\7z.exe";
-    [Array]$arguments = "a", "-tzip", "$aZipfile", "$aDirectory", "-r";
-    & $pathToZipExe $arguments;
+function Create-7zip {
+    
+    [CmdletBinding()]
+    param(
+        [Parameter(Position=0,Mandatory=1)] [string] $ToolsPath,
+        [Parameter(Position=1,Mandatory=1)] [string] $folder,
+        [Parameter(Position=2,Mandatory=1)] [string] $zip
+    )
+
+    $zipExe = "$ToolsPath\7z\7z.exe";
+    $arguments = "a", "-tzip", "$zip", "$folder", "-r";
+    &$zipExe $arguments;
 }
 
-export-modulemember -function Skip-Delete, Test-Solr
+export-modulemember -function Skip-Delete, Test-Solr, Create-7zip

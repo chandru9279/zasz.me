@@ -5,29 +5,34 @@ properties {
   $PackagesPath = "$SolutionPath\packages\"
   $SolrPath = "$SolutionPath\Solr\"
   $DeployPath = "C:\Bin\zasz.me\"
+  $BuildPath = "$SolutionPath\Out\Build"
 }
 
 
 task default -depends compile
 
 
-task deploy -depends test, db, solrs { 
-  msbuild $SolutionFile /p:Configuration=Server /p:Platform="Any CPU" /v:Quiet /t:Build
-  @('bin'
-  'zasz.me\Areas\Pro\Views'
-  'zasz.me\Areas\Rest\Views'
-  'zasz.me\Areas\Shared\Views'
-  'zasz.me\Content'
-  'zasz.me\Integration\ckeditor'
-  'zasz.me\Integration\syntax-highlight'
-  'zasz.me\Migrations\*.resx'
-  'zasz.me\Scripts'
-  'zasz.me\Global.asax'
-  'zasz.me\robots.txt'
-  'zasz.me\Web.config'  
-  ) | % {
+task build -depends clean { 
+  exec { msbuild $SolutionFile /p:Configuration=Server /p:Platform="Any CPU" /v:Quiet /t:Build }
+  $folders = @{
+  'bin'='*.*'
+  'Areas\Pro\Views'='*.*'
+  'Areas\Rest\Views'='*.*'
+  'Areas\Shared\Views'='*.*'
+  'Content'='*.*'
+  'Integration\ckeditor'='*.*'
+  'Integration\syntax-highlight'='*.*'
+  'Scripts'='*.*'
+  'Migrations'='*.resx'
+  } 
   
+  foreach ( $folder in $folders.keys ) { 
+    robocopy $SolutionPath\zasz.me\$folder $BuildPath\$folder $folders.$folder /E /NJH /NJS
   }
+
+  robocopy $SolutionPath\zasz.me $BuildPath Global.asax robots.txt Web.config /NJH /NJS  
+
+  Create-7zip $ToolsPath $BuildPath "$SolutionPath\Out\Build.zip"
 }
 
 
@@ -93,11 +98,12 @@ task clean {
 
 task packages { 
     $nuget = $ToolsPath + 'NuGet.exe'
-    Remove-Item $PackagesPath -Recurse -Force
+    $packageSource = 'https://nuget.org/api/v2/'
+    if(Test-Path $PackagesPath) { Remove-Item $PackagesPath -Recurse -Force }
     exec { 
     &$nuget update -self
-    &$nuget i ..\zasz.me\packages.config -o $PackagesPath
-    &$nuget i ..\zasz.develop\packages.config -o $PackagesPath
-    &$nuget i ..\zasz.health\packages.config -o $PackagesPath
+    &$nuget i ..\zasz.me\packages.config -o $PackagesPath -Source $packageSource
+    &$nuget i ..\zasz.develop\packages.config -o $PackagesPath -Source $packageSource
+    &$nuget i ..\zasz.health\packages.config -o $PackagesPath -Source $packageSource
     }
 }
