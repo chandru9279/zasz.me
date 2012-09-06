@@ -13,6 +13,21 @@ task default -depends compile
 
 task deploy -depends test, db, solrs { 
   msbuild $SolutionFile /p:Configuration=Server /p:Platform="Any CPU" /v:Quiet /t:Build
+  @('bin'
+  'zasz.me\Areas\Pro\Views'
+  'zasz.me\Areas\Rest\Views'
+  'zasz.me\Areas\Shared\Views'
+  'zasz.me\Content'
+  'zasz.me\Integration\ckeditor'
+  'zasz.me\Integration\syntax-highlight'
+  'zasz.me\Migrations\*.resx'
+  'zasz.me\Scripts'
+  'zasz.me\Global.asax'
+  'zasz.me\robots.txt'
+  'zasz.me\Web.config'  
+  ) | % {
+  
+  }
 }
 
 
@@ -64,7 +79,7 @@ task compile -depends Clean {
 }
 
 
-task clean { 
+task clean {     
     @('zasz.me\bin\' 
     'zasz.me\obj\'
     'zasz.develop\bin\'
@@ -72,7 +87,6 @@ task clean {
     'zasz.health\bin\' 
     'zasz.health\obj\'
     'Out\') | % { Skip-Delete ("$SolutionPath\$_") }
-
     exec { msbuild $SolutionFile /v:Quiet /t:Clean }
 }
 
