@@ -147,12 +147,6 @@
     <Compile Include="Areas\Pro\Controllers\BlogController.cs" />
     <Compile Include="Areas\Pro\Models\TinkerModel.cs" />
     <Compile Include="Areas\Pro\ProAreaRegistration.cs" />
-    <Compile Include="Areas\Rest\Controllers\AboutController.cs" />
-    <Compile Include="Areas\Rest\Controllers\ErrorController.cs" />
-    <Compile Include="Areas\Rest\Controllers\GalleryController.cs" />
-    <Compile Include="Areas\Rest\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Rest\Controllers\BlogController.cs" />
-    <Compile Include="Areas\Rest\RestAreaRegistration.cs" />
     <Compile Include="Services\Concrete\FilesystemFilesService.cs" />
     <Compile Include="Services\Contracts\IFilesService.cs" />
     <Compile Include="Services\Contracts\ISearchService.cs" />
@@ -376,9 +370,7 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Rest\Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -419,22 +411,6 @@
     <Content Include="Areas\Pro\Views\Blog\_PostFullView.cshtml" />
     <Content Include="Areas\Pro\Views\Blog\_PostShortView.cshtml" />
     <Content Include="Areas\Pro\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Rest\Views\About\Me.cshtml" />
-    <Content Include="Areas\Rest\Views\About\_DiabloRed.cshtml" />
-    <Content Include="Areas\Rest\Views\Error\NotFound.cshtml" />
-    <Content Include="Areas\Rest\Views\Gallery\Look.cshtml" />
-    <Content Include="Areas\Rest\Views\Gallery\_StarcraftRed.cshtml" />
-    <Content Include="Areas\Rest\Views\Home\Show.cshtml" />
-    <Content Include="Areas\Rest\Views\Home\_StarcraftBlue.cshtml" />
-    <Content Include="Areas\Rest\Views\Shared\Menu.cshtml" />
-    <Content Include="Areas\Rest\Views\Web.config" />
-    <Content Include="Areas\Rest\Views\Blog\ArchiveControl.cshtml" />
-    <Content Include="Areas\Rest\Views\Blog\List.cshtml" />
-    <Content Include="Areas\Rest\Views\Blog\Post.cshtml" />
-    <Content Include="Areas\Rest\Views\Blog\_DiabloBlue.cshtml" />
-    <Content Include="Areas\Rest\Views\Blog\_PostFullView.cshtml" />
-    <Content Include="Areas\Rest\Views\Blog\_PostShortView.cshtml" />
-    <Content Include="Areas\Rest\Views\Blog\_ViewStart.cshtml" />
     <Content Include="Areas\Shared\Views\Home\Show.cshtml" />
     <Content Include="Areas\Shared\Views\Post\Manage.cshtml" />
     <Content Include="Areas\Shared\Views\Post\_DisqusCommentCount.cshtml" />
