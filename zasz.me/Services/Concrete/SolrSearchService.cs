@@ -5,7 +5,7 @@ using SolrNet;
 using SolrNet.Commands.Parameters;
 using SolrNet.DSL;
 using SolrNet.Mapping.Validation;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Models;
 using zasz.me.Services.Contracts;
 
 namespace zasz.me.Services.Concrete

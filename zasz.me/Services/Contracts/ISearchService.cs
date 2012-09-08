@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Models;
 
 namespace zasz.me.Services.Contracts
 {

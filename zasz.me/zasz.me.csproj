@@ -108,8 +108,22 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Pro\ViewModels\LinkViewModel.cs" />
-    <Compile Include="Areas\Shared\ViewModels\PostListModel.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\IndirectionController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\UnlockerController.cs" />
+    <Compile Include="Controllers\UploadsController.cs" />
+    <Compile Include="Controllers\Utils\Constants.cs" />
+    <Compile Include="Controllers\Utils\Handy.cs" />
+    <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\Passphrase.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Site.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="ViewModels\BrowseViewModel.cs" />
+    <Compile Include="ViewModels\ContactViewModel.cs" />
+    <Compile Include="ViewModels\LinkViewModel.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\SettingsConfig.cs" />
     <Compile Include="Configuration\BlogConfig.cs" />
@@ -128,7 +142,6 @@
     <Compile Include="Integration\SolrIntegration\SolrIntegration.cs" />
     <Compile Include="Integration\MVC\BaseController.cs" />
     <Compile Include="Integration\MVC\DefaultActionAttribute.cs" />
-    <Compile Include="Integration\MVC\DomainRouteConstraint.cs" />
     <Compile Include="Integration\MVC\EmailAttribute.cs" />
     <Compile Include="Integration\MVC\Security.cs" />
     <Compile Include="Integration\UnityIntegration.cs" />
@@ -139,14 +152,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Areas\Pro\Controllers\ContactController.cs" />
-    <Compile Include="Areas\Pro\Controllers\DisorganizerController.cs" />
-    <Compile Include="Areas\Pro\Controllers\ErrorController.cs" />
-    <Compile Include="Areas\Pro\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Pro\Controllers\PortfolioController.cs" />
-    <Compile Include="Areas\Pro\Controllers\BlogController.cs" />
-    <Compile Include="Areas\Pro\Models\TinkerModel.cs" />
-    <Compile Include="Areas\Pro\ProAreaRegistration.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\DisorganizerController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PortfolioController.cs" />
+    <Compile Include="Models\TinkerModel.cs" />
     <Compile Include="Services\Concrete\FilesystemFilesService.cs" />
     <Compile Include="Services\Contracts\IFilesService.cs" />
     <Compile Include="Services\Contracts\ISearchService.cs" />
@@ -157,73 +168,28 @@
     <Compile Include="Services\Concrete\SolrSearchService.cs" />
     <Compile Include="Services\TagCloud\TagCloudService.cs" />
     <Compile Include="Services\TagCloud\DisplayStrategy.cs" />
-    <Compile Include="Areas\Shared\Controllers\BaseContactController.cs" />
-    <Compile Include="Areas\Shared\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Shared\Controllers\IndirectionController.cs" />
-    <Compile Include="Areas\Shared\Controllers\PostController.cs" />
-    <Compile Include="Areas\Shared\Controllers\UnlockerController.cs" />
-    <Compile Include="Areas\Shared\Controllers\UploadsController.cs" />
-    <Compile Include="Areas\Shared\Controllers\Utils\Constants.cs" />
-    <Compile Include="Areas\Shared\Controllers\Utils\Handy.cs" />
-    <Compile Include="Areas\Shared\Controllers\BlogBaseController.cs" />
-    <Compile Include="Areas\Shared\Models\IRepository.cs" />
-    <Compile Include="Areas\Shared\Models\Log.cs" />
-    <Compile Include="Areas\Shared\Models\Passphrase.cs" />
-    <Compile Include="Areas\Shared\Models\Post.cs" />
-    <Compile Include="Areas\Shared\Models\Site.cs" />
-    <Compile Include="Areas\Shared\Models\Tag.cs" />
-    <Compile Include="Areas\Shared\SharedAreaRegistration.cs" />
+    <Compile Include="ViewModels\PostListModel.cs" />
+    <Compile Include="ViewModels\UploadViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
+    <Content Include="Content\Images\404.png" />
+    <Content Include="Content\Images\expand-down.pdn" />
+    <Content Include="Content\Images\expand-down.png" />
+    <Content Include="Content\Images\github_32.png" />
+    <Content Include="Content\Images\linked-in.jpeg" />
+    <Content Include="Content\Images\Name.pdn" />
+    <Content Include="Content\Images\Name.png" />
+    <Content Include="Content\Images\Paging.png" />
+    <Content Include="Content\Images\rss.jpeg" />
+    <Content Include="Content\Images\scan-qr-codes.jpg" />
+    <Content Include="Content\Images\stackoverflow.png" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
-    <Content Include="Content\Pro\Blog.css" />
-    <Content Include="Content\Pro\ProLayout.css" />
-    <Content Include="Content\Rest\DiabloBlue\Images\bg2.jpg" />
-    <Content Include="Content\Rest\DiabloBlue\Images\borderb2.gif" />
-    <Content Include="Content\Rest\DiabloBlue\Images\bullet2.gif" />
-    <Content Include="Content\Rest\DiabloBlue\Images\button_bg2.gif" />
-    <Content Include="Content\Rest\DiabloBlue\Images\d3_header2.jpg" />
-    <Content Include="Content\Rest\DiabloBlue\Images\ev_bg2.gif" />
-    <Content Include="Content\Rest\DiabloBlue\Images\stone-blue.jpg" />
-    <Content Include="Content\Rest\DiabloBlue\Images\stone-blue2.jpg" />
-    <Content Include="Content\Rest\DiabloBlue\Images\stone-dark.jpg" />
-    <Content Include="Content\Rest\DiabloBlue\Images\title_bg2.gif" />
-    <Content Include="Content\Rest\DiabloRed\Images\bg1.jpg" />
-    <Content Include="Content\Rest\DiabloRed\Images\borderb1.gif" />
-    <Content Include="Content\Rest\DiabloRed\Images\bullet.gif" />
-    <Content Include="Content\Rest\DiabloRed\Images\button_bg1.gif" />
-    <Content Include="Content\Rest\DiabloRed\Images\d3_header1.jpg" />
-    <Content Include="Content\Rest\DiabloRed\Images\ev_bg1.gif" />
-    <Content Include="Content\Rest\DiabloRed\Images\leather-heavy.jpg" />
-    <Content Include="Content\Rest\DiabloRed\Images\leather-vdark.jpg" />
-    <Content Include="Content\Rest\DiabloRed\Images\stone-dark.jpg" />
-    <Content Include="Content\Rest\DiabloRed\Images\title_bg1.gif" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\background_2.jpg" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\bg_2.gif" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\blue_overlay.jpg" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\bullet2.gif" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\buttons2.gif" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\extras_bg2.jpg" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\header_2.jpg" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\horiz_2.gif" />
-    <Content Include="Content\Rest\StarcraftBlue\Images\title_2.gif" />
-    <Content Include="Content\Rest\StarcraftBlue\StarcraftBlue.css" />
-    <Content Include="Content\Rest\StarcraftRed\StarcraftRed.css" />
-    <Content Include="Content\Rest\StarcraftRed\Images\bg_3.gif" />
-    <Content Include="Content\Rest\StarcraftRed\Images\bullet3.gif" />
-    <Content Include="Content\Rest\StarcraftRed\Images\buttons3.gif" />
-    <Content Include="Content\Rest\StarcraftRed\Images\circuits.jpg" />
-    <Content Include="Content\Rest\StarcraftRed\Images\crosshatch.gif" />
-    <Content Include="Content\Rest\StarcraftRed\Images\extras_bg3.jpg" />
-    <Content Include="Content\Rest\StarcraftRed\Images\header_3.jpg" />
-    <Content Include="Content\Rest\StarcraftRed\Images\horiz_3.gif" />
-    <Content Include="Content\Rest\StarcraftRed\Images\title_3.gif" />
-    <Content Include="Content\Rest\DiabloRed\DiabloRed.css" />
-    <Content Include="Content\Rest\DiabloBlue\DiabloBlue.css" />
-    <Content Include="Content\Shared\Shared.css" />
+    <Content Include="Content\Blog.css" />
+    <Content Include="Content\Layout.css" />
+    <Content Include="Content\Admin.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -350,10 +316,10 @@
     <Content Include="Content\ForHtmlHelpers.css" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\jpicker-1.1.6.js" />
-    <Content Include="Areas\Pro\Views\Blog\TagCloudLinks.cshtml" />
-    <Content Include="Areas\Pro\Views\Shared\Facebook.cshtml" />
-    <Content Include="Areas\Pro\Views\Shared\Twitter.cshtml" />
-    <Content Include="Areas\Pro\Views\Disorganizer\Links.cshtml" />
+    <Content Include="Views\Blog\TagCloudLinks.cshtml" />
+    <Content Include="Views\Shared\Facebook.cshtml" />
+    <Content Include="Views\Shared\Twitter.cshtml" />
+    <Content Include="Views\Disorganizer\Links.cshtml" />
     <None Include="Scripts\jquery-1.8.0-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
@@ -369,6 +335,13 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Post\_DisqusCommentCount.cshtml" />
+    <Content Include="Views\Post\_DisqusComments.cshtml" />
+    <Content Include="Views\Post\_PostFooter.cshtml" />
+    <Content Include="Views\Post\_SyntaxHighlight.cshtml" />
+    <Content Include="Views\Post\Manage.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shared\_CKEditor.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -378,53 +351,43 @@
     <None Include="Content\Schemas\unity.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Content\Shared\Fonts\AlphaFridgeMagnets.ttf" />
-    <None Include="Content\Shared\Fonts\AlphaFridgeMagnetsAllCaps.ttf" />
-    <None Include="Content\Shared\Fonts\Gnuolane.ttf" />
-    <None Include="Content\Shared\Fonts\KenyanCoffee.ttf" />
-    <None Include="Content\Shared\Fonts\Sexsmith.ttf" />
-    <None Include="Content\Shared\Fonts\Steelfish.ttf" />
-    <None Include="Content\Shared\Fonts\VenusRising.ttf" />
+    <None Include="Content\Fonts\AlphaFridgeMagnets.ttf" />
+    <None Include="Content\Fonts\AlphaFridgeMagnetsAllCaps.ttf" />
+    <None Include="Content\Fonts\Gnuolane.ttf" />
+    <None Include="Content\Fonts\KenyanCoffee.ttf" />
+    <None Include="Content\Fonts\Sexsmith.ttf" />
+    <None Include="Content\Fonts\Steelfish.ttf" />
+    <None Include="Content\Fonts\VenusRising.ttf" />
     <Content Include="Web.Dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Server.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Areas\Pro\Views\Contact\Form.cshtml" />
-    <Content Include="Areas\Pro\Views\Contact\Mail.cshtml" />
-    <Content Include="Areas\Pro\Views\Disorganizer\Tinker.cshtml" />
-    <Content Include="Areas\Pro\Views\Error\Broken.cshtml" />
-    <Content Include="Areas\Pro\Views\Error\NotFound.cshtml" />
-    <Content Include="Areas\Pro\Views\Home\About.cshtml" />
-    <Content Include="Areas\Pro\Views\Home\Search.cshtml" />
-    <Content Include="Areas\Pro\Views\Home\Show.cshtml" />
-    <Content Include="Areas\Pro\Views\Home\_SearchBox.cshtml" />
-    <Content Include="Areas\Pro\Views\Portfolio\All.cshtml" />
-    <Content Include="Areas\Pro\Views\Shared\_ProLayout.cshtml" />
-    <Content Include="Areas\Pro\Views\Shared\_StackOverflowFlair.cshtml" />
-    <Content Include="Areas\Pro\Views\Web.config" />
-    <Content Include="Areas\Pro\Views\Blog\ArchiveControl.cshtml" />
-    <Content Include="Areas\Pro\Views\Blog\List.cshtml" />
-    <Content Include="Areas\Pro\Views\Blog\Post.cshtml" />
-    <Content Include="Areas\Pro\Views\Blog\TagCloudControl.cshtml" />
-    <Content Include="Areas\Pro\Views\Blog\_PostFullView.cshtml" />
-    <Content Include="Areas\Pro\Views\Blog\_PostShortView.cshtml" />
-    <Content Include="Areas\Pro\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Shared\Views\Home\Show.cshtml" />
-    <Content Include="Areas\Shared\Views\Post\Manage.cshtml" />
-    <Content Include="Areas\Shared\Views\Post\_DisqusCommentCount.cshtml" />
-    <Content Include="Areas\Shared\Views\Post\_DisqusComments.cshtml" />
-    <Content Include="Areas\Shared\Views\Post\_PostFooter.cshtml" />
-    <Content Include="Areas\Shared\Views\Post\_SyntaxHighlight.cshtml" />
-    <Content Include="Areas\Shared\Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Areas\Shared\Views\Shared\_CKEditor.cshtml" />
-    <Content Include="Areas\Shared\Views\Unlocker\Unlock.cshtml" />
-    <Content Include="Areas\Shared\Views\Unlocker\_UnlockStatus.cshtml" />
-    <Content Include="Areas\Shared\Views\Uploads\Browse.cshtml" />
-    <Content Include="Areas\Shared\Views\Uploads\Upload.cshtml" />
-    <Content Include="Areas\Shared\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Shared\Views\Web.config" />
+    <Content Include="Views\Contact\Form.cshtml" />
+    <Content Include="Views\Contact\Mail.cshtml" />
+    <Content Include="Views\Disorganizer\Tinker.cshtml" />
+    <Content Include="Views\Error\Broken.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\Show.cshtml" />
+    <Content Include="Views\Home\_SearchBox.cshtml" />
+    <Content Include="Views\Portfolio\All.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_StackOverflowFlair.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Blog\ArchiveControl.cshtml" />
+    <Content Include="Views\Blog\List.cshtml" />
+    <Content Include="Views\Blog\Post.cshtml" />
+    <Content Include="Views\Blog\TagCloudControl.cshtml" />
+    <Content Include="Views\Blog\_PostFullView.cshtml" />
+    <Content Include="Views\Blog\_PostShortView.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Unlocker\Unlock.cshtml" />
+    <Content Include="Views\Unlocker\_UnlockStatus.cshtml" />
+    <Content Include="Views\Uploads\Browse.cshtml" />
+    <Content Include="Views\Uploads\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201209021728521_InitialCreate.resx">

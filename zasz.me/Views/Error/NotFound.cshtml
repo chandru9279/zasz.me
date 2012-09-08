@@ -1,0 +1,90 @@
+﻿@model Exception
+@{
+    ViewBag.Title = "Lost!";
+}
+
+@section Head
+{
+
+    <style type="text/css">
+        .Message
+        {
+            text-align: center;
+            overflow: visible;
+            font-size: 32px;
+            margin: 10px auto;
+            width: 640px;
+        }
+
+        .PageNotFoundImage
+        {
+            text-align: center;
+            margin: 10px auto;
+            width: 225px;
+        }
+
+        .Value
+        {
+            font-weight: bold;
+        }
+    </style>
+
+    <script type="text/javascript">
+    window.setInterval(AnimateText, 8000);
+    var Messages = [
+        "This page hit a temporal anomaly and vanished sometime tomorrow.",
+        "This page does not exist. It never existed. It was a hoax. A figment of your imagination.",
+        "You're not cleared for this page.",
+        "The world isn't ready for This Page yet.",
+        "The Web Page you seek cannot be located but endless others exist.",
+        "The ten thousand things, How long do any persist? This page you seek, too, has gone.",
+        "My dog seems to have eaten this page, I have given it some regurgitation tablets. Please wait while we are testing your patience.."
+    ];
+
+    function AnimateText() {
+        var index = Math.floor(Math.random() * Messages.length);
+        $("#Message").text(Messages[index]);
+    }
+
+    $(document).ready(AnimateText);
+</script>
+}
+
+@if (Request.IsAuthenticated || Request.IsLocal)
+{
+    <div> Error Details
+        @{
+            if (!string.IsNullOrEmpty((string) ViewBag.OriginalUrl))
+            {
+                <p>Unmatched URL : <span class="Value">@ViewBag.OriginalUrl</span></p>
+            }
+            else if (!string.IsNullOrEmpty((string) ViewBag.MissingAction))
+                 {
+                     <p>Unknown Action : <span class="Value">@ViewBag.MissingAction</span></p>
+                 }
+                 else
+                 {
+                     <p>Action : <span class="Value">@ViewBag.OriginalAction</span> <br /> 
+                         Controller :<span class="Value">@ViewBag.OriginalController</span> <br />
+                         Message : <span class="Value">@Model.Message</span>
+                     </p>
+                     <div class="Expand-Panel">
+                         <div class="Expand-Button">&darr;&nbsp; Trace &nbsp;&darr;</div>
+                         <div class="Panel">
+                             @Model.ToString()
+                         </div>
+                     </div>
+                 }
+        }
+    </div>
+}
+<div id="Message" class="Message">
+</div>
+
+
+@section Right
+{
+    <div class="PageNotFoundImage">
+        <img id="PageNotFoundImage" src="@Url.Content("~/Content/Images/404.png")" alt="404 : Address not found xD"/>
+    </div>
+}

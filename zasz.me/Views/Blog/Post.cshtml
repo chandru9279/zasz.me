@@ -1,0 +1,53 @@
+﻿@using zasz.me.Controllers.Utils
+@model zasz.me.Models.Post
+
+@{
+    ViewBag.Title = "Post";
+}
+                                                                                             
+@section Head{
+    @Html.Partial("~/Views/Post/_SyntaxHighlight.cshtml")
+}
+
+@section Right{
+    @Html.Partial("TagCloudControl")
+    
+    <div class="Sidebar-Control">
+    <div class="Sidebar-Title">QR - Code</div>
+    @Html.QrCode(Model.Permalink, Size: 214)
+    </div>
+    <a class="Modal" href="#WhatsQRCode">What's this?</a>
+    @Html.Action("ArchiveControl")
+    
+}
+
+@Html.Partial("~/Views/Blog/_PostFullView.cshtml", Model)
+
+<div class="Clear"></div>
+@*This div will be filled by the Disqus script in _DisqusComments.cshtml*@
+<div style="margin:20px;" id="disqus_thread">
+<noscript>
+    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+</div>
+
+<div id='WhatsQRCode' style="display: none; width: 400px" class="Pro-Popup">	
+    <h1 class="Sidebar-Title" style="text-align:center;">View this content from your Mobile Device</h1>
+	<p>The image is a <a target="_blank" href="http://en.wikipedia.org/wiki/QR_code">QR-Code.</a> 
+    Just open the QR scanner/reader App on your device and hold it against the code, and if connected 
+    to the internet, it will start displaying this content. You can complete reading the article on the go.</p>
+	<img style="margin: 10px auto; display:block;" src="@Url.Content("~/Content/Images/scan-qr-codes.jpg")" alt="Scan QR Codes" />
+    <p>Download the reader app if don't have one. Use 
+    <a target="_blank" href="http://www.androlib.com/android.application.tw-com-quickmark-jwCAt.aspx">QuickMark</a> or 
+    <a target="_blank" href="http://www.androlib.com/android.application.com-google-zxing-client-android-xzA.aspx">Barcode Scanner</a> for Android, and
+    <a target="_blank" href="http://itunes.apple.com/us/app/neoreader/id284973754?mt=8">NeoReader</a> or 
+    <a target="_blank" href="http://itunes.apple.com/us/app/barcode/id285683111?mt=8">BarcodeReader</a> for iPhone, iPod Touch, iPad, and 
+    <a target="_blank" href="http://appworld.blackberry.com/webstore/content/1102">ScanLife</a> or 
+    <a target="_blank" href="http://appworld.blackberry.com/webstore/content/5781?lang=en">BeeTag</a> for Blackberry and
+    <a target="_blank" href="http://get.neoreader.com/">NeoReader</a> or
+    <a target="_blank" href="http://get.beetagg.com">BeeTag</a> for Windows Phone 7.</p>
+</div>
+
+@Html.Partial("~/Views/Post/_DisqusComments.cshtml", Model)
+
+

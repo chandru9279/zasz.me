@@ -1,0 +1,25 @@
+﻿@model zasz.me.ViewModels.LinkViewModel
+
+@{
+    Layout = null;
+}
+@if (null != Model)
+{
+    foreach(var Bounds in Model.Borders)
+    {
+        <a class="TagHover Modal" 
+           href="#TagAlert"
+           onclick="$('#DialogContent').text('@(Bounds.Key)'); return true;"
+           style="height: @(Bounds.Value.Height)px; margin-left: @(Bounds.Value.Left)px; margin-top: @(Bounds.Value.Top)px; width: @(Bounds.Value.Width)px;">
+        </a>
+    }
+    <script type="text/javascript">
+    $('#GeneratedTime').text('Took @Model.GenerateTime seconds');
+    $('#Skipped').val('@Model.Skipped');
+    $('#OutputControl .Modal').modalpop({ speed: 200 });
+    </script>
+}
+else
+{
+    <div> No cloud generated : enter some data in the tags textbox.</div>
+}

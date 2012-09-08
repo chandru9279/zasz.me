@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Models;
 
 namespace zasz.health.ModelTests
 {

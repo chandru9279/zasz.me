@@ -22,7 +22,7 @@ namespace zasz.develop.Utils
 
         private void TagCloudLoad(object Sender, EventArgs E)
         {
-            string SystemPath = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\zasz.me\Content\Shared\Fonts";
+            string SystemPath = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\zasz.me\Content\Fonts";
             _Service = new FontsService();
             _Service.LoadFonts(SystemPath);
             FontsCombo.Items.AddRange(_Service.AvailableFonts.Keys.ToArray());

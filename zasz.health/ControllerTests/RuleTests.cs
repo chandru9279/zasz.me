@@ -2,11 +2,11 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Xunit;
-using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.MVC;
 using System.Diagnostics;
 using System;
 using System.Web.Mvc;
+using zasz.me.Models;
 
 namespace zasz.health.ControllerTests
 {

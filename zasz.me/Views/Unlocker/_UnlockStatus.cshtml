@@ -1,0 +1,8 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <a href="@Url.Action("Lock","Unlocker")">Lock up</a>
+}
+else
+{
+    <a href="@Url.Action("Unlock","Unlocker")">Manage</a>
+}                            

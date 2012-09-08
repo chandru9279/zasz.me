@@ -1,0 +1,25 @@
+﻿@model zasz.me.ViewModels.UploadViewModel
+@{
+    Layout = null;           
+}
+<html>
+<head>
+    <title>Callback</title>
+    <script type='text/javascript'>
+        var callbackFunction;
+        if(window.parent && window.parent.CKEDITOR) 
+            callbackFunction = parent.CKEDITOR.tools.callFunction;
+        else if (window.opener && window.opener.CKEDITOR) 
+            callbackFunction = window.opener.CKEDITOR.tools.callFunction;
+        else
+            callbackFunction = false;
+
+        if(callbackFunction)
+            callbackFunction(@Model.CkEditorFuncNum, '@Model.Url', '@Model.Message');
+        else
+            alert('@Model.Message');
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -5,8 +5,8 @@ using System.Data.Entity;
 using System.Linq;
 using Xunit;
 using zasz.develop.Data;
-using zasz.me.Areas.Shared.Models;
 using zasz.me.Integration.EntityFramework;
+using zasz.me.Models;
 
 namespace zasz.health.IntegrationTests
 {

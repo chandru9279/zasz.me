@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using zasz.develop.Utils;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Models;
 
 namespace zasz.develop.Data
 {

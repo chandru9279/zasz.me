@@ -2,8 +2,8 @@
 using System.Web;
 using Moq;
 using Xunit;
-using zasz.me.Areas.Shared.Controllers;
-using zasz.me.Areas.Shared.Models;
+using zasz.me.Controllers;
+using zasz.me.Models;
 
 namespace zasz.health.ControllerTests
 {

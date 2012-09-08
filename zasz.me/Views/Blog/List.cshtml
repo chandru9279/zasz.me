@@ -1,0 +1,29 @@
+﻿@model zasz.me.ViewModels.PostListModel
+
+@{
+  ViewBag.Title = "Posts";
+  ViewBag.DescriptionLength = Model.DescriptionLength;
+}
+
+@section Right{
+    @Html.Partial("TagCloudControl")
+    @Html.Action("ArchiveControl", "Blog")
+}
+
+
+<div class="Light-Message" style="float:left; font-size: 20px;">@Html.Raw(Model.WhatIsListed)</div>
+<div style="float:right;">@Model.GetPagingHtml(Request.Path)</div>
+<div class="Clear" ></div>
+@foreach (var Post in Model.Posts)
+{
+    <div style="margin: 10px auto;">
+        @Html.Partial("~/Views/Blog/_PostShortView.cshtml", Post)
+    </div>    
+}
+<div style="padding: 10px; margin: 20px auto;">
+@Model.GetPagingHtml(Request.Path)
+</div>
+
+@section Bottom{
+    @Html.Partial("~/Views/Post/_DisqusCommentCount.cshtml")
+}
