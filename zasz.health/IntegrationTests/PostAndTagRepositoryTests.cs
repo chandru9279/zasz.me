@@ -43,7 +43,6 @@ namespace zasz.health.IntegrationTests
             Assert.True(Ids.All(ActualIds.Contains));
         }
 
-
         [Fact]
         public void TestCount()
         {

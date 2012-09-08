@@ -1,0 +1,12 @@
+﻿@{
+	Layout = null;
+}
+@model Dictionary<string, System.Drawing.RectangleF>
+
+@foreach(var Bounds in Model)
+{
+	<a class="TagHover" 
+	href="/Blog/Tag/@(Bounds.Key)"
+	style="margin-left: @(Bounds.Value.Left)px; margin-top: @(Bounds.Value.Top)px; width: @(Bounds.Value.Width)px; height: @(Bounds.Value.Height)px">
+	</a>
+}

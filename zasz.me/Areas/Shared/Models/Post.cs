@@ -30,7 +30,7 @@ namespace zasz.me.Areas.Shared.Models
         public virtual ICollection<Tag> Tags { get; set; }
 
         [SolrField("Post_Tags")]
-        public virtual List<string> TagStrings { get { return Tags.Select(It => It.Name).ToList(); } }
+        public virtual List<string> TagStrings { get { return Tags.Select(x => x.Name).ToList(); } }
 
         [NotMapped]
         public string TagsLine

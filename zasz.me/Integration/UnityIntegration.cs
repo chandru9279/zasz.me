@@ -61,7 +61,7 @@ namespace zasz.me.Integration
 
         public SessionStateBehavior GetControllerSessionBehavior(RequestContext RequestContext, string ControllerName)
         {
-            return SessionStateBehavior.Disabled;
+            return SessionStateBehavior.Default;
         }
 
         public void ReleaseController(IController Controller)

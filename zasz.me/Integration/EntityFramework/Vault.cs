@@ -21,7 +21,7 @@ namespace zasz.me.Integration.EntityFramework
 
         public override Expression<Func<Passphrase, bool>> NaturalKeyComparison(string PhraseDigest)
         {
-            return It => It.PhraseDigest == PhraseDigest;
+            return x => x.PhraseDigest == PhraseDigest;
         }
     }
 }

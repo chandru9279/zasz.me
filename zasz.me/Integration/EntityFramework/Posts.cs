@@ -75,7 +75,7 @@ namespace zasz.me.Integration.EntityFramework
                                                                        }
                                             };
 
-            return GroupingByYear.ToDictionary(It => It.Year,
+            return GroupingByYear.ToDictionary(x => x.Year,
                                                It =>
                                                It.Formatted.ToDictionary(Month => Month.DateString, Month => Month.Count));
         }
@@ -84,7 +84,7 @@ namespace zasz.me.Integration.EntityFramework
 
         public override Expression<Func<Post, bool>> NaturalKeyComparison(string Slug)
         {
-            return It => It.Slug == Slug;
+            return x => x.Slug == Slug;
         }
     }
 }

@@ -108,6 +108,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Pro\ViewModels\LinkViewModel.cs" />
+    <Compile Include="Areas\Shared\ViewModels\PostListModel.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\SettingsConfig.cs" />
     <Compile Include="Configuration\BlogConfig.cs" />
@@ -354,7 +356,10 @@
     <Content Include="Content\ForHtmlHelpers.css" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\jpicker-1.1.6.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Areas\Pro\Views\Blog\TagCloudLinks.cshtml" />
+    <Content Include="Areas\Pro\Views\Shared\Facebook.cshtml" />
+    <Content Include="Areas\Pro\Views\Shared\Twitter.cshtml" />
+    <Content Include="Areas\Pro\Views\Disorganizer\Links.cshtml" />
     <None Include="Scripts\jquery-1.8.0-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
@@ -363,6 +368,8 @@
     <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery.watermark.min.js" />
     <Content Include="Scripts\MyScripts.js" />
     <Content Include="Web.config">
@@ -477,7 +484,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4060</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4000/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

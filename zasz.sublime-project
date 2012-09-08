@@ -1,0 +1,21 @@
+{
+	"folders":
+	[
+		{
+			"path": "/E/Dev/Repos/Confidence",
+
+			"folder_exclude_patterns": [
+			"_ReSharper.zasz.me", 
+			"Out", 
+			"zasz.me/Uploads/", 
+			"Solr/logs/", 
+			"Solr/work/",
+			"*.db",
+			"*.cache",
+			"*.user",
+			"*iws",
+			"*.suo"
+			]
+		}
+	]
+}

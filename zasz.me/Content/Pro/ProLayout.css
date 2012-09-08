@@ -328,3 +328,8 @@ select.ProTextBox:HOVER, select.ProTextBox:focus
 {
     display: inline-block;
 }
+
+.twitter-share-button 
+{
+    vertical-align: text-bottom
+} 

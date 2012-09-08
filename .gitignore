@@ -6,6 +6,7 @@
 *.user
 *iws
 *.db
+*.sublime-workspace
 
 packages/
 Out/
@@ -16,5 +17,3 @@ zasz.develop/SampleData/TagCloud/
 
 Solr/logs/
 Solr/work/
-
-.metadata/

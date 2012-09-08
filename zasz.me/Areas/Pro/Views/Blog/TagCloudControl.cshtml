@@ -2,27 +2,12 @@
 	Layout = null;
 }
 
-@model Dictionary<string, System.Drawing.RectangleF>
-
 <div class="Sidebar-Control">
 <div class="Sidebar-Title">Disorganizer&trade;</div>
-<div class="TagCloud">
-@if(null == Model)
-{
-	<div>Tag some posts to show a cloud here.</div>
-}
-else
-{
-	foreach(var Bounds in Model)
-	{
-		<a class="TagHover" 
-		href="/Blog/Tag/@(Bounds.Key)"
-		style="margin-left: @(Bounds.Value.Left)px; margin-top: @(Bounds.Value.Top)px; width: @(Bounds.Value.Width)px; height: @(Bounds.Value.Height)px">
-		</a>
-	}
-<img src="@Url.Content("~/Content/Pro/Images/Cloud.png")" alt="Tag cloud" />
-}
-</div>
+    <div class="TagCloud">
+        <div id="tagCloudLinks"></div>
+        <img src="@Url.Action("TagCloud", "Blog")" id="blogTagCloud" alt="Tag cloud" />
+    </div>
 </div>
 
 <a class="Modal" href="#TagCloud">More</a>

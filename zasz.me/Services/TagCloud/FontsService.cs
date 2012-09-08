@@ -34,7 +34,7 @@ namespace zasz.me.Services.TagCloud
             if (FontFiles.Count() == 0) Die("No Fonts Found");
             _Fonts = new PrivateFontCollection();
             FontFiles.ForEach(F => _Fonts.AddFontFile(F));
-            AvailableFonts = _Fonts.Families.ToDictionary(It => It.Name);
+            AvailableFonts = _Fonts.Families.ToDictionary(x => x.Name);
         }
 
         public void Dispose()

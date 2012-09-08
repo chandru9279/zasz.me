@@ -12,7 +12,7 @@ properties {
 task default -depends compile
 
 
-task build -depends clean { 
+task build -depends clean, packages { 
   exec { msbuild $SolutionFile /p:Configuration=Server /p:Platform="Any CPU" /v:Quiet /t:Build }
   $folders = @{
   'bin'='*.*'
@@ -27,12 +27,22 @@ task build -depends clean {
   } 
   
   foreach ( $folder in $folders.keys ) { 
-    robocopy $SolutionPath\zasz.me\$folder $BuildPath\$folder $folders.$folder /E /NJH /NJS
+    Trace-Robocopy { robocopy $SolutionPath\zasz.me\$folder $BuildPath\$folder $folders.$folder /E /NJH /NJS }
   }
 
-  robocopy $SolutionPath\zasz.me $BuildPath Global.asax robots.txt Web.config /NJH /NJS  
+  Trace-Robocopy { robocopy $SolutionPath\zasz.me $BuildPath Global.asax robots.txt Web.config /NJH /NJS }
+}
 
-  Create-7zip $ToolsPath $BuildPath "$SolutionPath\Out\Build.zip"
+
+task zip -depends build {
+    $zipExe = "$ToolsPath\7z\7z.exe";
+    $arguments = "a", "-tzip", "$SolutionPath\Out\Build.zip", $BuildPath, "-r";
+    exec { &$zipExe $arguments }
+}
+
+
+task deploy -depends build {
+    Trace-Robocopy { robocopy $BuildPath $DeployPath /E /NJH /NJS }
 }
 
 

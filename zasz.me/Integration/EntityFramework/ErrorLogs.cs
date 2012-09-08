@@ -24,7 +24,7 @@ namespace zasz.me.Integration.EntityFramework
 
         public override Expression<Func<Log, bool>> NaturalKeyComparison(Guid Id)
         {
-            return It => It.Id == Id;
+            return x => x.Id == Id;
         }
 
         public List<Log> Page(int PageNumber, int PageSize)

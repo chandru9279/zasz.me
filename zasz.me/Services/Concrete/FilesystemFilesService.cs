@@ -33,7 +33,7 @@ namespace zasz.me.Services.Concrete
         public Pairs<string, string> Browse(string Folder)
         {
             Pairs<string, string> BrowseModel = new Pairs<string, string>();
-            if (Directory.GetDirectories(_UploadsDirRooted).Any(It => It.EndsWith(Folder)))
+            if (Directory.GetDirectories(_UploadsDirRooted).Any(x => x.EndsWith(Folder)))
                 foreach (string RootedPath in Directory.GetFiles(_UploadsDirRooted + Folder, "*", SearchOption.TopDirectoryOnly))
                     if (!File.GetAttributes(RootedPath).HasFlag(FileAttributes.System))
                     {

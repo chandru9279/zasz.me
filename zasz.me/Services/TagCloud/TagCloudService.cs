@@ -53,7 +53,7 @@ namespace zasz.me.Services.TagCloud
             var Sorted = from Tag in Tags
                          orderby Tag.Value descending
                          select new {Tag.Key, Tag.Value};
-            _TagsSorted = Sorted.ToDictionary(It => It.Key, It => It.Value);
+            _TagsSorted = Sorted.ToDictionary(x => x.Key, x => x.Value);
             _LowestWeight = _TagsSorted.Last().Value;
             _HighestWeight = _TagsSorted.First().Value;
             _Occupied = new List<RectangleF>(_TagsSorted.Count + 4);
@@ -213,7 +213,7 @@ namespace zasz.me.Services.TagCloud
                 TheCloudBitmap = CropAndTranslate(TheCloudBitmap);
             Borders = _Occupied
                 .Zip(_TagsSorted.Keys.Where(Word => !WordsSkipped.ContainsKey(Word)), (Rect, Tag) => new {Rect, Tag})
-                .ToDictionary(It => It.Tag, It => It.Rect);
+                .ToDictionary(x => x.Tag, x => x.Rect);
             return TheCloudBitmap;
         }
 
@@ -233,7 +233,7 @@ namespace zasz.me.Services.TagCloud
         {
             if (TrialPoint.Equals(_SpiralEndSentinel)) return true;
             var TrailRectangle = new RectangleF(TrialPoint, Rectangle);
-            return !_Occupied.Any(It => It.IntersectsWith(TrailRectangle));
+            return !_Occupied.Any(x => x.IntersectsWith(TrailRectangle));
         }
 
         /*
@@ -334,11 +334,11 @@ namespace zasz.me.Services.TagCloud
         /// <returns>The cropped version of the bitmap</returns>
         private Bitmap CropAndTranslate(Bitmap CloudToCrop)
         {
-            float NewTop = _Occupied.Select(It => It.Top).Min() - Margin;
-            float NewLeft = _Occupied.Select(It => It.Left).Min() - Margin;
+            float NewTop = _Occupied.Select(x => x.Top).Min() - Margin;
+            float NewLeft = _Occupied.Select(x => x.Left).Min() - Margin;
 
-            float Bottom = _Occupied.Select(It => It.Bottom).Max() + Margin;
-            float Right = _Occupied.Select(It => It.Right).Max() + Margin;
+            float Bottom = _Occupied.Select(x => x.Bottom).Max() + Margin;
+            float Right = _Occupied.Select(x => x.Right).Max() + Margin;
 
             if (NewTop < 0) NewTop = 0;
             if (NewLeft < 0) NewLeft = 0;

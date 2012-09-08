@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.WebPages;
 using Elmah;
 using Microsoft.Practices.Unity;
 using zasz.me.Areas.Shared.Controllers.Utils;
 using zasz.me.Areas.Shared.Models;
+using zasz.me.Areas.Shared.ViewModels;
 using zasz.me.Integration.MVC;
 using zasz.me.Services.TagCloud;
 
@@ -92,7 +92,7 @@ namespace zasz.me.Areas.Shared.Controllers
         public ActionResult Delete(string Id)
         {
             /* Todo : Need to figure out a way to delete without fetching */
-            Post Post = _Posts.Get(Id);
+            var Post = _Posts.Get(Id);
             Post.Tags.Clear();
             _Posts.Delete(Post);
             _Posts.Commit();
@@ -105,9 +105,9 @@ namespace zasz.me.Areas.Shared.Controllers
         [ValidateInput(false)]
         public ActionResult Manage(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
         {
-            bool New = string.IsNullOrEmpty(Slug);
+            var New = string.IsNullOrEmpty(Slug);
 
-            Post Entry = New ? new Post() : _Posts.Get(Slug);
+            var Entry = New ? new Post() : _Posts.Get(Slug);
 
             Entry.Title = Title;
             Entry.Content = PostContent;
@@ -132,21 +132,20 @@ namespace zasz.me.Areas.Shared.Controllers
 
         public static string GetSlug(string Title)
         {
-            string DecodedTitle = HttpUtility.HtmlDecode(Title).ToLower();
-            string NearlySlug = Constants.GoWords().Aggregate
+            var DecodedTitle = HttpUtility.HtmlDecode(Title).ToLower();
+            var NearlySlug = Constants.GoWords().Aggregate
                 (
                     DecodedTitle,
                     (Current, Pair) => Current.Replace(Pair.Key, " " + Pair.Value + " ")
                 );
-            List<string> Sluglets =
+            var Sluglets =
                 (from object Match in Regex.Matches(NearlySlug, @"[a-zA-Z0-9.-]+") select Match.ToString()).ToList();
             return string.Join("-", Sluglets);
         }
 
-        protected ActionResult TagCloud(Site ProOrRest, int Width, int Height)
+        protected FileContentResult TagCloud(Site ProOrRest, int Width, int Height)
         {
-            Dictionary<string, int> WeightedTags = _Tags.WeightedList(ProOrRest);
-            if (WeightedTags.Count == 0) return View();
+            var WeightedTags = _Tags.WeightedList(ProOrRest);
             FontFamily TheFont;
             using (var FontsService = new FontsService())
             {
@@ -169,78 +168,18 @@ namespace zasz.me.Areas.Shared.Controllers
                                       };
 
             Dictionary<string, RectangleF> Borders;
-            Bitmap Bitmap = TagCloudService.Construct(out Borders);
-            if (TagCloudService.WordsSkipped.Count() > 0)
+            var Bitmap = TagCloudService.Construct(out Borders);
+            if (TagCloudService.WordsSkipped.Any())
             {
-                string Msg = "Need a bigger Image - these words skipped : " +
-                             string.Join("; ", TagCloudService.WordsSkipped.Select(It => It.Key));
+                var Msg = "Need a bigger Image - these words skipped : " +
+                          string.Join("; ", TagCloudService.WordsSkipped.Select(x => x.Key));
                 Console.WriteLine(Msg);
                 ErrorSignal.FromCurrentContext().Raise(new Exception(Msg));
             }
-            Bitmap.Save(Request.MapPath(@"~\Content\Pro\Images\Cloud.png"), ImageFormat.Png);
-            return View(Borders);
+            TempData["TagCloudBorders"] = Borders;
+            var stream = new MemoryStream();
+            Bitmap.Save(stream, ImageFormat.Png);
+            return File(stream.ToArray(), "image/png");
         }
-
-        #region Nested type: PostListModel
-
-        public class PostListModel
-        {
-            public List<Post> Posts { get; set; }
-            public int NumberOfPages { get; set; }
-            public int DescriptionLength { get; set; }
-            public string WhatIsListed { get; set; }
-            private string _PagingHtml;
-
-            public MvcHtmlString GetPagingHtml(string RequestPath)
-            {
-                if (string.IsNullOrEmpty(_PagingHtml)) _PagingHtml = GeneratePagingHtml(RequestPath);
-                return new MvcHtmlString(_PagingHtml);
-            }
-
-            public string GeneratePagingHtml(string RequestPath)
-            {
-                var SplitPath = RequestPath.Split(new[] { '/' });
-                var LastSplit = SplitPath[SplitPath.Length - 1];
-                var PagePath = RequestPath + "/";
-                var PreviousPath = "";
-                var CurrentPage = 1;
-                var NextPath = PagePath + "2";
-                var PreviousEnabled = false;
-                var NextEnabled = NumberOfPages > 1;
-                if (LastSplit.Is<int>())
-                {
-                    PagePath = RequestPath.Substring(0, RequestPath.Length - LastSplit.Length);
-                    CurrentPage = int.Parse(LastSplit);
-                    NextEnabled = CurrentPage < NumberOfPages;
-                    PreviousEnabled = CurrentPage > 1;
-                    PreviousPath = PagePath + (CurrentPage - 1);
-                    NextPath = PagePath + (CurrentPage + 1);
-                }
-                var B = new StringBuilder();
-                if (NumberOfPages > 1)
-                {
-                    B.Append("<div class='Paging'>");
-                    if (PreviousEnabled)
-                        B.AppendFormat("<a href='{0}'>Previous</a>", PreviousPath);
-                    else
-                        B.Append("<span class='DisabledPrevNext'>Previous</span>");
-                    for (int I = 1; I <= NumberOfPages; I++)
-                    {
-                        if (I == CurrentPage)
-                            B.AppendFormat("<span class='Current'>{0}</span>", I);
-                        else
-                            B.AppendFormat("<a href='{0}'>{1}</a>", PagePath + I, I);
-                    }
-                    if (NextEnabled)
-                        B.AppendFormat("<a href='{0}'>Next</a>", NextPath);
-                    else
-                        B.Append("<span class='DisabledPrevNext'>Next</span>");
-                    B.Append("</div>");
-                }
-                return B.ToString();
-            }
-        }
-
-        #endregion
     }
 }

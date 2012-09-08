@@ -1,78 +1,71 @@
-/*
-Home Page 
-Status-History widget 
-*/
-
-$(document).ready(function () {
-
-    AttachHandlers();
-
-    jQuery.fn.center = function () {
-        this.css("position", "absolute");
-        this.css("top", ($(window).height() - this.outerHeight()) / 2 + $(window).scrollTop() + "px");
-        this.css("left", ($(window).width() - this.outerWidth()) / 2 + $(window).scrollLeft() + "px");
-        return this;
-    };
+$(document).ready(function() {
+    addJqueryCenter();
+    addJqueryModal();
+    attachHandlers();
 });
 
-var StatusExpanded = false;
-var BodyClickedHandlers = new Array();
+var statusExpanded = false;
+var bodyClickedHandlers = new Array();
 
-function AttachHandlers() {
+function attachHandlers() {
     /* ClickHandlers */
-    $('body').click(BodyClicked);
-    $('#Status-History-Expand-Button').click(ExpandStatus);
-    $(".Expand-Button").click(function () {
+    $('body').click(bodyClicked);
+    $('#Status-History-Expand-Button').click(expandStatus);
+    $('.Expand-Button').click(function() {
         $(this).next().slideToggle();
     });
     /* OtherWireup */
     $('.Modal').modalpop({ speed: 300 });
-    $.watermark.options.className = 'Light-Message';
+
+    if ($('#blogTagCloud').length > 0) {
+        $('#blogTagCloud').load(function() {
+            $.get('/Blog/TagCloudLinks', function(links) {
+                $('#tagCloudLinks').replaceWith(links);
+            });
+        });
+    }
 }
 
-
-function BodyClicked() {
-    jQuery.each(BodyClickedHandlers, function() {
+function bodyClicked() {
+    jQuery.each(bodyClickedHandlers, function() {
         this();
     });
 }
 
-function ExpandStatus() {
-    if (StatusExpanded)
-        CloseStatus();
+function expandStatus() {
+    if (statusExpanded)
+        closeStatus();
     else {
-        BodyClickedHandlers.push(CloseStatus);
+        bodyClickedHandlers.push(closeStatus);
         $('#Status-History').toggleClass('Status-History Status-History-Expanded');
-        StatusExpanded = true;
+        statusExpanded = true;
     }
     return false;
 }
 
-function CloseStatus() {
-    if (StatusExpanded) {
+function closeStatus() {
+    if (statusExpanded) {
         $('#Status-History').removeClass('Status-History-Expanded');
         $('#Status-History').addClass('Status-History');
-        StatusExpanded = false;
+        statusExpanded = false;
     }
 }
 
+function addJqueryCenter() {
+    jQuery.fn.center = function () {
+        this.css('position', 'absolute');
+        this.css('top', ($(window).height() - this.outerHeight()) / 2 + $(window).scrollTop() + 'px');
+        this.css('left', ($(window).width() - this.outerWidth()) / 2 + $(window).scrollLeft() + 'px');
+        return this;
+    };
+}
 
-/*
-ModalPop 
-
-Author: Owain Lewis
-Author URL: www.Owainlewis.com
-Simple Modal Dialog for jQuery
-The idea here was to keep this plugin as lightweight and easy to customize as possible
-You are free to use this plugin for whatever you want.
-If you enjoy this plugin, I'd love to hear from you
-
-With minor edits to the way the popup is centered based on
-http://stackoverflow.com/questions/210717/what-is-the-best-way-to-center-a-div-on-the-screen-using-jquery
-*/
-
-(function () {
-    jQuery.fn.modalpop = function (options) {
+function addJqueryModal() {
+    /*
+    Popup is centered based on
+    http://stackoverflow.com/questions/210717/what-is-the-best-way-to-center-a-div-on-the-screen-using-jquery
+    */
+    jQuery.fn.modalpop = function(options) {
 
         var defaults = {
             speed: 500,
@@ -83,13 +76,13 @@ http://stackoverflow.com/questions/210717/what-is-the-best-way-to-center-a-div-o
         var width = $(window).width();
         //Get the full page height including the scroll area
         var height = $(document).height();
-        jQuery('body').prepend("<div id='mask'></div>");
+        jQuery('body').prepend('<div id=\'mask\'></div>');
         jQuery('#mask').css('height', height);
         jQuery('#mask').css('width', width);
 
-        return this.each(function () {
+        return this.each(function() {
 
-            jQuery(this).click(function () {
+            jQuery(this).click(function() {
                 $this = jQuery(this);
                 var id = $this.attr('href');
                 $(id).center();
@@ -99,14 +92,11 @@ http://stackoverflow.com/questions/210717/what-is-the-best-way-to-center-a-div-o
                 return false;
             });
 
-            jQuery('#mask').click(function () {
+            jQuery('#mask').click(function() {
                 jQuery(this).fadeOut(defaults.speed);
                 jQuery('.Pro-Popup').fadeOut(defaults.speed);
             });
 
         });
     };
-
-})(jQuery);
-
-
+}

@@ -33,13 +33,13 @@ namespace zasz.me.Integration.EntityFramework
                                  where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == Site.SHARED
                                  select EachPost).Count()
                     where Count > 0
-                    select new {EachTag.Name, Count}).ToDictionary(It => It.Name, It => It.Count);
+                    select new {EachTag.Name, Count}).ToDictionary(x => x.Name, x => x.Count);
 
         }
 
         public override Expression<Func<Tag, bool>> NaturalKeyComparison(string TagName)
         {
-            return It => It.Name == TagName;
+            return x => x.Name == TagName;
         }
     }
 }

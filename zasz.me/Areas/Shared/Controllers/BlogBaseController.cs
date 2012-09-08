@@ -42,10 +42,14 @@ namespace zasz.me.Areas.Shared.Controllers
             return Archive(_Site, Year, Constants.Months[Month]);
         }
 
-        [OutputCache(Duration = 10)]
-        public ActionResult TagCloudControl()
+        public FileContentResult TagCloud()
         {
             return TagCloud(_Site, 214, 500);
+        }
+        
+        public ViewResult TagCloudLinks()
+        {
+            return View("TagCloudLinks", TempData["TagCloudBorders"]);
         }
     }
 }
