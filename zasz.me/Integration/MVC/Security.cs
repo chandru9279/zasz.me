@@ -8,29 +8,29 @@ namespace zasz.me.Integration.MVC
     {
     }
 
-     /// <summary>
-     /// This class as a global filter will make all Controllers except those marked by
-     /// <see cref="AllowAnonymousAttribute"/> as protected controllers which can be
-     /// accessed only after authentication.
-     /// </summary>
+    /// <summary>
+    /// This class as a global filter will make all Controllers except those marked by
+    /// <see cref="AllowAnonymousAttribute"/> as protected controllers which can be
+    /// accessed only after authentication.
+    /// </summary>
     public sealed class LogonAuthorize : AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext FilterContext)
         {
-            bool SkipAuthorization = FilterContext.ActionDescriptor.
-                                         IsDefined(typeof(AllowAnonymousAttribute), true) ||
-                                     FilterContext.ActionDescriptor.ControllerDescriptor
-                                         .IsDefined(typeof(AllowAnonymousAttribute), true);
+            var SkipAuthorization = FilterContext.ActionDescriptor.
+                                        IsDefined(typeof (AllowAnonymousAttribute), true) ||
+                                    FilterContext.ActionDescriptor.ControllerDescriptor
+                                        .IsDefined(typeof (AllowAnonymousAttribute), true);
             if (!SkipAuthorization)
                 base.OnAuthorization(FilterContext);
         }
     }
-    
+
     public sealed class Secure : RequireHttpsAttribute
     {
         public override void OnAuthorization(AuthorizationContext FilterContext)
         {
-            bool SkipAuthorization = FilterContext.HttpContext.Request.IsLocal;
+            var SkipAuthorization = FilterContext.HttpContext.Request.IsLocal;
             if (!SkipAuthorization)
                 base.OnAuthorization(FilterContext);
         }

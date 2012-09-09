@@ -34,7 +34,7 @@ namespace zasz.me.Controllers
             return View(new PostListModel
                             {
                                 Posts = _Posts.Page(PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                NumberOfPages = (int)Math.Ceiling(_Posts.Count(ProOrRest) / (double)MaxPostsPerPage),
+                                NumberOfPages = (int) Math.Ceiling(_Posts.Count(ProOrRest)/(double) MaxPostsPerPage),
                                 DescriptionLength = DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
                             });
@@ -45,7 +45,7 @@ namespace zasz.me.Controllers
             return View("List", new PostListModel
                                     {
                                         Posts = _Tags.PagePosts(Tag, PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                        NumberOfPages = _Tags.CountPosts(Tag, ProOrRest) / MaxPostsPerPage,
+                                        NumberOfPages = _Tags.CountPosts(Tag, ProOrRest)/MaxPostsPerPage,
                                         DescriptionLength = DescriptionLength,
                                         WhatIsListed = "Posts tagged with <em>" + Tag + "</em>"
                                     });

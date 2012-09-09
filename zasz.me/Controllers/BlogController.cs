@@ -40,6 +40,7 @@ namespace zasz.me.Controllers
         /* Use Handy.InvalidateOutputCache() when Creating a Post to manually expire this cache*/
 
         [OutputCache(Duration = 3600)]
+        [ChildActionOnly]
         public ActionResult ArchiveControl()
         {
             return ArchiveControl(_Site);
@@ -61,19 +62,19 @@ namespace zasz.me.Controllers
                 TheFont = FontsService.AvailableFonts["Kenyan Coffee"];
             }
             var TagCloudService = new TagCloudService(WeightedTags, Width, Height)
-            {
-                MaximumFontSize = 52f,
-                MinimumFontSize = 18f,
-                Margin = 10,
-                SelectedFont = TheFont,
-                DisplayChoice =
-                    DisplayStrategy.Get(TagDisplayStrategy.RandomHorizontalOrVertical),
-                ColorChoice =
-                    ColorStrategy.Get(Theme.LightBgDarkFg, Style.Varied,
-                                      Color.FromArgb(0, Color.White), Color.Red),
-                VerticalTextRight = true,
-                Crop = true
-            };
+                                      {
+                                          MaximumFontSize = 52f,
+                                          MinimumFontSize = 18f,
+                                          Margin = 10,
+                                          SelectedFont = TheFont,
+                                          DisplayChoice =
+                                              DisplayStrategy.Get(TagDisplayStrategy.RandomHorizontalOrVertical),
+                                          ColorChoice =
+                                              ColorStrategy.Get(Theme.LightBgDarkFg, Style.Varied,
+                                                                Color.FromArgb(0, Color.White), Color.Red),
+                                          VerticalTextRight = true,
+                                          Crop = true
+                                      };
 
             Dictionary<string, RectangleF> Borders;
             var Bitmap = TagCloudService.Construct(out Borders);

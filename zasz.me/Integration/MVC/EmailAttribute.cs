@@ -15,12 +15,12 @@ namespace zasz.me.Integration.MVC
             try
             {
                 var Address = value as string;
-                if(string.IsNullOrEmpty(Address))
+                if (string.IsNullOrEmpty(Address))
                 {
                     ErrorMessage = RequiredMessage;
                     return false;
                 }
-                if(Address.Length >= 80)
+                if (Address.Length >= 80)
                 {
                     ErrorMessage = LongMessage;
                     return false;

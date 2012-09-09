@@ -12,10 +12,6 @@ namespace zasz.me.Models
     {
         private Site _Site = Site.Shared;
 
-        [Key]
-        [SolrUniqueKey("Id")]
-        public Guid Id { get; set; }
-
         [Required]
         [SolrField("Post_Slug")]
         public string Slug { get; set; }
@@ -30,7 +26,10 @@ namespace zasz.me.Models
         public virtual ICollection<Tag> Tags { get; set; }
 
         [SolrField("Post_Tags")]
-        public virtual List<string> TagStrings { get { return Tags.Select(x => x.Name).ToList(); } }
+        public virtual List<string> TagStrings
+        {
+            get { return Tags.Select(x => x.Name).ToList(); }
+        }
 
         [NotMapped]
         public string TagsLine
@@ -56,18 +55,26 @@ namespace zasz.me.Models
             get { return string.Format("http://{0}/Blog/Post/{1}", Site.Host, Slug); }
         }
 
+        #region IModel Members
+
+        [Key]
+        [SolrUniqueKey("Id")]
+        public Guid Id { get; set; }
+
+        #endregion
+
         public string GetDescription(int Threshold)
         {
             var Doc = new HtmlDocument();
             Doc.LoadHtml(Content);
-            string Description = String.Empty;
+            var Description = String.Empty;
             ProcessNode(Doc.DocumentNode, ref Description, Threshold);
             return Description;
         }
 
         private static void ProcessNode(HtmlNode Node, ref string Description, int Threshold)
         {
-            foreach (HtmlNode ChildNode in Node.ChildNodes)
+            foreach (var ChildNode in Node.ChildNodes)
             {
                 if (ChildNode is HtmlTextNode)
                 {

@@ -4,9 +4,9 @@ using Domain = zasz.me.Models.Site;
 
 namespace zasz.me.Integration.MVC
 {
-    public class MvcIntegration
+    public class Mvc
     {
-        public static void Bootstrap()
+        public static void Setup()
         {
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
@@ -15,9 +15,9 @@ namespace zasz.me.Integration.MVC
 
         public static void RegisterGlobalFilters(GlobalFilterCollection Filters)
         {
-            //Filters.Add(new HandleErrorAttribute());
-            //Filters.Add(new LogonAuthorize());
-            //Filters.Add(new RequireHttpsAttribute());
+            Filters.Add(new HandleErrorAttribute());
+            Filters.Add(new LogonAuthorize());
+            Filters.Add(new RequireHttpsAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection Routes)
@@ -54,7 +54,7 @@ namespace zasz.me.Integration.MVC
                 new {controller = "Error", action = "NotFound"}
                 );
         }
-        
+
         /* Eliminated all vbhtml and aspx, and unused locations, and engines*/
 
         private static void SetupRazor()

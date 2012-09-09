@@ -13,13 +13,13 @@ namespace zasz.me.Integration.MVC
 
         protected override void HandleUnknownAction(string ActionName)
         {
-            RedirectToAction("NotFound", "Error", new { ActionName }).ExecuteResult(ControllerContext);
+            RedirectToAction("NotFound", "Error", new {ActionName}).ExecuteResult(ControllerContext);
         }
 
 
         private string GetDefaultActionName()
         {
-            var DefaultAction = typeof(DefaultActionAttribute);
+            var DefaultAction = typeof (DefaultActionAttribute);
 
             var MethodsFlaggedWithDefaultAction = from Member in GetType().GetMethods()
                                                   where Member.GetCustomAttributes(DefaultAction, false).Length > 0

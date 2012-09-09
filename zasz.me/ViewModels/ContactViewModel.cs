@@ -12,6 +12,7 @@ namespace zasz.me.ViewModels
          * dont have client side validation, I've put in a required validator also, even if email
          * validator also does the same thing, just for JS validation
          */
+
         [Email]
         [Required(ErrorMessage = EmailAttribute.RequiredMessage)]
         public string Email { get; set; }

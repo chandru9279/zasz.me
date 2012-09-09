@@ -19,14 +19,14 @@ namespace zasz.me.Services.TagCloud
             Seed = new Random(DateTime.Now.Second);
 
             _Set = new Dictionary<TagDisplayStrategy, DisplayStrategy>(6)
-                      {
-                          {TagDisplayStrategy.EqualHorizontalAndVertical, new EqualHorizontalAndVertical()},
-                          {TagDisplayStrategy.AllHorizontal, new AllHorizontal()},
-                          {TagDisplayStrategy.AllVertical, new AllVertical()},
-                          {TagDisplayStrategy.RandomHorizontalOrVertical, new RandomHorizontalOrVertical()},
-                          {TagDisplayStrategy.MoreHorizontalThanVertical, new RandomHorizontalOrVertical(0.25)},
-                          {TagDisplayStrategy.MoreVerticalThanHorizontal, new RandomHorizontalOrVertical(0.75)}
-                      };
+                       {
+                           {TagDisplayStrategy.EqualHorizontalAndVertical, new EqualHorizontalAndVertical()},
+                           {TagDisplayStrategy.AllHorizontal, new AllHorizontal()},
+                           {TagDisplayStrategy.AllVertical, new AllVertical()},
+                           {TagDisplayStrategy.RandomHorizontalOrVertical, new RandomHorizontalOrVertical()},
+                           {TagDisplayStrategy.MoreHorizontalThanVertical, new RandomHorizontalOrVertical(0.25)},
+                           {TagDisplayStrategy.MoreVerticalThanHorizontal, new RandomHorizontalOrVertical(0.75)}
+                       };
         }
 
         public static DisplayStrategy Get(TagDisplayStrategy DisplayStrategy)

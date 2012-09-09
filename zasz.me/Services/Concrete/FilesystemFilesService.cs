@@ -10,13 +10,13 @@ namespace zasz.me.Services.Concrete
 {
     public class FilesystemFilesService : IFilesService
     {
-        private readonly Func<string, string, bool> DoesExtensionMatch = (Extension, ExtensionList) => Handy.Shred(ExtensionList).Contains(Extension.ToLower().Remove(0, 1));
+        private readonly Func<string, string, bool> DoesExtensionMatch =
+            (Extension, ExtensionList) => Handy.Shred(ExtensionList).Contains(Extension.ToLower().Remove(0, 1));
+
         private readonly Func<string, string> SysPath = HttpContext.Current.Server.MapPath;
         private readonly UploadsConfig _Settings;
         private readonly string _ThumbsDirRooted;
         private readonly string _UploadsDirRooted;
-
-        public Func<string, string> Convert { get; set; } 
 
         public FilesystemFilesService(UploadsConfig UploadsConfiguration)
         {
@@ -30,20 +30,29 @@ namespace zasz.me.Services.Concrete
 
         #region IFilesService Members
 
+        public Func<string, string> Convert { get; set; }
+
         public Pairs<string, string> Browse(string Folder)
         {
-            Pairs<string, string> BrowseModel = new Pairs<string, string>();
+            var BrowseModel = new Pairs<string, string>();
             if (Directory.GetDirectories(_UploadsDirRooted).Any(x => x.EndsWith(Folder)))
-                foreach (string RootedPath in Directory.GetFiles(_UploadsDirRooted + Folder, "*", SearchOption.TopDirectoryOnly))
+                foreach (
+                    var RootedPath in Directory.GetFiles(_UploadsDirRooted + Folder, "*", SearchOption.TopDirectoryOnly)
+                    )
                     if (!File.GetAttributes(RootedPath).HasFlag(FileAttributes.System))
                     {
-                        string Filepath = Convert("~/" + _Settings.UploadsFolder + "/" + Folder + "/" + Path.GetFileName(RootedPath));
+                        var Filepath =
+                            Convert("~/" + _Settings.UploadsFolder + "/" + Folder + "/" + Path.GetFileName(RootedPath));
                         var Extension = Path.GetExtension(RootedPath);
-                        string Thumb = Folder == "Images"
-                                           ? Convert("~/" + _Settings.UploadsFolder + "/" + _Settings.ThumbsFolder + "/" + Path.GetFileName(RootedPath))
-                                           : Convert("~/Content/Thumbnails/" + (Extension == null ? "" : Extension.Substring(1)) + ".png");
+                        var Thumb = Folder == "Images"
+                                        ? Convert("~/" + _Settings.UploadsFolder + "/" + _Settings.ThumbsFolder + "/" +
+                                                  Path.GetFileName(RootedPath))
+                                        : Convert("~/Content/Thumbnails/" +
+                                                  (Extension == null ? "" : Extension.Substring(1)) + ".png");
                         if (!File.Exists(SysPath(Thumb)))
-                            Thumb = Folder == "Images" ? Convert("~/Content/Thumbnails/.image.png") : Convert("~/Content/Thumbnails/notfound.png");
+                            Thumb = Folder == "Images"
+                                        ? Convert("~/Content/Thumbnails/.image.png")
+                                        : Convert("~/Content/Thumbnails/notfound.png");
                         BrowseModel.Add(new Pair<string, string>(Thumb, Filepath));
                     }
             return BrowseModel;
@@ -62,8 +71,8 @@ namespace zasz.me.Services.Concrete
         public string Upload(HttpPostedFileBase UploadedFile)
         {
             if (_Settings.Disabled) throw new InvalidOperationException("You can't upload files now.");
-            string FileName = "";
-            string Folder = "";
+            var FileName = "";
+            var Folder = "";
 
             if (UploadedFile != null && UploadedFile.ContentLength != 0)
             {
@@ -71,11 +80,13 @@ namespace zasz.me.Services.Concrete
                 if (CheckUploadedFile(FileName))
                 {
                     Folder = FindFolder(FileName);
-                    if (!Directory.Exists(_UploadsDirRooted + Folder)) Directory.CreateDirectory(_UploadsDirRooted + Folder);
-                    string SavedFileName = _UploadsDirRooted + Folder + "\\" + FileName;
+                    if (!Directory.Exists(_UploadsDirRooted + Folder))
+                        Directory.CreateDirectory(_UploadsDirRooted + Folder);
+                    var SavedFileName = _UploadsDirRooted + Folder + "\\" + FileName;
                     UploadedFile.SaveAs(SavedFileName);
                     if (Folder == "Images")
-                        Handy.GenerateThumbnail(SavedFileName, _ThumbsDirRooted + FileName, _Settings.ThumbWidth, _Settings.ThumbHeight);
+                        Handy.GenerateThumbnail(SavedFileName, _ThumbsDirRooted + FileName, _Settings.ThumbWidth,
+                                                _Settings.ThumbHeight);
                 }
                 else
                     throw new UnauthorizedAccessException("File upload denied - only certain filetypes are allowed.");
@@ -87,8 +98,8 @@ namespace zasz.me.Services.Concrete
 
         private string FindFolder(string FileName)
         {
-            string Extension = Path.GetExtension(FileName);
-            for (int I = 0; I < _Settings.Mappings.Count; I++)
+            var Extension = Path.GetExtension(FileName);
+            for (var I = 0; I < _Settings.Mappings.Count; I++)
             {
                 if (DoesExtensionMatch(Extension, _Settings.Mappings[I].FileExtensions))
                     return _Settings.Mappings[I].Folder;
@@ -98,7 +109,7 @@ namespace zasz.me.Services.Concrete
 
         private bool CheckUploadedFile(string FileName)
         {
-            string Extension = Path.GetExtension(FileName);
+            var Extension = Path.GetExtension(FileName);
             if (DoesExtensionMatch(Extension, _Settings.DeniedExtensions))
                 return false; // Disallow files with denied extensions
             return !FileName.StartsWith("."); // Disallow linux hidden files

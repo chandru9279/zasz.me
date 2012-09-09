@@ -22,7 +22,7 @@ namespace zasz.me.ViewModels
 
         public string GeneratePagingHtml(string RequestPath)
         {
-            var SplitPath = RequestPath.Split(new[] { '/' });
+            var SplitPath = RequestPath.Split(new[] {'/'});
             var LastSplit = SplitPath[SplitPath.Length - 1];
             var PagePath = RequestPath + "/";
             var PreviousPath = "";

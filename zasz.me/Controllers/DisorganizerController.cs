@@ -59,7 +59,7 @@ namespace zasz.me.Controllers
             {
                 tags = Model.Dictionary();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 return File("~/Content/Images/404.png", "image/png");

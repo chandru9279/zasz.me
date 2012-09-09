@@ -12,6 +12,8 @@ namespace zasz.me.Integration.EntityFramework
         {
         }
 
+        #region ILogsRepository Members
+
         public override Log Save(Log Instance)
         {
             using (var NewTransaction = new FullContext())
@@ -22,14 +24,16 @@ namespace zasz.me.Integration.EntityFramework
             return Instance;
         }
 
-        public override Expression<Func<Log, bool>> NaturalKeyComparison(Guid Id)
-        {
-            return x => x.Id == Id;
-        }
-
         public List<Log> Page(int PageNumber, int PageSize)
         {
             return _ModelSet.OrderBy(Model => Model.Id).Skip(PageNumber*PageSize).Take(PageSize).ToList();
+        }
+
+        #endregion
+
+        public override Expression<Func<Log, bool>> NaturalKeyComparison(Guid Id)
+        {
+            return x => x.Id == Id;
         }
     }
 }

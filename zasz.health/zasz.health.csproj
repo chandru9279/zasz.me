@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="ControllerTests\PostControllerTests.cs" />
     <Compile Include="ControllerTests\RuleTests.cs" />
+    <Compile Include="IntegrationTests\ColdStorageInitializer.cs" />
     <Compile Include="IntegrationTests\PostAndTagRepositoryTests.cs" />
     <Compile Include="ModelTests\PostTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

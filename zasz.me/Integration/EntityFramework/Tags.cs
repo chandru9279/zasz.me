@@ -12,11 +12,13 @@ namespace zasz.me.Integration.EntityFramework
         {
         }
 
+        #region ITagRepository Members
+
         public List<Post> PagePosts(string Tag, int PageNumber, int MaxPostsPerPage, Site ProOrRest)
         {
             return (from EachPost in Get(Tag).Posts
                     where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == Site.SHARED
-                    select EachPost).Skip(PageNumber * MaxPostsPerPage).Take(MaxPostsPerPage).ToList();
+                    select EachPost).Skip(PageNumber*MaxPostsPerPage).Take(MaxPostsPerPage).ToList();
         }
 
         public int CountPosts(string Tag, Site ProOrRest)
@@ -34,8 +36,9 @@ namespace zasz.me.Integration.EntityFramework
                                  select EachPost).Count()
                     where Count > 0
                     select new {EachTag.Name, Count}).ToDictionary(x => x.Name, x => x.Count);
-
         }
+
+        #endregion
 
         public override Expression<Func<Tag, bool>> NaturalKeyComparison(string TagName)
         {

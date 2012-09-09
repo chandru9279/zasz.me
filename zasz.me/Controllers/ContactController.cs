@@ -24,11 +24,11 @@ namespace zasz.me.Controllers
             if (ModelState.IsValid)
             {
                 var Mail = new MailMessage(new MailAddress(ContactModel.Email), new MailAddress(MailAccount))
-                {
-                    Body = ContactModel.Message,
-                    IsBodyHtml = false,
-                    Subject = "Contact - from zasz.me - Name: " + ContactModel.Name
-                };
+                               {
+                                   Body = ContactModel.Message,
+                                   IsBodyHtml = false,
+                                   Subject = "Contact - from zasz.me - Name: " + ContactModel.Name
+                               };
                 if (!Request.IsLocal)
                     try
                     {
@@ -42,6 +42,5 @@ namespace zasz.me.Controllers
             }
             return View("Form", ContactModel);
         }
-
     }
 }

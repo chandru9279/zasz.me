@@ -32,7 +32,7 @@ namespace zasz.me.Controllers
             return View(SearchResults);
         }
 
-        public JsonResult Autocomplete([Bind(Prefix = "term")]string Input)
+        public JsonResult Autocomplete([Bind(Prefix = "term")] string Input)
         {
             var Suggestions = _Search.AutoComplete(Input);
             var StartIndex = Suggestions.IndexOf('[');
@@ -41,9 +41,9 @@ namespace zasz.me.Controllers
             var Send = new string[0];
             if (List.Length > 0)
             {
-                var Strings = List.Split(new []{'\"'}, StringSplitOptions.RemoveEmptyEntries);
+                var Strings = List.Split(new[] {'\"'}, StringSplitOptions.RemoveEmptyEntries);
                 Send = new string[Strings.Length/2];
-                for (int I = 0; I < Strings.Length/2; I++)
+                for (var I = 0; I < Strings.Length/2; I++)
                     Send[I] = Strings[I*2];
             }
             return Json(Send, JsonRequestBehavior.AllowGet);

@@ -6,7 +6,8 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public abstract class RepoBase<Model, NaturalKey> : IRepository<Model, NaturalKey> where Model : class, IModel, new()
+    public abstract class RepoBase<Model, NaturalKey> : IRepository<Model, NaturalKey>
+        where Model : class, IModel, new()
     {
         protected readonly DbSet<Model> _ModelSet;
         protected readonly FullContext _Session;
@@ -17,7 +18,7 @@ namespace zasz.me.Integration.EntityFramework
             _ModelSet = _Session.Set<Model>();
         }
 
-        #region IRepository<ModelType> Members
+        #region IRepository<Model,NaturalKey> Members
 
         public virtual Model Save(Model Instance)
         {
@@ -33,12 +34,10 @@ namespace zasz.me.Integration.EntityFramework
             return _ModelSet.Find(Id);
         }
 
-        public abstract Expression<Func<Model, bool>> NaturalKeyComparison(NaturalKey MainProperty);
-
         public Model Get(NaturalKey NaturalKey)
         {
             return _ModelSet.Local.Where(NaturalKeyComparison(NaturalKey).Compile()).FirstOrDefault() ??
-            _ModelSet.Where(NaturalKeyComparison(NaturalKey)).FirstOrDefault();
+                   _ModelSet.Where(NaturalKeyComparison(NaturalKey)).FirstOrDefault();
         }
 
         public void Delete(Model Entity)
@@ -61,5 +60,7 @@ namespace zasz.me.Integration.EntityFramework
         }
 
         #endregion
+
+        public abstract Expression<Func<Model, bool>> NaturalKeyComparison(NaturalKey MainProperty);
     }
 }

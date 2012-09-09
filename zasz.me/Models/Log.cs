@@ -17,15 +17,19 @@ namespace zasz.me.Models
             this.Error = Error;
         }
 
-        [Key]
-        public Guid Id { get; set; }
-
         public Error Error { get; set; }
 
         public string IdString
         {
             get { return Id.ToString(); }
         }
+
+        #region IModel Members
+
+        [Key]
+        public Guid Id { get; set; }
+
+        #endregion
     }
 
     public interface ILogsRepository : IRepository<Log, Guid>

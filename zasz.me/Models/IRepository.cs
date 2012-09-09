@@ -23,7 +23,6 @@ namespace zasz.me.Models
         long Count();
 
         void Commit();
-
     }
 
     /// <summary>

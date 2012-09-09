@@ -20,19 +20,20 @@ namespace zasz.me.Configuration
         {
             get { return WebConfigurationManager.GetWebApplicationSection("zasz.me/Blog") as BlogConfig; }
         }
-        
+
         public static SettingsConfig Settings
         {
             get { return WebConfigurationManager.GetWebApplicationSection("zasz.me/Settings") as SettingsConfig; }
         }
 
-        public static void PutConfigurationAndSettingsInside(IUnityContainer BigBox)
+        public static void PutConfigurationAndSettingsInside(IUnityContainer bigBox)
         {
             // Type auto inferred
-            BigBox.RegisterInstance("MaxPostsPerPage", Blog.MaxPostsPerPage);
-            BigBox.RegisterInstance("DescriptionLength", Blog.DescriptionLength);
-            BigBox.RegisterInstance("MailAccount", Settings.MailAccount);
-            BigBox.RegisterInstance(Uploads);
+            bigBox.RegisterInstance("MaxPostsPerPage", Blog.MaxPostsPerPage);
+            bigBox.RegisterInstance("DescriptionLength", Blog.DescriptionLength);
+            bigBox.RegisterInstance("MailAccount", Settings.MailAccount);
+            bigBox.RegisterInstance("SolrServer", Settings.Solr);
+            bigBox.RegisterInstance(Uploads);
         }
     }
 }

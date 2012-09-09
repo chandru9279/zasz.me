@@ -12,7 +12,7 @@ namespace zasz.health.IntegrationTests
 {
     public class PostAndTagRepositoryTests : IDisposable
     {
-        private FullContext _FullContext;
+        private FullContext _FullContext; 
         private Posts _Posts;
         private Tags _Tags;
 

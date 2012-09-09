@@ -1,8 +1,8 @@
 ﻿using System.Web;
-using zasz.me.Integration;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Integration.MVC;
-using zasz.me.Integration.SolrIntegration;
+using zasz.me.Integration.Solr;
+using zasz.me.Integration.Unity;
 
 namespace zasz.me
 {
@@ -10,10 +10,10 @@ namespace zasz.me
     {
         protected void Application_Start()
         {
-            MvcIntegration.Bootstrap();
-            UnityIntegration.Bootstrap();
-            Ef4Integration.Bootstrap();
-            SolrIntegration.Bootstrap(true);
+            Mvc.Setup();
+            Unity.Setup();
+            Ef4.Setup();
+            Solr.Setup();
         }
     }
 }

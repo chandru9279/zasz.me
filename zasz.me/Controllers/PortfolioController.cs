@@ -10,6 +10,5 @@ namespace zasz.me.Controllers
         {
             return View();
         }
-
     }
 }

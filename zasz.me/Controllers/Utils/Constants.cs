@@ -7,24 +7,31 @@ namespace zasz.me.Controllers.Utils
     {
         public static char[] Shredders = new[] {' ', ',', ';', '|'};
 
-        private static readonly string[][] _GoWords = {
-                                                          new[] {"c#", "c-sharp"},
-                                                          new[] {".net", "dot-net"},
-                                                          new[] {"c++", "c-plus-plus"},
-                                                          new[] {"&", "and"},
-                                                          new[] {"%", "percent"},
-                                                          new[] {"@", "at"},
-                                                          new[] {"=", "equals"},
-                                                          new[] {"+", "plus"},
-                                                          new[] {"=>", "implies"},
-                                                          new[] {"\\", "or"},
-                                                          new[] {"/", "or"},
-                                                          new[] {"F#", "j-sharp"},
-                                                          new[] {"J#", "f-sharp"}
-                                                      };
+        private static readonly string[][] _GoWords =
+            {
+                new[] {"c#", "c-sharp"},
+                new[] {".net", "dot-net"},
+                new[] {"c++", "c-plus-plus"},
+                new[] {"&", "and"},
+                new[] {"%", "percent"},
+                new[] {"@", "at"},
+                new[] {"=", "equals"},
+                new[] {"+", "plus"},
+                new[] {"=>", "implies"},
+                new[] {"\\", "or"},
+                new[] {"/", "or"},
+                new[] {"F#", "j-sharp"},
+                new[] {"J#", "f-sharp"}
+            };
 
-        public static Pairs<string, int> Months = new Pairs<string, int>(new[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"},
-                                                                         new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
+        public static Pairs<string, int> Months =
+            new Pairs<string, int>(
+                new[]
+                    {
+                        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+                        "November", "December"
+                    },
+                new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
 
         public static string DefaultWordList =
             @"asp.net, 15

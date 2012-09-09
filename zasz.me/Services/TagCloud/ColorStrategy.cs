@@ -32,9 +32,9 @@ namespace zasz.me.Services.TagCloud
         public static ColorStrategy Get(Theme TheTheme, Style TheStyle,
                                         Color Background, Color Foreground)
         {
-            HslColor FgHsl = (TheTheme == Theme.LightBgDarkFg)
-                                 ? Foreground.Darken()
-                                 : Foreground.Lighten();
+            var FgHsl = (TheTheme == Theme.LightBgDarkFg)
+                            ? Foreground.Darken()
+                            : Foreground.Lighten();
             if (Background.A != 255) /* Not interfering with any transparent color */
                 return _Set[TheStyle](Background, FgHsl, TheTheme);
             HslColor BgHsl = (TheTheme == Theme.LightBgDarkFg)
@@ -122,7 +122,7 @@ namespace zasz.me.Services.TagCloud
             /* Saturation is 0 - Meaning no color specified by hue can be seen at all. 
              * So luminance is now reduced to showing grayscale */
             _Foreground.Saturation = 0.0;
-            _Background = Color.FromArgb(Background.A, TheTheme == Theme.LightBgDarkFg?Color.White:Color.Black);
+            _Background = Color.FromArgb(Background.A, TheTheme == Theme.LightBgDarkFg ? Color.White : Color.Black);
         }
     }
 

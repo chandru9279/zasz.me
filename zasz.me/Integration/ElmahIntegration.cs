@@ -1,37 +1,38 @@
 ﻿using System;
 using System.Collections;
 using Elmah;
+using Microsoft.Practices.Unity;
 using zasz.me.Models;
 
 namespace zasz.me.Integration
 {
     public class ElmahAdaptor : ErrorLog
     {
-        private readonly ILogsRepository _Repo;
+        private readonly ILogsRepository repo;
 
-        public ElmahAdaptor(IDictionary Config)
+        public ElmahAdaptor(IDictionary config)
         {
-            _Repo = HugeBox.Grab<ILogsRepository>();
+            repo = Big.Box.Resolve<ILogsRepository>();
         }
 
-        public override string Log(Error Error)
+        public override string Log(Error error)
         {
-            var ALog = new Log(Error);
-            _Repo.Save(ALog);
-            return ALog.IdString;
+            var aLog = new Log(error);
+            repo.Save(aLog);
+            return aLog.IdString;
         }
 
         public override ErrorLogEntry GetError(string Id)
         {
-            Log TheLog = _Repo.Get(Guid.Parse(Id));
-            return new ErrorLogEntry(this, TheLog.IdString, TheLog.Error);
+            var theLog = repo.Get(Guid.Parse(Id));
+            return new ErrorLogEntry(this, theLog.IdString, theLog.Error);
         }
 
         public override int GetErrors(int PageIndex, int PageSize, IList ErrorEntryList)
         {
-            _Repo.Page(PageIndex, PageSize).ForEach
+            repo.Page(PageIndex, PageSize).ForEach
                 (It => ErrorEntryList.Add(new ErrorLogEntry(this, It.IdString, It.Error)));
-            return _Repo.Count() > int.MaxValue ? int.MaxValue : (int) _Repo.Count();
+            return repo.Count() > int.MaxValue ? int.MaxValue : (int) repo.Count();
         }
     }
 }

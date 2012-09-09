@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using zasz.develop.Data;
 using zasz.me.Integration.EntityFramework;
-using zasz.me.Integration.SolrIntegration;
+using zasz.me.Integration.Solr;
 using zasz.me.Models;
 using zasz.me.Services.Concrete;
 using Domain = zasz.me.Models.Site;
@@ -33,7 +33,7 @@ namespace zasz.develop.Utils
             _FullContext = new FullContext();
             _TagRepository = new Tags(_FullContext);
             _PostRepository = new Posts(_FullContext);
-            SolrIntegration.Bootstrap(true);
+            Solr.Setup();
             _Search = new SolrSearchService(_PostRepository);
         }
 

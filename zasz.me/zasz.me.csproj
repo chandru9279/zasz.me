@@ -115,6 +115,10 @@
     <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Controllers\Utils\Constants.cs" />
     <Compile Include="Controllers\Utils\Handy.cs" />
+    <Compile Include="Integration\Solr\ConsoleLoggingConnection.cs" />
+    <Compile Include="Integration\Solr\Solr.cs" />
+    <Compile Include="Integration\Unity\SingletonPerRequest.cs" />
+    <Compile Include="Integration\Unity\UnityDependencyResolver.cs" />
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Passphrase.cs" />
@@ -127,7 +131,7 @@
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\SettingsConfig.cs" />
     <Compile Include="Configuration\BlogConfig.cs" />
-    <Compile Include="Integration\EntityFramework\EF4Integration.cs" />
+    <Compile Include="Integration\EntityFramework\Ef4.cs" />
     <Compile Include="Integration\EntityFramework\Tags.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -137,14 +141,13 @@
     <Compile Include="Integration\EntityFramework\Posts.cs" />
     <Compile Include="Integration\EntityFramework\RepoBase.cs" />
     <Compile Include="Integration\EntityFramework\Vault.cs" />
-    <Compile Include="Integration\HugeBox.cs" />
-    <Compile Include="Integration\MVC\MVCIntegration.cs" />
-    <Compile Include="Integration\SolrIntegration\SolrIntegration.cs" />
+    <Compile Include="Integration\Big.cs" />
+    <Compile Include="Integration\MVC\Mvc.cs" />
     <Compile Include="Integration\MVC\BaseController.cs" />
     <Compile Include="Integration\MVC\DefaultActionAttribute.cs" />
     <Compile Include="Integration\MVC\EmailAttribute.cs" />
     <Compile Include="Integration\MVC\Security.cs" />
-    <Compile Include="Integration\UnityIntegration.cs" />
+    <Compile Include="Integration\Unity\Unity.cs" />
     <Compile Include="Configuration\UploadsConfig.cs" />
     <Compile Include="Migrations\201209021728521_InitialCreate.cs" />
     <Compile Include="Migrations\201209021728521_InitialCreate.Designer.cs">

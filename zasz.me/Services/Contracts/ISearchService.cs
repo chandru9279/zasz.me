@@ -6,9 +6,9 @@ namespace zasz.me.Services.Contracts
     public interface ISearchService
     {
         SearchResults Search(string Term);
-        
+
         List<Post> MoreLikeThis(string PostId);
-        
+
         string AutoComplete(string Input);
 
         void Index(Post P);
@@ -22,7 +22,6 @@ namespace zasz.me.Services.Contracts
             
            void AddCommentToIndex(Comment C);
          */
-
     }
 
     public class SearchResults : List<SearchResult>

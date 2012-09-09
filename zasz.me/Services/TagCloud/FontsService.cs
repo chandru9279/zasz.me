@@ -9,7 +9,6 @@ namespace zasz.me.Services.TagCloud
 {
     public class FontsService : IDisposable
     {
-
         // ReSharper disable InconsistentNaming
         private readonly Action<string> Die = Message => { throw new Exception(Message); };
         // ReSharper restore InconsistentNaming
@@ -23,23 +22,26 @@ namespace zasz.me.Services.TagCloud
         /// </summary>
         public Dictionary<string, FontFamily> AvailableFonts { get; private set; }
 
-
-        public void LoadFonts(string FontsFolderPath)
-        {
-            if (string.IsNullOrEmpty(FontsFolderPath)) Die("Null Fonts Path");
-            string[] Files = Directory.GetFiles(FontsFolderPath);
-            List<string> FontFiles = (from AFile in Files
-                                      where AFile.EndsWith(".ttf")
-                                      select AFile).ToList();
-            if (FontFiles.Count() == 0) Die("No Fonts Found");
-            _Fonts = new PrivateFontCollection();
-            FontFiles.ForEach(F => _Fonts.AddFontFile(F));
-            AvailableFonts = _Fonts.Families.ToDictionary(x => x.Name);
-        }
+        #region IDisposable Members
 
         public void Dispose()
         {
             _Fonts.Dispose();
+        }
+
+        #endregion
+
+        public void LoadFonts(string FontsFolderPath)
+        {
+            if (string.IsNullOrEmpty(FontsFolderPath)) Die("Null Fonts Path");
+            var Files = Directory.GetFiles(FontsFolderPath);
+            var FontFiles = (from AFile in Files
+                             where AFile.EndsWith(".ttf")
+                             select AFile).ToList();
+            if (FontFiles.Count() == 0) Die("No Fonts Found");
+            _Fonts = new PrivateFontCollection();
+            FontFiles.ForEach(F => _Fonts.AddFontFile(F));
+            AvailableFonts = _Fonts.Families.ToDictionary(x => x.Name);
         }
     }
 }

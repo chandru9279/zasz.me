@@ -8,91 +8,79 @@ namespace zasz.me.Configuration
         [ConfigurationProperty("Disabled", DefaultValue = "true")]
         public Boolean Disabled
         {
-            get
-            { return (Boolean)this["Disabled"]; }
-            set
-            { this["Disabled"] = value; }
+            get { return (Boolean) this["Disabled"]; }
+            set { this["Disabled"] = value; }
         }
 
         [ConfigurationProperty("UploadsFolder", IsRequired = true)]
         public String UploadsFolder
         {
-            get
-            { return (String)this["UploadsFolder"]; }
-            set
-            { this["UploadsFolder"] = value; }
+            get { return (String) this["UploadsFolder"]; }
+            set { this["UploadsFolder"] = value; }
         }
 
         [ConfigurationProperty("DeniedExtensions", IsRequired = true)]
         public String DeniedExtensions
         {
-            get
-            { return (String)this["DeniedExtensions"]; }
-            set
-            { this["DeniedExtensions"] = value; }
+            get { return (String) this["DeniedExtensions"]; }
+            set { this["DeniedExtensions"] = value; }
         }
 
         [ConfigurationProperty("ThumbHeight", DefaultValue = 100)]
         public int ThumbHeight
         {
-            get
-            { return (int)this["ThumbHeight"]; }
-            set
-            { this["ThumbHeight"] = value; }
+            get { return (int) this["ThumbHeight"]; }
+            set { this["ThumbHeight"] = value; }
         }
 
         [ConfigurationProperty("ThumbWidth", DefaultValue = 100)]
         public int ThumbWidth
         {
-            get
-            { return (int)this["ThumbWidth"]; }
-            set
-            { this["ThumbWidth"] = value; }
+            get { return (int) this["ThumbWidth"]; }
+            set { this["ThumbWidth"] = value; }
         }
 
         [ConfigurationProperty("ThumbsFolder", IsRequired = true)]
         public String ThumbsFolder
         {
-            get
-            { return (String)this["ThumbsFolder"]; }
-            set
-            { this["ThumbsFolder"] = value; }
+            get { return (String) this["ThumbsFolder"]; }
+            set { this["ThumbsFolder"] = value; }
         }
 
-        [ConfigurationProperty("Organization", IsRequired = true), ConfigurationCollection(typeof(Mapping))]
+        [ConfigurationProperty("Organization", IsRequired = true), ConfigurationCollection(typeof (Mapping))]
         public Organization Mappings
         {
-            get
-            { return this["Organization"] as Organization; }
+            get { return this["Organization"] as Organization; }
         }
+
+        #region Nested type: Mapping
 
         public class Mapping : ConfigurationElement
         {
             [ConfigurationProperty("Folder")]
             public String Folder
             {
-                get
-                { return (String)this["Folder"]; }
-                set
-                { this["Folder"] = value; }
+                get { return (String) this["Folder"]; }
+                set { this["Folder"] = value; }
             }
 
             [ConfigurationProperty("FileExtensions")]
             public String FileExtensions
             {
-                get
-                { return (String)this["FileExtensions"]; }
-                set
-                { this["FileExtensions"] = value; }
+                get { return (String) this["FileExtensions"]; }
+                set { this["FileExtensions"] = value; }
             }
         }
+
+        #endregion
+
+        #region Nested type: Organization
 
         public class Organization : ConfigurationElementCollection
         {
             public override ConfigurationElementCollectionType CollectionType
             {
-                get
-                { return ConfigurationElementCollectionType.BasicMap; }
+                get { return ConfigurationElementCollectionType.BasicMap; }
             }
 
             protected override string ElementName
@@ -102,7 +90,7 @@ namespace zasz.me.Configuration
 
             public Mapping this[int index]
             {
-                get { return (Mapping)BaseGet(index); }
+                get { return (Mapping) BaseGet(index); }
                 set
                 {
                     if (BaseGet(index) != null)
@@ -118,8 +106,10 @@ namespace zasz.me.Configuration
 
             protected override object GetElementKey(ConfigurationElement element)
             {
-                return ((Mapping)element).Folder;
+                return ((Mapping) element).Folder;
             }
         }
+
+        #endregion
     }
 }

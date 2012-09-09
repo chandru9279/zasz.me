@@ -7,15 +7,19 @@ namespace zasz.me.Models
 
     public class Passphrase : IModel
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         public string PhraseDigest { get; set; }
 
         public string Name { get; set; }
 
         public bool OneTime { get; set; }
+
+        #region IModel Members
+
+        [Key]
+        public Guid Id { get; set; }
+
+        #endregion
     }
 
     public interface IPassphraseRepository : IRepository<Passphrase, string>

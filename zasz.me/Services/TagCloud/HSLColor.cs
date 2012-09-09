@@ -28,7 +28,7 @@ namespace zasz.me.Services.TagCloud
 
         public HslColor(int Red, int Green, int Blue, double Scale = 1.0)
         {
-            HslColor HslColor = (HslColor) Color.FromArgb(Red, Green, Blue);
+            var HslColor = (HslColor) Color.FromArgb(Red, Green, Blue);
             _Hue = HslColor._Hue;
             _Saturation = HslColor._Saturation;
             _Luminosity = HslColor._Luminosity;
@@ -77,7 +77,7 @@ namespace zasz.me.Services.TagCloud
 
         public string ToRgbString()
         {
-            Color RgbColor = (Color) this;
+            var RgbColor = (Color) this;
             return String.Format("R: {0:#0.##} G: {1:#0.##} B: {2:#0.##}", RgbColor.R, RgbColor.G, RgbColor.B);
         }
 
@@ -92,8 +92,8 @@ namespace zasz.me.Services.TagCloud
                     R = G = B = ColorHsl._Luminosity;
                 else
                 {
-                    double Temp2 = GetTemp2(ColorHsl);
-                    double Temp1 = 2.0*ColorHsl._Luminosity - Temp2;
+                    var Temp2 = GetTemp2(ColorHsl);
+                    var Temp1 = 2.0*ColorHsl._Luminosity - Temp2;
 
                     R = GetColorComponent(Temp1, Temp2, ColorHsl._Hue + 1.0/3.0);
                     G = GetColorComponent(Temp1, Temp2, ColorHsl._Hue);

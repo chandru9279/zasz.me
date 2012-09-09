@@ -5,8 +5,7 @@ namespace zasz.me.Services.Contracts
 {
     public interface IFilesService
     {
-
-        Func<string, string> Convert { get; set; } 
+        Func<string, string> Convert { get; set; }
 
         /// <summary>
         /// Browses a given folder with thumbnails and FileUrls

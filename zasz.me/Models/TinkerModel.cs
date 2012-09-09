@@ -80,11 +80,11 @@ namespace zasz.me.Models
 
         public Dictionary<string, int> Dictionary()
         {
-                return Words
-                    .Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x => x.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
-                    .Where(x => x.Length == 2)
-                    .ToDictionary(x => x[0], x => int.Parse(x[1]));
+            return Words
+                .Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                .Where(x => x.Length == 2)
+                .ToDictionary(x => x[0], x => int.Parse(x[1]));
         }
 
         public static Color ToColor(string HexColor, Color Default)

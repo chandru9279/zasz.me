@@ -8,7 +8,7 @@ namespace zasz.me.Services
         public Pairs(X[] Ones, Y[] Others)
         {
             if (Ones.Length != Others.Length) throw new ArgumentException("Matching arrays needed");
-            for (int i = 0; i < Ones.Length; i++)
+            for (var i = 0; i < Ones.Length; i++)
                 Add(new Pair<X, Y>(Ones[i], Others[i]));
         }
 
@@ -76,7 +76,7 @@ namespace zasz.me.Services
         {
             unchecked
             {
-                return (One.GetHashCode() * 397) ^ Other.GetHashCode();
+                return (One.GetHashCode()*397) ^ Other.GetHashCode();
             }
         }
 

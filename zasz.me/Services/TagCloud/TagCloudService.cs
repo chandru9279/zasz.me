@@ -8,32 +8,31 @@ namespace zasz.me.Services.TagCloud
 {
     public class TagCloudService
     {
-        private readonly Func<float, float> _Increment;
         private readonly Func<float, float> _Decrement;
         private readonly Action<string> _Die = Msg => { throw new Exception(Msg); };
-        private Func<float, float> _EdgeDirection;
 
         private readonly int _Height;
-        private readonly int _Width;
-        private readonly RectangleF _MainArea;
 
         private readonly int _HighestWeight;
+        private readonly Func<float, float> _Increment;
         private readonly int _LowestWeight;
-        private int _WeightSpan;
-        private float _FontHeightSpan;
-        private int _SpiralRoom;
-
-        internal List<RectangleF> _Occupied;
-        private readonly Dictionary<string, int> _TagsSorted;
+        private readonly RectangleF _MainArea;
 
         private readonly PointF _SpiralEndSentinel;
+        private readonly Dictionary<string, int> _TagsSorted;
+        private readonly int _Width;
         internal PointF _Center;
         internal PointF _CurrentCorner;
         internal int _CurrentEdgeSize;
+        private Func<float, float> _EdgeDirection;
+        private float _FontHeightSpan;
         internal int _MaxEdgeSize;
-        internal bool _SleepingEdge;
+        internal List<RectangleF> _Occupied;
 
         private bool _ServiceObjectNew = true;
+        internal bool _SleepingEdge;
+        private int _SpiralRoom;
+        private int _WeightSpan;
 
         public TagCloudService(Dictionary<string, int> Tags, int Width, int Height)
         {
@@ -124,8 +123,8 @@ namespace zasz.me.Services.TagCloud
         /// </summary>
         public int SpiralRoom
         {
-            get { return _SpiralRoom / 2 - 1; }
-            set { _SpiralRoom = 2 * value + 1;}
+            get { return _SpiralRoom/2 - 1; }
+            set { _SpiralRoom = 2*value + 1; }
         }
 
         /// <summary>
@@ -165,7 +164,7 @@ namespace zasz.me.Services.TagCloud
             else
                 _Die("This object has been used. Dispose this, create and use a new Service object.");
             var TheCloudBitmap = new Bitmap(_Width, _Height);
-            Graphics GImage = Graphics.FromImage(TheCloudBitmap);
+            var GImage = Graphics.FromImage(TheCloudBitmap);
             GImage.TextRenderingHint = TextRenderingHint.AntiAlias;
             _Center = new PointF(TheCloudBitmap.Width/2f, TheCloudBitmap.Height/2f);
             if (Angle != 0) GImage.Rotate(_Center, Angle);
@@ -175,29 +174,29 @@ namespace zasz.me.Services.TagCloud
             _FontHeightSpan = MaximumFontSize - MinimumFontSize;
             GImage.Clear(ColorChoice.GetBackGroundColor());
 
-            foreach (KeyValuePair<string, int> Tag in _TagsSorted)
+            foreach (var Tag in _TagsSorted)
             {
                 var FontToApply = new Font(SelectedFont, CalculateFontSize(Tag.Value));
-                SizeF StringBounds = GImage.MeasureString(Tag.Key, FontToApply);
-                StringFormat Format = DisplayChoice.GetFormat();
-                bool IsVertical = Format.FormatFlags.HasFlag(StringFormatFlags.DirectionVertical);
+                var StringBounds = GImage.MeasureString(Tag.Key, FontToApply);
+                var Format = DisplayChoice.GetFormat();
+                var IsVertical = Format.FormatFlags.HasFlag(StringFormatFlags.DirectionVertical);
                 if (IsVertical)
                 {
-                    float StringWidth = StringBounds.Width;
+                    var StringWidth = StringBounds.Width;
                     StringBounds.Width = StringBounds.Height;
                     StringBounds.Height = StringWidth;
                 }
-                PointF TopLeft = CalculateWhere(StringBounds);
+                var TopLeft = CalculateWhere(StringBounds);
                 /* Strategy chosen display format, failed to be placed */
                 if (TopLeft.Equals(_SpiralEndSentinel))
                 {
                     WordsSkipped.Add(Tag.Key, Tag.Value);
                     continue;
                 }
-                PointF TextCenter = IsVertical & VerticalTextRight
-                                        ? new PointF(TopLeft.X + (StringBounds.Width/2f),
-                                                     TopLeft.Y + (StringBounds.Height/2f))
-                                        : TopLeft;
+                var TextCenter = IsVertical & VerticalTextRight
+                                     ? new PointF(TopLeft.X + (StringBounds.Width/2f),
+                                                  TopLeft.Y + (StringBounds.Height/2f))
+                                     : TopLeft;
                 var CurrentBrush = new SolidBrush(ColorChoice.GetCurrentColor());
                 if (IsVertical & VerticalTextRight) GImage.Rotate(TextCenter, -180);
                 GImage.DrawString(Tag.Key, FontToApply, CurrentBrush, TopLeft, Format);
@@ -223,7 +222,7 @@ namespace zasz.me.Services.TagCloud
             _SleepingEdge = true;
             _CurrentCorner = _Center;
 
-            PointF CurrentPoint = _Center;
+            var CurrentPoint = _Center;
             while (TryPoint(CurrentPoint, Measure) == false)
                 CurrentPoint = GetNextPointInEdge(CurrentPoint);
             return CurrentPoint;
@@ -288,7 +287,7 @@ namespace zasz.me.Services.TagCloud
         internal PointF GetSpiralNext(PointF PreviousCorner)
         {
             float X = PreviousCorner.X, Y = PreviousCorner.Y;
-            bool EdgeSizeEven = (_CurrentEdgeSize & 1) == 0;
+            var EdgeSizeEven = (_CurrentEdgeSize & 1) == 0;
 
             if (_SleepingEdge)
             {
@@ -320,7 +319,7 @@ namespace zasz.me.Services.TagCloud
             // Strange case where all tags have equal weights
             if (_WeightSpan == 0) return (MinimumFontSize + MaximumFontSize)/2f;
             // Convert the Weight into a 0-1 range (float)
-            float WeightScaled = (Weight - _LowestWeight)/(float) _WeightSpan;
+            var WeightScaled = (Weight - _LowestWeight)/(float) _WeightSpan;
             // Convert the 0-1 range into a value in the Font range.
             return MinimumFontSize + (WeightScaled*_FontHeightSpan);
         }
@@ -334,11 +333,11 @@ namespace zasz.me.Services.TagCloud
         /// <returns>The cropped version of the bitmap</returns>
         private Bitmap CropAndTranslate(Bitmap CloudToCrop)
         {
-            float NewTop = _Occupied.Select(x => x.Top).Min() - Margin;
-            float NewLeft = _Occupied.Select(x => x.Left).Min() - Margin;
+            var NewTop = _Occupied.Select(x => x.Top).Min() - Margin;
+            var NewLeft = _Occupied.Select(x => x.Left).Min() - Margin;
 
-            float Bottom = _Occupied.Select(x => x.Bottom).Max() + Margin;
-            float Right = _Occupied.Select(x => x.Right).Max() + Margin;
+            var Bottom = _Occupied.Select(x => x.Bottom).Max() + Margin;
+            var Right = _Occupied.Select(x => x.Right).Max() + Margin;
 
             if (NewTop < 0) NewTop = 0;
             if (NewLeft < 0) NewLeft = 0;

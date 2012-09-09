@@ -22,7 +22,7 @@ namespace zasz.me.Controllers.Utils
 
         public static T Enumize<T>(this string EnumValue)
         {
-            return (T)Enum.Parse(typeof(T), EnumValue);
+            return (T) Enum.Parse(typeof (T), EnumValue);
         }
 
         public static IEnumerable<SelectListItem> ToSelectList(this List<string> AnyList)
@@ -34,7 +34,7 @@ namespace zasz.me.Controllers.Utils
         {
             ErrorSignal.FromCurrentContext().Raise(new ZaszDotMeException(Message));
         }
-        
+
         public static void Log(string Message, Exception E)
         {
             ErrorSignal.FromCurrentContext().Raise(new ZaszDotMeException(Message, E));
@@ -44,15 +44,15 @@ namespace zasz.me.Controllers.Utils
         {
             try
             {
-                Image PostedImage = Image.FromFile(SavedFileName);
-                Image ThumbnailImage = PostedImage.GetThumbnailImage(ThumbWidth, ThumbHeight, () => true, IntPtr.Zero);
+                var PostedImage = Image.FromFile(SavedFileName);
+                var ThumbnailImage = PostedImage.GetThumbnailImage(ThumbWidth, ThumbHeight, () => true, IntPtr.Zero);
                 ThumbnailImage.Save(ThumbsDir);
             }
             catch (Exception)
             {
             }
         }
-        
+
         /* This mad method will expire all output cache, i.e., every cached action is invalidated.
          * http://stackoverflow.com/questions/5326230/mvc3-outputcache-removeoutputcacheitem-renderaction*/
 
@@ -87,8 +87,8 @@ namespace zasz.me.Controllers.Utils
                 throw new InvalidEnumArgumentException("ErrorCorrectionLevel", (int) ErrorCorrectionLevel,
                                                        typeof (QrCodeErrorCorrectionLevel));
 
-            string Url = string.Format("http://chart.apis.google.com/chart?cht=qr&chld={2}|{3}&chs={0}x{0}&chl={1}",
-                                       Size, HttpUtility.UrlEncode(Data), ErrorCorrectionLevel.ToString()[0], Margin);
+            var Url = string.Format("http://chart.apis.google.com/chart?cht=qr&chld={2}|{3}&chs={0}x{0}&chl={1}",
+                                    Size, HttpUtility.UrlEncode(Data), ErrorCorrectionLevel.ToString()[0], Margin);
 
             var Tag = new TagBuilder("img");
             if (HtmlAttributes != null)
@@ -107,21 +107,24 @@ namespace zasz.me.Controllers.Utils
         ///     Recovers from up to 7% erroneous data.
         /// </summary>
         Low,
+
         /// <summary>
         ///     Recovers from up to 15% erroneous data.
         /// </summary>
         Medium,
+
         /// <summary>
         ///     Recovers from up to 25% erroneous data.
         /// </summary>
         QuiteGood,
+
         /// <summary>
         ///     Recovers from up to 30% erroneous data.
         /// </summary>
         High
     }
 
-    class ZaszDotMeException : Exception
+    internal class ZaszDotMeException : Exception
     {
         public ZaszDotMeException(string Message) : base(Message)
         {
