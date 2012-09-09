@@ -7,7 +7,6 @@ using zasz.me.Models;
 
 namespace zasz.me.Controllers
 {
-    [AllowAnonymous]
     public class UnlockerController : BaseController
     {
         private readonly IPassphraseRepository _PassphraseRepository;

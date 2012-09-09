@@ -8,16 +8,8 @@ namespace zasz.me.Integration.MVC
     {
         public static void Setup()
         {
-            RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             SetupRazor();
-        }
-
-        public static void RegisterGlobalFilters(GlobalFilterCollection Filters)
-        {
-            Filters.Add(new HandleErrorAttribute());
-            Filters.Add(new LogonAuthorize());
-            Filters.Add(new RequireHttpsAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection Routes)

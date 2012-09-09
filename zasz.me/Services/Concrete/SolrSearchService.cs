@@ -12,13 +12,13 @@ namespace zasz.me.Services.Concrete
 {
     public class SolrSearchService : ISearchService
     {
-        private readonly ISolrOperations<Post> _PostOp; /* Pun Intended */
-        private readonly IPostRepository _Posts;
+        private readonly ISolrOperations<Post> postOp; /* Pun Intended */
+        private readonly IPostRepository posts;
 
-        public SolrSearchService(IPostRepository Posts)
+        public SolrSearchService(IPostRepository posts, ISolrOperations<Post> postOp)
         {
-            _Posts = Posts;
-            _PostOp = ServiceLocator.Current.GetInstance<ISolrOperations<Post>>();
+            this.posts = posts;
+            this.postOp = postOp;
         }
 
         #region ISearchService Members
@@ -26,8 +26,8 @@ namespace zasz.me.Services.Concrete
         public List<Post> MoreLikeThis(string PostId)
         {
             var MltHandler = new QueryOptions {ExtraParams = new Dictionary<string, string> {{"qt", "/mlt"}}};
-            var Results = _PostOp.Query(Query.Field("Id").Is(PostId), MltHandler);
-            return Results.Select(X => _Posts.Load(X.Id)).ToList();
+            var Results = postOp.Query(Query.Field("Id").Is(PostId), MltHandler);
+            return Results.Select(X => posts.Load(X.Id)).ToList();
         }
 
         public string AutoComplete(string Input)
@@ -46,7 +46,7 @@ namespace zasz.me.Services.Concrete
                                         ExtraParams = new Dictionary<string, string> {{"qt", "/search"}}
                                     };
             var SearchResults = new SearchResults();
-            var Results = _PostOp.Query(Query.Simple(Term), SearchHandler);
+            var Results = postOp.Query(Query.Simple(Term), SearchHandler);
             for (var I = 0; I < Results.NumFound; I++)
             {
                 var Id = Results[I].Id.ToString();
@@ -61,28 +61,28 @@ namespace zasz.me.Services.Concrete
 
         public void Index(Post P)
         {
-            _PostOp.Add(P);
-            _PostOp.Commit();
+            postOp.Add(P);
+            postOp.Commit();
         }
 
         public void Index(IEnumerable<Post> P)
         {
             foreach (var Post in P)
-                _PostOp.Add(Post);
-            _PostOp.Commit();
+                postOp.Add(Post);
+            postOp.Commit();
         }
 
         #endregion
 
         public void ClearIndex()
         {
-            _PostOp.Delete(Query.Simple("*:*"));
-            _PostOp.Commit();
+            postOp.Delete(Query.Simple("*:*"));
+            postOp.Commit();
         }
 
         public IEnumerable<string> ValidateSchema()
         {
-            IList<ValidationResult> Mismatches = _PostOp.EnumerateValidationResults().ToList();
+            IList<ValidationResult> Mismatches = postOp.EnumerateValidationResults().ToList();
             var Errors = Mismatches.OfType<ValidationError>();
             foreach (var Error in Errors)
                 yield return "Mapping error: " + Error.Message;

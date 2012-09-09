@@ -14,7 +14,9 @@ namespace zasz.me.Integration.Solr
                 Startup.Init<Post>(new ConsoleLoggingConnection(server));
             else
                 Startup.Init<Post>(server);
-            Startup.InitContainer();
+            Big.Box.RegisterType<ISolrOperations<Post>>( 
+                new InjectionFactory(x => Startup.Container.GetInstance<ISolrOperations<Post>>())
+                );
         }
     }
 }
