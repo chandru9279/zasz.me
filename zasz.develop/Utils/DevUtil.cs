@@ -7,11 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using zasz.develop.Data;
 using zasz.me.Integration.EntityFramework;
-using zasz.me.Integration.Solr;
 using zasz.me.Models;
-using zasz.me.Services.Concrete;
 using Domain = zasz.me.Models.Site;
-using System.Xml;
 
 namespace zasz.develop.Utils
 {
@@ -22,19 +19,15 @@ namespace zasz.develop.Utils
         private readonly IPostRepository _PostRepository;
         private readonly ITagRepository _TagRepository;
         private const string SolrConfigMain = @"..\..\..\..\zasz.vitalize\content\solrhome\conf\";
-        private readonly SolrSearchService _Search;
 
 
         public DevUtil()
         {
             InitializeComponent();
             _ChooseSiteDialog = new ChooseSite();
-            //Database.SetInitializer(new ColdStorageInitializer());
             _FullContext = new FullContext();
             _TagRepository = new Tags(_FullContext);
             _PostRepository = new Posts(_FullContext);
-            Solr.Setup();
-            _Search = new SolrSearchService(_PostRepository);
         }
 
         public string Current { get; set; }
@@ -177,46 +170,6 @@ namespace zasz.develop.Utils
             var Algorithm = new SHA256Cng();
             var Unicoding = new UnicodeEncoding();
             PassHash.Text = Unicoding.GetString(Algorithm.ComputeHash(Unicoding.GetBytes(Password.Text)));
-        }
-
-        private void BuildSolrIndexClick(object Sender, EventArgs E)
-        {
-            var Errors = _Search.ValidateSchema();
-            foreach (var Error in Errors)
-                Log(Error);
-            if (Errors.Any())
-            {
-                Log("Mapping errors, aborting");
-                return;
-            }
-            List<Post> Posts = _PostRepository.Page(0, 100);
-            _Search.Index(Posts.Where(P => !string.IsNullOrEmpty(P.Content)));
-            Log("Done");
-        }
-
-        private void DecommentSolrClick(object sender, EventArgs e)
-        {
-            RemoveComments("solrconfig-verbose.xml");
-            RemoveComments("schema-verbose.xml");
-            Log("Done Decommenting");
-        }
-
-        private static void RemoveComments(string FileName)
-        {
-            XmlReader Reader = XmlReader.Create(SolrConfigMain + FileName, new XmlReaderSettings
-            {
-                IgnoreComments = true
-            });
-            var Doc = new XmlDocument();
-            Doc.Load(Reader);
-            Doc.Save(SolrConfigMain + FileName.Replace("-verbose", ""));
-            Reader.Close();
-        }
-
-        private void ClearSolrIndexClick(object Sender, EventArgs E)
-        {
-            _Search.ClearIndex();
-            Log("Cleared Whole Index");
         }
     }
 }

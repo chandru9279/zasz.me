@@ -1,0 +1,21 @@
+<dataConfig>
+    <dataSource 
+        type="JdbcDataSource" 
+        driver="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
+        url="jdbc:sqlserver://localhost;instance=SQLEXPRESS;databaseName=ColdStorage;"   
+        user="zasz.me" 
+        password="zaszrespawned"
+        readOnly="true"/>
+    <document name="posts">
+        <entity name="post" query="select Id, Slug, Title, Content from Posts">
+            <field column="Id" name="Id" />
+            <field column="Slug" name="Post_Slug" />
+            <field column="Title" name="Post_Title" />
+            <field column="Content" name="Post_Content" />
+
+            <entity name="tag" query="select Name as TagName from Tags inner join TagPosts on Id = Tag_Id where Post_Id = '${post.Id}';">
+                <field column="TagName" name="Post_Tags" />
+            </entity>
+        </entity>
+    </document>
+</dataConfig>

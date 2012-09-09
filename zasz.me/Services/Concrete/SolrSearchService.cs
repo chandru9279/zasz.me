@@ -79,15 +79,5 @@ namespace zasz.me.Services.Concrete
             postOp.Delete(Query.Simple("*:*"));
             postOp.Commit();
         }
-
-        public IEnumerable<string> ValidateSchema()
-        {
-            IList<ValidationResult> Mismatches = postOp.EnumerateValidationResults().ToList();
-            var Errors = Mismatches.OfType<ValidationError>();
-            foreach (var Error in Errors)
-                yield return "Mapping error: " + Error.Message;
-            foreach (var Warning in Mismatches.OfType<ValidationWarning>())
-                yield return "Mapping warning: " + Warning.Message;
-        }
     }
 }

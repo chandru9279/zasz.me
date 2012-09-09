@@ -25,18 +25,11 @@ namespace zasz.me.Models
 
         public virtual ICollection<Tag> Tags { get; set; }
 
-        [SolrField("Post_Tags")]
-        public virtual List<string> TagStrings
-        {
-            get { return Tags.Select(x => x.Name).ToList(); }
-        }
-
         [NotMapped]
         public string TagsLine
         {
             get { return Tags == null ? "" : string.Join(" ", TagStrings); }
         }
-
 
         [Required]
         public DateTime Timestamp { get; set; }
@@ -53,6 +46,13 @@ namespace zasz.me.Models
         public string Permalink
         {
             get { return string.Format("http://{0}/Blog/Post/{1}", Site.Host, Slug); }
+        }
+
+        [SolrField("Post_Tags")]
+        public virtual List<string> TagStrings
+        {
+            get { return Tags.Select(x => x.Name).ToList(); }
+            set { Tags = value.Select(x => new Tag {Name = x}).ToList(); }
         }
 
         #region IModel Members
