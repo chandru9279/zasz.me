@@ -12,7 +12,8 @@ function Skip-Delete
 function Test-Solr
 {
     try {
-        $response = (New-Object System.Net.WebClient).DownloadString("http://localhost:5000/solr")
+        $response = (New-Object System.Net.WebClient).DownloadString("http://localhost:5000/solr")        
+        Write-Host -ForegroundColor Yellow "Solr is already running";
     }
     catch [System.Net.WebException] { 
         return $false
@@ -47,4 +48,21 @@ function Trace-Robocopy
 	}
 }
 
-export-modulemember -function Skip-Delete, Test-Solr, Trace-Robocopy
+function Get-URL
+{
+    [CmdletBinding()]
+    param(
+        [Parameter(Position=0,Mandatory=1)] [string] $url,
+        [Parameter(Position=1,Mandatory=0)] [string] $messageOnFailure = 'Connect to url failed'
+    )
+    try {
+        $response = (New-Object System.Net.WebClient).DownloadString($url)
+        return $response
+    }
+    catch [System.Net.WebException] { 
+        Write-Host -ForegroundColor Red $messageOnFailure;
+        return $null
+    }  
+}
+
+export-modulemember -function Skip-Delete, Test-Solr, Trace-Robocopy, Get-URL

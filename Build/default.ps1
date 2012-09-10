@@ -31,6 +31,7 @@ task build -depends clean, packages {
   }
 
   Trace-Robocopy { robocopy $SolutionPath\zasz.me $BuildPath Global.asax robots.txt Web.config /NJH /NJS }
+  Write-Host -ForegroundColor Green "App server build complete."
 }
 
 
@@ -38,11 +39,13 @@ task zip -depends build {
     $zipExe = "$ToolsPath\7z\7z.exe";
     $arguments = "a", "-tzip", "$SolutionPath\Out\Build.zip", $BuildPath, "-r";
     exec { &$zipExe $arguments }
+    Write-Host -ForegroundColor Green "Zip in $SolutionPath\Out\Build.zip."
 }
 
 
 task deploy -depends build {
     Trace-Robocopy { robocopy $BuildPath $DeployPath /E /NJH /NJS }
+    Write-Host -ForegroundColor Green "Deployed to $DeployPath."
 }
 
 
@@ -51,6 +54,7 @@ task test -depends compile {
   $testCommand = "$xUnit $SolutionPath\zasz.health\bin\zasz_health.dll /html $SolutionPath\Out\TestResults.html"
   Write-Host $testCommand
   exec { Invoke-Expression $testCommand }
+  Write-Host -ForegroundColor Green "All tests pass."
 }
 
 
@@ -59,20 +63,23 @@ task db -depends compile {
   $migrateCommand = "$migrator zasz_me.dll /StartUpDirectory=$SolutionPath\zasz.me\bin\ /connectionStringName:FullContext /startUpConfigurationFile:$SolutionPath\zasz.me\Web.config /verbose"
   Write-Host $migrateCommand
   exec { Invoke-Expression $migrateCommand }
+  Write-Host -ForegroundColor Green "Migrated db to the latest version."
 }
 
 
-task solrc -precondition { if(Test-Solr) { Write-Host -ForegroundColor Yellow "Solr is already running"; return $false; } return $true; } { 
+task solrc -precondition { !(Test-Solr) } { 
   #Starts solr in a new console window
   Set-Location $SolrPath
   exec { cmd.exe /c start cmd /c java '-Djetty.port=5000' '-DSTOP.PORT=5001' '-DSTOP.KEY=halt' -jar start.jar }
+  Write-Host -ForegroundColor Green "Solr console started now."
 }
 
 
-task solrs -precondition { if(Test-Solr) { Write-Host -ForegroundColor Yellow "Solr is already running"; return $false; } return $true; } -action { 
+task solrs -precondition { !(Test-Solr) } -action { 
   #Starts solr as a process without console
   Set-Location $SolrPath
   exec { javaw '-Djetty.port=5000' '-DSTOP.PORT=5001' '-DSTOP.KEY=halt' -jar start.jar }
+  Write-Host -ForegroundColor Green "Solr process started now."
 }
 
 
@@ -80,17 +87,25 @@ task solrx -precondition { return Test-Solr } {
   #Stops a running solr
   Set-Location $SolrPath
   exec { java '-DSTOP.PORT=5001' '-DSTOP.KEY=halt' -jar start.jar --stop }
+  Write-Host -ForegroundColor Green "Solr stopped now."
 }
 
+task reindex -precondition { return Test-Solr } { 
+  $url = 'http://localhost:5000/solr/dataimport?verbose=true&clean=true&commit=true&command=full-import'  
+  $xml = Get-Url $url 'Full Import with clean failed!'
+  if([string]::IsNullOrEmpty($xml)) { throw 'Returned xml is null ' } else { Write-Host "`r`n`r`n$xml" }
+}
 
 task solrclean { 
   @('Solr\work\' 
     'Solr\logs\') | % { Skip-Delete ("$SolutionPath\$_") }
+  Write-Host -ForegroundColor Green "Solr cleaned logs and working folder."
 }
 
 
 task compile -depends Clean { 
-  exec { msbuild $SolutionFile /v:Quiet /t:Build }
+  exec { msbuild $SolutionFile /p:Configuration=Dev /p:Platform="Any CPU" /v:Quiet /t:Build }
+  Write-Host -ForegroundColor Green "App compiled in Dev mode"
 }
 
 
@@ -103,6 +118,7 @@ task clean {
     'zasz.health\obj\'
     'Out\') | % { Skip-Delete ("$SolutionPath\$_") }
     exec { msbuild $SolutionFile /v:Quiet /t:Clean }
+    Write-Host -ForegroundColor Green "Cleaned all bin obj. Cleaned Out folder."
 }
 
 
