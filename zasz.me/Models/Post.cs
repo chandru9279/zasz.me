@@ -10,8 +10,6 @@ namespace zasz.me.Models
 {
     public class Post : IModel
     {
-        private Site _Site = Site.Shared;
-
         [Required]
         [SolrField("Post_Slug")]
         public string Slug { get; set; }
@@ -34,18 +32,10 @@ namespace zasz.me.Models
         [Required]
         public DateTime Timestamp { get; set; }
 
-        [Required]
-        public Site Site
-        {
-            get { return Site.With(_Site.Name); }
-            set { _Site = Site.With(value.Name); }
-        }
-
-
         [NotMapped]
         public string Permalink
         {
-            get { return string.Format("http://{0}/Blog/Post/{1}", Site.Host, Slug); }
+            get { return string.Format("http://zasz.me/Blog/Post/{0}", Slug); }
         }
 
         [SolrField("Post_Tags")]
@@ -63,43 +53,39 @@ namespace zasz.me.Models
 
         #endregion
 
-        public string GetDescription(int Threshold)
+        public string GetDescription(int threshold)
         {
-            var Doc = new HtmlDocument();
-            Doc.LoadHtml(Content);
-            var Description = String.Empty;
-            ProcessNode(Doc.DocumentNode, ref Description, Threshold);
-            return Description;
+            var doc = new HtmlDocument();
+            doc.LoadHtml(Content);
+            var description = String.Empty;
+            ProcessNode(doc.DocumentNode, ref description, threshold);
+            return description;
         }
 
-        private static void ProcessNode(HtmlNode Node, ref string Description, int Threshold)
+        private static void ProcessNode(HtmlNode node, ref string description, int threshold)
         {
-            foreach (var ChildNode in Node.ChildNodes)
+            foreach (var childNode in node.ChildNodes)
             {
-                if (ChildNode is HtmlTextNode)
+                if (childNode is HtmlTextNode)
                 {
-                    Description += ChildNode.InnerText.Trim();
-                    if (Description.Length >= Threshold)
+                    description += childNode.InnerText.Trim();
+                    if (description.Length >= threshold)
                     {
-                        Description = Description.Substring(0, Threshold) + "...";
+                        description = description.Substring(0, threshold) + "...";
                         break;
                     }
                 }
-                else ProcessNode(ChildNode, ref Description, Threshold);
+                else ProcessNode(childNode, ref description, threshold);
             }
         }
     }
 
     public interface IPostRepository : IRepository<Post, string>
     {
-        List<Post> Page(int PageNumber, int PageSize);
+        List<Post> Page(int pageNumber, int pageSize);
 
-        List<Post> Page(int PageNumber, int PageSize, Site ProOrRest);
+        Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped();
 
-        Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped(Site ProOrRest);
-
-        List<Post> Archive(int Year, int Month, Site ProOrRest);
-
-        int Count(Site ProOrRest);
+        List<Post> Archive(int year, int month);
     }
 }

@@ -1,17 +1,15 @@
-﻿@using zasz.me.Services.Contracts
-@model SearchResults
+﻿@model zasz.me.Services.Contracts.SearchResults
 
 @{
     ViewBag.Title = "Search Results for" + Model.Query;
 }
 
 @Model.Spellchecking
-@foreach (var result in Model)
+@foreach (var result in Model.Results)
 {
-    <a href="@result.Link">@result.Title</a><br />
+    <a href="@result.Post.Permalink">@result.Post.Title</a>
+    <br />
     @Html.Raw(result.Snippet)<br />
     <br />
     <br />
 }
-
-

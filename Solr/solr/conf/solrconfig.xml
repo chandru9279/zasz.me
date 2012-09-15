@@ -102,6 +102,8 @@
 
   <requestHandler class="org.apache.solr.handler.component.SearchHandler" name="/autosuggest">
     <lst name="invariants">
+      <str name="rows">10</str>
+      <str name="wt">json</str>
       <str name="spellcheck">true</str>
       <str name="spellcheck.dictionary">suggester</str>
       <str name="spellcheck.onlyMorePopular">true</str>
@@ -177,16 +179,21 @@
         <lst name="defaults">
           <int name="hl.fragsize">100</int>
         </lst>
-      </fragmenter>
-      <formatter name="html" default="true" class="solr.highlight.HtmlFormatter">
-        <lst name="invariants">
-          <str name="hl.simple.pre"><![CDATA[<span class="Result-Highlight">]]></str>
-          <str name="hl.simple.post"><![CDATA[</span>]]></str>
-        </lst>
-      </formatter>
+      </fragmenter>      
+        
       <encoder name="html" class="solr.highlight.HtmlEncoder" />
+
       <fragListBuilder name="simple" default="true" class="solr.highlight.SimpleFragListBuilder" />      
+
       <fragmentsBuilder name="default" default="true" class="solr.highlight.ScoreOrderFragmentsBuilder">
+        <lst name="defaults">
+          <!-- <str name="hl.tag.pre"><![CDATA[]]></str>
+          <str name="hl.tag.post"><![CDATA[</span>]]></str> -->
+          <str name="hl.tag.pre"><![CDATA[
+         <span class="Result-Highlight">
+         ]]></str>
+    <str name="hl.tag.post"><![CDATA[</span>]]></str>
+        </lst>
       </fragmentsBuilder>      
     </highlighting>
   </searchComponent>

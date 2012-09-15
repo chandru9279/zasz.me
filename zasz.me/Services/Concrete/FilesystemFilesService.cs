@@ -32,25 +32,27 @@ namespace zasz.me.Services.Concrete
 
         public Func<string, string> Convert { get; set; }
 
-        public Pairs<string, string> Browse(string Folder)
+        public Pairs<string, string> Browse(string organization)
         {
             var BrowseModel = new Pairs<string, string>();
-            if (Directory.GetDirectories(_UploadsDirRooted).Any(x => x.EndsWith(Folder)))
+            if (Directory.GetDirectories(_UploadsDirRooted).Any(x => x.EndsWith(organization)))
                 foreach (
-                    var RootedPath in Directory.GetFiles(_UploadsDirRooted + Folder, "*", SearchOption.TopDirectoryOnly)
+                    var RootedPath in
+                        Directory.GetFiles(_UploadsDirRooted + organization, "*", SearchOption.TopDirectoryOnly)
                     )
                     if (!File.GetAttributes(RootedPath).HasFlag(FileAttributes.System))
                     {
                         var Filepath =
-                            Convert("~/" + _Settings.UploadsFolder + "/" + Folder + "/" + Path.GetFileName(RootedPath));
+                            Convert("~/" + _Settings.UploadsFolder + "/" + organization + "/" +
+                                    Path.GetFileName(RootedPath));
                         var Extension = Path.GetExtension(RootedPath);
-                        var Thumb = Folder == "Images"
+                        var Thumb = organization == "Images"
                                         ? Convert("~/" + _Settings.UploadsFolder + "/" + _Settings.ThumbsFolder + "/" +
                                                   Path.GetFileName(RootedPath))
                                         : Convert("~/Content/Thumbnails/" +
                                                   (Extension == null ? "" : Extension.Substring(1)) + ".png");
                         if (!File.Exists(SysPath(Thumb)))
-                            Thumb = Folder == "Images"
+                            Thumb = organization == "Images"
                                         ? Convert("~/Content/Thumbnails/.image.png")
                                         : Convert("~/Content/Thumbnails/notfound.png");
                         BrowseModel.Add(new Pair<string, string>(Thumb, Filepath));
@@ -59,31 +61,31 @@ namespace zasz.me.Services.Concrete
         }
 
 
-        public void Delete(string Filepath)
+        public void Delete(string filepathAppRelative)
         {
-            if (!Filepath.StartsWith("/" + _Settings.UploadsFolder))
+            if (!filepathAppRelative.StartsWith("/" + _Settings.UploadsFolder))
                 throw new UnauthorizedAccessException("Cannot delete arbitrary files outside of Uploads Folder");
-            File.Delete(SysPath(Filepath));
-            var ThumbFile = _ThumbsDirRooted + Path.GetFileName(Filepath);
+            File.Delete(SysPath(filepathAppRelative));
+            var ThumbFile = _ThumbsDirRooted + Path.GetFileName(filepathAppRelative);
             if (File.Exists(ThumbFile)) File.Delete(ThumbFile);
         }
 
-        public string Upload(HttpPostedFileBase UploadedFile)
+        public string Upload(HttpPostedFileBase uploadedFile)
         {
             if (_Settings.Disabled) throw new InvalidOperationException("You can't upload files now.");
             var FileName = "";
             var Folder = "";
 
-            if (UploadedFile != null && UploadedFile.ContentLength != 0)
+            if (uploadedFile != null && uploadedFile.ContentLength != 0)
             {
-                FileName = Path.GetFileName(UploadedFile.FileName);
+                FileName = Path.GetFileName(uploadedFile.FileName);
                 if (CheckUploadedFile(FileName))
                 {
                     Folder = FindFolder(FileName);
                     if (!Directory.Exists(_UploadsDirRooted + Folder))
                         Directory.CreateDirectory(_UploadsDirRooted + Folder);
                     var SavedFileName = _UploadsDirRooted + Folder + "\\" + FileName;
-                    UploadedFile.SaveAs(SavedFileName);
+                    uploadedFile.SaveAs(SavedFileName);
                     if (Folder == "Images")
                         Handy.GenerateThumbnail(SavedFileName, _ThumbsDirRooted + FileName, _Settings.ThumbWidth,
                                                 _Settings.ThumbHeight);

@@ -6,29 +6,33 @@ namespace zasz.me.Models
 {
     public class Tag : IModel
     {
-        public Tag(string TagName)
+        public Tag(string tagName)
         {
-            Name = TagName;
+            Name = tagName;
         }
 
         public Tag()
         {
         }
 
-        [Key]
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
+
+        #region IModel Members
+
+        [Key]
+        public Guid Id { get; set; }
+
+        #endregion
     }
 
     public interface ITagRepository : IRepository<Tag, string>
     {
-        List<Post> PagePosts(string Tag, int PageNumber, int MaxPostsPerPage, Site ProOrRest);
+        List<Post> PagePosts(string tag, int page, int postsPerPage);
 
-        int CountPosts(string Tag, Site ProOrRest);
+        int CountPosts(string tag);
 
-        Dictionary<string, int> WeightedList(Site Site);
+        Dictionary<string, int> WeightedList();
     }
 }

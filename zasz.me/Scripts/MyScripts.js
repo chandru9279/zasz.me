@@ -16,7 +16,16 @@ function attachHandlers() {
     });
     /* OtherWireup */
     $('.Modal').modalpop({ speed: 300 });
-
+    $("#Search-Box").keypress(function (e) {
+        if (e.which == 13) {
+            $('#SearchForm').submit();
+            return true;
+        }
+        return true;
+    });
+    $("#Search-Box").autocomplete({
+        source: "/Home/Autocomplete"
+    });
     if ($('#blogTagCloud').length > 0) {
         $('#blogTagCloud').load(function() {
             $.get('/Blog/TagCloudLinks', function(links) {

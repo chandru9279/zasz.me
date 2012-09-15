@@ -3,7 +3,7 @@ using zasz.me.Integration.EntityFramework;
 
 namespace zasz.health.IntegrationTests
 {
-    public class ColdStorageInitializer : DropCreateDatabaseAlways<FullContext>
+    public class TestStorageInitializer : DropCreateDatabaseAlways<FullContext>
     {
     }
 }

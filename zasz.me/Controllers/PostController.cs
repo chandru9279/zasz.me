@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -13,14 +14,14 @@ namespace zasz.me.Controllers
 {
     public abstract class PostController : BaseController
     {
-        private const string MANAGE_VIEW_PATH = "~/Views/Post/Manage.cshtml";
-        protected readonly IPostRepository _Posts;
-        protected readonly ITagRepository _Tags;
+        private const string ManageViewPath = "~/Views/Post/Manage.cshtml";
+        protected readonly IPostRepository Posts;
+        protected readonly ITagRepository Tags;
 
-        protected PostController(IPostRepository Posts, ITagRepository Tags)
+        protected PostController(IPostRepository posts, ITagRepository tags)
         {
-            _Posts = Posts;
-            _Tags = Tags;
+            Posts = posts;
+            Tags = tags;
         }
 
         [Dependency("MaxPostsPerPage")]
@@ -29,42 +30,45 @@ namespace zasz.me.Controllers
         [Dependency("DescriptionLength")]
         public int DescriptionLength { get; set; }
 
-        protected ActionResult List(Site ProOrRest, int PageNumber)
+        public ActionResult Post([Bind(Prefix = "Id")] string slug)
         {
-            return View(new PostListModel
+            return View(Posts.Get(slug));
+        }
+
+        [DefaultAction]
+        public ActionResult List([Bind(Prefix = "Id")] int pageNumber = 1)
+        {
+            return View(new PostListViewModel
                             {
-                                Posts = _Posts.Page(PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                NumberOfPages = (int) Math.Ceiling(_Posts.Count(ProOrRest)/(double) MaxPostsPerPage),
+                                Posts = Posts.Page(pageNumber - 1, MaxPostsPerPage),
+                                NumberOfPages = (int) Math.Ceiling(Posts.Count()/(double) MaxPostsPerPage),
                                 DescriptionLength = DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
                             });
         }
 
-        protected ActionResult Tag(Site ProOrRest, string Tag, int PageNumber)
+        public ActionResult Tag(string tag, int page = 1)
         {
-            return View("List", new PostListModel
+            return View("List", new PostListViewModel
                                     {
-                                        Posts = _Tags.PagePosts(Tag, PageNumber - 1, MaxPostsPerPage, ProOrRest),
-                                        NumberOfPages = _Tags.CountPosts(Tag, ProOrRest)/MaxPostsPerPage,
+                                        Posts = Tags.PagePosts(tag, page - 1, MaxPostsPerPage),
+                                        NumberOfPages = Tags.CountPosts(tag)/MaxPostsPerPage,
                                         DescriptionLength = DescriptionLength,
-                                        WhatIsListed = "Posts tagged with <em>" + Tag + "</em>"
+                                        WhatIsListed = "Posts tagged with <em>" + tag + "</em>"
                                     });
         }
 
-        protected ActionResult ArchiveControl(Site ProOrRest)
-        {
-            return PartialView(_Posts.PostedMonthsYearGrouped(ProOrRest));
-        }
 
-        protected ActionResult Archive(Site ProOrRest, int Year, int Month)
+        public ActionResult Archive(int year, string month)
         {
-            return View("List", new PostListModel
+            return View("List", new PostListViewModel
                                     {
-                                        Posts = _Posts.Archive(Year, Month, ProOrRest),
+                                        Posts = Posts.Archive(year, Constants.Months[month]),
                                         NumberOfPages = 1,
                                         DescriptionLength = DescriptionLength,
                                         WhatIsListed =
-                                            string.Format("Archived for {0:MMMM, yyyy}", new DateTime(Year, Month, 1))
+                                            string.Format("Archived for {0:MMMM, yyyy}",
+                                                          new DateTime(year, Constants.Months[month], 1))
                                     });
         }
 
@@ -72,69 +76,67 @@ namespace zasz.me.Controllers
         [Secure]
         public ActionResult Create()
         {
-            return View(MANAGE_VIEW_PATH, new Post());
+            return View(ManageViewPath, new Post());
         }
 
         [Authorize]
         [Secure]
-        public ActionResult Edit(string Id)
+        public ActionResult Edit(string id)
         {
-            return View(MANAGE_VIEW_PATH, _Posts.Get(Id));
+            return View(ManageViewPath, Posts.Get(id));
         }
 
         [Authorize]
         public ActionResult Delete(string Id)
         {
             /* Todo : Need to figure out a way to delete without fetching */
-            var Post = _Posts.Get(Id);
-            Post.Tags.Clear();
-            _Posts.Delete(Post);
-            _Posts.Commit();
-            return Redirect("/Blog/List");
+            var post = Posts.Get(Id);
+            post.Tags.Clear();
+            Posts.Delete(post);
+            Posts.Commit();
+            return RedirectToAction("List", "Blog");
         }
 
         [HttpPost]
         [Authorize]
         [Secure]
         [ValidateInput(false)]
-        public ActionResult Manage(string PostContent, string Title, string Tags, string ChosenSite, string Slug)
+        public ActionResult Manage(string postContent, string title, string tags, string slug)
         {
-            var New = string.IsNullOrEmpty(Slug);
+            var isNew = string.IsNullOrEmpty(slug);
 
-            var Entry = New ? new Post() : _Posts.Get(Slug);
+            var entry = isNew ? new Post() : Posts.Get(slug);
 
-            Entry.Title = Title;
-            Entry.Content = PostContent;
-            Entry.Site = Site.With(ChosenSite);
-            if (Entry.Tags != null) Entry.Tags.Clear();
-            Entry.Tags =
-                Tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(
-                    It => _Tags.Get(It) ?? _Tags.Save(new Tag(It))).
+            entry.Title = title;
+            entry.Content = postContent;
+            if (entry.Tags != null) entry.Tags.Clear();
+            entry.Tags =
+                tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(
+                    x => Tags.Get(x) ?? Tags.Save(new Tag(x))).
                     ToList();
-            if (New) Entry.Slug = GetSlug(Title);
-            if (New) Entry.Timestamp = DateTime.Now;
+            if (isNew) entry.Slug = GetSlug(title);
+            if (isNew) entry.Timestamp = DateTime.Now;
 
-            if (New)
+            if (isNew)
                 if (ModelState.IsValid)
-                    _Posts.Save(Entry);
+                    Posts.Save(entry);
                 else
-                    return View(MANAGE_VIEW_PATH, Entry);
+                    return View(ManageViewPath, entry);
 
-            _Posts.Commit();
-            return Redirect("/Blog/Post/" + Entry.Slug);
+            Posts.Commit();
+            return Redirect("/Blog/Post/" + entry.Slug);
         }
 
-        public static string GetSlug(string Title)
+        public static string GetSlug(string title)
         {
-            var DecodedTitle = HttpUtility.HtmlDecode(Title).ToLower();
-            var NearlySlug = Constants.GoWords().Aggregate
+            var decodedTitle = HttpUtility.HtmlDecode(title).ToLower();
+            var nearlySlug = Constants.GoWords().Aggregate
                 (
-                    DecodedTitle,
-                    (Current, Pair) => Current.Replace(Pair.Key, " " + Pair.Value + " ")
+                    decodedTitle,
+                    (current, pair) => current.Replace(pair.Key, " " + pair.Value + " ")
                 );
-            var Sluglets =
-                (from object Match in Regex.Matches(NearlySlug, @"[a-zA-Z0-9.-]+") select Match.ToString()).ToList();
-            return string.Join("-", Sluglets);
+            var sluglets = (from object match in Regex.Matches(nearlySlug, @"[a-zA-Z0-9.-]+") select match.ToString());
+            return string.Join("-", sluglets);
         }
     }
 }

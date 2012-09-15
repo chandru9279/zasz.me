@@ -1,5 +1,4 @@
-@using zasz.me.Models
-@model Post
+@model zasz.me.Models.Post
 <div class="Post-Footer">
     @if (Model.Tags.Count == 0)
     {
@@ -9,7 +8,7 @@
     {
         <span>Tagged </span>
         <ul class="Tags">
-            @foreach (Tag Tag in Model.Tags)
+            @foreach (var Tag in Model.Tags)
             {
                 <li><a href="/Blog/Tag/@Tag.Name">@Tag.Name</a></li>
             }

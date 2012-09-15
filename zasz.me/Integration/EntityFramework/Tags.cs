@@ -8,41 +8,35 @@ namespace zasz.me.Integration.EntityFramework
 {
     public class Tags : RepoBase<Tag, string>, ITagRepository
     {
-        public Tags(FullContext Session) : base(Session)
+        public Tags(FullContext session) : base(session)
         {
         }
 
         #region ITagRepository Members
 
-        public List<Post> PagePosts(string Tag, int PageNumber, int MaxPostsPerPage, Site ProOrRest)
+        public List<Post> PagePosts(string tag, int page, int postsPerPage)
         {
-            return (from EachPost in Get(Tag).Posts
-                    where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == Site.SHARED
-                    select EachPost).Skip(PageNumber*MaxPostsPerPage).Take(MaxPostsPerPage).ToList();
+            return Get(tag).Posts.Skip(page*postsPerPage).Take(postsPerPage).ToList();
         }
 
-        public int CountPosts(string Tag, Site ProOrRest)
+        public int CountPosts(string tag)
         {
-            return (from EachPost in Get(Tag).Posts
-                    where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == Site.SHARED
-                    select EachPost).Count();
+            return Get(tag).Posts.Count();
         }
 
-        public Dictionary<string, int> WeightedList(Site ProOrRest)
+        public Dictionary<string, int> WeightedList()
         {
-            return (from EachTag in _Session.Tags
-                    let Count = (from EachPost in EachTag.Posts
-                                 where EachPost.Site.Name == ProOrRest.Name || EachPost.Site.Name == Site.SHARED
-                                 select EachPost).Count()
-                    where Count > 0
-                    select new {EachTag.Name, Count}).ToDictionary(x => x.Name, x => x.Count);
+            return (from tag in Session.Tags
+                    let count = tag.Posts.Count()
+                    where count > 0
+                    select new {tag.Name, count}).ToDictionary(x => x.Name, x => x.count);
         }
 
         #endregion
 
-        public override Expression<Func<Tag, bool>> NaturalKeyComparison(string TagName)
+        public override Expression<Func<Tag, bool>> NaturalKeyComparison(string slug)
         {
-            return x => x.Name == TagName;
+            return x => x.Name == slug;
         }
     }
 }

@@ -10,7 +10,7 @@
     <link href="@Url.Content("~/Content/jPicker/jPicker-1.1.6.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/jpicker-1.1.6.js")" type="text/javascript"> </script>
     <script type="text/javascript">
-        $(function () {
+        $(function() {
             var OutputControlContent = $('#OutputControl').html();
             var jPickerConfig = {
                 window: {
@@ -59,27 +59,19 @@
 
         select { width: 241px !important; }
 
-        .TheDisorganized
-        {
-            position: relative;
-        }
+        .TheDisorganized { position: relative; }
 
-        .OutputControl
-        {
-            width: 100%;
-            text-align: center;
+        .OutputControl {
             display: block;
+            text-align: center;
+            width: 100%;
         }
 
-        input[type="checkbox"]
-        {
-            margin-right: 20px;
-        }
+        input[type="checkbox"] { margin-right: 20px; }
     </style>
 }
-@using(Html.BeginForm("Cloud","Disorganizer", FormMethod.Post, new {id="DisorganizerTinker"}))
+@using (Html.BeginForm("Cloud", "Disorganizer", FormMethod.Post, new {id = "DisorganizerTinker"}))
 {
-    
     <div style="text-align: center">
         
         <div class="Field">

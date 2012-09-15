@@ -81,12 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CommentsExport.cs" />
-    <Compile Include="Utils\ChooseSite.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Utils\ChooseSite.Designer.cs">
-      <DependentUpon>ChooseSite.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utils\Death.cs" />
     <Compile Include="Utils\DevUtil.cs">
       <SubType>Form</SubType>
@@ -103,9 +97,6 @@
     <Compile Include="Utils\TagCloud.Designer.cs">
       <DependentUpon>TagCloud.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Utils\ChooseSite.resx">
-      <DependentUpon>ChooseSite.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Utils\DevUtil.resx">
       <DependentUpon>DevUtil.cs</DependentUpon>
     </EmbeddedResource>

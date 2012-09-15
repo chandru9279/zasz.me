@@ -19,9 +19,9 @@ namespace zasz.me.Integration.EntityFramework
 
         #endregion
 
-        public override Expression<Func<Passphrase, bool>> NaturalKeyComparison(string PhraseDigest)
+        public override Expression<Func<Passphrase, bool>> NaturalKeyComparison(string slug)
         {
-            return x => x.PhraseDigest == PhraseDigest;
+            return x => x.PhraseDigest == slug;
         }
     }
 }

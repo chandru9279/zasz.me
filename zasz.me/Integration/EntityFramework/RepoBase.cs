@@ -9,45 +9,45 @@ namespace zasz.me.Integration.EntityFramework
     public abstract class RepoBase<Model, NaturalKey> : IRepository<Model, NaturalKey>
         where Model : class, IModel, new()
     {
-        protected readonly DbSet<Model> _ModelSet;
-        protected readonly FullContext _Session;
+        protected readonly DbSet<Model> ModelSet;
+        protected readonly FullContext Session;
 
         protected RepoBase(FullContext Session)
         {
-            _Session = Session;
-            _ModelSet = _Session.Set<Model>();
+            this.Session = Session;
+            ModelSet = this.Session.Set<Model>();
         }
 
         #region IRepository<Model,NaturalKey> Members
 
-        public virtual Model Save(Model Instance)
+        public virtual Model Save(Model instance)
         {
-            if (Guid.Empty == Instance.Id) Instance.Id = Guid.NewGuid();
-            return _ModelSet.Add(Instance);
+            if (Guid.Empty == instance.Id) instance.Id = Guid.NewGuid();
+            return ModelSet.Add(instance);
         }
 
         /// <summary>
         /// When a model does not have a natural key, then Load() & Get() has the same functionality.
         /// </summary>
-        public Model Load(Guid Id)
+        public Model Load(Guid id)
         {
-            return _ModelSet.Find(Id);
+            return ModelSet.Find(id);
         }
 
-        public Model Get(NaturalKey NaturalKey)
+        public Model Get(NaturalKey mainProperty)
         {
-            return _ModelSet.Local.Where(NaturalKeyComparison(NaturalKey).Compile()).FirstOrDefault() ??
-                   _ModelSet.Where(NaturalKeyComparison(NaturalKey)).FirstOrDefault();
+            return ModelSet.Local.Where(NaturalKeyComparison(mainProperty).Compile()).FirstOrDefault() ??
+                   ModelSet.Where(NaturalKeyComparison(mainProperty)).FirstOrDefault();
         }
 
-        public void Delete(Model Entity)
+        public void Delete(Model entity)
         {
-            _ModelSet.Remove(Entity);
+            ModelSet.Remove(entity);
         }
 
         public long Count()
         {
-            return _ModelSet.Count();
+            return ModelSet.Count();
         }
 
         /// <summary>
@@ -56,11 +56,11 @@ namespace zasz.me.Integration.EntityFramework
         /// </summary>
         public void Commit()
         {
-            _Session.SaveChanges();
+            Session.SaveChanges();
         }
 
         #endregion
 
-        public abstract Expression<Func<Model, bool>> NaturalKeyComparison(NaturalKey MainProperty);
+        public abstract Expression<Func<Model, bool>> NaturalKeyComparison(NaturalKey slug);
     }
 }

@@ -1,8 +1,8 @@
-﻿@model zasz.me.ViewModels.PostListModel
+﻿@model zasz.me.ViewModels.PostListViewModel
 
 @{
-  ViewBag.Title = "Posts";
-  ViewBag.DescriptionLength = Model.DescriptionLength;
+    ViewBag.Title = "Posts";
+    ViewBag.DescriptionLength = Model.DescriptionLength;
 }
 
 @section Right{
@@ -11,17 +11,17 @@
 }
 
 
-<div class="Light-Message" style="float:left; font-size: 20px;">@Html.Raw(Model.WhatIsListed)</div>
-<div style="float:right;">@Model.GetPagingHtml(Request.Path)</div>
+<div class="Light-Message" style="float: left; font-size: 20px;">@Html.Raw(Model.WhatIsListed)</div>
+<div style="float: right;">@Model.GetPagingHtml(Request.Path)</div>
 <div class="Clear" ></div>
 @foreach (var Post in Model.Posts)
 {
     <div style="margin: 10px auto;">
         @Html.Partial("~/Views/Blog/_PostShortView.cshtml", Post)
-    </div>    
+    </div>
 }
-<div style="padding: 10px; margin: 20px auto;">
-@Model.GetPagingHtml(Request.Path)
+<div style="margin: 20px auto; padding: 10px;">
+    @Model.GetPagingHtml(Request.Path)
 </div>
 
 @section Bottom{

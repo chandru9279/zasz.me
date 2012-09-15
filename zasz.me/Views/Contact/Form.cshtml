@@ -3,49 +3,49 @@
 @{
     ViewBag.Title = "Form";
     var BoxAttribs = new {@class = "ProTextBox"};
-    var AreaAttribs = new {@class = "ProTextArea", rows=10};
-    
+    var AreaAttribs = new {@class = "ProTextArea", rows = 10};
+
 }
 
-<div style="margin:20px 40px">
-<h2> You can reach me by submiting this form, I will respond to it as soon as possible.</h2>
-<br />
-@using (Html.BeginForm(
-     null, null, FormMethod.Post,
-     new {@action="/Contact/Mail"}
-)){
-
-    <fieldset>        
-        <p>
-        @Html.LabelFor(M => M.Name)
-        @Html.ValidationMessageFor(M => M.Name)<br />
-        @Html.TextBoxFor(M => M.Name, BoxAttribs)<br />
-        </p>
+<div style="margin: 20px 40px">
+    <h2> You can reach me by submiting this form, I will respond to it as soon as possible.</h2>
+    <br />
+    @using (Html.BeginForm(
+        null, null, FormMethod.Post,
+        new {@action = "/Contact/Mail"}
+        ))
+    {
+        <fieldset>        
+            <p>
+                @Html.LabelFor(M => M.Name)
+                @Html.ValidationMessageFor(M => M.Name)<br />
+                @Html.TextBoxFor(M => M.Name, BoxAttribs)<br />
+            </p>
     
-        <p>
-        @Html.LabelFor(M => M.Email)
-        @Html.ValidationMessageFor(M => M.Email)<br />
-        @Html.TextBoxFor(M => M.Email, BoxAttribs)<br />
-        </p>
+            <p>
+                @Html.LabelFor(M => M.Email)
+                @Html.ValidationMessageFor(M => M.Email)<br />
+                @Html.TextBoxFor(M => M.Email, BoxAttribs)<br />
+            </p>
 
-        <p>
-        @Html.LabelFor(M => M.Website)
-        @Html.ValidationMessageFor(M => M.Website)<br />
-        @Html.TextBoxFor(M => M.Website, BoxAttribs)
-        <br />
-        </p>
+            <p>
+                @Html.LabelFor(M => M.Website)
+                @Html.ValidationMessageFor(M => M.Website)<br />
+                @Html.TextBoxFor(M => M.Website, BoxAttribs)
+                <br />
+            </p>
 
-        <p>
-        @Html.LabelFor(M => M.Message)
-        @Html.ValidationMessageFor(M => M.Message)<br />
-        @Html.TextAreaFor(M => M.Message, AreaAttribs)<br />
-        </p>    
-    </fieldset>    
-    <input type="submit" class="Pro-Button" value="Send Mail"/>
-}
+            <p>
+                @Html.LabelFor(M => M.Message)
+                @Html.ValidationMessageFor(M => M.Message)<br />
+                @Html.TextAreaFor(M => M.Message, AreaAttribs)<br />
+            </p>    
+        </fieldset>
+        <input type="submit" class="Pro-Button" value="Send Mail"/>
+    }
 </div>
 
 @section Right{
-<div class="Sidebar-Control">
-</div>
+    <div class="Sidebar-Control">
+    </div>
 }

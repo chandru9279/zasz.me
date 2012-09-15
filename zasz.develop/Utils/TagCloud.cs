@@ -22,7 +22,7 @@ namespace zasz.develop.Utils
 
         private void TagCloudLoad(object Sender, EventArgs E)
         {
-            string SystemPath = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\zasz.me\Content\Fonts";
+            var SystemPath = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\zasz.me\Content\Fonts";
             _Service = new FontsService();
             _Service.LoadFonts(SystemPath);
             FontsCombo.Items.AddRange(_Service.AvailableFonts.Keys.ToArray());
@@ -34,9 +34,9 @@ namespace zasz.develop.Utils
         private void GenerateClick(object Sender, EventArgs E)
         {
             Cloud.Controls.Clear();
-            string GenCloudSysPath = ConfigurationManager.AppSettings["ProjectRootPath"] +
-                                @"\zasz.develop\Data\TagCloud\Cloud.png";
-            Dictionary<string, int> Tags = Words.Lines.Select(
+            var GenCloudSysPath = ConfigurationManager.AppSettings["ProjectRootPath"] +
+                                  @"\zasz.develop\Data\TagCloud\Cloud.png";
+            var Tags = Words.Lines.Select(
                 Line => Line.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
                 .Where(Splits => Splits.Length == 2)
                 .ToDictionary(Splits => Splits[0], Splits => int.Parse(Splits[1]));
@@ -52,18 +52,18 @@ namespace zasz.develop.Utils
             if (null != StrategyCombo.SelectedItem)
                 TagCloudService.DisplayChoice = DisplayStrategy.Get(
                     (TagDisplayStrategy) Enum.Parse(typeof (TagDisplayStrategy), StrategyCombo.SelectedItem.ToString()));
-            Theme BgfgScheme = null != BgfgStrategyCombo.SelectedItem
-                                   ? (Theme) Enum.Parse(typeof (Theme), BgfgStrategyCombo.SelectedItem.ToString())
-                                   : Theme.LightBgDarkFg;
-            Style FgScheme = null != FgStrategyCombo.SelectedItem
-                                 ? (Style) Enum.Parse(typeof (Style), FgStrategyCombo.SelectedItem.ToString())
-                                 : Style.Varied;
+            var BgfgScheme = null != BgfgStrategyCombo.SelectedItem
+                                 ? (Theme) Enum.Parse(typeof (Theme), BgfgStrategyCombo.SelectedItem.ToString())
+                                 : Theme.LightBgDarkFg;
+            var FgScheme = null != FgStrategyCombo.SelectedItem
+                               ? (Style) Enum.Parse(typeof (Style), FgStrategyCombo.SelectedItem.ToString())
+                               : Style.Varied;
             TagCloudService.ColorChoice = ColorStrategy.Get(BgfgScheme, FgScheme, _Bg, _Fg);
             TagCloudService.VerticalTextRight = VerticalTextRight.Checked;
             TagCloudService.ShowWordBoundaries = ShowBoundaries.Checked;
             TagCloudService.Crop = Cropper.Checked;
             Dictionary<string, RectangleF> Borders;
-            Bitmap Bitmap = TagCloudService.Construct(out Borders);
+            var Bitmap = TagCloudService.Construct(out Borders);
             Skipped.Text = string.Join("; ", TagCloudService.WordsSkipped.Select(x => x.Key));
             Bitmap.Save(GenCloudSysPath, ImageFormat.Png);
             Cloud.Image = Bitmap;
@@ -72,15 +72,15 @@ namespace zasz.develop.Utils
 
         private Control GetBorder(RectangleF Borders)
         {
-            Rectangle It = Rectangle.Round(Borders);
-            Label Border = new Label
-                               {
-                                   Top = It.Top,
-                                   Left = It.Left,
-                                   Width = It.Width,
-                                   Height = It.Height,
-                                   BackColor = Color.FromArgb(0, Color.White)
-                               };
+            var It = Rectangle.Round(Borders);
+            var Border = new Label
+                             {
+                                 Top = It.Top,
+                                 Left = It.Left,
+                                 Width = It.Width,
+                                 Height = It.Height,
+                                 BackColor = Color.FromArgb(0, Color.White)
+                             };
             Border.MouseEnter += OnEnter;
             Border.MouseLeave += OnLeave;
             return Border;
@@ -88,12 +88,12 @@ namespace zasz.develop.Utils
 
         private void OnEnter(object Sender, EventArgs E)
         {
-            ((Label)Sender).BorderStyle = BorderStyle.FixedSingle;
+            ((Label) Sender).BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void OnLeave(object Sender, EventArgs E)
         {
-            ((Label)Sender).BorderStyle = BorderStyle.None;
+            ((Label) Sender).BorderStyle = BorderStyle.None;
         }
 
         private void SetBgClick(object Sender, EventArgs E)

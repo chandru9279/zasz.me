@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using zasz.me.Integration.MVC;
 using zasz.me.Services.Contracts;
 
@@ -32,21 +31,9 @@ namespace zasz.me.Controllers
             return View(searchResults);
         }
 
-        public JsonResult Autocomplete(string term)
+        public ContentResult Autocomplete(string term)
         {
-            var suggestions = search.AutoComplete(term);
-            var startIndex = suggestions.IndexOf('[');
-            var endIndex = suggestions.IndexOf(']');
-            var list = suggestions.Substring(startIndex + 1, endIndex - startIndex);
-            var send = new string[0];
-            if (list.Length > 0)
-            {
-                var strings = list.Split(new[] {'\"'}, StringSplitOptions.RemoveEmptyEntries);
-                send = new string[strings.Length/2];
-                for (var I = 0; I < strings.Length/2; I++)
-                    send[I] = strings[I*2];
-            }
-            return Json(send, JsonRequestBehavior.AllowGet);
+            return Content(search.AutoComplete(term), "application/json");
         }
     }
 }

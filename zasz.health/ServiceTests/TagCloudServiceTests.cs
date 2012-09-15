@@ -55,8 +55,8 @@ namespace zasz.health.ServiceTests
             Assert.Equal(P(0, 0), _Service.GetSpiralNext(P(0, 4)));
             Assert.Equal(P(5, 0), _Service.GetSpiralNext(P(0, 0)));
         }
-        
-        
+
+
         [Fact]
         public void TestGetNextPointInEdge()
         {
@@ -99,7 +99,7 @@ namespace zasz.health.ServiceTests
             Assert.Equal(P(3, 0), _Service.GetNextPointInEdge(P(2, 0)));
             Assert.Equal(P(4, 0), _Service.GetNextPointInEdge(P(3, 0)));
             Assert.Equal(P(5, 0), _Service.GetNextPointInEdge(P(4, 0)));
-        } 
+        }
 
         /**
          * 

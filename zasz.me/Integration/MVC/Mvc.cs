@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Domain = zasz.me.Models.Site;
 
 namespace zasz.me.Integration.MVC
 {
@@ -20,24 +19,24 @@ namespace zasz.me.Integration.MVC
             Routes.IgnoreRoute("Uploads/{*AnyFile}");
             Routes.IgnoreRoute("Integration/ckeditor");
             Routes.MapRoute("Favicon", "favicon.ico",
-                            new {Controller = "Indirection", Action = "Favicon"}).DataTokens["area"] = "Shared";
+                            new {controller = "Indirection", action = "Favicon"}).DataTokens["area"] = "Shared";
 
             Routes.MapRoute(
                 "TagRouting",
-                "Blog/Tag/{TagName}/{PageNumber}",
-                new {Controller = "Blog", Action = "Tag", PageNumber = UrlParameter.Optional}
+                "Blog/Tag/{tag}/{page}",
+                new {controller = "Blog", action = "Tag", page = UrlParameter.Optional}
                 );
 
             Routes.MapRoute(
                 "ArchiveRouting",
-                "Blog/Archive/{Year}/{Month}",
-                new {Controller = "Blog", Action = "Archive"}
+                "Blog/Archive/{year}/{month}",
+                new {controller = "Blog", action = "Archive"}
                 );
 
             Routes.MapRoute(
                 "Usual",
-                "{Controller}/{Action}/{Id}",
-                new {Controller = "Home", Action = "Default", Id = UrlParameter.Optional}
+                "{controller}/{action}/{id}",
+                new {controller = "Home", action = "Default", id = UrlParameter.Optional}
                 );
 
             Routes.MapRoute(
@@ -52,21 +51,21 @@ namespace zasz.me.Integration.MVC
         private static void SetupRazor()
         {
             ViewEngines.Engines.Clear();
-            var Razor = new RazorViewEngine();
-            var AreaViewLocations = new string[0];
+            var razor = new RazorViewEngine();
+            var areaViewLocations = new string[0];
             // Not using areas, not using vbhtmls.
-            var ViewLocations = new[]
+            var viewLocations = new[]
                                     {
                                         "~/Views/{1}/{0}.cshtml",
                                         "~/Views/Shared/{0}.cshtml"
                                     };
-            Razor.AreaMasterLocationFormats = AreaViewLocations;
-            Razor.AreaPartialViewLocationFormats = AreaViewLocations;
-            Razor.AreaViewLocationFormats = AreaViewLocations;
-            Razor.MasterLocationFormats = ViewLocations;
-            Razor.PartialViewLocationFormats = ViewLocations;
-            Razor.ViewLocationFormats = ViewLocations;
-            ViewEngines.Engines.Add(Razor);
+            razor.AreaMasterLocationFormats = areaViewLocations;
+            razor.AreaPartialViewLocationFormats = areaViewLocations;
+            razor.AreaViewLocationFormats = areaViewLocations;
+            razor.MasterLocationFormats = viewLocations;
+            razor.PartialViewLocationFormats = viewLocations;
+            razor.ViewLocationFormats = viewLocations;
+            ViewEngines.Engines.Add(razor);
         }
     }
 }

@@ -119,11 +119,14 @@
     <Compile Include="Integration\Solr\Solr.cs" />
     <Compile Include="Integration\Unity\SingletonPerRequest.cs" />
     <Compile Include="Integration\Unity\UnityDependencyResolver.cs" />
+    <Compile Include="Migrations\201209151757599_RemoveSite.cs" />
+    <Compile Include="Migrations\201209151757599_RemoveSite.Designer.cs">
+      <DependentUpon>201209151757599_RemoveSite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Passphrase.cs" />
     <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\Site.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="ViewModels\BrowseViewModel.cs" />
     <Compile Include="ViewModels\ContactViewModel.cs" />
@@ -171,7 +174,7 @@
     <Compile Include="Services\Concrete\SolrSearchService.cs" />
     <Compile Include="Services\TagCloud\TagCloudService.cs" />
     <Compile Include="Services\TagCloud\DisplayStrategy.cs" />
-    <Compile Include="ViewModels\PostListModel.cs" />
+    <Compile Include="ViewModels\PostListViewModel.cs" />
     <Compile Include="ViewModels\UploadViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -396,6 +399,9 @@
     <EmbeddedResource Include="Migrations\201209021728521_InitialCreate.resx">
       <DependentUpon>201209021728521_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201209151757599_RemoveSite.resx">
+      <DependentUpon>201209151757599_RemoveSite.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -430,7 +436,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>4060</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:4000/</IISUrl>
+          <IISUrl>http://localhost:5050/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

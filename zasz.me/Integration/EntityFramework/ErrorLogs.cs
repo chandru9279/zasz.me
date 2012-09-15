@@ -8,32 +8,32 @@ namespace zasz.me.Integration.EntityFramework
 {
     public class ErrorLogs : RepoBase<Log, Guid>, ILogsRepository
     {
-        public ErrorLogs(FullContext Session) : base(Session)
+        public ErrorLogs(FullContext session) : base(session)
         {
         }
 
         #region ILogsRepository Members
 
-        public override Log Save(Log Instance)
+        public override Log Save(Log instance)
         {
             using (var NewTransaction = new FullContext())
             {
-                NewTransaction.ErrorLogs.Add(Instance);
+                NewTransaction.ErrorLogs.Add(instance);
                 NewTransaction.SaveChanges();
             }
-            return Instance;
+            return instance;
         }
 
         public List<Log> Page(int PageNumber, int PageSize)
         {
-            return _ModelSet.OrderBy(Model => Model.Id).Skip(PageNumber*PageSize).Take(PageSize).ToList();
+            return ModelSet.OrderBy(Model => Model.Id).Skip(PageNumber*PageSize).Take(PageSize).ToList();
         }
 
         #endregion
 
-        public override Expression<Func<Log, bool>> NaturalKeyComparison(Guid Id)
+        public override Expression<Func<Log, bool>> NaturalKeyComparison(Guid slug)
         {
-            return x => x.Id == Id;
+            return x => x.Id == slug;
         }
     }
 }

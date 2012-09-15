@@ -64,10 +64,10 @@ namespace zasz.develop.Data
             if (String.IsNullOrEmpty(FolderSystemPath))
                 Die("Null Path");
 
-            string[] Files = Directory.GetFiles(FolderSystemPath);
-            IEnumerable<string> XmlFiles = from AFile in Files
-                                           where AFile.EndsWith(".xml")
-                                           select AFile;
+            var Files = Directory.GetFiles(FolderSystemPath);
+            var XmlFiles = from AFile in Files
+                           where AFile.EndsWith(".xml")
+                           select AFile;
 
             if (XmlFiles.Count() == 0)
                 Die("No XML Files found");
@@ -81,25 +81,25 @@ namespace zasz.develop.Data
             WXR = new XmlDocument();
             WXR.AppendChild(WXR.CreateNode(XmlNodeType.XmlDeclaration, null, null));
 
-            XmlElement Rss = XElement("rss");
+            var Rss = XElement("rss");
             foreach (var Itm in Namespaces)
                 Rss.SetAttribute("xmlns:" + Itm.Key, Itm.Value);
 
             WXR.AppendChild(Rss);
 
-            XmlElement Root = XElement("channel");
+            var Root = XElement("channel");
             Rss.AppendChild(Root);
 
 
-            foreach (string PostFile in XmlFiles)
+            foreach (var PostFile in XmlFiles)
             {
                 Log("Working on file : " + PostFile);
                 var PostDoc = new XmlDocument();
                 PostDoc.Load(PostFile);
-                string Title = get(PostDoc, "post/title");
-                string Slug = get(PostDoc, "post/slug");
+                var Title = get(PostDoc, "post/title");
+                var Slug = get(PostDoc, "post/slug");
                 Log("Title : " + Title);
-                XmlElement Item = XElement("item");
+                var Item = XElement("item");
                 Root.AppendChild(Item);
 
                 Item.AppendChild(XElement("title", Title));
@@ -115,7 +115,7 @@ namespace zasz.develop.Data
 
                 foreach (XmlNode node in PostDoc.SelectNodes("post/comments/comment"))
                 {
-                    AkismetComment Comment = new AkismetComment();
+                    var Comment = new AkismetComment();
                     Comment.Blog = "http://www.chandruon.net/ZaszBlog";
                     Comment.UserIp = get(node, "ip");
                     Comment.CommentContent = get(node, "content");
@@ -129,13 +129,13 @@ namespace zasz.develop.Data
 //                        SpamAmount.PerformStep();
 //                        continue;
 //                    }
-                    XmlElement Cmt = XElement("wp:comment");
+                    var Cmt = XElement("wp:comment");
                     Cmt.AppendChild(XElement("wp:comment_id", (++_commentCount).ToString()));
                     Cmt.AppendChild(XElement("wp:comment_author", WXR.CreateCDataSection(Comment.CommentAuthor)));
                     Cmt.AppendChild(XElement("wp:comment_author_email", Comment.CommentAuthorEmail));
                     Cmt.AppendChild(XElement("wp:comment_author_url", Comment.CommentAuthorUrl));
                     Cmt.AppendChild(XElement("wp:comment_author_IP", Comment.UserIp));
-                    string Date = DateTime.Parse(get(node, "date")).ToString(DATE_FORMAT);
+                    var Date = DateTime.Parse(get(node, "date")).ToString(DATE_FORMAT);
                     Cmt.AppendChild(XElement("wp:comment_date", Date));
                     Cmt.AppendChild(XElement("wp:comment_date_gmt", Date));
                     Cmt.AppendChild(XElement("wp:comment_content", WXR.CreateCDataSection(Comment.CommentContent)));
@@ -149,22 +149,22 @@ namespace zasz.develop.Data
 
         private static string get(XmlNode Node, string Element)
         {
-            XmlNode SingleNode = Node.SelectSingleNode(Element);
+            var SingleNode = Node.SelectSingleNode(Element);
             return SingleNode == null ? "" : SingleNode.InnerText;
         }
 
 
         private XmlElement XElement(string Name, string Value, params XmlAttribute[] Attributes)
         {
-            XmlElement E = Name.IndexOf(':') != -1
-                               ? WXR.CreateElement(Name, Namespaces[Name.Split(':')[0]])
-                               : WXR.CreateElement(Name);
+            var E = Name.IndexOf(':') != -1
+                        ? WXR.CreateElement(Name, Namespaces[Name.Split(':')[0]])
+                        : WXR.CreateElement(Name);
 
             if (Value != null)
                 E.InnerText = Value;
 
             if (Attributes != null)
-                foreach (XmlAttribute atr in Attributes)
+                foreach (var atr in Attributes)
                     E.Attributes.Append(atr);
 
             return E;
@@ -184,7 +184,7 @@ namespace zasz.develop.Data
             else e = WXR.CreateElement(name);
 
             if (childs != null)
-                foreach (XmlLinkedNode child in childs)
+                foreach (var child in childs)
                     e.AppendChild(child);
 
             return e;

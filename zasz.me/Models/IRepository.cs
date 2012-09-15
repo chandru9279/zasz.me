@@ -12,13 +12,13 @@ namespace zasz.me.Models
     /// <typeparam name = "Model">The Model for which the implementation is the Repository</typeparam>
     public interface IRepository<Model, NaturalKeyType> where Model : IModel
     {
-        Model Save(Model Instance);
+        Model Save(Model instance);
 
-        Model Load(Guid Id);
+        Model Load(Guid id);
 
-        Model Get(NaturalKeyType MainProperty);
+        Model Get(NaturalKeyType mainProperty);
 
-        void Delete(Model Entity);
+        void Delete(Model entity);
 
         long Count();
 

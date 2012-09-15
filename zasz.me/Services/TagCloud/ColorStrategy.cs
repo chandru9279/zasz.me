@@ -37,9 +37,9 @@ namespace zasz.me.Services.TagCloud
                             : Foreground.Lighten();
             if (Background.A != 255) /* Not interfering with any transparent color */
                 return _Set[TheStyle](Background, FgHsl, TheTheme);
-            HslColor BgHsl = (TheTheme == Theme.LightBgDarkFg)
-                                 ? Background.Lighten()
-                                 : Background.Darken();
+            var BgHsl = (TheTheme == Theme.LightBgDarkFg)
+                            ? Background.Lighten()
+                            : Background.Darken();
             return _Set[TheStyle]((Color) BgHsl, FgHsl, TheTheme);
         }
 

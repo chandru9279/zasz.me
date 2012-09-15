@@ -1,11 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Web.Mvc;
 using Xunit;
 using zasz.me.Integration.MVC;
-using System.Diagnostics;
-using System;
-using System.Web.Mvc;
 using zasz.me.Models;
 
 namespace zasz.health.ControllerTests
@@ -15,22 +15,22 @@ namespace zasz.health.ControllerTests
         [Fact]
         public void ShouldEnsureAllControllersExtendFromTheBaseController()
         {
-            var BaseType = typeof (BaseController);
-            var AllControllers = (from EachType in Assembly.GetAssembly(BaseType).GetTypes()
-                                  where EachType.Name.EndsWith("Controller")
-                                  select EachType).ToList();
-            var CriminalControllers = AllControllers.FindAll(C => !BaseType.IsAssignableFrom(C));
-            CriminalControllers.ForEach(C => Debug.WriteLine(C.FullName));
-            Assert.True(CriminalControllers.Count == 0);
+            var baseType = typeof (BaseController);
+            var allControllers = (from type in Assembly.GetAssembly(baseType).GetTypes()
+                                  where type.Name.EndsWith("Controller")
+                                  select type).ToList();
+            var criminalControllers = allControllers.FindAll(c => !baseType.IsAssignableFrom(c));
+            criminalControllers.ForEach(c => Debug.WriteLine(c.FullName));
+            Assert.True(criminalControllers.Count == 0);
         }
 
         [Fact]
         public void ExpressionTest()
         {
-            string Name = Extensions.Name(X => X.Id);
-            Assert.Equal(Name, "Id");
-            Assert.Equal(Extensions.Name(X => X.Content), "Content");
-            Assert.Equal(Extensions.PropertyInfo(X => X.Content).Name, "Content");
+            var name = Extensions.Name(x => x.Id);
+            Assert.Equal(name, "Id");
+            Assert.Equal(Extensions.Name(x => x.Content), "Content");
+            Assert.Equal(Extensions.PropertyInfo(x => x.Content).Name, "Content");
         }
 
         [Fact]

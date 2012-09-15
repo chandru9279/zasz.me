@@ -2,7 +2,7 @@
 
 namespace zasz.develop.Utils
 {
-    class Death : Exception
+    internal class Death : Exception
     {
         public Death(string message) : base(message)
         {

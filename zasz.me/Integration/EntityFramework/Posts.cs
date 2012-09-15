@@ -13,78 +13,64 @@ namespace zasz.me.Integration.EntityFramework
 
     public class Posts : RepoBase<Post, string>, IPostRepository
     {
-        public Posts(FullContext Session)
-            : base(Session)
+        public Posts(FullContext session)
+            : base(session)
         {
         }
 
         #region IPostRepository Members
 
-        public List<Post> Page(int PageNumber, int PageSize)
+        public List<Post> Page(int pageNumber, int pageSize)
         {
-            return _ModelSet.OrderByDescending(Model => Model.Timestamp)
-                .Skip(PageNumber*PageSize)
-                .Take(PageSize).ToList();
+            return ModelSet.OrderByDescending(model => model.Timestamp)
+                .Skip(pageNumber*pageSize)
+                .Take(pageSize).ToList();
         }
 
-        /// <param name = "PageNumber">Zero-Based Index</param>
-        public List<Post> Page(int PageNumber, int PageSize, Site ProOrRest)
+        public List<Post> Archive(int year, int month)
         {
-            return (from Model in _ModelSet
-                    where Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED
-                    orderby Model.Timestamp descending
-                    select Model).Skip(PageNumber*PageSize).Take(PageSize).ToList();
-        }
-
-        public List<Post> Archive(int Year, int Month, Site ProOrRest)
-        {
-            return (from Model in _ModelSet
-                    where (Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED)
-                          && Model.Timestamp.Year == Year && Model.Timestamp.Month == Month
-                    select Model).ToList();
-        }
-
-        public int Count(Site ProOrRest)
-        {
-            return _ModelSet.Where(Model => Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED).Count();
+            return (from model in ModelSet
+                    where model.Timestamp.Year == year && model.Timestamp.Month == month
+                    select model).ToList();
         }
 
         /// <returns> A Dictionary of year as Key and the list of formatted months on which posts have been published as value</returns>
-        public Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped(Site ProOrRest)
+        public Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped()
         {
-            var Dates = (from Model in _ModelSet
-                         where Model.Site.Name == ProOrRest.Name || Model.Site.Name == Site.SHARED
-                         select Model.Timestamp).ToList();
+            var dates = (from model in ModelSet
+                         select model.Timestamp).ToList();
 
-            var GroupingByYear = from Date in Dates
-                                 orderby Date.Year descending
-                                 group Date by Date.Year
-                                 into YearGroup
+            var groupingByYear = from date in dates
+                                 orderby date.Year descending
+                                 group date by date.Year
+                                 into yearGroup
                                  select new
                                             {
-                                                Year = YearGroup.Key,
-                                                Formatted = from Date in YearGroup
-                                                            orderby Date.Month descending
-                                                            group Date by Date.Month
-                                                            into MonthGroup
+                                                Year = yearGroup.Key,
+                                                Formatted = from date in yearGroup
+                                                            orderby date.Month descending
+                                                            group date by date.Month
+                                                            into monthGroup
                                                             select new
                                                                        {
                                                                            DateString =
-                                                                string.Format("{0:MMMM yyyy}", MonthGroup.First()),
-                                                                           Count = MonthGroup.Count()
+                                                                string.Format("{0:MMMM yyyy}", monthGroup.First()),
+                                                                           Count = monthGroup.Count()
                                                                        }
                                             };
 
-            return GroupingByYear.ToDictionary(x => x.Year,
-                                               It =>
-                                               It.Formatted.ToDictionary(Month => Month.DateString, Month => Month.Count));
+            return groupingByYear.ToDictionary(x => x.Year,
+                                               x => x.Formatted.ToDictionary(
+                                                   month => month.DateString,
+                                                   month => month.Count
+                                                        ));
         }
 
         #endregion
 
-        public override Expression<Func<Post, bool>> NaturalKeyComparison(string Slug)
+        public override Expression<Func<Post, bool>> NaturalKeyComparison(string slug)
         {
-            return x => x.Slug == Slug;
+            return x => x.Slug == slug;
         }
     }
 }

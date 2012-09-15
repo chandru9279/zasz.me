@@ -10,12 +10,12 @@ namespace zasz.me.Services.Contracts
         /// <summary>
         /// Browses a given folder with thumbnails and FileUrls
         /// </summary>
-        /// <param name="Organization">Parameter specifying which folder, many organizations can be defined in the Uploads section in the configuration</param>
+        /// <param name="organization">Parameter specifying which folder, many organizations can be defined in the Uploads section in the configuration</param>
         /// <returns>Returns a table of Thumbnail URLs & Actual File URLs that are present in the folder</returns>
-        Pairs<string, string> Browse(string Organization);
+        Pairs<string, string> Browse(string organization);
 
-        void Delete(string FilepathAppRelative);
+        void Delete(string filepathAppRelative);
 
-        string Upload(HttpPostedFileBase UploadedFile);
+        string Upload(HttpPostedFileBase uploadedFile);
     }
 }
