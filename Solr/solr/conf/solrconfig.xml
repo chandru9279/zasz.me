@@ -78,12 +78,15 @@
       <int name="hl.fragsize">150</int>
       <!-- spellchecking params -->
       <str name="spellcheck">true</str>
+      <str name="spellcheck.dictionary">spellchecker</str>
+      <str name="spellcheck.onlyMorePopular">true</str>
       <str name="spellcheck.collate">false</str>
+      <str name="spellcheck.count">3</str>
     </lst>
     <arr name="components">
       <str>query</str>
       <str>highlight</str>
-      <!-- <str>spellchecker</str>       -->
+      <str>spellchecker</str>      
     </arr>
   </requestHandler>
 
@@ -100,6 +103,7 @@
   <requestHandler class="org.apache.solr.handler.component.SearchHandler" name="/autosuggest">
     <lst name="invariants">
       <str name="spellcheck">true</str>
+      <str name="spellcheck.dictionary">suggester</str>
       <str name="spellcheck.onlyMorePopular">true</str>
       <str name="spellcheck.count">10</str>
     </lst>
@@ -143,22 +147,20 @@
     </lst>
   </requestHandler>
   
-  <!-- <searchComponent name="spellchecker" class="solr.SpellCheckComponent">
+  <searchComponent name="spellchecker" class="solr.SpellCheckComponent">
     <str name="queryAnalyzerFieldType">WholeWordsType</str>
     <lst name="spellchecker">
       <str name="name">spellchecker</str>
       <str name="field">Whole_Words</str>
       <str name="buildOnCommit">true</str>
       <str name="buildOnOptimize">true</str>
-      <str name="spellcheckIndexDir">./spellchecker</str>
     </lst>
-  </searchComponent> -->
+  </searchComponent>
 
   <searchComponent name="suggester" class="solr.SpellCheckComponent">
     <str name="queryAnalyzerFieldType">WholeWordsType</str>
     <lst name="spellchecker">
       <str name="name">suggester</str>
-      <str name="spellcheckIndexDir">./solr/data/suggester</str>
       <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
       <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>      
       <str name="field">Whole_Words</str>

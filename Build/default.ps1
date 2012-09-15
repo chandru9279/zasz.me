@@ -96,11 +96,23 @@ task solrx -precondition { return Test-Solr } {
 	Write-Host -ForegroundColor Green "Solr stopped now."
 }
 
-task reindex -precondition { return Test-Solr } { 
+task reindex -depends reload { 
 	$url = 'http://localhost:5000/solr/dataimport?verbose=true&clean=true&commit=true&command=full-import'  
 	$xml = Get-Url $url 'Full Import with clean failed!'
 	if([string]::IsNullOrEmpty($xml)) { throw 'Returned xml is null ' } else { Write-Host "`r`n`r`n$xml" }
-	Open-Solr "http://localhost:5000/solr/admin/dataimport.jsp?handler=/dataimport"
+	
+	$state = Get-State
+	if(-not $state.SolrDataImportOpened) {
+		Open-Solr "http://localhost:5000/solr/admin/dataimport.jsp?handler=/dataimport"
+		$state.SolrDataImportOpened = $true
+		Set-State $state
+	}
+}
+
+task reload -precondition { return Test-Solr } { 	
+	$url = 'http://localhost:5000/solr/admin/cores?action=RELOAD&core=zasz.me.core'
+	$xml = Get-Url $url 'Reload configuration failed!'
+	if([string]::IsNullOrEmpty($xml)) { throw 'Returned xml is null ' } else { Write-Host "`r`n`r`n$xml" }	
 }
 
 task solrclean { 
