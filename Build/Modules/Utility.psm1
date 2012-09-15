@@ -88,8 +88,10 @@ function Get-State
 {	
 	[PSObject] $state = @{}
 	if(Test-Path $StateFile) {		
-		$json = Get-Content $StateFile		
-		$state = ConvertFrom-Json "$json"
+		$json = Get-Content $StateFile
+		$stateObject = ConvertFrom-Json "$json"
+		$state = @{}
+		$stateObject.PSObject.Properties | % { $state[$_.Name] = $_.Value }
 		if(((Get-Date) - [DateTime]::Parse($state.Timestamp)).TotalHours -le $Expires) {
 			Write-Host -ForegroundColor Yellow "State hasn't expired";
 			return $state

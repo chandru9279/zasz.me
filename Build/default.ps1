@@ -143,5 +143,6 @@ task packages {
 
 
 task s {	
-	Get-State | Write-Host
+	$state = Get-State 
+	$state.Keys | % { Write-Host "$_ :" $state[$_] }
 }
