@@ -4,7 +4,6 @@ using Microsoft.Practices.ServiceLocation;
 using SolrNet;
 using SolrNet.Commands.Parameters;
 using SolrNet.DSL;
-using SolrNet.Mapping.Validation;
 using zasz.me.Models;
 using zasz.me.Services.Contracts;
 

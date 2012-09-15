@@ -83,7 +83,7 @@
     <arr name="components">
       <str>query</str>
       <str>highlight</str>
-      <str>spellchecker</str>      
+      <!-- <str>spellchecker</str>       -->
     </arr>
   </requestHandler>
 
@@ -97,17 +97,14 @@
     <str name="mlt.fl">Post_Title, Post_Content</str>
   </requestHandler>
 
-  <requestHandler name="/autocomplete" class="solr.SearchHandler">
-    <lst name="defaults">
-      <str name="terms.regex.flag">case_insensitive</str>
-    </lst>
+  <requestHandler class="org.apache.solr.handler.component.SearchHandler" name="/autosuggest">
     <lst name="invariants">
-      <str name="terms.fl">Whole_Words</str>
-      <str name="wt">json</str>
-      <bool name="terms">true</bool>
+      <str name="spellcheck">true</str>
+      <str name="spellcheck.onlyMorePopular">true</str>
+      <str name="spellcheck.count">10</str>
     </lst>
     <arr name="components">
-      <str>terms</str>
+      <str>suggester</str>
     </arr>
   </requestHandler>
 
@@ -146,12 +143,27 @@
     </lst>
   </requestHandler>
   
-  <searchComponent name="spellchecker" class="solr.SpellCheckComponent">
+  <!-- <searchComponent name="spellchecker" class="solr.SpellCheckComponent">
     <str name="queryAnalyzerFieldType">WholeWordsType</str>
     <lst name="spellchecker">
-      <str name="name">default</str>
+      <str name="name">spellchecker</str>
       <str name="field">Whole_Words</str>
       <str name="buildOnCommit">true</str>
+      <str name="buildOnOptimize">true</str>
+      <str name="spellcheckIndexDir">./spellchecker</str>
+    </lst>
+  </searchComponent> -->
+
+  <searchComponent name="suggester" class="solr.SpellCheckComponent">
+    <str name="queryAnalyzerFieldType">WholeWordsType</str>
+    <lst name="spellchecker">
+      <str name="name">suggester</str>
+      <str name="spellcheckIndexDir">./solr/data/suggester</str>
+      <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
+      <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>      
+      <str name="field">Whole_Words</str>
+      <str name="buildOnCommit">true</str>
+      <str name="buildOnOptimize">true</str>
     </lst>
   </searchComponent>
   

@@ -7,11 +7,11 @@ namespace zasz.me.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly ISearchService _Search;
+        private readonly ISearchService search;
 
-        public HomeController(ISearchService Service)
+        public HomeController(ISearchService service)
         {
-            _Search = Service;
+            search = service;
         }
 
         [DefaultAction]
@@ -25,28 +25,28 @@ namespace zasz.me.Controllers
             return View();
         }
 
-        public ViewResult Search(string Search)
+        public ViewResult Search(string term)
         {
-            var SearchResults = _Search.Search(Search);
-            SearchResults.Query = Search;
-            return View(SearchResults);
+            var searchResults = search.Search(term);
+            searchResults.Query = term;
+            return View(searchResults);
         }
 
-        public JsonResult Autocomplete([Bind(Prefix = "term")] string Input)
+        public JsonResult Autocomplete(string term)
         {
-            var Suggestions = _Search.AutoComplete(Input);
-            var StartIndex = Suggestions.IndexOf('[');
-            var EndIndex = Suggestions.IndexOf(']');
-            var List = Suggestions.Substring(StartIndex + 1, EndIndex - StartIndex);
-            var Send = new string[0];
-            if (List.Length > 0)
+            var suggestions = search.AutoComplete(term);
+            var startIndex = suggestions.IndexOf('[');
+            var endIndex = suggestions.IndexOf(']');
+            var list = suggestions.Substring(startIndex + 1, endIndex - startIndex);
+            var send = new string[0];
+            if (list.Length > 0)
             {
-                var Strings = List.Split(new[] {'\"'}, StringSplitOptions.RemoveEmptyEntries);
-                Send = new string[Strings.Length/2];
-                for (var I = 0; I < Strings.Length/2; I++)
-                    Send[I] = Strings[I*2];
+                var strings = list.Split(new[] {'\"'}, StringSplitOptions.RemoveEmptyEntries);
+                send = new string[strings.Length/2];
+                for (var I = 0; I < strings.Length/2; I++)
+                    send[I] = strings[I*2];
             }
-            return Json(Send, JsonRequestBehavior.AllowGet);
+            return Json(send, JsonRequestBehavior.AllowGet);
         }
     }
 }
