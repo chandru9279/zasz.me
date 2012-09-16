@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.me", "zasz.me\zasz.me.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.health", "zasz.health\zasz.health.csproj", "{AC97B18E-27FE-4B35-B757-3E361D073839}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zasz.develop", "zasz.develop\zasz.develop.csproj", "{1F3066B6-6786-42F4-95A3-34EC0AD183B7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Dev|Any CPU = Dev|Any CPU
@@ -20,9 +18,6 @@ Global
 		{AC97B18E-27FE-4B35-B757-3E361D073839}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
 		{AC97B18E-27FE-4B35-B757-3E361D073839}.Dev|Any CPU.Build.0 = Dev|Any CPU
 		{AC97B18E-27FE-4B35-B757-3E361D073839}.Server|Any CPU.ActiveCfg = Dev|Any CPU
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Dev|Any CPU.Build.0 = Dev|Any CPU
-		{1F3066B6-6786-42F4-95A3-34EC0AD183B7}.Server|Any CPU.ActiveCfg = Dev|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

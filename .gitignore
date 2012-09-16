@@ -8,13 +8,16 @@
 *.db
 *.sublime-workspace
 
-packages/
+packages/*
+!packages/repositories.config
+!packages/lib/
+
 Out/
 _ReSharper.zasz.me/
 
 zasz.me/Uploads/
-zasz.develop/SampleData/TagCloud/
 
-Solr/logs/
-Solr/work/
-Solr/solr/data/
+solr/logs/
+solr/work/
+solr/solr/data/
+solr/solr/conf/dataimport.properties

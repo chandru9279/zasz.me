@@ -16,6 +16,15 @@ namespace zasz.me.Integration.EntityFramework
 
     public class FullContext : DbContext
     {
+        public FullContext()
+            : this("FullContext")
+        {
+        }
+
+        protected FullContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        {
+        }
+
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<Passphrase> Vault { get; set; }
