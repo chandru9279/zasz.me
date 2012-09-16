@@ -56,6 +56,15 @@
     <ApplicationIcon>Content\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CoffeeScriptHttpHandler">
+      <HintPath>..\packages\CoffeeSharp.0.5\lib\CoffeeScriptHttpHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="CoffeeSharp">
+      <HintPath>..\packages\CoffeeSharp.0.5\lib\CoffeeSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="dotless.Core">
+      <HintPath>..\packages\dotless.1.3.0.5\lib\dotless.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -67,6 +76,9 @@
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Jurassic">
+      <HintPath>..\packages\CoffeeSharp.0.5\lib\Jurassic.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -194,7 +206,7 @@
     <Content Include="Content\Images\stackoverflow.png" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
     <Content Include="Content\Blog.css" />
-    <Content Include="Content\Layout.css" />
+    <None Include="Content\Layout.less" />
     <Content Include="Content\Admin.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -322,10 +334,14 @@
     <Content Include="Content\ForHtmlHelpers.css" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\jpicker-1.1.6.js" />
+    <Content Include="Scripts\Scripts.js">
+      <DependentUpon>Scripts.coffee</DependentUpon>
+    </Content>
     <Content Include="Views\Blog\TagCloudLinks.cshtml" />
     <Content Include="Views\Shared\Facebook.cshtml" />
     <Content Include="Views\Shared\Twitter.cshtml" />
     <Content Include="Views\Disorganizer\Links.cshtml" />
+    <Content Include="Scripts\Scripts.coffee" />
     <None Include="Scripts\jquery-1.8.0-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
@@ -337,7 +353,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery.watermark.min.js" />
-    <Content Include="Scripts\MyScripts.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

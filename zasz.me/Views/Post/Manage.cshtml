@@ -22,25 +22,6 @@
 
     <div class="Admin-Title">Post Fields</div>
     <table class="Control-Panel">
-
-        <tr>
-            <td colspan="2">@Html.ValidationMessageFor(x => x.Site) </td>
-        </tr>
-
-        <tr>
-            <td>Site : </td>
-            <td>@Html.DropDownList("ChosenSite",
-                                   new[] {Site.PRO, Site.REST, Site.SHARED}
-                                       .Select(Name => new SelectListItem
-                                                           {
-                                                               Text = Name,
-                                                               Value = Name,
-                                                               Selected = Name.Equals(Model.Site.Name, StringComparison.InvariantCultureIgnoreCase)
-                                                           })
-                     )
-            </td>
-        </tr>
-
         <tr>
             <td>Tags : </td>
             <td><input type="text" name="Tags" value="@Model.TagsLine"/></td>

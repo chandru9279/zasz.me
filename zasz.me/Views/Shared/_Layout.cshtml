@@ -3,10 +3,9 @@
     <head>
         <title>@ViewBag.Title</title>
     
-        <link href='http://fonts.googleapis.com/css?family=Gentium+Book+Basic' rel='stylesheet' type='text/css' />
         <link href="@Url.Content("~/Content/ForHtmlHelpers.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/BlueprintReset.css")" rel="stylesheet" type="text/css" />
-        <link href="@Url.Content("~/Content/Layout.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/Layout.less")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/Blog.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" />
         @* Order seems to be important, 1st jQuery then other related scripts*@
@@ -14,7 +13,8 @@
         <script src="@Url.Content("~/Scripts/jquery-ui-1.8.23.min.js")" type="text/javascript"> </script>
         <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"> </script>    
         <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"> </script>
-        <script src="@Url.Content("~/Scripts/MyScripts.js")" type="text/javascript"> </script>    
+        <script src="@Url.Content("~/Scripts/jquery.watermark.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/Scripts.coffee")" type="text/javascript"> </script>    
 
         <meta name="robots" content="index, follow" />
         <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
@@ -23,18 +23,15 @@
     </head>
 
     <body class="Pro">
-        @*TODO : Move these to blog listing only where the scripts are used*@
-        @Html.Partial("Facebook") 
-        @Html.Partial("Twitter")
         <div class="Site-In-Center">
             <div class="Header">
-                <div class="Header-Left">
-                    <img src="@Url.Content("~/Content/Images/Name.png")" alt="CHANDIRASEKAR THIAGARAJAN" style="float: left;"/>
-                    <div class="Header-Links">
-                        <a href="https://github.com/chandru9279" target="_blank"><img src="@Url.Content("~/Content/Images/github_32.png")" class="Header-Link" alt="Chandru's Github Profile"/></a>
-                        <a href="http://stackoverflow.com/users/626084/zasz" target="_blank"><img src="@Url.Content("~/Content/Images/stackoverflow.png")" class="Header-Link" alt="Chandru's SO Profile"/></a>
-                        <a href="http://in.linkedin.com/in/chandirasekar" target="_blank"><img src="@Url.Content("~/Content/Images/linked-in.jpeg")" alt="Chandru's LinkedIn Profile" class="Header-Link"></a>                                
-                        <a href="/Home/Feeds" target="_blank"><img src="@Url.Content("~/Content/Images/rss.jpeg")" alt="Chandru's RSS Feed" class="Header-Link"></a>
+                <div class="Left">
+                    <img src="@Url.Content("~/Content/Images/Name.png")" alt="CHANDIRASEKAR THIAGARAJAN" class="Banner"/>
+                    <div class="Links">
+                        <a href="https://github.com/chandru9279" target="_blank"><img src="@Url.Content("~/Content/Images/github.ico")" alt="Chandru's Github Profile"/></a>
+                        <a href="http://stackoverflow.com/users/626084/zasz" target="_blank"><img src="@Url.Content("~/Content/Images/stackoverflow.ico")" alt="Chandru's SO Profile"/></a>
+                        <a href="http://in.linkedin.com/in/chandirasekar" target="_blank"><img src="@Url.Content("~/Content/Images/linkedin.ico")" alt="Chandru's LinkedIn Profile"></a>
+                        <a href="http://careers.stackoverflow.com/zasz" target="_blank"><img src="@Url.Content("~/Content/Images/careers.ico")" alt="Chandru's Careers 2.0 Profile"></a>
                     </div>
                     <ul class="Main-Menu">
                         <li><a href="/Home/Show">Home</a></li>
@@ -44,32 +41,32 @@
                         <li><a href="/Contact/Form">Contact</a></li>
                     </ul>
                 </div>
-                <div class="Header-Right">
-                    <div class="Description">I'm a <div class="Focus-Description">Software Consultant</div></div>
+                <div class="Right">
+                    <div class="Description">I'm a <div class="Focus">Software Consultant</div></div>
                     <div class="Description">
                         <div class="Status-History-Expand-Button" id="Status-History-Expand-Button"></div>
                         <ul class="Status-History" id="Status-History">
-                            <li>I work at <div class="Focus-Description"><a target="_blank" href="http://www.thoughtworks.com/">ThoughtWorks</a></div></li>
-                            <li>Graduated Engineer @@ <div class="Focus-Description"><a target="_blank" href="http://www.annauniv.edu/">Anna University</a></div></li>
-                            <li>Interned @@ <div class="Focus-Description"><a target="_blank" href="http://www.aveoit.com/">Aveo Infotech</a></div></li>
-                            <li>I live in <div class="Focus-Description"><a target="_blank" href="http://maps.google.com/maps/place?ftid=0x3a5265ea4f7d3361:0x6e61a70b6863d433&q=Chennai,+Tamil+Nadu,+India&hl=en&sll=13.060422,80.249583&sspn=0.17394,0.256119&ie=UTF8&z=14">Chennai</a></div></li>
+                            <li>I work at <div class="Focus"><a target="_blank" href="http://www.thoughtworks.com/">ThoughtWorks</a></div></li>
+                            <li>Graduated Engineer @@ <div class="Focus"><a target="_blank" href="http://www.annauniv.edu/">Anna University</a></div></li>
+                            <li>Interned @@ <div class="Focus"><a target="_blank" href="http://www.aveoit.com/">Aveo Infotech</a></div></li>
+                            <li>I live in <div class="Focus"><a target="_blank" href="http://maps.google.com/maps/place?ftid=0x3a5265ea4f7d3361:0x6e61a70b6863d433&q=Chennai,+Tamil+Nadu,+India&hl=en&sll=13.060422,80.249583&sspn=0.17394,0.256119&ie=UTF8&z=14">Chennai</a></div></li>
                         </ul>
                     </div>
                 </div>                        
             </div>
-            <div class="Pro-Body">
-                <div class="Pro-Body-Left">
+            <!--<div class="Pro-Body">
+                <div class="Left">
                     <div class="Pro-Body-Left-Min-Height">
                         @RenderBody()                                         
                     </div>
                         
                 </div>                
-                <div class="Pro-Body-Right">                        
+                <div class="Right">                        
                     @Html.Partial("~/Views/Home/_SearchBox.cshtml")
                     @RenderSection("Right", false)
                     @Html.Partial("~/Views/Unlocker/_UnlockStatus.cshtml")
                 </div>
-            </div>          
+            </div>-->
         </div>
         @RenderSection("Bottom", false)
     </body>
