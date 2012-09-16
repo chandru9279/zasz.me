@@ -38,7 +38,7 @@ namespace zasz.health.UtilityTests
             namespaces.Add("wfw", nsWfw);
             namespaces.Add("dc", nsDc);
 
-            api = new Akismet(AkismetApiKey, "http://www.chandruon.net", "Test/1.0");
+            api = new Akismet(AkismetApiKey, "http://zasz.me/", "Test/1.0");
             if (!api.VerifyKey()) throw new Exception("Key not verified");
         }
 
@@ -112,7 +112,7 @@ namespace zasz.health.UtilityTests
                 foreach (XmlNode node in postDoc.SelectNodes("post/comments/comment"))
                 {
                     var comment = new AkismetComment();
-                    comment.Blog = "http://www.chandruon.net/ZaszBlog";
+                    comment.Blog = "http://zasz.me/Blog";
                     comment.UserIp = Get(node, "ip");
                     comment.CommentContent = Get(node, "content");
                     comment.CommentAuthor = Get(node, "author");

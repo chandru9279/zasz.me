@@ -269,7 +269,7 @@ namespace zasz.me.Services.TagCloud
          * I'm calling the values 1,2,3,4 etc as _EdgeSize. Any joining of points in a graph is an edge.
          * To find out if we need to increment or decrement I'm using the condition _EdgeSize is even or not.
          * To increment EdgeSize, using a boolean _SleepingEdge to count upto 2 steps. I'll blog about this later
-         * at chandruon.net!
+         * at zasz.me!
          * 
          *       0  1  2  3  4
          *   0   X  X  X  X  X     .-------->
