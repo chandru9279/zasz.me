@@ -1,27 +1,8 @@
-﻿@bground: #E5E5E5;
-@fground: #333333;
-@formbg: #F0F0F0;
-
-@black: #090909;
-@silver: #A8A8A8;
-@gray: #454545;
-@sky: #1FA9F4;
-@navy: #001C4E;
-@maroon: #500000;
-
-.radius(@rad)
-{
-	-moz-border-radius: @rad;
-	-webkit-border-radius: @rad;
-	border-radius: @rad;
-}
-
-@headerheight: 160px;
-@rightwidth: 260px;
+﻿@import 'Variables';
 
 a
 {
-    color: #425955;
+    color: @fground;
     text-decoration: none;
 	&:HOVER
 	{
@@ -33,7 +14,8 @@ a
 
 .Pro
 {
-    font-family: 'Segoe UI', serif;
+    font-family: 'segoe wp', 'segoe ui', verdana, arial, helvetica, sans-serif;
+    font-size: 14px;
     background-position: center top;
     background-color: @bground;
     display: inline-block;
@@ -317,6 +299,9 @@ select.ProTextBox:HOVER, select.ProTextBox:focus
     margin-right: 5px;
     width: 210px;
     padding: 6px 5px 6px 5px;
+	background-image: url('Images/Search.png');
+	background-position: right;
+	background-repeat: no-repeat;
     .GeneralText;
 }
 
@@ -395,3 +380,13 @@ select.ProTextBox:HOVER, select.ProTextBox:focus
 {
     vertical-align: text-bottom
 } 
+
+::-webkit-input-placeholder {
+    color: @placeholder;
+}
+:-moz-placeholder {
+    color: @placeholder;
+}
+:-ms-input-placeholder {
+	color: @placeholder;
+}

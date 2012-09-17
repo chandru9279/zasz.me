@@ -1,12 +1,15 @@
 attachHandlers = ->	
 	# ClickHandlers
 	$("body").click closeStatus
+	
 	$("#Status-History-Expand-Button").click expandStatus
+	
 	$(".Expand-Button").click ->
 		$(this).next().slideToggle()
 	
 	# OtherWireup
 	$(".Modal").modalpop speed: 300
+
 	$("#Search-Box").keypress (e) ->
 		if e.which is 13
 			$("#SearchForm").submit()
@@ -14,11 +17,12 @@ attachHandlers = ->
 		true
 
 	$("#Search-Box").autocomplete source: "/Home/Autocomplete"
+	
 	if $("#blogTagCloud").length > 0
 		$("#blogTagCloud").load ->
 			$.get "/Blog/TagCloudLinks", (links) ->
 				$("#tagCloudLinks").replaceWith links
-		
+	
 expandStatus = ->
 	if statusExpanded
 		closeStatus()

@@ -53,7 +53,8 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Content\favicon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoffeeScriptHttpHandler">
@@ -191,22 +192,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BlueprintReset.css" />
-    <Content Include="Content\favicon.ico" />
     <Content Include="Content\favicon.png" />
     <Content Include="Content\Images\404.png" />
+    <Content Include="Content\Images\careers.ico" />
     <Content Include="Content\Images\expand-down.pdn" />
     <Content Include="Content\Images\expand-down.png" />
-    <Content Include="Content\Images\github_32.png" />
-    <Content Include="Content\Images\linked-in.jpeg" />
+    <Content Include="Content\Images\github.ico" />
+    <Content Include="Content\Images\linkedin.ico" />
     <Content Include="Content\Images\Name.pdn" />
     <Content Include="Content\Images\Name.png" />
     <Content Include="Content\Images\Paging.png" />
-    <Content Include="Content\Images\rss.jpeg" />
     <Content Include="Content\Images\scan-qr-codes.jpg" />
-    <Content Include="Content\Images\stackoverflow.png" />
+    <Content Include="Content\Images\Search.png" />
+    <Content Include="Content\Images\stackoverflow.ico" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
     <Content Include="Content\Blog.css" />
-    <None Include="Content\Layout.less" />
+    <Content Include="Content\Layout.less" />
+    <Content Include="Content\themes\base\jquery-ui.less" />
+    <None Include="Content\Variables.less" />
     <Content Include="Content\Admin.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -221,7 +224,6 @@
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\jquery.ui.accordion.css" />
     <Content Include="Content\themes\base\jquery.ui.all.css" />
     <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
@@ -352,7 +354,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jquery.watermark.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
