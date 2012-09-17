@@ -44,10 +44,10 @@ namespace zasz.me.Controllers
                                           Margin = 10,
                                           SelectedFont = font,
                                           DisplayChoice =
-                                              DisplayStrategy.Get(TagDisplayStrategy.RandomHorizontalOrVertical),
+                                              DisplayStrategy.Get(TagDisplayStrategy.MoreHorizontalThanVertical),
                                           ColorChoice =
                                               ColorStrategy.Get(Theme.LightBgDarkFg, Style.Varied,
-                                                                Color.FromArgb(0, Color.White), Color.Red),
+                                                                Color.FromArgb(0, Color.White), Color.Black),
                                           VerticalTextRight = true,
                                           Crop = true
                                       };

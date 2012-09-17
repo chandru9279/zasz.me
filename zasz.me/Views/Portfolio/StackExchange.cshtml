@@ -1,0 +1,14 @@
+﻿@model List<int>
+
+@{
+    ViewBag.Title = "Hanging out @ StackOverflow";
+}
+
+<h2>Hanging out @@ StackOverflow</h2>
+
+<ol>
+@foreach (var id in Model)
+{
+    <li>@id</li>
+}
+</ol>

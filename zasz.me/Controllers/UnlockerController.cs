@@ -9,11 +9,11 @@ namespace zasz.me.Controllers
 {
     public class UnlockerController : BaseController
     {
-        private readonly IPassphraseRepository _PassphraseRepository;
+        private readonly IPassphraseRepository repository;
 
-        public UnlockerController(IPassphraseRepository PassphraseRepository)
+        public UnlockerController(IPassphraseRepository repository)
         {
-            _PassphraseRepository = PassphraseRepository;
+            this.repository = repository;
         }
 
         [DefaultAction]
@@ -25,16 +25,15 @@ namespace zasz.me.Controllers
 
         [HttpPost]
         [Secure]
-        public ActionResult Unlock(string PassPhrase, string ReturnUrl)
+        public ActionResult Unlock(string passPhrase, string returnUrl)
         {
-//            if (_PassphraseRepository.Authenticate(PassPhrase))
-            var Algorithm = new SHA256Cng();
-            var Unicoding = new UnicodeEncoding();
-            var Hashed = Unicoding.GetString(Algorithm.ComputeHash(Unicoding.GetBytes(PassPhrase)));
-            if (Hashed == "竽鼶੥惞⢭邽靱讘朮堢�ଣ疪糧܍") /* I put this especially for that idiot who deleted my Posts :P */
+            var algorithm = new SHA256Cng();
+            var unicoding = new UnicodeEncoding();
+            var hashed = unicoding.GetString(algorithm.ComputeHash(unicoding.GetBytes(passPhrase)));
+            if (hashed == "嘃ᥐ倹⦦듑ꈳ囬쀺诫谾臭ᰠ屯") 
             {
                 FormsAuthentication.SetAuthCookie("Manager", false);
-                return Redirect(ReturnUrl ?? "/Home");
+                return Redirect(returnUrl ?? "/Home");
             }
             ModelState.AddModelError("AuthenticationFailed", "Wrong Passphrase");
             return View();

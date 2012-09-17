@@ -11,26 +11,26 @@ namespace zasz.me.Integration.MVC
             return RedirectToActionPermanent(GetDefaultActionName());
         }
 
-        protected override void HandleUnknownAction(string ActionName)
+        protected override void HandleUnknownAction(string actionName)
         {
-            RedirectToAction("NotFound", "Error", new {ActionName}).ExecuteResult(ControllerContext);
+            RedirectToAction("NotFound", "Error", new {actionName}).ExecuteResult(ControllerContext);
         }
 
 
         private string GetDefaultActionName()
         {
-            var DefaultAction = typeof (DefaultActionAttribute);
+            var defaultAction = typeof (DefaultActionAttribute);
 
-            var MethodsFlaggedWithDefaultAction = from Member in GetType().GetMethods()
-                                                  where Member.GetCustomAttributes(DefaultAction, false).Length > 0
-                                                  select Member;
+            var methodsFlaggedWithDefaultAction = (from member in GetType().GetMethods()
+                                                   where member.GetCustomAttributes(defaultAction, false).Length > 0
+                                                   select member).ToList();
 
-            if (MethodsFlaggedWithDefaultAction.Count() == 0)
+            if (!methodsFlaggedWithDefaultAction.Any())
                 throw new ConfigurationErrorsException(
                     string.Format(
                         "{0} does not have an Action flagged with the {1} attribute",
-                        GetType().Name, DefaultAction.Name));
-            return MethodsFlaggedWithDefaultAction.First().Name;
+                        GetType().Name, defaultAction.Name));
+            return methodsFlaggedWithDefaultAction.First().Name;
         }
     }
 }

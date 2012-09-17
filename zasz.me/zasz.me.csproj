@@ -92,8 +92,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SolrNet">
       <HintPath>..\packages\SolrNet.0.3.1\lib\SolrNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Stacky">
+      <HintPath>..\packages\Stacky.1.1.2\lib\net40\Stacky.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.Entity" />
@@ -339,20 +345,17 @@
     <Content Include="Scripts\Scripts.js">
       <DependentUpon>Scripts.coffee</DependentUpon>
     </Content>
+    <Content Include="Scripts\stacktack.js" />
     <Content Include="Views\Blog\TagCloudLinks.cshtml" />
     <Content Include="Views\Shared\Facebook.cshtml" />
     <Content Include="Views\Shared\Twitter.cshtml" />
     <Content Include="Views\Disorganizer\Links.cshtml" />
     <Content Include="Scripts\Scripts.coffee" />
     <None Include="Scripts\jquery-1.8.0-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.8.23.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -364,6 +367,7 @@
     <Content Include="Views\Post\Manage.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\_CKEditor.cshtml" />
+    <Content Include="Views\Portfolio\StackExchange.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
