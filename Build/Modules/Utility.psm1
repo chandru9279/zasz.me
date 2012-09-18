@@ -9,8 +9,10 @@ function Skip-Delete
 	param(
 		[Parameter(Position=0,Mandatory=1)] [string] $folder
 	)
+	if(Test-Path $folder) {
 	Get-ChildItem $folder -Recurse -File | ? { $_.FullName -notmatch ".gitkeep" } | Remove-Item -Force
 	Get-ChildItem $folder -Recurse -Directory | ? { $_.GetFiles().Count -eq 0 } | Remove-Item -Recurse -Force
+	}
 }
 
 function Test-Solr

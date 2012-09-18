@@ -9,8 +9,6 @@
 *.sublime-workspace
 
 packages/*
-!packages/repositories.config
-!packages/lib/
 
 Out/
 _ReSharper.zasz.me/

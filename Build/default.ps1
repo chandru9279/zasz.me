@@ -131,8 +131,6 @@ task compile -depends Clean {
 task clean {     
 		@('zasz.me\bin\' 
 		'zasz.me\obj\'
-		'zasz.develop\bin\'
-		'zasz.develop\obj\'
 		'zasz.health\bin\' 
 		'zasz.health\obj\'
 		'Out\') | % { Skip-Delete ("$SolutionPath\$_") }
@@ -148,7 +146,6 @@ task packages {
 		exec { 
 		&$nuget update -self
 		&$nuget i ..\zasz.me\packages.config -o $PackagesPath -Source $packageSource
-		&$nuget i ..\zasz.develop\packages.config -o $PackagesPath -Source $packageSource
 		&$nuget i ..\zasz.health\packages.config -o $PackagesPath -Source $packageSource
 		}
 }
