@@ -15,7 +15,7 @@ _ReSharper.zasz.me/
 
 zasz.me/Uploads/
 
-solr/logs/
-solr/work/
-solr/solr/data/
-solr/solr/conf/dataimport.properties
+Solr/logs/
+Solr/work/
+Solr/solr/data/
+Solr/solr/conf/dataimport.properties

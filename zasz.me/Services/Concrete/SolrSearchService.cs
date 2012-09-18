@@ -29,9 +29,9 @@ namespace zasz.me.Services.Concrete
 
         public List<Post> MoreLikeThis(string postId)
         {
-            var MltHandler = new QueryOptions {ExtraParams = new Dictionary<string, string> {{"qt", "/mlt"}}};
-            var Results = postOp.Query(Query.Field("Id").Is(postId), MltHandler);
-            return Results.Select(X => posts.Load(X.Id)).ToList();
+            var mltHandler = new QueryOptions {ExtraParams = new Dictionary<string, string> {{"qt", "/mlt"}}};
+            var results = postOp.Query(Query.Field("Id").Is(postId), mltHandler);
+            return results.Select(x => posts.Load(x.Id)).ToList();
         }
 
         public string AutoComplete(string input)
@@ -68,17 +68,11 @@ namespace zasz.me.Services.Concrete
 
         public void Index(IEnumerable<Post> p)
         {
-            foreach (var Post in p)
-                postOp.Add(Post);
+            foreach (var post in p)
+                postOp.Add(post);
             postOp.Commit();
         }
 
         #endregion
-
-        public void ClearIndex()
-        {
-            postOp.Delete(Query.Simple("*:*"));
-            postOp.Commit();
-        }
     }
 }

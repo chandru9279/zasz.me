@@ -6,11 +6,19 @@ using System.Text;
 using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
 using zasz.me.Integration.MVC;
+using zasz.me.Models;
 
 namespace zasz.me.Controllers
 {
     public class PortfolioController : BaseController
     {
+        private StackUrls stackUrls;
+
+        public PortfolioController()
+        {
+            stackUrls = new StackUrls();
+        }
+
         [DefaultAction]
         public ActionResult All()
         {
@@ -18,16 +26,15 @@ namespace zasz.me.Controllers
         }
 
         // http://stackapps.com/apps/oauth/view/688
-        public ActionResult StackExchange()
+        public ViewResult StackExchange()
         {
-            var client = new WebClient();
-            var jsonAnswers = WebRequest.Create("http://api.stackexchange.com/users/626084/answers?site=stackoverflow&key=usSGUdqhSFinjmEGnQYRCg((").GetResponse();
+            var jsonAnswers = WebRequest.Create(stackUrls.MySoAnswers).GetResponse();
             var answers = JObject.Parse(ExtractJsonResponse(jsonAnswers));
             var questionIds = answers["items"].Select(x => (int)x["question_id"]).ToList();
             return View(questionIds);
         }
 
-        private string ExtractJsonResponse(WebResponse response)
+        private static string ExtractJsonResponse(WebResponse response)
         {
             string json;
             using (var outStream = new MemoryStream())
