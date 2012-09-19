@@ -1,14 +1,30 @@
 ﻿@model Dictionary<int, string>
 
 @{
-    ViewBag.Title = "Hanging out @ StackOverflow";
+    ViewBag.Title = "StackTacks";
 }
 
-<h2>Hanging out @@ StackOverflow</h2>
-
-<ol>
-@foreach (var id in Model)
+@section Head
 {
-    <li>@id</li>
+    <link href="@Url.Content("~/Content/Stacktack.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/stacktack.js")" type="text/javascript" ></script>
+    <script type="text/javascript" >
+        $(function () {
+            $('#Threads li a').click(function () {
+                var id = $(this).data("id");
+                $('#Tacks').empty();
+                $('#Tacks').html("<div id='stacktack-" + id + "'></div>");
+                $('#Tacks').stacktack({ width: '900px' });
+            });
+        });
+    </script>
 }
-</ol>
+<ul id="Threads">
+    @foreach (var pair in Model)
+    {
+        <li><a data-id="@pair.Key">@pair.Value</a></li>
+    }
+</ul>
+<div id="Tacks">
+    
+</div>

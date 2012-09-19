@@ -1,1 +1,196 @@
-﻿(function (a) { a.fn.stacktack = function (d) { var b = a.extend(a.fn.stacktack.defaults, d); var e = ["width", "onlyshowacceptedanswer", "answerlimit", "filteranswers", "showtags"]; if (b.stylesheet) { if (a('link[href="' + b.stylesheet + '"]').length === 0) { if (document.createStyleSheet) { document.createStyleSheet(b.stylesheet) } else { a('<link rel="stylesheet" type="text/css" href="' + b.stylesheet + '" />').appendTo("head") } } } function c(f) { if (f) { return '<div class="stacktack-profile"><img src="http://www.gravatar.com/avatar/' + f.email_hash + '?d=identicon&s=32" class="stacktack-gravatar" /><a href="http://' + b.site + "/users/" + f.user_id + '" target="_blank">' + f.display_name + "</a><br/>" + f.reputation + "</div>" } else { return ""; } } return this.each(function () { var f = a(this); f.filter("[id^=stacktack], [class^=stacktack]").add(f.find("[id^=stacktack], [class^=stacktack]")).each(function (m, p) { var q = a(p); var g = ""; if (p.id) { var l = /\d+$/.exec(p.id); if (l.length > 0) { g = l[0] } } var s = a.extend({}, b); var q2 = q.attr("class"); if (q2 && q2.length) { classes = q.attr("class").split(" "); for (var k = 0; k < classes.length; k++) { clas = classes[k]; classTokens = clas.split("-"); if (classTokens.length > 1) { if (classTokens[0].toLowerCase() == "stacktack") { g = classTokens[1]; continue } for (var h = 1; h < classTokens.length; h++) { classToken = classTokens[h].toLowerCase(); if (classToken === "true" || classToken === "false") { classTokens[h] = (classToken === "true"); continue } classTokens[h] = classToken.replace(/percent/i, "%") } if (a.inArray(classTokens[0].toLowerCase(), e) > -1) { if (classTokens.length > 2 || classTokens[0].toLowerCase() == "filteranswers") { s[classTokens[0]] = classTokens.slice(1) } else { s[classTokens[0]] = classTokens[1] } } } } } var r = a('<div class="stacktack-container"></div>'); if (s.width) { r.css("width", s.width) } var o = a('<div class="stacktack-content"><a href="http://www.stacktack.com/" target="_blank" title="StackTack" class="stacktack-logo"><h2>StackTack</h2></a></div>'); r.append(o); var n = a('<p class="stacktack-loading">Loading Question ID ' + g + "</p>"); o.append(n); a.ajax({ dataType: "jsonp", data: { apikey: "kz4oNmbazUGoJIUyUbSaLg", answers: "true", body: "true" }, url: "http://api." + b.site + "/" + b.apiVersion + "/questions/" + g + "?jsonp=?", success: function (A) { n.remove(); var w = A.questions[0]; var y = a('<div class="stacktack-question"> <div class="stacktack-question-header clearfix">' + c(w.owner) + '<h3><a href="http://' + b.site + "/questions/" + w.question_id + '" target="_blank">' + w.title + '</a></h3><div class="stacktack-votes">' + w.score + ' Votes</div></div><div class="stacktack-question-body">' + w.body + "</div></div>"); o.append(y); if (s.showTags) { var x = a('<ul class="stacktack-tags"></ul>'); for (var B = 0; B < w.tags.length; B++) { var t = a("<li>" + w.tags[B] + "</li>"); x.append(t) } y.append(x) } var z = a('<div class="stacktack-answers"></div>'); o.append(z); var j = []; if (w.answers.length > 0) { if (s.onlyShowAcceptedAnswer) { for (var B = 0; B < w.answers.length; B++) { if (w.answers[B].accepted) { j.push(B) } } } else { if (s.filterAnswers.length > 0) { for (var B = 0; B < w.answers.length; B++) { if (a.inArray(w.answers[B].answer_id.toString(), s.filterAnswers) > -1) { j.push(B) } } } else { if (s.answerLimit > 0) { for (var B = 0; B < s.answerLimit; B++) { j.push(B) } } } } } for (var B = 0; B < w.answers.length; B++) { var C = w.answers[B]; var v = a('<div class="stacktack-answer"><div class="stacktack-answer-header clearfix">' + c(C.owner) + '<h4><a href="http://' + b.site + "/questions/" + w.question_id + "#" + C.answer_id + '" target="_blank">Answer ' + (B + 1) + '</a></h4><div class="stacktack-votes">' + C.score + ' Votes</div></div><div class="stacktack-answer-body">' + C.body + "</div></div>"); if (C.accepted) { v.addClass("stacktack-answer-accepted"); v.find(".stacktack-answer-header h4").prepend('<span alt="Accepted" title="Accepted" class="stacktack-answer-check"></span>'); v.find(".stacktack-votes").append(" | Accepted") } if (j.length > 0) { if (a.inArray(B, j) == -1) { v.hide() } } z.append(v) } r.find("a").attr("target", "_blank"); if (j.length > 0) { var u = a('<a href="#" class="stacktack-answers-more">+ More Answers</a>"'); u.click(function () { a(this).hide(); z.find(".stacktack-answer:hidden").slideDown("fast"); return false }); z.append(u) } } }); q.append(r) }) }) }; a.fn.stacktack.defaults = { site: "stackoverflow.com", apiVersion: "1.0", stylesheet: "http://app.stacktack.com/stacktack.min.css", answerLimit: 0, onlyShowAcceptedAnswer: false, filterAnswers: [], showTags: true, width: null } })(jQuery);
+(function($) {
+    $.fn.stacktack = function(opts) {
+        var options = $.extend($.fn.stacktack.defaults, opts);
+        // a list of options suitable for per-item overrides, lowercase for comparison
+        var optionKeys = ['width', 'onlyshowacceptedanswer', 'answerlimit', 'filteranswers', 'showtags'];
+        
+        if (options.stylesheet) {
+            // only include the stylesheet once
+            if ($('link[href="' + options.stylesheet + '"]').length === 0) {
+                // necessary for IE to dynamically load stylesheet
+                if (document.createStyleSheet) {
+                    document.createStyleSheet(options.stylesheet);
+                } else {
+                    $('<link rel="stylesheet" type="text/css" href="' + options.stylesheet + '" />').appendTo('head'); 
+                }
+            }
+        }
+        
+        function createProfile(user) {
+            if (user) {
+                return '<div class="stacktack-profile"><img src="http://www.gravatar.com/avatar/' + user.email_hash + '?d=identicon&s=32" class="stacktack-gravatar" /><a href="http://' + options.site + '/users/' + user.user_id  + '" target="_blank">' + user.display_name + '</a><br/>' + user.reputation + '</div>';
+            } else {
+                return '';
+            }
+        }
+        
+        return this.each(function() {
+            var $this = $(this);
+            $this.filter('[id^=stacktack], [class^=stacktack]').add($this.find('[id^=stacktack], [class^=stacktack]')).each(function(index, value) {
+                var item = $(value);
+                // try to retrieve the question id from the id attribute
+                var questionId = '';
+                if (value.id) {
+                    var matches = /\d+$/.exec(value.id);
+                    if (matches.length > 0) {
+                        questionId = matches[0];
+                    }
+                }
+
+                // parse override options from classes
+                var itemOptions = $.extend({}, options);
+                var classAttr = item.attr('class');
+                if (classAttr && classAttr.length) {
+                    classes = item.attr('class').split(' ');
+                    for (var i = 0; i < classes.length; i++) {
+                        clas = classes[i];
+                        classTokens = clas.split('-');
+                        // if there was a split
+                        if (classTokens.length > 1) {
+                            // search for a stacktack id class and use if it if the questionId hasn't been set yet
+                            if (classTokens[0].toLowerCase() == 'stacktack') {
+                                questionId = classTokens[1];
+                                continue;
+                            }
+                            
+                            // convert special value strings
+                            for (var j = 1; j < classTokens.length; j++) {
+                                classToken = classTokens[j].toLowerCase();
+                                // replace booleans
+                                if (classToken === 'true' || classToken === 'false') {
+                                    classTokens[j] = (classToken==="true");
+                                    continue;
+                                }
+                                // replace percentages since the % is not a valid class name character
+                                classTokens[j] = classToken.replace(/percent/i, '%');
+                            }
+                            // if the first token of the class is an override option
+                            if ($.inArray(classTokens[0].toLowerCase(), optionKeys) > -1) {
+                                // it's a list
+                                if (classTokens.length > 2 || classTokens[0].toLowerCase() == 'filteranswers') {
+                                    itemOptions[classTokens[0]] = classTokens.slice(1);
+                                }
+                                // it's a single value
+                                else {
+                                    itemOptions[classTokens[0]] = classTokens[1];
+                                }
+                            }
+                        }
+                    }
+                }
+                // appended as last step
+                var containerElement = $('<div class="stacktack-container"></div>');
+                if (itemOptions.width) {
+                    containerElement.css('width', itemOptions.width);
+                }
+                
+                var contentElement = $('<div class="stacktack-content"><a href="http://www.stacktack.com/" target="_blank" title="StackTack" class="stacktack-logo"><h2>StackTack</h2></a></div>');
+                containerElement.append(contentElement);
+                var loadingElement = $('<p class="stacktack-loading">Loading Question ID ' + questionId + '</p>');
+                contentElement.append(loadingElement);
+
+                $.ajax({
+                    dataType: 'jsonp',
+                    data: {
+                        'apikey':'kz4oNmbazUGoJIUyUbSaLg',
+                        'answers': 'true',
+                        'body': 'true'
+                    },
+                    url: 'http://api.' + options.site + '/' + options.apiVersion + '/questions/' + questionId + '?jsonp=?',
+                    success: function(data) {
+                        loadingElement.remove();
+                        
+                        var question = data.questions[0];
+
+                        var questionElement = $('<div class="stacktack-question"> <div class="stacktack-question-header clearfix">' + createProfile(question.owner) + '<h3><a href="http://' + options.site + '/questions/' + question.question_id + '" target="_blank">' + question.title + '</a></h3><div class="stacktack-votes">' + question.score + ' Votes</div></div><div class="stacktack-question-body">' + question.body + '</div></div>');
+                        contentElement.append(questionElement);
+
+                        if (itemOptions.showTags) {
+                            var tagsElement = $('<ul class="stacktack-tags"></ul>');
+                            for (var i = 0; i < question.tags.length; i++) {
+                                var tagElement = $('<li>' + question.tags[i] + '</li>');
+                                tagsElement.append(tagElement);
+                            }
+                            questionElement.append(tagsElement);
+                        }
+
+                        var answersElement = $('<div class="stacktack-answers"></div>');
+                        contentElement.append(answersElement);
+
+                        // filter the answers
+                        var visibleAnswers = [];
+                        if (question.answers.length > 0) {
+                            if (itemOptions.onlyShowAcceptedAnswer) {
+                                for (var i = 0; i < question.answers.length; i++) {
+                                    if (question.answers[i].accepted) {
+                                        visibleAnswers.push(i);
+                                    }
+                                }
+                            }
+                            else if (itemOptions.filterAnswers.length > 0) {
+                                for (var i = 0; i < question.answers.length; i++) {
+                                    if ($.inArray(question.answers[i].answer_id.toString(), itemOptions.filterAnswers) > -1) {
+                                        visibleAnswers.push(i);
+                                    }
+                                }
+                            }
+                            else if (itemOptions.answerLimit > 0) {
+                                for (var i = 0; i < itemOptions.answerLimit; i++) {
+                                    visibleAnswers.push(i);
+                                }
+                            }
+                        }
+
+                        // render the answers
+                        for (var i = 0; i < question.answers.length; i++) {
+                            var answer = question.answers[i];
+                            
+                            var answerElement = $('<div class="stacktack-answer"><div class="stacktack-answer-header clearfix">' + createProfile(answer.owner) + '<h4><a href="http://' + options.site + '/questions/' + question.question_id + '#' + answer.answer_id + '" target="_blank">Answer ' + (i + 1) + '</a></h4><div class="stacktack-votes">' + answer.score + ' Votes</div></div><div class="stacktack-answer-body">' + answer.body + '</div></div>');
+                            if (answer.accepted) {
+                                answerElement.addClass('stacktack-answer-accepted');
+                                answerElement.find('.stacktack-answer-header h4').prepend('<span alt="Accepted" title="Accepted" class="stacktack-answer-check"></span>');
+                                answerElement.find('.stacktack-votes').append(' | Accepted');
+                            }
+                            // hide answer if it isn't in the visible list
+                            if (visibleAnswers.length > 0) {
+                                if ($.inArray(i, visibleAnswers) == -1) {
+                                    answerElement.hide();
+                                }
+                            }
+                            answersElement.append(answerElement);
+                        }
+                        
+                        // make all links open in a new window
+                        containerElement.find('a').attr('target', '_blank');
+                        
+                        // render "more answers" button if the answers were filtered at all
+                        if (visibleAnswers.length > 0) {
+                            var moreElement = $('<a href="#" class="stacktack-answers-more">+ More Answers</a>"');
+                            moreElement.click(function() {
+                                $(this).hide();
+                                answersElement.find('.stacktack-answer:hidden').slideDown('fast');
+                                return false;
+                            });
+                            answersElement.append(moreElement);
+                        }
+                    }
+                });
+
+                item.append(containerElement);
+            });
+        });
+    };
+
+
+    $.fn.stacktack.defaults = {
+        site: 'stackoverflow.com',
+        apiVersion: '1.0',
+        stylesheet: 'http://app.stacktack.com/stacktack.min.css',
+        answerLimit: 0,
+        onlyShowAcceptedAnswer: false,
+        filterAnswers: [],
+        showTags: true,
+        width: null
+    };
+
+})(jQuery);

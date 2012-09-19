@@ -200,21 +200,10 @@
   <ItemGroup>
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.png" />
-    <Content Include="Content\Images\404.png" />
-    <Content Include="Content\Images\careers.ico" />
-    <Content Include="Content\Images\expand-down.pdn" />
-    <Content Include="Content\Images\expand-down.png" />
-    <Content Include="Content\Images\github.ico" />
-    <Content Include="Content\Images\linkedin.ico" />
-    <Content Include="Content\Images\Name.pdn" />
-    <Content Include="Content\Images\Name.png" />
-    <Content Include="Content\Images\Paging.png" />
-    <Content Include="Content\Images\scan-qr-codes.jpg" />
-    <Content Include="Content\Images\Search.png" />
-    <Content Include="Content\Images\stackoverflow.ico" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
     <Content Include="Content\Blog.css" />
     <Content Include="Content\Layout.less" />
+    <Content Include="Content\Stacktack.css" />
     <Content Include="Content\themes\base\jquery-ui.less" />
     <Content Include="Content\Form.less" />
     <Content Include="Content\Menu.less" />

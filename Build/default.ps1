@@ -82,9 +82,9 @@ task solrc -precondition { !(Test-Solr) } {
 
 
 task solrs -precondition { !(Test-Solr) } -action { 
-	#Starts solr as a process without console
-	Set-Location $SolrPath
-	exec { javaw '-Djetty.port=5000' '-DSTOP.PORT=5001' '-DSTOP.KEY=halt' -jar start.jar }
+	#Starts solr as a process without console	
+    Set-Location $SolrPath
+	javaw '-Djetty.port=5000' '-DSTOP.PORT=5001' '-DSTOP.KEY=halt' -jar start.jar      
 	Write-Host -ForegroundColor Green "Solr process started now."
 }
 
