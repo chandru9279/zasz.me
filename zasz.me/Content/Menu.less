@@ -1,0 +1,40 @@
+.Main-Menu
+{
+	float: left;
+	margin-top: 10px;
+	height: 42px;
+    background-color: @bground;
+    width: @sitewidth;
+	// This will join with the image height of 107px and Main-Menu height of 42px : 42 + 107 + 11 = 160px
+    margin-top: 11px; 
+	li
+	{
+		text-align: center;
+		font-size: 28px;
+		display: inline-block;
+		float: left; // Without this display:inline-block renders a 4px right margin
+		a
+		{
+			display: block;
+			width: (@leftwidth) / 5;
+			&:HOVER
+			{
+				background-color: @navy;
+				color: White;
+				text-decoration: none;
+			}
+		}
+		.Search-Box
+		{
+			width: 234px;
+			padding: 5px;
+			display: block;
+			margin: 7px;
+			background-image: url('Images/Search.png');
+			background-position: right;
+			background-repeat: no-repeat;
+			.GeneralText;
+		}
+	}
+}
+

@@ -8,10 +8,10 @@ namespace zasz.me.Integration.Unity
     {
         public static void Setup()
         {
-            var theBigBox = new UnityContainer();
-            Config.Unity.Configure(theBigBox, "BigBox");
-            Config.PutConfigurationAndSettingsInside(theBigBox);
-            Big.Swallow(theBigBox);
+            var box = new UnityContainer();
+            Config.Unity.Configure(box, "BigBox");
+            Config.PutConfigurationAndSettingsInside(box);
+            Big.Swallow(box);
             DependencyResolver.SetResolver(new UnityDependencyResolver());
         }
     }

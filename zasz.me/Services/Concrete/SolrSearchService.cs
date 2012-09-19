@@ -47,7 +47,7 @@ namespace zasz.me.Services.Concrete
             var searchHandler = new QueryOptions {Start = 0, Rows = 10};
             var searchResults = new SearchResults();
             var results = postOp.Query(term, searchHandler);
-            for (var result = 0; result < results.NumFound; result++)
+            for (var result = 0; result < results.Count(); result++)
             {
                 var id = results[result].Id.ToString().ToUpperInvariant();
                 var hlForResult = results.Highlights[id];

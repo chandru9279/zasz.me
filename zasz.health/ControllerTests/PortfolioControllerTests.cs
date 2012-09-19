@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using Moq;
 using Xunit;
 using zasz.me.Controllers;
+using zasz.me.Services.Contracts;
 
 namespace zasz.health.ControllerTests
 {
@@ -11,7 +13,8 @@ namespace zasz.health.ControllerTests
 
         public PortfolioControllerTests()
         {
-            controller = new PortfolioController();
+            var mock = new Mock<ISofuService>();
+            controller = new PortfolioController(mock.Object);
         }
 
         [Fact]

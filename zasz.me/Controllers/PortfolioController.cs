@@ -1,22 +1,16 @@
-﻿using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web.Mvc;
-using Newtonsoft.Json.Linq;
+﻿using System.Web.Mvc;
 using zasz.me.Integration.MVC;
-using zasz.me.Models;
+using zasz.me.Services.Contracts;
 
 namespace zasz.me.Controllers
 {
     public class PortfolioController : BaseController
     {
-        private StackUrls stackUrls;
+        private readonly ISofuService service;
 
-        public PortfolioController()
+        public PortfolioController(ISofuService service)
         {
-            stackUrls = new StackUrls();
+            this.service = service;
         }
 
         [DefaultAction]
@@ -25,30 +19,12 @@ namespace zasz.me.Controllers
             return View();
         }
 
-        // http://stackapps.com/apps/oauth/view/688
-        public ViewResult StackExchange()
-        {
-            var jsonAnswers = WebRequest.Create(stackUrls.MySoAnswers).GetResponse();
-            var answers = JObject.Parse(ExtractJsonResponse(jsonAnswers));
-            var questionIds = answers["items"].Select(x => (int)x["question_id"]).ToList();
-            return View(questionIds);
-        }
 
-        private static string ExtractJsonResponse(WebResponse response)
+        public ViewResult StackExchange(int pageNumber = 1)
         {
-            string json;
-            using (var outStream = new MemoryStream())
-            using (var zipStream = new GZipStream(response.GetResponseStream(),
-                CompressionMode.Decompress))
-            {
-                zipStream.CopyTo(outStream);
-                outStream.Seek(0, SeekOrigin.Begin);
-                using (var reader = new StreamReader(outStream, Encoding.UTF8))
-                {
-                    json = reader.ReadToEnd();
-                }
-            }
-            return json;
+            var questionIds = service.QuestionsAnswered();
+            var titleIds = service.QuestionTitles(questionIds);
+            return View(titleIds);
         }
     }
 }

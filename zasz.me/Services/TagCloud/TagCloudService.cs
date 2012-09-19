@@ -8,54 +8,54 @@ namespace zasz.me.Services.TagCloud
 {
     public class TagCloudService
     {
-        private readonly Func<float, float> _Decrement;
-        private readonly Action<string> _Die = Msg => { throw new Exception(Msg); };
+        private readonly Func<float, float> decrement;
+        private readonly Action<string> die = msg => { throw new Exception(msg); };
 
-        private readonly int _Height;
+        private readonly int height;
 
-        private readonly int _HighestWeight;
-        private readonly Func<float, float> _Increment;
-        private readonly int _LowestWeight;
-        private readonly RectangleF _MainArea;
+        private readonly int highestWeight;
+        private readonly Func<float, float> increment;
+        private readonly int lowestWeight;
+        private readonly RectangleF mainArea;
 
-        private readonly PointF _SpiralEndSentinel;
-        private readonly Dictionary<string, int> _TagsSorted;
-        private readonly int _Width;
-        internal PointF _Center;
-        internal PointF _CurrentCorner;
-        internal int _CurrentEdgeSize;
-        private Func<float, float> _EdgeDirection;
-        private float _FontHeightSpan;
-        internal int _MaxEdgeSize;
-        internal List<RectangleF> _Occupied;
+        private readonly PointF spiralEndSentinel;
+        private readonly Dictionary<string, int> tagsSorted;
+        private readonly int width;
+        internal PointF Center;
+        internal PointF CurrentCorner;
+        internal int CurrentEdgeSize;
+        private Func<float, float> edgeDirection;
+        private float fontHeightSpan;
+        internal int MaxEdgeSize;
+        internal List<RectangleF> Occupied;
 
-        private bool _ServiceObjectNew = true;
-        internal bool _SleepingEdge;
-        private int _SpiralRoom;
-        private int _WeightSpan;
+        private bool serviceObjectNew = true;
+        internal bool SleepingEdge;
+        private int spiralRoom;
+        private int weightSpan;
 
-        public TagCloudService(Dictionary<string, int> Tags, int Width, int Height)
+        public TagCloudService(Dictionary<string, int> tags, int width, int height)
         {
-            _Increment = It => It + _SpiralRoom;
-            _Decrement = It => It - _SpiralRoom;
-            if (null == Tags || 0 == Tags.Count)
-                _Die("Argument Exception, No Tags to disorganize");
-            if (Width < 30 || Height < 30)
-                _Die("Way too low Width or Height for the cloud to be useful");
-            _Width = Width;
-            _Height = Height;
-            _MainArea = new RectangleF(0, 0, Width, Height);
-            _MaxEdgeSize = Width >= Height ? Width : Height;
+            increment = x => x + spiralRoom;
+            decrement = x => x - spiralRoom;
+            if (null == tags || 0 == tags.Count)
+                die("Argument Exception, No Tags to disorganize");
+            if (width < 30 || height < 30)
+                die("Way too low Width or Height for the cloud to be useful");
+            this.width = width;
+            this.height = height;
+            mainArea = new RectangleF(0, 0, width, height);
+            MaxEdgeSize = width >= height ? width : height;
             /* Sentinel is a definitely out of bounds point that the spiral normally
              * should never reach. */
-            _SpiralEndSentinel = new PointF(_MaxEdgeSize + 10, _MaxEdgeSize + 10);
-            var Sorted = from Tag in Tags
-                         orderby Tag.Value descending
-                         select new {Tag.Key, Tag.Value};
-            _TagsSorted = Sorted.ToDictionary(x => x.Key, x => x.Value);
-            _LowestWeight = _TagsSorted.Last().Value;
-            _HighestWeight = _TagsSorted.First().Value;
-            _Occupied = new List<RectangleF>(_TagsSorted.Count + 4);
+            spiralEndSentinel = new PointF(MaxEdgeSize + 10, MaxEdgeSize + 10);
+            var sorted = from tag in tags
+                         orderby tag.Value descending
+                         select new {tag.Key, tag.Value};
+            tagsSorted = sorted.ToDictionary(x => x.Key, x => x.Value);
+            lowestWeight = tagsSorted.Last().Value;
+            highestWeight = tagsSorted.First().Value;
+            Occupied = new List<RectangleF>(tagsSorted.Count + 4);
             WordsSkipped = new Dictionary<string, int>();
             ApplyDefaults();
         }
@@ -123,8 +123,8 @@ namespace zasz.me.Services.TagCloud
         /// </summary>
         public int SpiralRoom
         {
-            get { return _SpiralRoom/2 - 1; }
-            set { _SpiralRoom = 2*value + 1; }
+            get { return spiralRoom/2 - 1; }
+            set { spiralRoom = 2*value + 1; }
         }
 
         /// <summary>
@@ -151,108 +151,108 @@ namespace zasz.me.Services.TagCloud
             /* Adding 4 Rectangles on the border to make sure that words dont go outside the border.
              * Words going outside the border will collide on these and hence be placed elsewhere.
              */
-            _Occupied.Add(new RectangleF(0, -1, _Width, 1));
-            _Occupied.Add(new RectangleF(-1, 0, 1, _Height));
-            _Occupied.Add(new RectangleF(0, _Height, _Width, 1));
-            _Occupied.Add(new RectangleF(_Width, 0, 1, _Height));
+            Occupied.Add(new RectangleF(0, -1, width, 1));
+            Occupied.Add(new RectangleF(-1, 0, 1, height));
+            Occupied.Add(new RectangleF(0, height, width, 1));
+            Occupied.Add(new RectangleF(width, 0, 1, height));
         }
 
         public Bitmap Construct(out Dictionary<string, RectangleF> Borders)
         {
-            if (_ServiceObjectNew)
-                _ServiceObjectNew = false;
+            if (serviceObjectNew)
+                serviceObjectNew = false;
             else
-                _Die("This object has been used. Dispose this, create and use a new Service object.");
-            var TheCloudBitmap = new Bitmap(_Width, _Height);
-            var GImage = Graphics.FromImage(TheCloudBitmap);
-            GImage.TextRenderingHint = TextRenderingHint.AntiAlias;
-            _Center = new PointF(TheCloudBitmap.Width/2f, TheCloudBitmap.Height/2f);
-            if (Angle != 0) GImage.Rotate(_Center, Angle);
-            _WeightSpan = _HighestWeight - _LowestWeight;
+                die("This object has been used. Dispose this, create and use a new Service object.");
+            var theCloudBitmap = new Bitmap(width, height);
+            var gImage = Graphics.FromImage(theCloudBitmap);
+            gImage.TextRenderingHint = TextRenderingHint.AntiAlias;
+            Center = new PointF(theCloudBitmap.Width/2f, theCloudBitmap.Height/2f);
+            if (Angle != 0) gImage.Rotate(Center, Angle);
+            weightSpan = highestWeight - lowestWeight;
             if (MaximumFontSize < MinimumFontSize)
-                _Die("MaximumFontSize is less than MinimumFontSize");
-            _FontHeightSpan = MaximumFontSize - MinimumFontSize;
-            GImage.Clear(ColorChoice.GetBackGroundColor());
+                die("MaximumFontSize is less than MinimumFontSize");
+            fontHeightSpan = MaximumFontSize - MinimumFontSize;
+            gImage.Clear(ColorChoice.GetBackGroundColor());
 
-            foreach (var Tag in _TagsSorted)
+            foreach (var tag in tagsSorted)
             {
-                var FontToApply = new Font(SelectedFont, CalculateFontSize(Tag.Value));
-                var StringBounds = GImage.MeasureString(Tag.Key, FontToApply);
-                var Format = DisplayChoice.GetFormat();
-                var IsVertical = Format.FormatFlags.HasFlag(StringFormatFlags.DirectionVertical);
-                if (IsVertical)
+                var fontToApply = new Font(SelectedFont, CalculateFontSize(tag.Value));
+                var stringBounds = gImage.MeasureString(tag.Key, fontToApply);
+                var format = DisplayChoice.GetFormat();
+                var isVertical = format.FormatFlags.HasFlag(StringFormatFlags.DirectionVertical);
+                if (isVertical)
                 {
-                    var StringWidth = StringBounds.Width;
-                    StringBounds.Width = StringBounds.Height;
-                    StringBounds.Height = StringWidth;
+                    var stringWidth = stringBounds.Width;
+                    stringBounds.Width = stringBounds.Height;
+                    stringBounds.Height = stringWidth;
                 }
-                var TopLeft = CalculateWhere(StringBounds);
+                var topLeft = CalculateWhere(stringBounds);
                 /* Strategy chosen display format, failed to be placed */
-                if (TopLeft.Equals(_SpiralEndSentinel))
+                if (topLeft.Equals(spiralEndSentinel))
                 {
-                    WordsSkipped.Add(Tag.Key, Tag.Value);
+                    WordsSkipped.Add(tag.Key, tag.Value);
                     continue;
                 }
-                var TextCenter = IsVertical & VerticalTextRight
-                                     ? new PointF(TopLeft.X + (StringBounds.Width/2f),
-                                                  TopLeft.Y + (StringBounds.Height/2f))
-                                     : TopLeft;
-                var CurrentBrush = new SolidBrush(ColorChoice.GetCurrentColor());
-                if (IsVertical & VerticalTextRight) GImage.Rotate(TextCenter, -180);
-                GImage.DrawString(Tag.Key, FontToApply, CurrentBrush, TopLeft, Format);
-                if (IsVertical & VerticalTextRight) GImage.Rotate(TextCenter, 180);
+                var textCenter = isVertical & VerticalTextRight
+                                     ? new PointF(topLeft.X + (stringBounds.Width/2f),
+                                                  topLeft.Y + (stringBounds.Height/2f))
+                                     : topLeft;
+                var currentBrush = new SolidBrush(ColorChoice.GetCurrentColor());
+                if (isVertical & VerticalTextRight) gImage.Rotate(textCenter, -180);
+                gImage.DrawString(tag.Key, fontToApply, currentBrush, topLeft, format);
+                if (isVertical & VerticalTextRight) gImage.Rotate(textCenter, 180);
                 if (ShowWordBoundaries)
-                    GImage.DrawRectangle(new Pen(CurrentBrush), TopLeft.X, TopLeft.Y, StringBounds.Width,
-                                         StringBounds.Height);
-                _Occupied.Add(new RectangleF(TopLeft, StringBounds));
+                    gImage.DrawRectangle(new Pen(currentBrush), topLeft.X, topLeft.Y, stringBounds.Width,
+                                         stringBounds.Height);
+                Occupied.Add(new RectangleF(topLeft, stringBounds));
             }
-            GImage.Dispose();
-            _Occupied.RemoveRange(0, 4);
+            gImage.Dispose();
+            Occupied.RemoveRange(0, 4);
             if (Crop)
-                TheCloudBitmap = CropAndTranslate(TheCloudBitmap);
-            Borders = _Occupied
-                .Zip(_TagsSorted.Keys.Where(Word => !WordsSkipped.ContainsKey(Word)), (Rect, Tag) => new {Rect, Tag})
-                .ToDictionary(x => x.Tag, x => x.Rect);
-            return TheCloudBitmap;
+                theCloudBitmap = CropAndTranslate(theCloudBitmap);
+            Borders = Occupied
+                .Zip(tagsSorted.Keys.Where(word => !WordsSkipped.ContainsKey(word)), (rect, tag) => new {rect, tag})
+                .ToDictionary(x => x.tag, x => x.rect);
+            return theCloudBitmap;
         }
 
-        private PointF CalculateWhere(SizeF Measure)
+        private PointF CalculateWhere(SizeF measure)
         {
-            _CurrentEdgeSize = _SpiralRoom;
-            _SleepingEdge = true;
-            _CurrentCorner = _Center;
+            CurrentEdgeSize = spiralRoom;
+            SleepingEdge = true;
+            CurrentCorner = Center;
 
-            var CurrentPoint = _Center;
-            while (TryPoint(CurrentPoint, Measure) == false)
-                CurrentPoint = GetNextPointInEdge(CurrentPoint);
-            return CurrentPoint;
+            var currentPoint = Center;
+            while (TryPoint(currentPoint, measure) == false)
+                currentPoint = GetNextPointInEdge(currentPoint);
+            return currentPoint;
         }
 
-        internal bool TryPoint(PointF TrialPoint, SizeF Rectangle)
+        internal bool TryPoint(PointF trialPoint, SizeF rectangle)
         {
-            if (TrialPoint.Equals(_SpiralEndSentinel)) return true;
-            var TrailRectangle = new RectangleF(TrialPoint, Rectangle);
-            return !_Occupied.Any(x => x.IntersectsWith(TrailRectangle));
+            if (trialPoint.Equals(spiralEndSentinel)) return true;
+            var trailRectangle = new RectangleF(trialPoint, rectangle);
+            return !Occupied.Any(x => x.IntersectsWith(trailRectangle));
         }
 
         /*
          * This method gives points that crawls along an edge of the spiral, described below.
          */
 
-        internal PointF GetNextPointInEdge(PointF Current)
+        internal PointF GetNextPointInEdge(PointF current)
         {
             do
             {
-                if (Current.Equals(_CurrentCorner))
+                if (current.Equals(CurrentCorner))
                 {
-                    _CurrentCorner = GetSpiralNext(_CurrentCorner);
-                    if (_CurrentCorner.Equals(_SpiralEndSentinel)) return _SpiralEndSentinel;
+                    CurrentCorner = GetSpiralNext(CurrentCorner);
+                    if (CurrentCorner.Equals(spiralEndSentinel)) return spiralEndSentinel;
                 }
-                Current = Current.X == _CurrentCorner.X
-                              ? new PointF(Current.X, _EdgeDirection(Current.Y))
-                              : new PointF(_EdgeDirection(Current.X), Current.Y);
-            } while (!_MainArea.Contains(Current));
-            return Current;
+                current = current.X == CurrentCorner.X
+                              ? new PointF(current.X, edgeDirection(current.Y))
+                              : new PointF(edgeDirection(current.X), current.Y);
+            } while (!mainArea.Contains(current));
+            return current;
         }
 
         /* Imagine a grid of 5x5 points, and 0,0 and 4,4 are the topright and bottomleft respectively.
@@ -284,25 +284,25 @@ namespace zasz.me.Services.TagCloud
          * 
          */
 
-        internal PointF GetSpiralNext(PointF PreviousCorner)
+        internal PointF GetSpiralNext(PointF previousCorner)
         {
-            float X = PreviousCorner.X, Y = PreviousCorner.Y;
-            var EdgeSizeEven = (_CurrentEdgeSize & 1) == 0;
+            float x = previousCorner.X, y = previousCorner.Y;
+            var edgeSizeEven = (CurrentEdgeSize & 1) == 0;
 
-            if (_SleepingEdge)
+            if (SleepingEdge)
             {
-                X = EdgeSizeEven ? PreviousCorner.X - _CurrentEdgeSize : PreviousCorner.X + _CurrentEdgeSize;
-                _SleepingEdge = false;
+                x = edgeSizeEven ? previousCorner.X - CurrentEdgeSize : previousCorner.X + CurrentEdgeSize;
+                SleepingEdge = false;
                 /* Next edge will be standing. Sleeping = Parallal to X-Axis; Standing = Parallal to Y-Axis */
             }
             else
             {
-                Y = EdgeSizeEven ? PreviousCorner.Y - _CurrentEdgeSize : PreviousCorner.Y + _CurrentEdgeSize;
-                _CurrentEdgeSize += _SpiralRoom;
-                _SleepingEdge = true;
+                y = edgeSizeEven ? previousCorner.Y - CurrentEdgeSize : previousCorner.Y + CurrentEdgeSize;
+                CurrentEdgeSize += spiralRoom;
+                SleepingEdge = true;
             }
 
-            _EdgeDirection = EdgeSizeEven ? _Decrement : _Increment;
+            edgeDirection = edgeSizeEven ? decrement : increment;
 
             /* If the spiral widens to a point where its arms are longer than the Height & Width, 
              * it's time to end the spiral and give up placing the word. There is no 'point'
@@ -310,18 +310,18 @@ namespace zasz.me.Services.TagCloud
              * Our spiral is an Archimedean Right spiral, made up of Line segments @ 
              * right-angles to each other.
              */
-            return _CurrentEdgeSize > _MaxEdgeSize ? _SpiralEndSentinel : new PointF(X, Y);
+            return CurrentEdgeSize > MaxEdgeSize ? spiralEndSentinel : new PointF(x, y);
         }
 
         // Range Mapping
-        private float CalculateFontSize(int Weight)
+        private float CalculateFontSize(int weight)
         {
             // Strange case where all tags have equal weights
-            if (_WeightSpan == 0) return (MinimumFontSize + MaximumFontSize)/2f;
+            if (weightSpan == 0) return (MinimumFontSize + MaximumFontSize)/2f;
             // Convert the Weight into a 0-1 range (float)
-            var WeightScaled = (Weight - _LowestWeight)/(float) _WeightSpan;
+            var weightScaled = (weight - lowestWeight)/(float) weightSpan;
             // Convert the 0-1 range into a value in the Font range.
-            return MinimumFontSize + (WeightScaled*_FontHeightSpan);
+            return MinimumFontSize + (weightScaled*fontHeightSpan);
         }
 
         /// <summary>
@@ -329,43 +329,43 @@ namespace zasz.me.Services.TagCloud
         ///   crop the Bitmap and translates the list of occupied areas
         ///   keeping them consistant with the new cropped bitmap
         /// </summary>
-        /// <param name = "CloudToCrop">The bitmap of the cloud to crop</param>
+        /// <param name = "cloudToCrop">The bitmap of the cloud to crop</param>
         /// <returns>The cropped version of the bitmap</returns>
-        private Bitmap CropAndTranslate(Bitmap CloudToCrop)
+        private Bitmap CropAndTranslate(Bitmap cloudToCrop)
         {
-            var NewTop = _Occupied.Select(x => x.Top).Min() - Margin;
-            var NewLeft = _Occupied.Select(x => x.Left).Min() - Margin;
+            var newTop = Occupied.Select(x => x.Top).Min() - Margin;
+            var newLeft = Occupied.Select(x => x.Left).Min() - Margin;
 
-            var Bottom = _Occupied.Select(x => x.Bottom).Max() + Margin;
-            var Right = _Occupied.Select(x => x.Right).Max() + Margin;
+            var bottom = Occupied.Select(x => x.Bottom).Max() + Margin;
+            var right = Occupied.Select(x => x.Right).Max() + Margin;
 
-            if (NewTop < 0) NewTop = 0;
-            if (NewLeft < 0) NewLeft = 0;
+            if (newTop < 0) newTop = 0;
+            if (newLeft < 0) newLeft = 0;
 
-            if (Bottom > _Height) Bottom = _Height;
-            if (Right > _Width) Right = _Width;
+            if (bottom > height) bottom = height;
+            if (right > width) right = width;
 
-            var PopulatedArea = new RectangleF(NewLeft, NewTop, Right - NewLeft, Bottom - NewTop);
-            _Occupied =
-                _Occupied.Select(It => new RectangleF(It.X - NewLeft, It.Y - NewTop, It.Width, It.Height)).ToList();
-            return CloudToCrop.Clone(PopulatedArea, CloudToCrop.PixelFormat);
+            var populatedArea = new RectangleF(newLeft, newTop, right - newLeft, bottom - newTop);
+            Occupied =
+                Occupied.Select(it => new RectangleF(it.X - newLeft, it.Y - newTop, it.Width, it.Height)).ToList();
+            return cloudToCrop.Clone(populatedArea, cloudToCrop.PixelFormat);
         }
     }
 
     public static class TagExtensions
     {
-        public static void Rotate(this Graphics GImage, PointF About, int ByAngle)
+        public static void Rotate(this Graphics gImage, PointF about, int byAngle)
         {
-            GImage.TranslateTransform(About.X, About.Y);
-            GImage.RotateTransform(ByAngle);
-            GImage.TranslateTransform(-About.X, -About.Y);
+            gImage.TranslateTransform(about.X, about.Y);
+            gImage.RotateTransform(byAngle);
+            gImage.TranslateTransform(-about.X, -about.Y);
         }
 
         /* Plan to use this to change strategy chosen format when it doesn't fit */
 
-        public static StringFormat Other(this StringFormat Format)
+        public static StringFormat Other(this StringFormat format)
         {
-            return ReferenceEquals(Format, DisplayStrategy.HorizontalFormat)
+            return ReferenceEquals(format, DisplayStrategy.HorizontalFormat)
                        ? DisplayStrategy.VerticalFormat
                        : DisplayStrategy.HorizontalFormat;
         }

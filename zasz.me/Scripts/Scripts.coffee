@@ -1,8 +1,5 @@
 attachHandlers = ->	
 	# ClickHandlers
-	$("body").click closeStatus
-	
-	$("#Status-History-Expand-Button").click expandStatus
 	
 	$(".Expand-Button").click ->
 		$(this).next().slideToggle()
@@ -21,21 +18,7 @@ attachHandlers = ->
 	if $("#blogTagCloud").length > 0
 		$("#blogTagCloud").load ->
 			$.get "/Blog/TagCloudLinks", (links) ->
-				$("#tagCloudLinks").replaceWith links
-	
-expandStatus = ->
-	if statusExpanded
-		closeStatus()
-	else
-		$("#Status-History").toggleClass "Status-History Status-History-Expanded"
-		window.statusExpanded = true
-	false
-
-closeStatus = ->
-	if statusExpanded
-		$("#Status-History").removeClass "Status-History-Expanded"
-		$("#Status-History").addClass "Status-History"
-		window.statusExpanded = false
+				$("#tagCloudLinks").replaceWith links	
 
 addJqueryCenter = ->
 	jQuery.fn.center = ->

@@ -1,0 +1,128 @@
+.TextHover 
+{
+	cursor: text;
+	border-color: @formfocus;
+}
+
+.GeneralText
+{
+	background-color: @formbg;
+    border-style: solid;
+	cursor: text;
+	border-width: 1px;
+	border-color: @bground;
+	&:HOVER
+	{
+	.TextHover;
+	}
+	&:FOCUS
+	{
+	.TextHover;
+	}
+}
+
+.ProTextBox
+{
+    margin-top: 5px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 230px;
+    padding: 6px 5px 6px 5px;    
+	.GeneralText;
+}
+
+.ProTextArea
+{
+    padding: 6px 5px 5px;
+    margin: 20px auto;
+    width: 460px;
+    background-color: @formbg;
+	&:HOVER
+	{
+	.TextHover;
+	}
+	&:FOCUS
+	{
+	.TextHover;
+	}
+}
+
+.Pro-Button
+{
+    color: #F1F2D8;
+    background: #425955;
+    display: block;
+    float: left;
+    padding: 3px 5px;
+    margin-right: 3px;
+    border: 1px solid #1B1D26;
+    text-decoration: none;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+	&:HOVER
+	{
+		background: #1B1D26;
+		cursor: pointer;
+	}
+}
+
+select.ProTextBox:HOVER, select.ProTextBox:focus
+{
+    cursor: pointer;    
+}
+
+.Expand-Panel
+{
+    width: 680px;
+    padding: 10px 0px;
+	&:HOVER
+	{
+		background: #1B1D26;
+		cursor: pointer;
+	}
+}
+
+.Expand-Button
+{
+    text-align: center;
+    padding: 3px;
+    border: 1px solid #1B1D26;
+    background-color: #425955;
+    cursor: pointer;
+    color: #F1F2D8;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.Panel
+{
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #1B1D26;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+::-webkit-input-placeholder {
+    color: @placeholder;
+}
+
+input:focus::-webkit-input-placeholder {
+	color: @placefocus; 
+}
+
+:-moz-placeholder {
+    color: @placeholder;
+	&:focus{
+	color: @placefocus; 
+	}
+}
+
+:-ms-input-placeholder {
+	color: @placeholder;
+}

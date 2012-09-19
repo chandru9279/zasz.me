@@ -1,0 +1,80 @@
+.Links
+{
+	@linkwidth: 16px;
+    width: 4 * (@linkwidth + 8);
+    float: right;
+    margin-right: 20px;
+    margin-top: 105px;
+    display: block;	
+	a
+	{
+		width: @linkwidth + 8;
+		display: inline-block;
+		font-size: 0px;
+		float: left;
+		&:HOVER
+		{
+			background-color: @bground;
+			cursor: pointer;
+		}
+		img
+		{
+			padding: 4px;
+			width: @linkwidth;
+			display: inline;
+		}
+	}
+}
+
+.Banner
+{
+	float: left;
+	height: 107px;
+	margin-right: -200px; // To allow right floating elements to overlap the image
+}
+
+.Description
+{
+    text-align: center;
+    font-size: 14px;
+	width: @rightwidth;
+	.Focus
+	{
+		color: #425955;
+		font-size: 24px;
+		margin-top: -6px;
+		a 
+		{
+			height: 100%;
+		}
+	}
+}
+
+.Status-History
+{
+	background-image: url('Images/expand-down.png');
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-color: White;
+	border: 2px solid #EDEDED;
+	width: @rightwidth - 4; // for the border
+    height: 120px;  // 124 including border
+    overflow: hidden;
+	z-index: 11;
+	.transition(height, 1s);
+	position: absolute;
+	&:HOVER
+	{
+		cursor: pointer;
+		.Status-History-Expanded;
+	}
+	li
+	{
+		margin-bottom: 10px;
+	}
+}
+
+.Status-History-Expanded
+{
+    height: 305px;
+}

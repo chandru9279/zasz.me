@@ -144,8 +144,10 @@
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Passphrase.cs" />
     <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\StackUrls.cs" />
+    <Compile Include="Services\Concrete\StackUrls.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Services\Concrete\JsonSofuService.cs" />
+    <Compile Include="Services\Contracts\ISofuService.cs" />
     <Compile Include="ViewModels\BrowseViewModel.cs" />
     <Compile Include="ViewModels\ContactViewModel.cs" />
     <Compile Include="ViewModels\LinkViewModel.cs" />
@@ -214,6 +216,9 @@
     <Content Include="Content\Blog.css" />
     <Content Include="Content\Layout.less" />
     <Content Include="Content\themes\base\jquery-ui.less" />
+    <Content Include="Content\Form.less" />
+    <Content Include="Content\Menu.less" />
+    <Content Include="Content\Header.less" />
     <None Include="Content\Variables.less" />
     <Content Include="Content\Admin.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -367,6 +372,7 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\_CKEditor.cshtml" />
     <Content Include="Views\Portfolio\StackExchange.cshtml" />
+    <Content Include="App_Code\Render.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -397,7 +403,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Show.cshtml" />
-    <Content Include="Views\Home\_SearchBox.cshtml" />
     <Content Include="Views\Portfolio\All.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_StackOverflowFlair.cshtml" />

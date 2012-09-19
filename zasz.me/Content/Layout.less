@@ -1,4 +1,7 @@
 ﻿@import 'Variables';
+@import 'Form';
+@import 'Header';
+@import 'Menu';
 
 a
 {
@@ -27,7 +30,7 @@ a
 {
     display: block;
 	margin: auto;
-    width: 960px;
+    width: @sitewidth;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 40px;
@@ -43,13 +46,12 @@ a
 
 .Header
 {
-    height: @headerheight;
-	width: 960px;
+	width: @sitewidth;
     display: block;
     float: left;
 	.Left
 	{
-		width: 700px;
+		width: @leftwidth;
 		display: block;
 		float: left;
 	}
@@ -62,142 +64,17 @@ a
 }
 
 
-.Links
-{
-	@linkwidth: 16px;
-    width: 4 * (@linkwidth + 8);
-    float: right;
-    margin-top: 80px;
-    display: block;	
-	a
-	{
-		width: @linkwidth + 8;
-		display: inline-block;
-		font-size: 0px;
-		float: left;
-		&:HOVER
-		{
-			background-color: @bground;
-			cursor: pointer;
-		}
-		img
-		{
-			padding: 4px;
-			width: @linkwidth;
-			display: inline;
-		}
-	}
-}
-
-.Banner
-{
-	float: left;
-	height: 107px;
-}
-
-.Main-Menu
-{
-	@menuwidth: 700px;
-	float: left;
-	height: 42px;
-    background-color: @bground;
-	color: @sky;
-    width: @menuwidth;
-	// This will join with the image height of 107px and Main-Menu height of 42px : 42 + 107 + 11 = 160px
-    margin-top: 11px; 
-	li
-	{
-		text-align: center;
-		font-size: 28px;
-		display: inline-block;
-		width: (@menuwidth - 20) / 5;
-		a
-		{
-			display: block;
-			&:HOVER
-			{
-				background-color: @navy;
-				color: White;
-				text-decoration: none;
-			}
-		}
-	}
-}
-
-.Description
-{
-    text-align: center;
-    font-size: 14px;
-	height: @headerheight / 2;
-	width: @rightwidth;
-	.Focus
-	{
-		color: #425955;
-		font-size: 24px;
-		a 
-		{
-			height: 100%;
-			display: block;
-		}
-	}
-}
-
-.Status-History-Expand-Button
-{
-    background-image: url('Images/expand-down.png');
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-repeat: no-repeat;
-    height: 26px;
-    margin-left: 170px;
-    margin-top: -3px;
-    position: absolute;
-    width: 36px;
-    z-index: 12;
-    /* popup 102 > mask 101 > DisqusPostAstoolbar 100 > Status-History-Button 12 > Status-History-Expanded 11 > Disorganizer-Hover-Divs 10 */
-	&:HOVER
-	{
-		cursor: pointer;
-		background-position: center bottom;
-	}
-}
-
-.Status-History
-{
-    margin-left: 10px;
-    height: 60px;
-    overflow: hidden;	
-}
-
-.Status-History-Expanded
-{
-    margin-left: 10px;
-    margin-top: -10px;
-    background-color: @bground;
-	width: @rightwidth - 10; // for the margin-left
-	color: @navy;
-    height: auto;
-    overflow: auto;
-    position: absolute;
-    z-index: 11;
-	li
-	{
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-}
-
 .Pro-Body
 {
     clear: both;
     width: 100%;
     height: 100%;
 	display: inline-block;
-	width: 960px;
+	width: @sitewidth;
 	.Left
 	{
 		float: left;
-		width: 700px;
+		width: @leftwidth;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		overflow: hidden;
@@ -206,7 +83,7 @@ a
 	{
 		float: left;
 		margin-left: 20px;
-		width: 240px;
+		width: @rightwidth;
 		overflow: hidden;
 	}
 }
@@ -247,146 +124,11 @@ a
     padding: 20px;
     position: absolute;
     z-index: 102;
-    border: 5px solid #FFAE7F;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
-
-select.ProTextBox:HOVER, select.ProTextBox:focus
-{
-    cursor: pointer;    
-}
-
-.TextHover 
-{
-	cursor: text;
-}
-
-.GeneralText
-{
-	background-color: @formbg;
-    border-style: solid;
-	cursor: text;
-	border-width: 1px;
-	border-color: @bground;
-	&:HOVER
-	{
-	.TextHover;
-	}
-	&:FOCUS
-	{
-	.TextHover;
-	}
-}
-
-.ProTextBox
-{
-    margin-top: 5px;
-    margin-bottom: 20px;
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 230px;
-    padding: 6px 5px 6px 5px;    
-	.GeneralText;
-}
-
-.Search-Box
-{
-    margin-top: 5px;
-    margin-bottom: 20px;
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 210px;
-    padding: 6px 5px 6px 5px;
-	background-image: url('Images/Search.png');
-	background-position: right;
-	background-repeat: no-repeat;
-    .GeneralText;
-}
-
-.ProTextArea
-{
-    padding: 6px 5px 5px;
-    margin: 20px auto;
-    width: 460px;
-    background-color: @formbg;
-	&:HOVER
-	{
-	.TextHover;
-	}
-	&:FOCUS
-	{
-	.TextHover;
-	}
-}
-
-.Pro-Button
-{
-    color: #F1F2D8;
-    background: #425955;
-    display: block;
-    float: left;
-    padding: 3px 5px;
-    margin-right: 3px;
-    border: 1px solid #1B1D26;
-    text-decoration: none;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-	&:HOVER
-	{
-		background: #1B1D26;
-		cursor: pointer;
-	}
-}
-
-.Expand-Panel
-{
-    width: 680px;
-    padding: 10px 0px;
-	&:HOVER
-	{
-		background: #1B1D26;
-		cursor: pointer;
-	}
-}
-
-.Expand-Button
-{
-    text-align: center;
-    padding: 3px;
-    border: 1px solid #1B1D26;
-    background-color: #425955;
-    cursor: pointer;
-    color: #F1F2D8;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-
-.Panel
-{
-    display: none;
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #1B1D26;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    border: 3px solid @bground;
+    .radius(6px)
 }
 
 .twitter-share-button 
 {
     vertical-align: text-bottom
 } 
-
-::-webkit-input-placeholder {
-    color: @placeholder;
-}
-:-moz-placeholder {
-    color: @placeholder;
-}
-:-ms-input-placeholder {
-	color: @placeholder;
-}

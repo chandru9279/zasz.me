@@ -13,7 +13,7 @@ namespace zasz.me.Controllers
 {
     public abstract class PostController : BaseController
     {
-        private const string ManageViewPath = "~/Views/Post/Manage.cshtml";
+        private const string manageViewPath = "~/Views/Post/Manage.cshtml";
         protected readonly IPostRepository Posts;
         protected readonly ITagRepository Tags;
 
@@ -75,14 +75,14 @@ namespace zasz.me.Controllers
         [Secure]
         public ActionResult Create()
         {
-            return View(ManageViewPath, new Post());
+            return View(manageViewPath, new Post());
         }
 
         [Authorize]
         [Secure]
         public ActionResult Edit(string id)
         {
-            return View(ManageViewPath, Posts.Get(id));
+            return View(manageViewPath, Posts.Get(id));
         }
 
         [Authorize]
@@ -120,7 +120,7 @@ namespace zasz.me.Controllers
                 if (ModelState.IsValid)
                     Posts.Save(entry);
                 else
-                    return View(ManageViewPath, entry);
+                    return View(manageViewPath, entry);
 
             Posts.Commit();
             return Redirect("/Blog/Post/" + entry.Slug);

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace zasz.me.Models
+namespace zasz.me.Services.Concrete
 {
+    // App URL : http://stackapps.com/apps/oauth/view/688
     public class StackUrls
     {
         private const string apikey = "key=usSGUdqhSFinjmEGnQYRCg((";

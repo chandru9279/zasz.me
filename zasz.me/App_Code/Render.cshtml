@@ -1,0 +1,53 @@
+﻿@helper Paging(int numberOfPages)
+{
+    var splitPath = Request.Path.Split(new[] {'/'});
+    var lastSplit = splitPath[splitPath.Length - 1];
+    var pagePath = Request.Path + "/";
+    var previousPath = "";
+    var currentPage = 1;
+    var nextPath = pagePath + "2";
+    var previousEnabled = false;
+    var nextEnabled = numberOfPages > 1;
+    if (lastSplit.Is<int>())
+    {
+        pagePath = Request.Path.Substring(0, Request.Path.Length - lastSplit.Length);
+        currentPage = int.Parse(lastSplit);
+        nextEnabled = currentPage < numberOfPages;
+        previousEnabled = currentPage > 1;
+        previousPath = pagePath + (currentPage - 1);
+        nextPath = pagePath + (currentPage + 1);
+    }
+    if (numberOfPages <= 1)
+    {
+        return;
+    }
+    <div class='Paging'>
+        @if (previousEnabled)
+        {
+            <a href='@previousPath'>Previous</a>
+        }
+        else
+        {
+            <span class='DisabledPrevNext'>Previous</span>
+        }
+        @for (var i = 1; i <= numberOfPages; i++)
+        {
+            if (i == currentPage)
+            {
+                <span class='Current'>@i</span>
+            }
+            else
+            {
+                <a href='@(pagePath + i)'>@i</a>
+            }
+        }
+        @if (nextEnabled)
+        {
+            <a href='@nextPath'>Next</a>
+        }
+        else
+        {
+            <span class='DisabledPrevNext'>Next</span>
+        }
+    </div>
+}

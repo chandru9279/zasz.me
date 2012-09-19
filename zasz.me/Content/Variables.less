@@ -1,6 +1,6 @@
 ﻿@bground: #E5E5E5;
 @fground: #333333;
-@formbg: #F0F0F0;
+@sitewidth: 960px;
 
 @black: #090909;
 @silver: #A8A8A8;
@@ -16,6 +16,21 @@
 	border-radius: @rad;
 }
 
-@headerheight: 160px;
+.transition(@prop, @time)
+{
+transition: @prop @time;
+-moz-transition: @prop @time, -moz-transform @time;
+-webkit-transition: @prop @time, -webkit-transform @time;
+-o-transition: @prop @time, -o-transform @time;
+}
+
+@leftwidth: 700px;
 @rightwidth: 260px;
-@placeholder: #B8B8B8;
+
+@placeholder: #B2B2B2;
+@placefocus: #CCCCCC;
+
+@formbg: #F4F4F4;
+@formfocus: #AAAAAA;
+
+@panelfocus: #BABABA;

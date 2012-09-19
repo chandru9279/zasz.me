@@ -20,7 +20,7 @@ namespace zasz.me.Services.Concrete
 
         public FilesystemFilesService(UploadsConfig UploadsConfiguration)
         {
-            Convert = It => It; //Does Nothing
+            Convert = x => x; //Does Nothing
             _Settings = UploadsConfiguration;
             _UploadsDirRooted = AppDomain.CurrentDomain.BaseDirectory + _Settings.UploadsFolder + "\\";
             _ThumbsDirRooted = _UploadsDirRooted + _Settings.ThumbsFolder + "\\";

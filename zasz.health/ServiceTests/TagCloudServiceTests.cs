@@ -29,11 +29,11 @@ namespace zasz.health.ServiceTests
         [Fact]
         public void TestTryPointFailsOnCollision()
         {
-            _Service._Occupied.Add(R(P(3, 0), S(1, 2)));
+            _Service.Occupied.Add(R(P(3, 0), S(1, 2)));
             Assert.False(_Service.TryPoint(P(2, 1), S(2, 1)));
             Assert.True(_Service.TryPoint(P(2, 2), S(2, 1)));
 
-            _Service._Occupied.Add(R(P(0, 0), S(3, 3)));
+            _Service.Occupied.Add(R(P(0, 0), S(3, 3)));
             Assert.True(_Service.TryPoint(P(3, 2), S(1, 2)));
             Assert.True(_Service.TryPoint(P(0, 3), S(4, 1)));
             Assert.False(_Service.TryPoint(P(1, 1), S(1, 1)));
@@ -42,8 +42,8 @@ namespace zasz.health.ServiceTests
         [Fact]
         public void TestGetNextPointInSpiral()
         {
-            _Service._CurrentEdgeSize = 1;
-            _Service._SleepingEdge = true;
+            _Service.CurrentEdgeSize = 1;
+            _Service.SleepingEdge = true;
 
             Assert.Equal(P(3, 2), _Service.GetSpiralNext(P(2, 2)));
             Assert.Equal(P(3, 3), _Service.GetSpiralNext(P(3, 2)));
@@ -60,10 +60,10 @@ namespace zasz.health.ServiceTests
         [Fact]
         public void TestGetNextPointInEdge()
         {
-            _Service._CurrentEdgeSize = 1;
-            _Service._SleepingEdge = true;
-            _Service._CurrentCorner = P(2, 2);
-            _Service._Center = P(2, 2);
+            _Service.CurrentEdgeSize = 1;
+            _Service.SleepingEdge = true;
+            _Service.CurrentCorner = P(2, 2);
+            _Service.Center = P(2, 2);
 
             Assert.Equal(P(3, 2), _Service.GetNextPointInEdge(P(2, 2)));
 
