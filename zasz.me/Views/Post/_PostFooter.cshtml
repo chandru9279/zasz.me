@@ -8,9 +8,9 @@
     {
         <span>Tagged </span>
         <ul class="Tags">
-            @foreach (var Tag in Model.Tags)
+            @foreach (var tag in Model.Tags)
             {
-                <li><a href="/Blog/Tag/@Tag.Name">@Tag.Name</a></li>
+                <li><a href="/Blog/Tag/@tag.Name">@tag.Name</a></li>
             }
         </ul>
     }
@@ -20,14 +20,14 @@
         <tr>
             <td><div class="fb-like" data-href="@Model.Permalink" data-layout="button_count" data-send="true" data-width="290" data-show-faces="true" data-colorscheme="dark" data-font="trebuchet ms"></div></td>
             <td><div style="margin-left: 20px"><a href="https://twitter.com/share" class="twitter-share-button" data-url="@Model.Permalink" data-text="Chandru posted : @Model.Title">Tweet</a></div></td> 
+            @if (Request.IsAuthenticated)
+            {
+                <td>
+                    <span>Manage :</span>
+                    <a href="@Url.Action("Delete", "Blog")/@Model.Slug">Hide</a>
+                </td>
+            }            
         </tr>
     </table>
-    @if (Request.IsAuthenticated)
-    {
-        <div style="margin-top: 5px">
-            <span>Manage :</span>
-            <a href="@Url.Action("Edit", "Blog")/@Model.Slug">Edit</a>
-            <a href="@Url.Action("Delete", "Blog")/@Model.Slug">Delete</a>
-        </div>
-    }
+    
 </div>

@@ -1,7 +1,4 @@
 using System;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using zasz.me.Controllers.Utils;
@@ -13,7 +10,6 @@ namespace zasz.me.Controllers
 {
     public abstract class PostController : BaseController
     {
-        private const string manageViewPath = "~/Views/Post/Manage.cshtml";
         protected readonly IPostRepository Posts;
         protected readonly ITagRepository Tags;
 
@@ -70,21 +66,7 @@ namespace zasz.me.Controllers
                                                           new DateTime(year, Constants.Months[month], 1))
                                     });
         }
-
-        [Authorize]
-        [Secure]
-        public ActionResult Create()
-        {
-            return View(manageViewPath, new Post());
-        }
-
-        [Authorize]
-        [Secure]
-        public ActionResult Edit(string id)
-        {
-            return View(manageViewPath, Posts.Get(id));
-        }
-
+       
         [Authorize]
         public ActionResult Delete(string Id)
         {
@@ -94,48 +76,6 @@ namespace zasz.me.Controllers
             Posts.Delete(post);
             Posts.Commit();
             return RedirectToAction("List", "Blog");
-        }
-
-        [HttpPost]
-        [Authorize]
-        [Secure]
-        [ValidateInput(false)]
-        public ActionResult Manage(string postContent, string title, string tags, string slug)
-        {
-            var isNew = string.IsNullOrEmpty(slug);
-
-            var entry = isNew ? new Post() : Posts.Get(slug);
-
-            entry.Title = title;
-            entry.Content = postContent;
-            if (entry.Tags != null) entry.Tags.Clear();
-            entry.Tags =
-                tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).Select(
-                    x => Tags.Get(x) ?? Tags.Save(new Tag(x))).
-                    ToList();
-            if (isNew) entry.Slug = GetSlug(title);
-            if (isNew) entry.Timestamp = DateTime.Now;
-
-            if (isNew)
-                if (ModelState.IsValid)
-                    Posts.Save(entry);
-                else
-                    return View(manageViewPath, entry);
-
-            Posts.Commit();
-            return Redirect("/Blog/Post/" + entry.Slug);
-        }
-
-        public static string GetSlug(string title)
-        {
-            var decodedTitle = HttpUtility.HtmlDecode(title).ToLower();
-            var nearlySlug = Constants.GoWords().Aggregate
-                (
-                    decodedTitle,
-                    (current, pair) => current.Replace(pair.Key, " " + pair.Value + " ")
-                );
-            var sluglets = (from object match in Regex.Matches(nearlySlug, @"[a-zA-Z0-9.-]+") select match.ToString());
-            return string.Join("-", sluglets);
         }
     }
 }

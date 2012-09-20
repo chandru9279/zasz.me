@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
@@ -16,24 +15,19 @@ namespace zasz.me.Integration.EntityFramework
 
         public override Log Save(Log instance)
         {
-            using (var NewTransaction = new FullContext())
+            using (var transaction = new FullContext())
             {
-                NewTransaction.ErrorLogs.Add(instance);
-                NewTransaction.SaveChanges();
+                transaction.ErrorLogs.Add(instance);
+                transaction.SaveChanges();
             }
             return instance;
         }
 
-        public List<Log> Page(int PageNumber, int PageSize)
+        public List<Log> Page(int pageNumber, int pageSize)
         {
-            return ModelSet.OrderBy(Model => Model.Id).Skip(PageNumber*PageSize).Take(PageSize).ToList();
+            return ModelSet.OrderBy(x => x.Id).Skip(pageNumber*pageSize).Take(pageSize).ToList();
         }
 
         #endregion
-
-        public override Expression<Func<Log, bool>> NaturalKeyComparison(Guid slug)
-        {
-            return x => x.Id == slug;
-        }
     }
 }

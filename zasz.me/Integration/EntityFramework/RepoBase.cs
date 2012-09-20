@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using zasz.me.Integration.MVC;
 using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
@@ -12,10 +13,10 @@ namespace zasz.me.Integration.EntityFramework
         protected readonly DbSet<Model> ModelSet;
         protected readonly FullContext Session;
 
-        protected RepoBase(FullContext Session)
+        protected RepoBase(FullContext session)
         {
-            this.Session = Session;
-            ModelSet = this.Session.Set<Model>();
+            Session = session;
+            ModelSet = Session.Set<Model>();
         }
 
         #region IRepository<Model,NaturalKey> Members
@@ -34,10 +35,11 @@ namespace zasz.me.Integration.EntityFramework
             return ModelSet.Find(id);
         }
 
-        public Model Get(NaturalKey mainProperty)
+        public Model Get(NaturalKey naturalKey)
         {
-            return ModelSet.Local.Where(NaturalKeyComparison(mainProperty).Compile()).FirstOrDefault() ??
-                   ModelSet.Where(NaturalKeyComparison(mainProperty)).FirstOrDefault();
+            var naturalKeyEquals = NaturalKeyEquals(naturalKey);
+            return ModelSet.Local.Where(naturalKeyEquals.Compile()).FirstOrDefault() ??
+                   ModelSet.Where(naturalKeyEquals).FirstOrDefault();
         }
 
         public void Delete(Model entity)
@@ -61,6 +63,14 @@ namespace zasz.me.Integration.EntityFramework
 
         #endregion
 
-        public abstract Expression<Func<Model, bool>> NaturalKeyComparison(NaturalKey slug);
+        public Expression<Func<Model, bool>> NaturalKeyEquals(NaturalKey id)
+        {
+            var model = typeof (Model);
+            var naturalKey = model.GetProperties().First(x => Attribute.IsDefined(x, typeof(NaturalKeyAttribute)));
+            var p = Expression.Parameter(model, "x");
+            var modelDotNaturalKey = Expression.Property(p, naturalKey);
+            var body = Expression.MakeBinary(ExpressionType.Equal, modelDotNaturalKey, Expression.Constant(id));
+            return Expression.Lambda<Func<Model, bool>>(body, p);
+        }
     }
 }

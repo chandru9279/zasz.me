@@ -1,9 +1,7 @@
 (function() {
-  var addJqueryCenter, addJqueryModal, attachHandlers, closeStatus, expandStatus;
+  var addJqueryCenter, addJqueryModal, attachHandlers;
 
   attachHandlers = function() {
-    $("body").click(closeStatus);
-    $("#Status-History-Expand-Button").click(expandStatus);
     $(".Expand-Button").click(function() {
       return $(this).next().slideToggle();
     });
@@ -26,24 +24,6 @@
           return $("#tagCloudLinks").replaceWith(links);
         });
       });
-    }
-  };
-
-  expandStatus = function() {
-    if (statusExpanded) {
-      closeStatus();
-    } else {
-      $("#Status-History").toggleClass("Status-History Status-History-Expanded");
-      window.statusExpanded = true;
-    }
-    return false;
-  };
-
-  closeStatus = function() {
-    if (statusExpanded) {
-      $("#Status-History").removeClass("Status-History-Expanded");
-      $("#Status-History").addClass("Status-History");
-      return window.statusExpanded = false;
     }
   };
 

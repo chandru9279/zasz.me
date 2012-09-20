@@ -1,27 +1,16 @@
 ﻿using System;
 using System.Web;
-using Moq;
 using Xunit;
 using zasz.me.Controllers;
-using zasz.me.Models;
 
 namespace zasz.health.ControllerTests
 {
-    public class PostControllerTests
+    public class SyncControllerTests
     {
-        private readonly Mock<IPostRepository> postRepository;
-        private readonly Mock<ITagRepository> tagRepository;
-
-        public PostControllerTests()
-        {
-            postRepository = new Mock<IPostRepository>();
-            tagRepository = new Mock<ITagRepository>();
-        }
-
         [Fact]
         public void TestSlugger()
         {
-            Func<string, string> Try = PostController.GetSlug;
+            Func<string, string> Try = SyncController.GetSlug;
             Assert.Equal("detail-id-equals-2190", Try("detail?id=2190"));
             Assert.Equal("func-percent-20-gnome", Try("func%20&nbsp;gnome"));
             Assert.Equal("c-sharp-rocks", Try("C# Rocks!"));

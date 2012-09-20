@@ -4,11 +4,11 @@ namespace zasz.me.Integration.MVC
 {
     public sealed class Secure : RequireHttpsAttribute
     {
-        public override void OnAuthorization(AuthorizationContext FilterContext)
+        public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            var SkipAuthorization = FilterContext.HttpContext.Request.IsLocal;
-            if (!SkipAuthorization)
-                base.OnAuthorization(FilterContext);
+            var skipAuthorization = filterContext.HttpContext.Request.IsLocal;
+            if (!skipAuthorization)
+                base.OnAuthorization(filterContext);
         }
     }
 }

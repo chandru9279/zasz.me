@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Models
 {
@@ -8,6 +9,7 @@ namespace zasz.me.Models
     public class Passphrase : IModel
     {
         [Required]
+        [NaturalKey]
         public string PhraseDigest { get; set; }
 
         public string Name { get; set; }

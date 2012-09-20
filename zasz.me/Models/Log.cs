@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Elmah;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Models
 {
@@ -27,6 +28,7 @@ namespace zasz.me.Models
         #region IModel Members
 
         [Key]
+        [NaturalKey]
         public Guid Id { get; set; }
 
         #endregion
@@ -34,6 +36,6 @@ namespace zasz.me.Models
 
     public interface ILogsRepository : IRepository<Log, Guid>
     {
-        List<Log> Page(int PageNumber, int PageSize);
+        List<Log> Page(int pageNumber, int pageSize);
     }
 }

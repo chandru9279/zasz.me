@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Models
 {
@@ -15,6 +16,7 @@ namespace zasz.me.Models
         {
         }
 
+        [NaturalKey]
         public string Name { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }

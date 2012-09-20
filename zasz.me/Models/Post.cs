@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using HtmlAgilityPack;
 using SolrNet.Attributes;
+using zasz.me.Integration.MVC;
 
 namespace zasz.me.Models
 {
@@ -12,6 +13,7 @@ namespace zasz.me.Models
     {
         [Required]
         [SolrField("Post_Slug")]
+        [NaturalKey]
         public string Slug { get; set; }
 
         [Required]

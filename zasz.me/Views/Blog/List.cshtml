@@ -4,12 +4,11 @@
     ViewBag.Title = "Posts";
     ViewBag.DescriptionLength = Model.DescriptionLength;
 }
-
                                                                                              
 @section Head{
     @Html.Partial("~/Views/Post/_SyntaxHighlight.cshtml")
-    @Html.Partial("Facebook") 
-    @Html.Partial("Twitter")
+    @Social.Facebook() 
+    @Social.Twitter()
 }
 
 @section Right{

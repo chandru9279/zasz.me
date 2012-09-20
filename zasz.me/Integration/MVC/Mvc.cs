@@ -11,35 +11,35 @@ namespace zasz.me.Integration.MVC
             SetupRazor();
         }
 
-        public static void RegisterRoutes(RouteCollection Routes)
+        public static void RegisterRoutes(RouteCollection routes)
         {
-            Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            Routes.IgnoreRoute("{CustomEndpoint}.axd");
-            Routes.IgnoreRoute("Content/{*AnyFile}");
-            Routes.IgnoreRoute("Uploads/{*AnyFile}");
-            Routes.IgnoreRoute("Integration/ckeditor");
-            Routes.MapRoute("Favicon", "favicon.ico",
-                            new {controller = "Indirection", action = "Favicon"}).DataTokens["area"] = "Shared";
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{CustomEndpoint}.axd");
+            routes.IgnoreRoute("Content/{*AnyFile}");
+            routes.IgnoreRoute("Uploads/{*AnyFile}");
+            routes.IgnoreRoute("Integration/ckeditor");
+            routes.MapRoute("Favicon", "favicon.ico",
+                            new {controller = "Home", action = "Favicon"}).DataTokens["area"] = "Shared";
 
-            Routes.MapRoute(
+            routes.MapRoute(
                 "TagRouting",
                 "Blog/Tag/{tag}/{page}",
                 new {controller = "Blog", action = "Tag", page = UrlParameter.Optional}
                 );
 
-            Routes.MapRoute(
+            routes.MapRoute(
                 "ArchiveRouting",
                 "Blog/Archive/{year}/{month}",
                 new {controller = "Blog", action = "Archive"}
                 );
 
-            Routes.MapRoute(
+            routes.MapRoute(
                 "Usual",
                 "{controller}/{action}/{id}",
                 new {controller = "Home", action = "Default", id = UrlParameter.Optional}
                 );
 
-            Routes.MapRoute(
+            routes.MapRoute(
                 "NotFound-Catch-All",
                 "{*Url}",
                 new {controller = "Error", action = "NotFound"}

@@ -10,6 +10,7 @@ using zasz.me.Models;
 
 namespace zasz.health.IntegrationTests
 {
+    // TODO: This class/suite is an unholy MESS - clean it up
     public class PostAndTagRepositoryTests : IDisposable
     {
         private readonly TestContext testContext;
@@ -18,7 +19,7 @@ namespace zasz.health.IntegrationTests
 
         public PostAndTagRepositoryTests()
         {
-            Database.SetInitializer(new TestStorageInitializer());
+           Database.SetInitializer(new TestStorageInitializer());
             testContext = new TestContext();
             tags = new Tags(testContext);
             posts = new Posts(testContext);
@@ -26,7 +27,7 @@ namespace zasz.health.IntegrationTests
             if (Count != 0) return;
             var SamplePosts =
                 PostsData.GetFromFolder(
-                    ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Data-Tools-Setup\Posts", Log);
+                    ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Database\Legacy\Posts", Log);
             foreach (var SamplePost in SamplePosts)
             {
                 SamplePost.Tags =
@@ -59,6 +60,13 @@ namespace zasz.health.IntegrationTests
         {
             var Posts = posts.Count();
             Assert.True(Posts > 1);
+        }
+
+        [Fact]
+        public void zz()
+        {
+            var Posts = posts.Get("Training-At-TWU");
+            Assert.True(Posts.Id == Guid.Parse("E3D45333-B48C-4DDD-AD78-0258B5E0D76A"));
         }
 
         [Fact]

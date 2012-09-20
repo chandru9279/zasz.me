@@ -98,8 +98,11 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerTests\XTests.cs" />
+    <Compile Include="IntegrationTests\RepoBaseUnitTests.cs" />
+    <Compile Include="UtilityTests\TestX.cs" />
     <Compile Include="ControllerTests\PortfolioControllerTests.cs" />
-    <Compile Include="ControllerTests\PostControllerTests.cs" />
+    <Compile Include="ControllerTests\SyncControllerTests.cs" />
     <Compile Include="ControllerTests\RuleTests.cs" />
     <Compile Include="IntegrationTests\TestStorageInitializer.cs" />
     <Compile Include="IntegrationTests\PostAndTagRepositoryTests.cs" />

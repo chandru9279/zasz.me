@@ -33,10 +33,5 @@ namespace zasz.me.Integration.EntityFramework
         }
 
         #endregion
-
-        public override Expression<Func<Tag, bool>> NaturalKeyComparison(string slug)
-        {
-            return x => x.Name == slug;
-        }
     }
 }

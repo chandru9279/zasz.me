@@ -125,13 +125,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\X.cs" />
     <Compile Include="Controllers\BlogController.cs" />
-    <Compile Include="Controllers\IndirectionController.cs" />
+    <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UnlockerController.cs" />
     <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Controllers\Utils\Constants.cs" />
     <Compile Include="Controllers\Utils\Handy.cs" />
+    <Compile Include="Integration\MVC\NaturalKeyAttribute.cs" />
     <Compile Include="Integration\Solr\ConsoleLoggingConnection.cs" />
     <Compile Include="Integration\Solr\Solr.cs" />
     <Compile Include="Integration\Unity\SingletonPerRequest.cs" />
@@ -208,8 +210,8 @@
     <Content Include="Content\Form.less" />
     <Content Include="Content\Menu.less" />
     <Content Include="Content\Header.less" />
+    <Content Include="App_Code\Social.cshtml" />
     <None Include="Content\Variables.less" />
-    <Content Include="Content\Admin.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -340,8 +342,6 @@
     </Content>
     <Content Include="Scripts\stacktack.js" />
     <Content Include="Views\Blog\TagCloudLinks.cshtml" />
-    <Content Include="Views\Shared\Facebook.cshtml" />
-    <Content Include="Views\Shared\Twitter.cshtml" />
     <Content Include="Views\Disorganizer\Links.cshtml" />
     <Content Include="Scripts\Scripts.coffee" />
     <None Include="Scripts\jquery-1.8.0-vsdoc.js" />
@@ -357,13 +357,13 @@
     <Content Include="Views\Post\_DisqusComments.cshtml" />
     <Content Include="Views\Post\_PostFooter.cshtml" />
     <Content Include="Views\Post\_SyntaxHighlight.cshtml" />
-    <Content Include="Views\Post\Manage.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\_CKEditor.cshtml" />
     <Content Include="Views\Portfolio\StackExchange.cshtml" />
     <Content Include="App_Code\Render.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -394,7 +394,6 @@
     <Content Include="Views\Home\Show.cshtml" />
     <Content Include="Views\Portfolio\All.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_StackOverflowFlair.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Blog\ArchiveControl.cshtml" />
     <Content Include="Views\Blog\List.cshtml" />

@@ -13,21 +13,21 @@ namespace zasz.health.ModelTests
         }
 
         [Fact]
-        public void ShouldGetUrlForMyStackOverflowAnswers()
+        public void MySoAnswersConstructsUrlForMyStackOverflowAnswers()
         {
             Assert.Equal("http://api.stackexchange.com/users/626084/answers?site=stackoverflow&key=usSGUdqhSFinjmEGnQYRCg((", 
                 stackUrls.MySoAnswers);
         }
 
         [Fact]
-        public void ShouldGetUrlForMyStackOverflowQuestions()
+        public void MySoAnswersIsAUrlForMyStackOverflowQuestions()
         {
-            Assert.Equal("http://api.stackexchange.com/users/626084/questions?site=stackoverflow&key=usSGUdqhSFinjmEGnQYRCg((", 
-                stackUrls.MySoQuestions);
+            Assert.Equal("http://api.stackexchange.com/users/626084/questions?site=stackoverflow&key=usSGUdqhSFinjmEGnQYRCg((",
+                stackUrls.MySoAnswers);
         }
 
         [Fact]
-        public void ShouldGetTitleForGivenQuestions()
+        public void SoQuestionGetsTheTitleForGivenQuestions()
         {
             Assert.Equal("http://api.stackexchange.com/questions/11794084;35026;15841?site=stackoverflow&key=usSGUdqhSFinjmEGnQYRCg((",
                 stackUrls.SoQuestion("11794084;35026;15841"));

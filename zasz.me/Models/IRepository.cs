@@ -10,13 +10,13 @@ namespace zasz.me.Models
     ///     This is not meant to be implemented directly - Only sub-interfaces are Expected to have implementations
     /// </summary>
     /// <typeparam name = "Model">The Model for which the implementation is the Repository</typeparam>
-    public interface IRepository<Model, NaturalKeyType> where Model : IModel
+    public interface IRepository<Model, NaturalKey> where Model : IModel
     {
         Model Save(Model instance);
 
         Model Load(Guid id);
 
-        Model Get(NaturalKeyType mainProperty);
+        Model Get(NaturalKey naturalKey);
 
         void Delete(Model entity);
 

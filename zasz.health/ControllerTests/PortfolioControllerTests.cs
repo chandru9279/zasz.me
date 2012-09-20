@@ -18,7 +18,7 @@ namespace zasz.health.ControllerTests
         }
 
         [Fact]
-        public void ShouldBeAbleToGetMyQuestions()
+        public void StackExchangeActionRendersMyQuestions()
         {
             var stackExchange = controller.StackExchange();
             var model = (List<int>)stackExchange.Model;
