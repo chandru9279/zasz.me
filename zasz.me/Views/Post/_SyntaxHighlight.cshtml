@@ -1,15 +1,15 @@
-<link href="@Url.Content("~/Integration/syntax-highlight/styles/shCore.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Integration/syntax-highlight/styles/shThemeDefault.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/SyntaxHighlighter/shCoreDefault.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/SyntaxHighlighter/shCore.js")"> </script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/SyntaxHighlighter/shAutoloader.js")"> </script>
 
 <script type="text/javascript">
+    var syntaxHighighterPath = '@Url.Content("~/Scripts/SyntaxHighlighter/")';
     function path() {
         var args = arguments, result = [];
         for (var i = 0; i < args.length; i++)
-            result.push(args[i].replace('-', '/Integration/syntax-highlight/scripts/'));
+            result.push(args[i].replace('-', syntaxHighighterPath));
         return result;
-    }
-
-    ;
+    };
 
     $(document).ready(function() {
 
@@ -44,6 +44,3 @@
         SyntaxHighlighter.all();
     });
 </script>
-
-<script type="text/javascript" src="@Url.Content("~/Integration/syntax-highlight/scripts/shCore.js")"> </script>
-<script type="text/javascript" src="@Url.Content("~/Integration/syntax-highlight/scripts/shAutoloader.js")"> </script>
