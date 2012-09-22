@@ -366,7 +366,6 @@
     <Content Include="Content\Thumbnails\xlsx.png" />
     <Content Include="Content\Thumbnails\zip.png" />
     <Content Include="Global.asax" />
-    <Content Include="Content\ForHtmlHelpers.css" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />

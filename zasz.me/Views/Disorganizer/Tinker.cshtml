@@ -1,9 +1,9 @@
-﻿@using zasz.me.Controllers.Utils
+﻿@using zasz.me
 @model zasz.me.Models.TinkerModel
 @{
     ViewBag.Title = "Tinker";
-    var attribs = new {@class = "ProTextBox"};
-    var attribsArea = new {@class = "ProTextArea", rows = 10};
+    var attribs = new {@class = "TextBox"};
+    var attribsArea = new {@class = "TextArea", rows = 10};
 }
 @section Head
 {
@@ -138,11 +138,11 @@
             and white.</div>
         <div class="Field">
             Background Color<br />
-            @Html.TextBoxFor(x => x.BackgroundColor, new {id = "BackgroundExpandable", @class = "ProTextBox", style = "width: 190px"})
+            @Html.TextBoxFor(x => x.BackgroundColor, new {id = "BackgroundExpandable", @class = "TextBox", style = "width: 190px"})
         </div>
         <div class="Field">
             Foreground Color<br />
-            @Html.TextBoxFor(x => x.ForegroundColor, new {id = "ForegroundExpandable", @class = "ProTextBox", style = "width: 190px"})
+            @Html.TextBoxFor(x => x.ForegroundColor, new {id = "ForegroundExpandable", @class = "TextBox", style = "width: 190px"})
         </div>
         <br />
         <div>
@@ -151,7 +151,7 @@
             server.</div>
         <div class="Field">
             Words skipped (Dont fill this)<br />
-            <input type="text" id="Skipped" class="ProTextBox"/>
+            <input type="text" id="Skipped" class="TextBox"/>
         </div>
         <div class="Field">
             Spiral Room (Fill only for performance)
@@ -174,7 +174,7 @@
         <br />
         <br />
         <div class="Field">
-            <input type="button" value="Generate" id="RunDisorganizer" class="Pro-Button" />
+            <input type="button" value="Generate" id="RunDisorganizer" class="Button" />
         </div>
     </div>
 }

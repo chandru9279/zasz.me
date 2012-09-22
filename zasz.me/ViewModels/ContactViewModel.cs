@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using zasz.me.Integration.MVC;
 
 namespace zasz.me.ViewModels
@@ -18,6 +19,7 @@ namespace zasz.me.ViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "You forgot to key in the message!")]
+        [AllowHtml]
         [StringLength(1000, ErrorMessage = "Message must be less that 1000 characters")]
         public string Message { get; set; }
 

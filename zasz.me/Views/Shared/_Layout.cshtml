@@ -4,7 +4,6 @@
     <head>
         <title>@ViewBag.Title</title>
     
-        <link href="@Url.Content("~/Content/ForHtmlHelpers.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/BlueprintReset.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/Blog.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/Layout.less")" rel="stylesheet" type="text/css" />
@@ -71,7 +70,7 @@
                 }
                 else
                 {
-                    RenderBody();
+                    @RenderBody();
                 }
             </div>
         </div>
