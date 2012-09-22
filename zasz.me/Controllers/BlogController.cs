@@ -13,7 +13,7 @@ namespace zasz.me.Controllers
 {
     public class BlogController : PostController
     {
-        public BlogController(IPostRepository Posts, ITagRepository Tags) : base(Posts, Tags)
+        public BlogController(IPostRepository posts, ITagRepository tags) : base(posts, tags)
         {
         }
 

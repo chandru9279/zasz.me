@@ -5,11 +5,11 @@ namespace zasz.me.Services
 {
     public class Pairs<X, Y> : List<Pair<X, Y>>
     {
-        public Pairs(X[] Ones, Y[] Others)
+        public Pairs(X[] ones, Y[] others)
         {
-            if (Ones.Length != Others.Length) throw new ArgumentException("Matching arrays needed");
-            for (var i = 0; i < Ones.Length; i++)
-                Add(new Pair<X, Y>(Ones[i], Others[i]));
+            if (ones.Length != others.Length) throw new ArgumentException("Matching arrays needed");
+            for (var i = 0; i < ones.Length; i++)
+                Add(new Pair<X, Y>(ones[i], others[i]));
         }
 
         public Pairs()
@@ -21,35 +21,35 @@ namespace zasz.me.Services
         {
         }
 
-        public X this[Y Other]
+        public X this[Y other]
         {
-            get { return WithOther(Other).One; }
-            set { WithOther(Other).One = value; }
+            get { return WithOther(other).One; }
+            set { WithOther(other).One = value; }
         }
 
-        public Y this[X One]
+        public Y this[X one]
         {
-            get { return WithOne(One).Other; }
-            set { WithOne(One).Other = value; }
+            get { return WithOne(one).Other; }
+            set { WithOne(one).Other = value; }
         }
 
-        public Pair<X, Y> WithOther(Y Other)
+        public Pair<X, Y> WithOther(Y other)
         {
-            return Find(Item => EqualityComparer<Y>.Default.Equals(Item.Other, Other));
+            return Find(item => EqualityComparer<Y>.Default.Equals(item.Other, other));
         }
 
         public Pair<X, Y> WithOne(X One)
         {
-            return Find(Item => EqualityComparer<X>.Default.Equals(Item.One, One));
+            return Find(item => EqualityComparer<X>.Default.Equals(item.One, One));
         }
     }
 
     public class Pair<X, Y>
     {
-        public Pair(X One, Y Other)
+        public Pair(X one, Y other)
         {
-            this.One = One;
-            this.Other = Other;
+            One = one;
+            Other = other;
         }
 
         public X One { get; set; }

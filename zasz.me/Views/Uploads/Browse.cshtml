@@ -73,17 +73,17 @@
         </style>
 
         <script type="text/javascript">
-            function returnFile(URL) {
-                window.opener.CKEDITOR.tools.callFunction(@Model.CkEditorFuncNum, URL, '@Model.Message');
+            function returnFile(url) {
+                window.opener.CKEDITOR.tools.callFunction(@Model.CkEditorFuncNum, url, '@Model.Message');
                 window.close();
             }
 
-            function deleteFile(File, Id) {
+            function deleteFile(file, id) {
                 $.ajax({
-                    url: "/Uploads/Delete?File=" + File,
+                    url: "/Uploads/Delete?File=" + file,
                     context: document.body,
                     type: 'POST',
-                    success: function() { document.getElementById(Id).style.display = 'none'; },
+                    success: function() { document.getElementById(id).style.display = 'none'; },
                     statusCode:
                         {
                             408: function() { alert('Try later, file in use.'); },

@@ -125,7 +125,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Code\X.cs" />
+    <Compile Include="Controllers\Utils\MessageException.cs" />
+    <Compile Include="Controllers\Utils\QrCodeHelper.cs" />
+    <Compile Include="Integration\MVC\SidebarAttribute.cs" />
+    <Compile Include="Services\X.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\PostController.cs" />

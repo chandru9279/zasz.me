@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "Form";
-    var boxAttribs = new {@class = "ProTextBox"};
-    var areaAttribs = new {@class = "ProTextArea", rows = 10};
+    var boxAttribs = new {@class = "TextBox"};
+    var areaAttribs = new {@class = "TextArea", rows = 10};
 
 }
 
@@ -15,37 +15,41 @@
         new {@action = "/Contact/Mail"}
         ))
     {
-        <fieldset>        
-            <p>
-                @Html.LabelFor(x => x.Name)
-                @Html.ValidationMessageFor(x => x.Name)<br />
-                @Html.TextBoxFor(x => x.Name, boxAttribs)<br />
-            </p>
+        <div>        
+            <div style="float: left;">
+                <p>
+                    @Html.LabelFor(x => x.Name)
+                    @Html.ValidationMessageFor(x => x.Name)<br />
+                    @Html.TextBoxFor(x => x.Name, boxAttribs)<br />
+                </p>
     
-            <p>
-                @Html.LabelFor(x => x.Email)
-                @Html.ValidationMessageFor(x => x.Email)<br />
-                @Html.TextBoxFor(x => x.Email, boxAttribs)<br />
-            </p>
+                <p>
+                    @Html.LabelFor(x => x.Email)
+                    @Html.ValidationMessageFor(x => x.Email)<br />
+                    @Html.TextBoxFor(x => x.Email, boxAttribs)<br />
+                </p>
 
-            <p>
-                @Html.LabelFor(x => x.Website)
-                @Html.ValidationMessageFor(x => x.Website)<br />
-                @Html.TextBoxFor(x => x.Website, boxAttribs)
-                <br />
-            </p>
+                <p>
+                    @Html.LabelFor(x => x.Website)
+                    @Html.ValidationMessageFor(x => x.Website)<br />
+                    @Html.TextBoxFor(x => x.Website, boxAttribs)
+                    <br />
+                </p>
+            </div>
 
-            <p>
-                @Html.LabelFor(x => x.Message)
-                @Html.ValidationMessageFor(x => x.Message)<br />
-                @Html.TextAreaFor(x => x.Message, areaAttribs)<br />
-            </p>    
-        </fieldset>
+            <div style="float: right;"></div>        
+            
+
+            <div style="clear: both;">
+                <p>
+                    @Html.LabelFor(x => x.Message)
+                    @Html.ValidationMessageFor(x => x.Message)<br /><br />
+                    @Html.TextAreaFor(x => x.Message, areaAttribs)<br />
+                    @Html.Partial("_MessageEditor")<br />
+                </p>
+            </div>        
+                
+        </div>
         <input type="submit" class="Pro-Button" value="Send Mail"/>
     }
 </div>
-
-@section Right{
-    <div class="Sidebar-Control">
-    </div>
-}

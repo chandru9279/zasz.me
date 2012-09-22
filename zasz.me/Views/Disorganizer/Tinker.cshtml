@@ -2,8 +2,8 @@
 @model zasz.me.Models.TinkerModel
 @{
     ViewBag.Title = "Tinker";
-    var Attribs = new {@class = "ProTextBox"};
-    var AttribsArea = new {@class = "ProTextArea", rows = 10};
+    var attribs = new {@class = "ProTextBox"};
+    var attribsArea = new {@class = "ProTextArea", rows = 10};
 }
 @section Head
 {
@@ -11,7 +11,7 @@
     <script src="@Url.Content("~/Scripts/jpicker-1.1.6.js")" type="text/javascript"> </script>
     <script type="text/javascript">
         $(function() {
-            var OutputControlContent = $('#OutputControl').html();
+            var outputControlContent = $('#OutputControl').html();
             var jPickerConfig = {
                 window: {
                     expandable: true,
@@ -38,7 +38,7 @@
                 var formValid = $("#DisorganizerTinker").valid();
                 if (!formValid) return false;
                 var serialized = $('#DisorganizerTinker').serialize();
-                $('#OutputControl').html(OutputControlContent);
+                $('#OutputControl').html(outputControlContent);
                 $('#TheDisorganized').replaceWith(
                     '<img id="TheDisorganized" class="TheDisorganized" src="/Disorganizer/Cloud?dummy='
                         + new Date().getTime() + '&' + serialized +
@@ -77,29 +77,29 @@
         <div class="Field">
             Words
             @Html.ValidationMessageFor(x => x.Words)<br />
-            @Html.TextAreaFor(x => x.Words, AttribsArea)
+            @Html.TextAreaFor(x => x.Words, attribsArea)
         </div>
         <br />
         <div class="Field">
             Max Font Size
             @Html.ValidationMessageFor(x => x.MaxFontSize)<br />
-            @Html.TextBoxFor(x => x.MaxFontSize, Attribs)
+            @Html.TextBoxFor(x => x.MaxFontSize, attribs)
         </div>
         <div class="Field">
             Min Font Size
             @Html.ValidationMessageFor(x => x.MinFontSize)<br />
-            @Html.TextBoxFor(x => x.MinFontSize, Attribs)
+            @Html.TextBoxFor(x => x.MinFontSize, attribs)
         </div>
         <br />
         <div class="Field">
             Width
             @Html.ValidationMessageFor(x => x.Width)<br />
-            @Html.TextBoxFor(x => x.Width, Attribs)
+            @Html.TextBoxFor(x => x.Width, attribs)
         </div>
         <div class="Field">
             Height
             @Html.ValidationMessageFor(x => x.Height)<br />
-            @Html.TextBoxFor(x => x.Height, Attribs)
+            @Html.TextBoxFor(x => x.Height, attribs)
         </div>
         <br />
         <div>
@@ -107,30 +107,30 @@
         <div class="Field">
             Angle
             @Html.ValidationMessageFor(x => x.Angle)<br />
-            @Html.TextBoxFor(x => x.Angle, Attribs)
+            @Html.TextBoxFor(x => x.Angle, attribs)
         </div>
         <div class="Field">
             Font<br />
-            @Html.DropDownListFor(x => x.SelectedFont, Model.Fonts.ToSelectList(), Attribs)
+            @Html.DropDownListFor(x => x.SelectedFont, Model.Fonts.ToSelectList(), attribs)
         </div>
         <br />
         <div class="Field">
             Display Strategy<br />
-            @Html.DropDownListFor(x => x.SelectedStrategy, Model.Strategies.ToSelectList(), Attribs)
+            @Html.DropDownListFor(x => x.SelectedStrategy, Model.Strategies.ToSelectList(), attribs)
         </div>
         <div class="Field">
             Theme<br />
-            @Html.DropDownListFor(x => x.SelectedTheme, Model.Themes.ToSelectList(), Attribs)
+            @Html.DropDownListFor(x => x.SelectedTheme, Model.Themes.ToSelectList(), attribs)
         </div>
         <br />
         <div class="Field">
             Style<br />
-            @Html.DropDownListFor(x => x.SelectedStyle, Model.Styles.ToSelectList(), Attribs)
+            @Html.DropDownListFor(x => x.SelectedStyle, Model.Styles.ToSelectList(), attribs)
         </div>
         <div class="Field">
             Margin
             @Html.ValidationMessageFor(x => x.Margin)<br />
-            @Html.TextBoxFor(x => x.Margin, Attribs)
+            @Html.TextBoxFor(x => x.Margin, attribs)
         </div>
         <div>
             Note : Click on the smaller box to pick the color. Choice of theme will affect colors,
@@ -156,7 +156,7 @@
         <div class="Field">
             Spiral Room (Fill only for performance)
             @Html.ValidationMessageFor(x => x.SpiralRoom)<br />
-            @Html.TextBoxFor(x => x.SpiralRoom, Attribs)
+            @Html.TextBoxFor(x => x.SpiralRoom, attribs)
         </div>
         <br />
         <div class="Field">

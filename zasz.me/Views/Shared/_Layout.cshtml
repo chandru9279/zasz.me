@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using zasz.me
+<!DOCTYPE html>
 <html>
     <head>
         <title>@ViewBag.Title</title>
@@ -56,16 +57,22 @@
                     </form></li>
                 </ul>
             </div>
-            <div class="Pro-Body">
+            <div class="Body">
+                @if(ViewContext.Sidebar())
+                {
                 <div class="Left">
-                    <div class="Pro-Body-Left-Min-Height">
+                    <div class="Body-Min-Height">
                         @RenderBody()
                     </div>
                 </div>
                 <div class="Right">                        
                     @RenderSection("Right", false)
-                    @Html.Partial("~/Views/Unlocker/_UnlockStatus.cshtml")
-                </div>
+                </div>    
+                }
+                else
+                {
+                    RenderBody();
+                }
             </div>
         </div>
         @RenderSection("Bottom", false)
