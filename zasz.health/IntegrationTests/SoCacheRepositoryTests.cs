@@ -94,7 +94,7 @@ namespace zasz.health.IntegrationTests
             repo.Commit();
             repo.ClearCache();
             Assert.Equal(0, assertContext.SoCaches.Count());
-            Assert.Equal(0, assertContext.Soanswers.Count());
+            Assert.Equal(0, assertContext.SoAnswers.Count());
             var assertCache = assertContext.SoCaches.Include(x => x.Answers).FirstOrDefault();
             Assert.Null(assertCache);
         }
@@ -105,7 +105,7 @@ namespace zasz.health.IntegrationTests
             repo.Refresh();
             var cacheCount = assertContext.SoCaches.Count();
             Assert.True(cacheCount == 1);
-            var answerCount = assertContext.Soanswers.Count();
+            var answerCount = assertContext.SoAnswers.Count();
             Assert.True(answerCount >= 30);
         }
     }

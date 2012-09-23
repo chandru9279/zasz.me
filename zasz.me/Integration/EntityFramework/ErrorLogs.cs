@@ -7,7 +7,7 @@ namespace zasz.me.Integration.EntityFramework
 {
     public class ErrorLogs : RepoBase<Log, Guid>, ILogsRepository
     {
-        public ErrorLogs(FullContext session) : base(session)
+        public ErrorLogs(FullContext context) : base(context)
         {
         }
 
@@ -25,7 +25,7 @@ namespace zasz.me.Integration.EntityFramework
 
         public List<Log> Page(int pageNumber, int pageSize)
         {
-            return ModelSet.OrderBy(x => x.Id).Skip(pageNumber*pageSize).Take(pageSize).ToList();
+            return Set.OrderBy(x => x.Id).Skip(pageNumber*pageSize).Take(pageSize).ToList();
         }
 
         #endregion

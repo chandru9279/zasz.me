@@ -12,14 +12,14 @@ namespace zasz.me.Integration.EntityFramework
     {
         private readonly ISofuService service;
 
-        public SoCacheRepository(FullContext session, ISofuService service) : base(session)
+        public SoCacheRepository(FullContext context, ISofuService service) : base(context)
         {
             this.service = service;
         }
 
         public SoCache Get()
         {
-            var cache = ModelSet.First();
+            var cache = Set.First();
             return cache.HasExpired() ? Refresh() : cache;
         }
 
@@ -30,27 +30,45 @@ namespace zasz.me.Integration.EntityFramework
             return new Paged<SoAnswer>{Set = soCaches, NumberOfPages = count};
         }
 
+        /// <summary>
+        /// Easier ways to write this method, but this ensures no more that 30 SoAnswers are in-memory
+        /// </summary>
+        /// <returns>Latest updated cache</returns>
         internal SoCache Refresh()
         {
             ClearCache();
-            var cache = new SoCache();
+            var cache = NewCache();
             Pair<bool, List<SoAnswer>> questionsAnswered;
             var page = 1;
             do
             {
                 questionsAnswered = service.QuestionsAnswered(page);
                 service.PopulateTitles(questionsAnswered.Other);
-                questionsAnswered.Other.ForEach(cache.Answers.Add);
-                Save(cache);
+                UnitOfWork(x =>
+                               {
+                                   // ReSharper disable AccessToModifiedClosure
+                                   var soCache = x.SoCaches.Find(cache.Id);
+                                   questionsAnswered.Other.ForEach(y => y.Cache = soCache);
+                                   questionsAnswered.Other.ForEach(y => x.SoAnswers.Add(y));
+                                   x.SaveChanges();
+                                   // ReSharper restore AccessToModifiedClosure
+                               });
                 page++;
             } while (questionsAnswered.One);
+            return cache;
+        }
+
+        private SoCache NewCache()
+        {
+            var cache = new SoCache();
+            Save(cache);
             Commit();
             return cache;
         }
 
         internal void ClearCache()
         {
-            Session.Database.ExecuteSqlCommand("DELETE FROM SoCaches; DELETE FROM SoAnswers;");
+            Context.Database.ExecuteSqlCommand("DELETE FROM SoCaches; DELETE FROM SoAnswers;");
         }
     }
 }

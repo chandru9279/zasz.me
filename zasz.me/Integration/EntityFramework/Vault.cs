@@ -6,7 +6,7 @@ namespace zasz.me.Integration.EntityFramework
 {
     public class Vault : RepoBase<Passphrase, string>, IPassphraseRepository
     {
-        public Vault(FullContext Session) : base(Session)
+        public Vault(FullContext context) : base(context)
         {
         }
 

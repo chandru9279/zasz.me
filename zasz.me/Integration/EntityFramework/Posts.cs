@@ -6,8 +6,8 @@ namespace zasz.me.Integration.EntityFramework
 {
     public class Posts : RepoBase<Post, string>, IPostRepository
     {
-        public Posts(FullContext session)
-            : base(session)
+        public Posts(FullContext context)
+            : base(context)
         {
         }
 
@@ -15,14 +15,14 @@ namespace zasz.me.Integration.EntityFramework
 
         public List<Post> Page(int pageNumber, int pageSize)
         {
-            return ModelSet.OrderByDescending(model => model.Timestamp)
+            return Set.OrderByDescending(model => model.Timestamp)
                 .Skip(pageNumber*pageSize)
                 .Take(pageSize).ToList();
         }
 
         public List<Post> Archive(int year, int month)
         {
-            return (from model in ModelSet
+            return (from model in Set
                     where model.Timestamp.Year == year && model.Timestamp.Month == month
                     select model).ToList();
         }
@@ -30,7 +30,7 @@ namespace zasz.me.Integration.EntityFramework
         /// <returns> A Dictionary of year as Key and the list of formatted months on which posts have been published as value</returns>
         public Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped()
         {
-            var dates = (from model in ModelSet
+            var dates = (from model in Set
                          select model.Timestamp).ToList();
 
             var groupingByYear = from date in dates

@@ -35,7 +35,7 @@ namespace zasz.me.Integration.EntityFramework
 
         public DbSet<SoCache> SoCaches { get; set; }
 
-        public DbSet<SoAnswer> Soanswers { get; set; }
+        public DbSet<SoAnswer> SoAnswers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

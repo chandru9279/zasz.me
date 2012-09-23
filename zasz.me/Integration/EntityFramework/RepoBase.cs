@@ -10,13 +10,13 @@ namespace zasz.me.Integration.EntityFramework
     public abstract class RepoBase<Model, NaturalKey> : IRepository<Model, NaturalKey>
         where Model : class, IModel, new()
     {
-        protected readonly DbSet<Model> ModelSet;
-        protected readonly FullContext Session;
+        protected readonly DbSet<Model> Set;
+        protected readonly FullContext Context;
 
-        protected RepoBase(FullContext session)
+        protected RepoBase(FullContext context)
         {
-            Session = session;
-            ModelSet = Session.Set<Model>();
+            Context = context;
+            Set = Context.Set<Model>();
         }
 
         #region IRepository<Model,NaturalKey> Members
@@ -24,7 +24,7 @@ namespace zasz.me.Integration.EntityFramework
         public virtual Model Save(Model instance)
         {
             if (Guid.Empty == instance.Id) instance.Id = Guid.NewGuid();
-            return ModelSet.Add(instance);
+            return Set.Add(instance);
         }
 
         /// <summary>
@@ -32,24 +32,24 @@ namespace zasz.me.Integration.EntityFramework
         /// </summary>
         public Model Load(Guid id)
         {
-            return ModelSet.Find(id);
+            return Set.Find(id);
         }
 
         public Model Get(NaturalKey naturalKey)
         {
             var naturalKeyEquals = NaturalKeyEquals(naturalKey);
-            return ModelSet.Local.Where(naturalKeyEquals.Compile()).FirstOrDefault() ??
-                   ModelSet.Where(naturalKeyEquals).FirstOrDefault();
+            return Set.Local.Where(naturalKeyEquals.Compile()).FirstOrDefault() ??
+                   Set.Where(naturalKeyEquals).FirstOrDefault();
         }
 
         public void Delete(Model entity)
         {
-            ModelSet.Remove(entity);
+            Set.Remove(entity);
         }
 
         public long Count()
         {
-            return ModelSet.Count();
+            return Set.Count();
         }
         
         /// <summary>
@@ -58,7 +58,21 @@ namespace zasz.me.Integration.EntityFramework
         /// </summary>
         public void Commit()
         {
-            Session.SaveChanges();
+            Context.SaveChanges();
+        }
+        
+        /// <summary>
+        ///     Child repos can use this to do DB work, and at the end of it dispose the context full
+        ///     of objects. It uses Activator.CreateInstance instead of plain old "new" to work with
+        ///     test database in integration tests. No hit in performance etc. 
+        /// </summary>
+        /// <param name="work"> The closure that contains the work logic </param>
+        protected void UnitOfWork(Action<FullContext> work)
+        {
+            using (var batchContext = (FullContext)Activator.CreateInstance(Context.GetType()))
+            {
+                work(batchContext);
+            }
         }
 
         #endregion
