@@ -9,7 +9,7 @@ properties {
 }
 
 
-task default -depends compile
+task default -depends opendev
 
 
 task build -depends clean, packages { 
@@ -122,7 +122,7 @@ task solrclean {
 }
 
 
-task compile -depends Clean { 
+task compile -depends clean { 
 	exec { msbuild $SolutionFile /p:Configuration=Dev /p:Platform="Any CPU" /v:Quiet /t:Build }
 	Write-Host -ForegroundColor Green "App compiled in Dev mode"
 }
@@ -151,7 +151,12 @@ task packages {
 }
 
 
-task s {	
+task st {	
 	$state = Get-State 
 	$state.Keys | % { Write-Host "$_ :" $state[$_] }
+}
+
+
+task opendev -depends solrs {	
+	Invoke-Item "$SolutionFile"
 }
