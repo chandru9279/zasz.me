@@ -1,4 +1,5 @@
-﻿@helper Facebook()
+﻿@using System.Web.Mvc
+@helper Facebook()
 {
     <div id="fb-root"></div>
     <script> (function(d, s, id) {
@@ -32,4 +33,10 @@
              alt="Profile for Zasz at Stack Overflow, Q&A for professional and enthusiast programmers" 
              title="Profile for Zasz at Stack Overflow, Q&A for professional and enthusiast programmers">
     </a>
+}
+
+@helper Skype(UrlHelper url)
+{
+    <script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"> </script>
+    <a href="skype:tc.zasz?call"><img src="@url.Content("~/Content/Images/skype.png")" style="border: none;" title="To avoid spam, this is an image. You cannot select/copy." alt="Skype T Chandirasekar"/></a>
 }

@@ -2,56 +2,83 @@
 
 @{
     ViewBag.Title = "Form";
-    var boxAttribs = new {@class = "TextBox"};
+    var boxAttribs = new {@class = "TextBox", style = "width: 450px;"};
     var areaAttribs = new {@class = "TextArea", rows = 10};
 }
 
 @section Head
 {
     <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"> </script>
+    <style type="text/css">
+        
+        .ContactDetails {
+            margin-top: 10px;
+        }
+
+        #cke_Message {
+             margin-top: 10px;
+        }
+
+        .ContactDetails label {
+            display: inline-block;
+            text-transform: lowercase;
+            width: 100px;
+        }
+
+        .ContactDetails .field-validation-error {
+            padding-bottom: 2px;
+            padding-left: 100px;
+            padding-right: 2px;
+            padding-top: 2px;
+        }
+
+        .SendMailButton {
+            display: block;
+            font-size: 22px;
+            margin: 20px auto;
+        }
+
+    </style>
 }
 
 <br />
 @using (Html.BeginForm("Mail", "Contact"))
 {
-    <div>        
-        <div style="float: right;">
-            <p>
-                @Html.LabelFor(x => x.Name)
-                @Html.ValidationMessageFor(x => x.Name)<br />
-                @Html.TextBoxFor(x => x.Name, boxAttribs)<br />
-            </p>
+    <div class="ContactDetails">
+        <p class="Prominant">making contact</p>
+        <p>You can reach me by submiting this form. Or by skype, or by gmail.</p>
+        <p style="margin-top: 40px;">
+            @Html.ValidationMessageFor(x => x.Name)
+            @Html.LabelFor(x => x.Name)
+            @Html.TextBoxFor(x => x.Name, boxAttribs)
+        </p>
     
-            <p>
-                @Html.LabelFor(x => x.Email)
-                @Html.ValidationMessageFor(x => x.Email)<br />
-                @Html.TextBoxFor(x => x.Email, boxAttribs)<br />
-            </p>
+        <p>
+            @Html.ValidationMessageFor(x => x.Email)
+            @Html.LabelFor(x => x.Email)
+            @Html.TextBoxFor(x => x.Email, boxAttribs)
+        </p>
 
-            <p>
-                @Html.LabelFor(x => x.Website)
-                @Html.ValidationMessageFor(x => x.Website)<br />
-                @Html.TextBoxFor(x => x.Website, boxAttribs)
-                <br />
-            </p>
-        </div>
-
-        <div style="float: left; margin-top:20px;">
-            <p style="font-size: 28px">making contact</p>
-            <p>You can reach me by submiting this form. Or by skype, or by gmail.</p>
-        </div>        
-            
-
-        <div style="clear: both;">
-            <p>
-                @Html.LabelFor(x => x.Message)
-                @Html.ValidationMessageFor(x => x.Message)<br /><br />
-                @Html.TextAreaFor(x => x.Message, areaAttribs)<br />
-                @Html.Partial("_MessageEditor")<br />
-            </p>
-        </div>        
-                
+        <p>
+            @Html.ValidationMessageFor(x => x.Website)
+            @Html.LabelFor(x => x.Website)
+            @Html.TextBoxFor(x => x.Website, boxAttribs)
+        </p>
+        <p style="margin-top: 20px;">
+            @Html.LabelFor(x => x.Message)
+            @Html.ValidationMessageFor(x => x.Message)
+            @Html.TextAreaFor(x => x.Message, areaAttribs)<br /><br />
+            @Html.Partial("_MessageEditor")
+        </p>      
     </div>
-    
-    <input type="submit" class="Button" value="Send Mail" style="float: right; font-size: 22px;"/>
+
+    <input type="submit" class="Button SendMailButton" value="submit"/>
 }
+<div style="margin-top: 30px;">
+    <div style="float: left; margin-top: 40px;">
+        @Social.Skype(Url)
+    </div>
+    <div style="float: right;">
+        <img src="@Url.Content("~/Content/Images/gmail.png")" title="To avoid spam, this is an image. You cannot select/copy." alt="Gmail to T Chandirasekar"/>
+    </div>
+</div>

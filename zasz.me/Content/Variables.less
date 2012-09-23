@@ -16,6 +16,13 @@
 	border-radius: @rad;
 }
 
+.shadow(@sh)
+{
+	-moz-box-shadow: @sh @sh 3px #888;
+	-webkit-box-shadow: @sh @sh 3px #888;
+	box-shadow: @sh @sh 3px #888;
+}
+
 .transition(@prop, @time)
 {
 transition: @prop @time;

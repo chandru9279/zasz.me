@@ -48,12 +48,13 @@
 
 .Button
 {
-    padding: 3px 5px;
+    padding: 7px;
     border: 0px;
 	background-color: @navy;
 	color: white;
-	font-weight: bold;
 	display: block;
+	.radius(2px);
+    .shadow(2px);
 	&:HOVER
 	{		
 		color: @fground;
@@ -88,6 +89,7 @@ textarea
 {
     color: @maroon;
     padding: 1px 15px;
+	display: block;
 }
 
 .field-validation-valid
