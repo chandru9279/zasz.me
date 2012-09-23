@@ -33,8 +33,14 @@ namespace zasz.me.Integration.EntityFramework
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<SoCache> SoCaches { get; set; }
+
+        public DbSet<SoAnswer> Soanswers { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SoCache>().HasKey(x => x.Id).HasMany(x => x.Answers).WithRequired(x => x.Cache).WillCascadeOnDelete();
+            modelBuilder.Entity<SoAnswer>().HasKey(x => x.Id).HasRequired(x => x.Cache);
         }
     }
 }

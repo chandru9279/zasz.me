@@ -14,7 +14,7 @@ a
     text-decoration: none;
 	&:HOVER
 	{
-		color: #1B1D26;
+		color: @navy;
 		text-decoration: underline;
 		cursor: pointer;
 	}
@@ -56,15 +56,17 @@ a
     float: left;
 	.Left
 	{
-		width: @leftwidth;
-		display: block;
 		float: left;
+		display: block;
+		width: @leftwidth;
+		padding: 10px 0px;
 	}
 	.Right
-	{
-		width: @rightwidth;
-		display: block;
+	{		
 		float: left;
+		display: block;
+		margin-left: @leftmargin;
+		width: @rightwidth;
 	}
 }
 
@@ -79,23 +81,22 @@ a
 	.Left
 	{
 		float: left;
+		display: block;
 		width: @leftwidth;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		overflow: hidden;
+		padding: 10px 0px;
 	}
 	.Right
 	{
 		float: left;
-		margin-left: 20px;
+		display: block;
+		margin-left: @leftmargin;
 		width: @rightwidth;
-		overflow: hidden;
 	}
 }
 
 Body-Min-Height
 {
-    min-height: 1225px;
+    min-height: 1500px;
 }
 
 .Prominant
@@ -136,6 +137,16 @@ Body-Min-Height
     z-index: 102;
     border: 3px solid @bground;
     .radius(6px)
+}
+
+.Section
+{
+	border: @panelborder;
+	height: 300px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding: 20px;
+	margin: 20px 0px;
 }
 
 .twitter-share-button 

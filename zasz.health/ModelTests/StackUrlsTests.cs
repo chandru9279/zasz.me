@@ -15,15 +15,15 @@ namespace zasz.health.ModelTests
         [Fact]
         public void MySoAnswersConstructsUrlForMyStackOverflowAnswers()
         {
-            Assert.Equal("http://api.stackexchange.com/users/626084/answers?site=stackoverflow&key=usSGUdqhSFinjmEGnQYRCg((", 
-                stackUrls.MySoAnswers);
+            Assert.Equal("http://api.stackexchange.com/users/626084/answers?site=stackoverflow&sort=votes&page=1&key=usSGUdqhSFinjmEGnQYRCg((", 
+                stackUrls.MySoAnswers(1));
         }
 
         [Fact]
         public void MySoAnswersIsAUrlForMyStackOverflowQuestions()
         {
-            Assert.Equal("http://api.stackexchange.com/users/626084/questions?site=stackoverflow&key=usSGUdqhSFinjmEGnQYRCg((",
-                stackUrls.MySoAnswers);
+            Assert.Equal("http://api.stackexchange.com/users/626084/questions?site=stackoverflow&sort=votes&page=1&key=usSGUdqhSFinjmEGnQYRCg((",
+                stackUrls.MySoQuestions(1));
         }
 
         [Fact]

@@ -128,6 +128,16 @@
     <Compile Include="Controllers\Utils\MessageException.cs" />
     <Compile Include="Controllers\Utils\QrCodeHelper.cs" />
     <Compile Include="Integration\MVC\SidebarAttribute.cs" />
+    <Compile Include="Migrations\201209231312503_SoAnswers.cs" />
+    <Compile Include="Migrations\201209231312503_SoAnswers.Designer.cs">
+      <DependentUpon>201209231312503_SoAnswers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201209231359155_SortingSoAnswers.cs" />
+    <Compile Include="Migrations\201209231359155_SortingSoAnswers.Designer.cs">
+      <DependentUpon>201209231359155_SortingSoAnswers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SoAnswer.cs" />
+    <Compile Include="Integration\EntityFramework\SoCacheRepository.cs" />
     <Compile Include="Services\X.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
@@ -199,6 +209,7 @@
     <Compile Include="Services\Concrete\SolrSearchService.cs" />
     <Compile Include="Services\TagCloud\TagCloudService.cs" />
     <Compile Include="Services\TagCloud\DisplayStrategy.cs" />
+    <Compile Include="ViewModels\Paged.cs" />
     <Compile Include="ViewModels\PostListViewModel.cs" />
     <Compile Include="ViewModels\UploadViewModel.cs" />
   </ItemGroup>
@@ -767,6 +778,7 @@
     <Content Include="Views\Contact\_MessageEditor.cshtml" />
     <Content Include="Views\Portfolio\StackExchange.cshtml" />
     <Content Include="App_Code\Render.cshtml" />
+    <Content Include="Views\Portfolio\Tack.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -820,6 +832,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201209151757599_RemoveSite.resx">
       <DependentUpon>201209151757599_RemoveSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201209231312503_SoAnswers.resx">
+      <DependentUpon>201209231312503_SoAnswers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201209231359155_SortingSoAnswers.resx">
+      <DependentUpon>201209231359155_SortingSoAnswers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

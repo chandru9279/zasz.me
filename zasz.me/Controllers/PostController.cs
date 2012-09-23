@@ -8,6 +8,7 @@ using zasz.me.ViewModels;
 
 namespace zasz.me.Controllers
 {
+    [Sidebar]
     public abstract class PostController : BaseController
     {
         protected readonly IPostRepository Posts;
@@ -35,7 +36,7 @@ namespace zasz.me.Controllers
         {
             return View(new PostListViewModel
                             {
-                                Posts = Posts.Page(pageNumber - 1, MaxPostsPerPage),
+                                Set = Posts.Page(pageNumber - 1, MaxPostsPerPage),
                                 NumberOfPages = (int) Math.Ceiling(Posts.Count()/(double) MaxPostsPerPage),
                                 DescriptionLength = DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
@@ -46,7 +47,7 @@ namespace zasz.me.Controllers
         {
             return View("List", new PostListViewModel
                                     {
-                                        Posts = Tags.PagePosts(tag, page - 1, MaxPostsPerPage),
+                                        Set = Tags.PagePosts(tag, page - 1, MaxPostsPerPage),
                                         NumberOfPages = Tags.CountPosts(tag)/MaxPostsPerPage,
                                         DescriptionLength = DescriptionLength,
                                         WhatIsListed = "Posts tagged with <em>" + tag + "</em>"
@@ -58,7 +59,7 @@ namespace zasz.me.Controllers
         {
             return View("List", new PostListViewModel
                                     {
-                                        Posts = Posts.Archive(year, Constants.Months[month]),
+                                        Set = Posts.Archive(year, Constants.Months[month]),
                                         NumberOfPages = 1,
                                         DescriptionLength = DescriptionLength,
                                         WhatIsListed =

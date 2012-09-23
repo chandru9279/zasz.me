@@ -34,7 +34,8 @@ namespace zasz.me
         public static bool Sidebar(this ViewContext context)
         {
             var action = context.Controller.ValueProvider.GetValue("action").AttemptedValue;
-            return Attribute.IsDefined(context.Controller.GetType().GetMethod(action), typeof(SidebarAttribute));
+            return Attribute.IsDefined(context.Controller.GetType(), typeof(SidebarAttribute)) || 
+            Attribute.IsDefined(context.Controller.GetType().GetMethod(action), typeof(SidebarAttribute));
         }
     }
 }

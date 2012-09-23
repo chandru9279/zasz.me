@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using zasz.me.Models;
 
 namespace zasz.me.Services.Contracts
 {
@@ -7,7 +8,7 @@ namespace zasz.me.Services.Contracts
     /// </summary>
     public interface ISofuService
     {
-        List<int> QuestionsAnswered();
-        Dictionary<int, string> QuestionTitles(List<int> questionIds);
+        Pair<bool, List<SoAnswer>> QuestionsAnswered(int page);
+        void PopulateTitles(List<SoAnswer> soAnswers);
     }
 }

@@ -1,16 +1,17 @@
 ﻿using System.Web.Mvc;
 using zasz.me.Integration.MVC;
+using zasz.me.Models;
 using zasz.me.Services.Contracts;
 
 namespace zasz.me.Controllers
 {
     public class PortfolioController : BaseController
     {
-        private readonly ISofuService service;
+        private readonly ISoCacheRepository repository;
 
-        public PortfolioController(ISofuService service)
+        public PortfolioController(ISoCacheRepository repository)
         {
-            this.service = service;
+            this.repository = repository;
         }
 
         [DefaultAction]
@@ -22,9 +23,14 @@ namespace zasz.me.Controllers
 
         public ViewResult StackExchange(int pageNumber = 1)
         {
-            var questionIds = service.QuestionsAnswered();
-            var titleIds = service.QuestionTitles(questionIds);
-            return View(titleIds);
+            var cache = repository.Get();
+            var paged = repository.Page(cache, pageNumber, 10);
+            return View(paged);
+        }
+
+        public ViewResult Tack(int id)
+        {
+            return View(id);
         }
     }
 }

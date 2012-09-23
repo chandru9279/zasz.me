@@ -1,4 +1,4 @@
-﻿@helper Paging(int numberOfPages)
+﻿@helper Paging(long numberOfPages)
 {
     var splitPath = Request.Path.Split(new[] {'/'});
     var lastSplit = splitPath[splitPath.Length - 1];

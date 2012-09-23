@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Moq;
 using Xunit;
 using zasz.me.Controllers;
+using zasz.me.Models;
 using zasz.me.Services.Contracts;
 
 namespace zasz.health.ControllerTests
@@ -13,7 +14,7 @@ namespace zasz.health.ControllerTests
 
         public PortfolioControllerTests()
         {
-            var mock = new Mock<ISofuService>();
+            var mock = new Mock<ISoCacheRepository>();
             controller = new PortfolioController(mock.Object);
         }
 

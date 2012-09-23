@@ -51,7 +51,7 @@ namespace zasz.me.Integration.EntityFramework
         {
             return ModelSet.Count();
         }
-
+        
         /// <summary>
         ///     Calling Commit in any repository is the same thing as calling commit for the whole Web Request.
         ///     It saves changes to all Models, Not only for this specific Model.

@@ -12,10 +12,10 @@ namespace zasz.me.Models
         {
         }
 
-        public Log(Error Error)
+        public Log(Error error)
         {
             Id = Guid.NewGuid();
-            this.Error = Error;
+            Error = error;
         }
 
         public Error Error { get; set; }

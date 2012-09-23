@@ -11,31 +11,32 @@ namespace zasz.me.Services.Concrete
         private const string soSite = "?site=stackoverflow&";
         private const string myPath = "users/626084";
 
-        public StackUrls()
+        public string MySoAnswers(int pageNumber)
         {
-            ExtraParams = new Dictionary<string, string>();
-        }
-
-        public string MySoAnswers
-        {
-            get { return JoinSo(myPath + "/answers"); }
+                
+            var extra = new Dictionary<string, string>();
+            extra.Add("sort", "votes");
+            extra.Add("page", pageNumber.ToString());
+            return Compose(myPath + "/answers", extra);
         }
 
         public string SoQuestion(string whichQuestions)
         {
-            return JoinSo(string.Format("questions/{0}", whichQuestions));
+            return Compose(string.Format("questions/{0}", whichQuestions));
         }
 
-        public string MySoQuestions
+        public string MySoQuestions(int pageNumber)
         {
-            get { return JoinSo(myPath + "/questions"); }
+            var extra = new Dictionary<string, string>();
+            extra.Add("sort", "votes");
+            extra.Add("page", pageNumber.ToString()); 
+            return Compose(myPath + "/questions", extra);
         }
 
-        public Dictionary<string, string> ExtraParams { get; set; }
-
-        private string JoinSo(string apiPath)
+        private static string Compose(string apiPath, Dictionary<string,string> extra = null)
         {
-            var list = ExtraParams.Select(x => x.Key + "=" + x.Value).ToList();
+            extra = extra ?? new Dictionary<string, string>();
+            var list = extra.Select(x => x.Key + "=" + x.Value).ToList();
             list.Add(apikey);
             return baseUrl + apiPath + soSite + string.Join("&", list);
         }

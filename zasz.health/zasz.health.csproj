@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\XTests.cs" />
+    <Compile Include="IntegrationTests\SoCacheRepositoryTests.cs" />
     <Compile Include="IntegrationTests\RepoBaseUnitTests.cs" />
     <Compile Include="UtilityTests\TestX.cs" />
     <Compile Include="ControllerTests\PortfolioControllerTests.cs" />

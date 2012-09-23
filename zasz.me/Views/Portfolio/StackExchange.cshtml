@@ -1,4 +1,4 @@
-﻿@model Dictionary<int, string>
+﻿@model zasz.me.ViewModels.Paged<zasz.me.Models.SoAnswer>
 
 @{
     ViewBag.Title = "StackTacks";
@@ -13,18 +13,21 @@
             $('#Threads li a').click(function () {
                 var id = $(this).data("id");
                 $('#Tacks').empty();
-                $('#Tacks').html("<div id='stacktack-" + id + "'></div>");
-                $('#Tacks').stacktack({ width: '900px' });
+                $('#Tacks').html("<iframe height='1500px' width='100%' style='height:1500px; width:100%; overflow:visible' src='@Url.Action("Tack")?id=" + id + "'><div id='stacktack-></div></iframe>");
             });
         });
     </script>
 }
+@Render.Paging(Model.NumberOfPages)
+<div class="Section">
 <ul id="Threads">
-    @foreach (var pair in Model)
+    @foreach (var soAnswer in Model.Set)
     {
-        <li><a data-id="@pair.Key">@pair.Value</a></li>
+        <li><a data-id="@soAnswer.QuestionId ">@Html.Raw(soAnswer.QuestionTitle)</a></li>
     }
-</ul>
+</ul>    
+</div>
+
 <div id="Tacks">
     
 </div>

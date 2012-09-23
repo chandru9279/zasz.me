@@ -3,7 +3,7 @@ using zasz.me.Integration.EntityFramework;
 
 namespace zasz.me.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<FullContext>
+    public sealed class Configuration : DbMigrationsConfiguration<FullContext>
     {
         public Configuration()
         {
@@ -12,18 +12,6 @@ namespace zasz.me.Migrations
 
         protected override void Seed(FullContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }

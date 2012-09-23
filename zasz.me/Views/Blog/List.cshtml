@@ -20,7 +20,7 @@
 <div class="Light-Message" style="float: left; font-size: 20px;">@Html.Raw(Model.WhatIsListed)</div>
 <div style="float: right;">@Render.Paging(Model.NumberOfPages)</div>
 <div class="Clear" ></div>
-@foreach (var Post in Model.Posts)
+@foreach (var Post in Model.Set)
 {
     <div style="margin: 10px auto;">
         @Html.Partial("~/Views/Blog/_PostShortView.cshtml", Post)
