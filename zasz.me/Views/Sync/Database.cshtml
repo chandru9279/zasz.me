@@ -1,0 +1,15 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Sync";
+}
+
+<p class="Prominant">sync complete</p>
+<div class="Section">
+<ul id="Threads">
+    @foreach (var error in Model)
+    {
+        <li>@error</li>
+    }
+</ul>    
+</div>

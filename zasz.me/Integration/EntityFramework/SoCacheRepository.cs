@@ -8,7 +8,7 @@ using zasz.me.ViewModels;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    class SoCacheRepository : RepoBase<SoCache, Guid>, ISoCacheRepository
+    internal class SoCacheRepository : RepoBase<SoCache, Guid>, ISoCacheRepository
     {
         private readonly ISofuService service;
 
@@ -16,6 +16,8 @@ namespace zasz.me.Integration.EntityFramework
         {
             this.service = service;
         }
+
+        #region ISoCacheRepository Members
 
         public SoCache Get()
         {
@@ -25,10 +27,12 @@ namespace zasz.me.Integration.EntityFramework
 
         public Paged<SoAnswer> Page(SoCache cache, int pageNumber, int pageSize)
         {
-            var soCaches = cache.Answers.Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            var soCaches = cache.Answers.Skip(pageNumber*pageSize).Take(pageSize).ToList();
             var count = cache.Answers.Count();
-            return new Paged<SoAnswer>{Set = soCaches, NumberOfPages = count};
+            return new Paged<SoAnswer> {Set = soCaches, NumberOfPages = count};
         }
+
+        #endregion
 
         /// <summary>
         /// Easier ways to write this method, but this ensures no more that 30 SoAnswers are in-memory

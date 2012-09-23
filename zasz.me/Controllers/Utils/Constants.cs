@@ -5,9 +5,7 @@ namespace zasz.me.Controllers.Utils
 {
     public static class Constants
     {
-        public static char[] Shredders = new[] {' ', ',', ';', '|'};
-
-        private static readonly string[][] _GoWords =
+        private static readonly string[][] goWords =
             {
                 new[] {"c#", "c-sharp"},
                 new[] {".net", "dot-net"},
@@ -24,6 +22,8 @@ namespace zasz.me.Controllers.Utils
                 new[] {"J#", "f-sharp"}
             };
 
+        public static char[] Shredders = new[] {' ', ',', ';', '|'};
+
         public static Pairs<string, int> Months =
             new Pairs<string, int>(
                 new[]
@@ -34,8 +34,7 @@ namespace zasz.me.Controllers.Utils
                     },
                 new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
 
-        public static string DefaultWordList =
-            @"asp.net, 15
+        public static string DefaultWordList = @"asp.net, 15
 games, 10
 fun, 15
 books, 5
@@ -52,10 +51,10 @@ romance, 4
 
         public static Dictionary<string, string> GoWords()
         {
-            var Dictionary = new Dictionary<string, string>(_GoWords.Length);
-            foreach (var Pair in _GoWords)
-                Dictionary.Add(Pair[0], Pair[1]);
-            return Dictionary;
+            var dictionary = new Dictionary<string, string>(goWords.Length);
+            foreach (var pair in goWords)
+                dictionary.Add(pair[0], pair[1]);
+            return dictionary;
         }
     }
 }

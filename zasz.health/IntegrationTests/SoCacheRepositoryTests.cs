@@ -11,11 +11,11 @@ namespace zasz.health.IntegrationTests
 {
     public class SoCacheRepositoryTests : IDisposable
     {
+        private readonly SoAnswer anotherAnswer;
+        private readonly TestContext assertContext;
         private readonly SoCacheRepository repo;
         private readonly SoAnswer sampleAnswer;
-        private readonly SoAnswer anotherAnswer;
         private readonly TestContext testContext;
-        private readonly TestContext assertContext;
 
         public SoCacheRepositoryTests()
         {
@@ -27,12 +27,12 @@ namespace zasz.health.IntegrationTests
                                    QuestionTitle = "First"
                                };
             anotherAnswer = new SoAnswer
-                               {
-                                   Sort = 2,
-                                   AnswerId = 8203291,
-                                   QuestionId = 8203265,
-                                   QuestionTitle = "Second"
-                               };
+                                {
+                                    Sort = 2,
+                                    AnswerId = 8203291,
+                                    QuestionId = 8203265,
+                                    QuestionTitle = "Second"
+                                };
             Database.SetInitializer(new TestStorageInitializer());
             testContext = new TestContext();
             assertContext = new TestContext();
@@ -73,7 +73,7 @@ namespace zasz.health.IntegrationTests
             AssertAnswer(anotherAnswer, second);
         }
 
-        private void AssertAnswer(SoAnswer expected, SoAnswer actual)
+        private static void AssertAnswer(SoAnswer expected, SoAnswer actual)
         {
             Assert.NotNull(actual.Cache);
 
@@ -98,7 +98,7 @@ namespace zasz.health.IntegrationTests
             var assertCache = assertContext.SoCaches.Include(x => x.Answers).FirstOrDefault();
             Assert.Null(assertCache);
         }
-        
+
         [Fact]
         public void RefreshWillGetNewSetFromSoApi()
         {
