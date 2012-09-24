@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.Unity;
+
 using SolrNet;
 using SolrNet.Commands.Parameters;
 using SolrNet.DSL;

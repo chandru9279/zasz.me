@@ -57,18 +57,6 @@
     <Reference Include="Joel.Net.Akismet">
       <HintPath>..\Lib\Joel.Net.Akismet.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
@@ -99,14 +87,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\XTests.cs" />
-    <Compile Include="IntegrationTests\SoCacheRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\RepoBaseUnitTests.cs" />
+    <Compile Include="RepositoryTests\SoCacheRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\RepoBaseUnitTests.cs" />
+    <Compile Include="ServiceTests\PostPopulators\SlugPopulatorTests.cs" />
+    <Compile Include="ServiceTests\PostPopulators\SyncControllerTests.cs" />
     <Compile Include="UtilityTests\TestX.cs" />
     <Compile Include="ControllerTests\PortfolioControllerTests.cs" />
     <Compile Include="ControllerTests\SyncControllerTests.cs" />
     <Compile Include="ControllerTests\RuleTests.cs" />
-    <Compile Include="IntegrationTests\TestStorageInitializer.cs" />
-    <Compile Include="IntegrationTests\PostAndTagRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\TestStorageInitializer.cs" />
+    <Compile Include="RepositoryTests\PostAndTagRepositoryTests.cs" />
     <Compile Include="ModelTests\PostTests.cs" />
     <Compile Include="ModelTests\StackUrlsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,6 +118,7 @@
     <Content Include="App.Dev.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
+    <Content Include="TestData\TestPost\meta.txt" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

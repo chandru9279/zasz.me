@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using Microsoft.Practices.Unity;
+
 using SolrNet;
 using zasz.me.Models;
 

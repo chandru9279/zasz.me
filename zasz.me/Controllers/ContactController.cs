@@ -2,7 +2,7 @@
 using System.Net.Mail;
 using System.Web.Mvc;
 using Elmah;
-using Microsoft.Practices.Unity;
+
 using zasz.me.Integration.MVC;
 using zasz.me.ViewModels;
 

@@ -12,6 +12,15 @@ namespace zasz.me
 {
     public static class X
     {
+        public static string ProjectPath
+        {
+            get
+            {
+                var pathToDll = Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", string.Empty);
+                return pathToDll.Remove(pathToDll.IndexOf("/bin/"));
+            }
+        }
+
         public static string Name<T>(Expression<Func<Post, T>> expression)
         {
             return ((MemberExpression) expression.Body).Member.Name;
@@ -59,16 +68,12 @@ namespace zasz.me
             }
         }
 
-        public static string ValidateErrors(this object obj)
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T> action)
         {
-            try
-            {
-                obj.Validate();
-            }
-            catch (ValidationException e)
-            {
-                return string.Format("{0} | {1}", e.GetType(), e.Message);
-            }
+            var forEach = source as List<T> ?? source.ToList();
+            foreach (var element in forEach)
+                action(element);
+            return forEach;
         }
     }
 }

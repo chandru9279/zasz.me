@@ -57,6 +57,15 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc3.2.6.3.862\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="CoffeeScriptHttpHandler">
       <HintPath>..\packages\CoffeeSharp.0.5\lib\CoffeeScriptHttpHandler.dll</HintPath>
     </Reference>
@@ -83,14 +92,6 @@
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -125,6 +126,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\Concrete\PostPopulators\OrderedPostPopulatorSet.cs" />
+    <Compile Include="Services\Contracts\IPostPopulator.cs" />
+    <Compile Include="Services\Concrete\PostPopulators\MetaPopulator.cs" />
+    <Compile Include="Services\Concrete\PostPopulators\PostValidator.cs" />
+    <Compile Include="Services\Concrete\PostPopulators\SlugPopulator.cs" />
+    <Compile Include="Services\Concrete\PostPopulators\TitleAndContentPopulator.cs" />
     <Compile Include="Controllers\Utils\MessageException.cs" />
     <Compile Include="Controllers\Utils\QrCodeHelper.cs" />
     <Compile Include="Integration\MVC\SidebarAttribute.cs" />
@@ -138,6 +145,7 @@
     </Compile>
     <Compile Include="Models\SoAnswer.cs" />
     <Compile Include="Integration\EntityFramework\SoCacheRepository.cs" />
+    <Compile Include="Services\Contracts\IPostPopulators.cs" />
     <Compile Include="Services\X.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
@@ -149,8 +157,6 @@
     <Compile Include="Integration\MVC\NaturalKeyAttribute.cs" />
     <Compile Include="Integration\Solr\ConsoleLoggingConnection.cs" />
     <Compile Include="Integration\Solr\Solr.cs" />
-    <Compile Include="Integration\Unity\SingletonPerRequest.cs" />
-    <Compile Include="Integration\Unity\UnityDependencyResolver.cs" />
     <Compile Include="Migrations\201209151757599_RemoveSite.cs" />
     <Compile Include="Migrations\201209151757599_RemoveSite.Designer.cs">
       <DependentUpon>201209151757599_RemoveSite.cs</DependentUpon>
@@ -185,7 +191,7 @@
     <Compile Include="Integration\MVC\DefaultActionAttribute.cs" />
     <Compile Include="Integration\MVC\EmailAttribute.cs" />
     <Compile Include="Integration\MVC\Security.cs" />
-    <Compile Include="Integration\Unity\Unity.cs" />
+    <Compile Include="Integration\Autofac\Autofac.cs" />
     <Compile Include="Configuration\UploadsConfig.cs" />
     <Compile Include="Migrations\201209021728521_InitialCreate.cs" />
     <Compile Include="Migrations\201209021728521_InitialCreate.Designer.cs">

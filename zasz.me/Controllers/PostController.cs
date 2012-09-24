@@ -1,6 +1,6 @@
 using System;
 using System.Web.Mvc;
-using Microsoft.Practices.Unity;
+
 using zasz.me.Controllers.Utils;
 using zasz.me.Integration.MVC;
 using zasz.me.Models;

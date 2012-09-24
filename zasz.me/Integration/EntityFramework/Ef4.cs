@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
-using Microsoft.Practices.Unity;
-using zasz.me.Integration.Unity;
+
 using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework

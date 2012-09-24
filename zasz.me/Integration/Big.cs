@@ -1,12 +1,13 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Autofac;
+
 
 namespace zasz.me.Integration
 {
     public class Big
     {
-        public static UnityContainer Box { get; private set; }
+        public static IContainer Box { get; private set; }
 
-        public static void Swallow(UnityContainer theBigBox)
+        public static void Swallow(IContainer theBigBox)
         {
             Box = theBigBox;
         }

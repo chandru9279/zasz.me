@@ -2,7 +2,6 @@
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Integration.MVC;
 using zasz.me.Integration.Solr;
-using zasz.me.Integration.Unity;
 
 namespace zasz.me
 {

@@ -1,17 +1,11 @@
 ﻿using System.Web.Configuration;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
+using Autofac;
 
 namespace zasz.me.Configuration
 {
     public class Config
     {
-        public static UnityConfigurationSection Unity
-        {
-            get { return WebConfigurationManager.GetWebApplicationSection("unity") as UnityConfigurationSection; }
-        }
-
-        public static UploadsConfig Uploads
+       public static UploadsConfig Uploads
         {
             get { return WebConfigurationManager.GetWebApplicationSection("zasz.me/Uploads") as UploadsConfig; }
         }
@@ -26,9 +20,10 @@ namespace zasz.me.Configuration
             get { return WebConfigurationManager.GetWebApplicationSection("zasz.me/Settings") as SettingsConfig; }
         }
 
-        public static void PutConfigurationAndSettingsInside(IUnityContainer bigBox)
+        public static void GetInto(ContainerBuilder bigBox)
         {
             // Type auto inferred
+            bigBox.Register<string>((c, p) => { p.Named<string>("MaxPostsPerPage")});
             bigBox.RegisterInstance("MaxPostsPerPage", Blog.MaxPostsPerPage);
             bigBox.RegisterInstance("DescriptionLength", Blog.DescriptionLength);
             bigBox.RegisterInstance("MailAccount", Settings.MailAccount);
