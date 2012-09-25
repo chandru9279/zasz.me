@@ -4,14 +4,19 @@ using System.Web.Mvc;
 using Elmah;
 
 using zasz.me.Integration.MVC;
+using zasz.me.Services.Contracts;
 using zasz.me.ViewModels;
 
 namespace zasz.me.Controllers
 {
     public class ContactController : BaseController
     {
-        [Dependency("MailAccount")]
-        public string MailAccount { get; set; }
+        private readonly IConfigurationService service;
+
+        public ContactController(IConfigurationService service)
+        {
+            this.service = service;
+        }
 
         [DefaultAction]
         public ActionResult Form()
@@ -23,7 +28,7 @@ namespace zasz.me.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mail = new MailMessage(new MailAddress(contactModel.Email), new MailAddress(MailAccount))
+                var mail = new MailMessage(new MailAddress(contactModel.Email), new MailAddress(service.Settings.MailAccount))
                                {
                                    Body = contactModel.Message,
                                    IsBodyHtml = true,

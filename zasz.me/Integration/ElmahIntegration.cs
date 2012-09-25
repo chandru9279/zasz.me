@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Autofac;
 using Elmah;
 
 using zasz.me.Models;

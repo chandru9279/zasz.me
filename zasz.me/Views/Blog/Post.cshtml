@@ -6,7 +6,7 @@
 }
                                                                                              
 @section Head{
-    @Html.Partial("~/Views/Post/_SyntaxHighlight.cshtml")
+    @Html.Partial("_SyntaxHighlight.cshtml")
     @Social.Facebook() 
     @Social.Twitter()
 }
@@ -49,4 +49,4 @@
         <a target="_blank" href="http://get.beetagg.com">BeeTag</a> for Windows Phone 7.</p>
 </div>
 
-@Html.Partial("~/Views/Post/_DisqusComments.cshtml", Model)
+@Html.Partial("_DisqusComments.cshtml", Model)

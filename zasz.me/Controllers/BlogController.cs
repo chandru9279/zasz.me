@@ -7,13 +7,15 @@ using System.Linq;
 using System.Web.Mvc;
 using Elmah;
 using zasz.me.Models;
+using zasz.me.Services.Contracts;
 using zasz.me.Services.TagCloud;
 
 namespace zasz.me.Controllers
 {
     public class BlogController : PostController
     {
-        public BlogController(IPostRepository posts, ITagRepository tags) : base(posts, tags)
+        public BlogController(IPostRepository posts, ITagRepository tags, IConfigurationService configService)
+            : base(posts, tags, configService)
         {
         }
 

@@ -1,6 +1,5 @@
 ﻿using Autofac;
 
-
 namespace zasz.me.Integration
 {
     public class Big

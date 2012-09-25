@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using zasz.me.Controllers.Utils;
 using zasz.me.Integration.MVC;
 using zasz.me.Models;
+using zasz.me.Services.Concrete.Config;
+using zasz.me.Services.Contracts;
 using zasz.me.ViewModels;
 
 namespace zasz.me.Controllers
@@ -13,18 +15,14 @@ namespace zasz.me.Controllers
     {
         protected readonly IPostRepository Posts;
         protected readonly ITagRepository Tags;
+        protected readonly BlogConfig config;
 
-        protected PostController(IPostRepository posts, ITagRepository tags)
+        protected PostController(IPostRepository posts, ITagRepository tags, IConfigurationService configService)
         {
             Posts = posts;
             Tags = tags;
+            config = configService.Blog;
         }
-
-        [Dependency("MaxPostsPerPage")]
-        public int MaxPostsPerPage { get; set; }
-
-        [Dependency("DescriptionLength")]
-        public int DescriptionLength { get; set; }
 
         public ActionResult Post([Bind(Prefix = "Id")] string slug)
         {
@@ -36,9 +34,9 @@ namespace zasz.me.Controllers
         {
             return View(new PostListViewModel
                             {
-                                Set = Posts.Page(pageNumber - 1, MaxPostsPerPage),
-                                NumberOfPages = (int) Math.Ceiling(Posts.Count()/(double) MaxPostsPerPage),
-                                DescriptionLength = DescriptionLength,
+                                Set = Posts.Page(pageNumber - 1, config.MaxPostsPerPage),
+                                NumberOfPages = (int)Math.Ceiling(Posts.Count() / (double)config.MaxPostsPerPage),
+                                DescriptionLength = config.DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
                             });
         }
@@ -47,9 +45,9 @@ namespace zasz.me.Controllers
         {
             return View("List", new PostListViewModel
                                     {
-                                        Set = Tags.PagePosts(tag, page - 1, MaxPostsPerPage),
-                                        NumberOfPages = Tags.CountPosts(tag)/MaxPostsPerPage,
-                                        DescriptionLength = DescriptionLength,
+                                        Set = Tags.PagePosts(tag, page - 1, config.MaxPostsPerPage),
+                                        NumberOfPages = Tags.CountPosts(tag) / config.MaxPostsPerPage,
+                                        DescriptionLength = config.DescriptionLength,
                                         WhatIsListed = "Posts tagged with <em>" + tag + "</em>"
                                     });
         }
@@ -61,7 +59,7 @@ namespace zasz.me.Controllers
                                     {
                                         Set = Posts.Archive(year, Constants.Months[month]),
                                         NumberOfPages = 1,
-                                        DescriptionLength = DescriptionLength,
+                                        DescriptionLength = config.DescriptionLength,
                                         WhatIsListed =
                                             string.Format("Archived for {0:MMMM, yyyy}",
                                                           new DateTime(year, Constants.Months[month], 1))

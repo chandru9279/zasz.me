@@ -12,18 +12,21 @@ namespace zasz.me.Services.Concrete
     public class SolrSearchService : ISearchService
     {
         private readonly ISolrConnection connection;
+        private readonly IConfigurationService service;
         private readonly ISolrOperations<Post> postOp; /* Pun Intended */
         private readonly IPostRepository posts;
 
-        public SolrSearchService(IPostRepository posts, ISolrOperations<Post> postOp, ISolrConnection connection)
+        public SolrSearchService(
+            IPostRepository posts, 
+            ISolrOperations<Post> postOp, 
+            ISolrConnection connection,
+            IConfigurationService service)
         {
             this.posts = posts;
             this.postOp = postOp;
             this.connection = connection;
+            this.service = service;
         }
-
-        [Dependency("DescriptionLength")]
-        public int DescriptionLength { get; set; }
 
         #region ISearchService Members
 
@@ -53,7 +56,7 @@ namespace zasz.me.Services.Concrete
                 var hlForResult = results.Highlights[id];
                 var snippet = hlForResult.ContainsKey("Post_Content")
                                   ? string.Join("... <br />", hlForResult["Post_Content"]) + "..."
-                                  : results[result].GetDescription(DescriptionLength);
+                                  : results[result].GetDescription(service.Blog.DescriptionLength);
                 searchResults.Results = results.Select(x => new SearchResult(x, snippet)).ToList();
             }
             searchResults.Spellchecking = results.SpellChecking.Collation;

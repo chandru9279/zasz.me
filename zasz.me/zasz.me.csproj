@@ -126,7 +126,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\EntityFramework\FullContext.cs" />
     <Compile Include="Services\Concrete\PostPopulators\OrderedPostPopulatorSet.cs" />
+    <Compile Include="Services\Contracts\IConfigurationService.cs" />
     <Compile Include="Services\Contracts\IPostPopulator.cs" />
     <Compile Include="Services\Concrete\PostPopulators\MetaPopulator.cs" />
     <Compile Include="Services\Concrete\PostPopulators\PostValidator.cs" />
@@ -151,7 +153,6 @@
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UnlockerController.cs" />
-    <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Controllers\Utils\Constants.cs" />
     <Compile Include="Controllers\Utils\Handy.cs" />
     <Compile Include="Integration\MVC\NaturalKeyAttribute.cs" />
@@ -169,12 +170,11 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Services\Concrete\JsonSofuService.cs" />
     <Compile Include="Services\Contracts\ISofuService.cs" />
-    <Compile Include="ViewModels\BrowseViewModel.cs" />
     <Compile Include="ViewModels\ContactViewModel.cs" />
     <Compile Include="ViewModels\LinkViewModel.cs" />
-    <Compile Include="Configuration\Config.cs" />
-    <Compile Include="Configuration\SettingsConfig.cs" />
-    <Compile Include="Configuration\BlogConfig.cs" />
+    <Compile Include="Services\Concrete\Config\WebConfigService.cs" />
+    <Compile Include="Services\Concrete\Config\SettingsConfig.cs" />
+    <Compile Include="Services\Concrete\Config\BlogConfig.cs" />
     <Compile Include="Integration\EntityFramework\Ef4.cs" />
     <Compile Include="Integration\EntityFramework\Tags.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,8 +191,7 @@
     <Compile Include="Integration\MVC\DefaultActionAttribute.cs" />
     <Compile Include="Integration\MVC\EmailAttribute.cs" />
     <Compile Include="Integration\MVC\Security.cs" />
-    <Compile Include="Integration\Autofac\Autofac.cs" />
-    <Compile Include="Configuration\UploadsConfig.cs" />
+    <Compile Include="Integration\Autofac.cs" />
     <Compile Include="Migrations\201209021728521_InitialCreate.cs" />
     <Compile Include="Migrations\201209021728521_InitialCreate.Designer.cs">
       <DependentUpon>201209021728521_InitialCreate.cs</DependentUpon>
@@ -205,8 +204,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
     <Compile Include="Models\TinkerModel.cs" />
-    <Compile Include="Services\Concrete\FilesystemFilesService.cs" />
-    <Compile Include="Services\Contracts\IFilesService.cs" />
     <Compile Include="Services\Contracts\ISearchService.cs" />
     <Compile Include="Services\TagCloud\HSLColor.cs" />
     <Compile Include="Services\TagCloud\ColorStrategy.cs" />
@@ -217,7 +214,6 @@
     <Compile Include="Services\TagCloud\DisplayStrategy.cs" />
     <Compile Include="ViewModels\Paged.cs" />
     <Compile Include="ViewModels\PostListViewModel.cs" />
-    <Compile Include="ViewModels\UploadViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BlueprintReset.css" />
@@ -226,11 +222,13 @@
     <Content Include="Content\Images\careers.ico" />
     <Content Include="Content\Images\expand-down.png" />
     <Content Include="Content\Images\github.ico" />
+    <Content Include="Content\Images\gmail.png" />
     <Content Include="Content\Images\linkedin.ico" />
     <Content Include="Content\Images\Name.png" />
     <Content Include="Content\Images\Paging.png" />
     <Content Include="Content\Images\scan-qr-codes.jpg" />
     <Content Include="Content\Images\Search.png" />
+    <Content Include="Content\Images\skype.png" />
     <Content Include="Content\Images\stackoverflow.ico" />
     <Content Include="Content\Images\stacktack.png" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
@@ -254,134 +252,29 @@
     <Content Include="Content\SyntaxHighlighter\shThemeMDUltra.css" />
     <Content Include="Content\SyntaxHighlighter\shThemeMidnight.css" />
     <Content Include="Content\SyntaxHighlighter\shThemeRDark.css" />
-    <Content Include="Content\themes\base\jquery-ui.less" />
+    <Content Include="Content\jquery-ui\jquery-ui.less" />
     <Content Include="Content\Form.less" />
     <Content Include="Content\Menu.less" />
     <Content Include="Content\Header.less" />
     <Content Include="App_Code\Social.cshtml" />
     <Content Include="Content\Images\Name.pdn" />
+    <None Include="Content\Schemas\Solr.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\Variables.less" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\Thumbnails\.image.png" />
-    <Content Include="Content\Thumbnails\avi.png" />
-    <Content Include="Content\Thumbnails\bat.png" />
-    <Content Include="Content\Thumbnails\bmp.png" />
-    <Content Include="Content\Thumbnails\bz2.png" />
-    <Content Include="Content\Thumbnails\ccd.png" />
-    <Content Include="Content\Thumbnails\cgi.png" />
-    <Content Include="Content\Thumbnails\com.png" />
-    <Content Include="Content\Thumbnails\csh.png" />
-    <Content Include="Content\Thumbnails\cue.png" />
-    <Content Include="Content\Thumbnails\deb.png" />
-    <Content Include="Content\Thumbnails\dll.png" />
-    <Content Include="Content\Thumbnails\doc.png" />
-    <Content Include="Content\Thumbnails\docx.png" />
-    <Content Include="Content\Thumbnails\exe.png" />
-    <Content Include="Content\Thumbnails\fla.png" />
-    <Content Include="Content\Thumbnails\flv.png" />
-    <Content Include="Content\Thumbnails\fon.png" />
-    <Content Include="Content\Thumbnails\gif.png" />
-    <Content Include="Content\Thumbnails\gz.png" />
-    <Content Include="Content\Thumbnails\htm.png" />
-    <Content Include="Content\Thumbnails\html.png" />
-    <Content Include="Content\Thumbnails\ini.png" />
-    <Content Include="Content\Thumbnails\iso.png" />
-    <Content Include="Content\Thumbnails\jar.png" />
-    <Content Include="Content\Thumbnails\java.png" />
-    <Content Include="Content\Thumbnails\jpeg.png" />
-    <Content Include="Content\Thumbnails\jpg.png" />
-    <Content Include="Content\Thumbnails\js.png" />
-    <Content Include="Content\Thumbnails\mds.png" />
-    <Content Include="Content\Thumbnails\mdx.png" />
-    <Content Include="Content\Thumbnails\mid.png" />
-    <Content Include="Content\Thumbnails\midi.png" />
-    <Content Include="Content\Thumbnails\mkv.png" />
-    <Content Include="Content\Thumbnails\mov.png" />
-    <Content Include="Content\Thumbnails\mp3.png" />
-    <Content Include="Content\Thumbnails\mpeg.png" />
-    <Content Include="Content\Thumbnails\mpg.png" />
-    <Content Include="Content\Thumbnails\nfo.png" />
-    <Content Include="Content\Thumbnails\notfound.png" />
-    <Content Include="Content\Thumbnails\nrg.png" />
-    <Content Include="Content\Thumbnails\ogg.png" />
-    <Content Include="Content\Thumbnails\pdf.png" />
-    <Content Include="Content\Thumbnails\php.png" />
-    <Content Include="Content\Thumbnails\phps.png" />
-    <Content Include="Content\Thumbnails\pl.png" />
-    <Content Include="Content\Thumbnails\pm.png" />
-    <Content Include="Content\Thumbnails\png.png" />
-    <Content Include="Content\Thumbnails\ppt.png" />
-    <Content Include="Content\Thumbnails\pptx.png" />
-    <Content Include="Content\Thumbnails\qt.png" />
-    <Content Include="Content\Thumbnails\rpm.png" />
-    <Content Include="Content\Thumbnails\rtf.png" />
-    <Content Include="Content\Thumbnails\sh.png" />
-    <Content Include="Content\Thumbnails\srt.png" />
-    <Content Include="Content\Thumbnails\sub.png" />
-    <Content Include="Content\Thumbnails\swf.png" />
-    <Content Include="Content\Thumbnails\tgz.png" />
-    <Content Include="Content\Thumbnails\tif.png" />
-    <Content Include="Content\Thumbnails\tiff.png" />
-    <Content Include="Content\Thumbnails\torrent.png" />
-    <Content Include="Content\Thumbnails\ttf.png" />
-    <Content Include="Content\Thumbnails\txt.png" />
-    <Content Include="Content\Thumbnails\wav.png" />
-    <Content Include="Content\Thumbnails\wma.png" />
-    <Content Include="Content\Thumbnails\xls.png" />
-    <Content Include="Content\Thumbnails\xlsx.png" />
-    <Content Include="Content\Thumbnails\zip.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -777,10 +670,10 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Post\_DisqusCommentCount.cshtml" />
-    <Content Include="Views\Post\_DisqusComments.cshtml" />
-    <Content Include="Views\Post\_PostFooter.cshtml" />
-    <Content Include="Views\Post\_SyntaxHighlight.cshtml" />
+    <Content Include="Views\Blog\_DisqusCommentCount.cshtml" />
+    <Content Include="Views\Blog\_DisqusComments.cshtml" />
+    <Content Include="Views\Blog\_PostFooter.cshtml" />
+    <Content Include="Views\Blog\_SyntaxHighlight.cshtml" />
     <Content Include="Views\Contact\_MessageEditor.cshtml" />
     <Content Include="Views\Portfolio\StackExchange.cshtml" />
     <Content Include="App_Code\Render.cshtml" />
@@ -794,9 +687,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Schemas\unity.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Content\Fonts\AlphaFridgeMagnets.ttf" />
     <None Include="Content\Fonts\AlphaFridgeMagnetsAllCaps.ttf" />
     <None Include="Content\Fonts\Gnuolane.ttf" />
@@ -830,8 +720,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Unlocker\Unlock.cshtml" />
     <Content Include="Views\Unlocker\_UnlockStatus.cshtml" />
-    <Content Include="Views\Uploads\Browse.cshtml" />
-    <Content Include="Views\Uploads\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201209021728521_InitialCreate.resx">

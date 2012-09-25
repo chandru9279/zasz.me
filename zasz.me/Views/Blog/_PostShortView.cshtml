@@ -4,5 +4,5 @@
     <a class="Post-Title" href="/Blog/Post/@Model.Slug">@Model.Title</a>
     <div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
     <p>@Html.Raw(Model.GetDescription(ViewBag.DescriptionLength))  &nbsp;&nbsp; <a href="/Blog/Post/@Model.Slug">Read the full entry</a></p>
-    @Html.Partial("~/Views/Post/_PostFooter.cshtml", Model)
+    @Html.Partial("_PostFooter.cshtml", Model)
 </div>
