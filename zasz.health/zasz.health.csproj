@@ -86,6 +86,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\PostBuilder.cs" />
     <Compile Include="ControllerTests\XTests.cs" />
     <Compile Include="RepositoryTests\CacheRepositoryTests.cs" />
     <Compile Include="RepositoryTests\RepoBaseUnitTests.cs" />
@@ -103,7 +104,7 @@
     <Compile Include="ServiceTests\TagCloudServiceTests.cs" />
     <Compile Include="UtilityTests\CommentsExport.cs" />
     <Compile Include="UtilityTests\MaintainanceTests.cs" />
-    <Compile Include="UtilityTests\PostsData.cs" />
+    <Compile Include="UtilityTests\PostsImportExport.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\zasz.me\zasz.me.csproj">

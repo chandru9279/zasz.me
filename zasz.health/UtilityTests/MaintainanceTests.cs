@@ -21,29 +21,24 @@ namespace zasz.health.UtilityTests
             postRepository = new Posts(fullContext);
         }
 
-        [Fact]
+        [Fact(Skip = "Utility")]
         public void ImportLegacyPosts()
         {
             var path = TestX.RepoPath + @"\Database\Legacy\Posts";
-            foreach (var newPost in new PostsData(Log).GetFromFolder(path))
+            foreach (var newPost in new PostsImportExport(Log).GetFromFolder(path))
             {
                 postRepository.Save(newPost);
             }
             postRepository.Commit();
         }
 
-        [Fact]
+        [Fact(Skip = "Utility")]
         public void ExportPosts()
         {
-            new PostsData(Log).ExportToFolders(postRepository.Page(0, 100));
-        }
-        
-        private static void Log(string log)
-        {
-            Debug.WriteLine(log);
+            new PostsImportExport(Log).ExportToFolders(postRepository.Page(0, 100));
         }
 
-        [Fact]
+        [Fact(Skip = "Utility")]
         public void ClearUnusedTags()
         {
             foreach (var tag in fullContext.Tags
@@ -57,14 +52,14 @@ namespace zasz.health.UtilityTests
             Log("Done");
         }
 
-        [Fact]
+        [Fact(Skip = "Utility")]
         public void ClearErrorLogs()
         {
             fullContext.Database.ExecuteSqlCommand("DELETE FROM Logs");
             Log("Done.");
-        } 
+        }
 
-        [Fact]
+        [Fact(Skip = "Utility")]
         public void HashPassword()
         {
             const string password = "CustomPasswordHere";
@@ -72,6 +67,11 @@ namespace zasz.health.UtilityTests
             var unicoding = new UnicodeEncoding();
             var hash = unicoding.GetString(algorithm.ComputeHash(unicoding.GetBytes(password)));
             Log(hash);
+        }
+
+        private static void Log(string log)
+        {
+            Debug.WriteLine(log);
         }
     }
 }

@@ -13,12 +13,12 @@ using zasz.me.Services.Concrete.PostPopulators;
 
 namespace zasz.health.UtilityTests
 {
-    public class PostsData
+    public class PostsImportExport
     {
         private readonly Action<string> die;
         private readonly Action<string> log;
 
-        public PostsData(Action<string> log)
+        public PostsImportExport(Action<string> log)
         {
             this.log = log;
             die = dieLog =>

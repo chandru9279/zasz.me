@@ -12,7 +12,6 @@ namespace zasz.health.UtilityTests
 {
     /* example : 
      * https://github.com/danielHalan/blogengine.net-comments-exporter/blob/master/src/App_Code/Extensions/CommentsExport.cs */
-
     public class CommentsExport
     {
         private const string dateFormat = "yyyy-MM-dd HH:mm:ss";
@@ -42,7 +41,7 @@ namespace zasz.health.UtilityTests
             if (!api.VerifyKey()) throw new Exception("Key not verified");
         }
 
-        [Fact]
+        [Fact(Skip = "Utility")]
         public void CommentsToWxr()
         {
             var path = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Database\Legacy\Posts";
@@ -67,9 +66,9 @@ namespace zasz.health.UtilityTests
                 die("Null Path");
 
             var files = Directory.GetFiles(folderSystemPath);
-            var xmlFiles = from file in files
+            var xmlFiles = (from file in files
                            where file.EndsWith(".xml")
-                           select file;
+                           select file).ToList();
 
             if (!xmlFiles.Any())
                 die("No XML Files found");
@@ -87,11 +86,11 @@ namespace zasz.health.UtilityTests
             rss.AppendChild(root);
 
 
-            foreach (var PostFile in xmlFiles)
+            foreach (var postFile in xmlFiles)
             {
-                Log("Working on file : " + PostFile);
+                Log("Working on file : " + postFile);
                 var postDoc = new XmlDocument();
-                postDoc.Load(PostFile);
+                postDoc.Load(postFile);
                 var title = Get(postDoc, "post/title");
                 var slug = Get(postDoc, "post/slug");
                 Log("Title : " + title);

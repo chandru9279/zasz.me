@@ -20,14 +20,13 @@ namespace zasz.health.RepositoryTests
 
         public PostAndTagRepositoryTests()
         {
-           Database.SetInitializer(new TestStorageInitializer());
             testContext = new TestContext();
             tags = new Tags(testContext);
             posts = new Posts(testContext);
             var Count = posts.Count();
             if (Count != 0) return;
             var SamplePosts =
-                new PostsData(Log).GetFromFolder(TestX.RepoPath + @"\Database\Legacy\Posts");
+                new PostsImportExport(Log).GetFromFolder(TestX.RepoPath + @"\Database\Legacy\Posts");
             foreach (var SamplePost in SamplePosts)
             {
                 SamplePost.Tags =
@@ -49,7 +48,7 @@ namespace zasz.health.RepositoryTests
         [Fact]
         public void TestPagingAndSorting()
         {
-            var Ids = new List<string> {"Moving-the-MBR-to-another-DeviceHard-Disk", "Home-PC-v30"};
+            var Ids = new List<string> { "Moving-the-MBR-to-another-DeviceHard-Disk", "Home-PC-v30" };
             var Posts = posts.Page(0, 10);
             var ActualIds = Posts.Select(Post => Post.Slug).ToList();
             Assert.True(Ids.All(ActualIds.Contains));
