@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -19,6 +20,11 @@ namespace zasz.me
                 var pathToDll = Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", string.Empty);
                 return pathToDll.Remove(pathToDll.IndexOf("/bin/"));
             }
+        }
+
+        public static string RepoPath
+        {
+            get { return Directory.GetParent(ProjectPath).FullName; }
         }
 
         public static string Name<T>(Expression<Func<Post, T>> expression)

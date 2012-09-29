@@ -10,30 +10,36 @@ using zasz.me.Models;
 
 namespace zasz.health.UtilityTests
 {
-    public static class PostsData
+    public class PostsData
     {
+        private readonly Action<string> die;
+        private readonly Action<string> log;
+
+        public PostsData(Action<string> log)
+        {
+            this.log = log;
+            die = dieLog =>
+                      {
+                          log(dieLog);
+                          throw new Exception(dieLog);
+                      };
+        }
+
         /// <summary>
         ///     Gets Post objects out of XML files, which follow the BlogEngine.NET format.
         /// </summary>
         /// <param name = "folderSystemPath">Folder where XML files are located</param>
-        /// <param name = "log">An action to which logs are sent</param>
         /// <returns>zasz.me.Models.Post objects</returns>
-        public static IEnumerable<Post> GetFromFolder(string folderSystemPath, Action<string> log)
+        public IEnumerable<Post> GetFromFolder(string folderSystemPath)
         {
-            Action<string> die = dieLog =>
-                                     {
-                                         log(dieLog);
-                                         throw new Exception(dieLog);
-                                     };
-
             if (String.IsNullOrEmpty(folderSystemPath))
                 die("Null Path");
 
             Debug.Assert(folderSystemPath != null, "folderSystemPath != null");
             var files = Directory.GetFiles(folderSystemPath);
-            var xmlFiles = from file in files
+            var xmlFiles = (from file in files
                            where file.EndsWith(".xml")
-                           select file;
+                           select file).ToList();
 
             if (!xmlFiles.Any())
                 die("No XML Files found");
@@ -57,6 +63,12 @@ namespace zasz.health.UtilityTests
                 yield return newPost;
             }
             // ReSharper restore PossibleNullReferenceException
+        }
+
+        public void ExportToFolders(List<Post> posts)
+        {
+            var postsFolder = X.RepoPath + @"zasz.me\App_Data\Posts";
+
         }
     }
 }

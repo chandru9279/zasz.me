@@ -12,7 +12,8 @@ namespace zasz.me.Integration.EntityFramework
     {
         private readonly ISofuService service;
 
-        public SoCacheRepository(FullContext context, ISofuService service) : base(context)
+        public SoCacheRepository(FullContext context, ISofuService service)
+            : base(context)
         {
             this.service = service;
         }
@@ -21,15 +22,15 @@ namespace zasz.me.Integration.EntityFramework
 
         public SoCache Get()
         {
-            var cache = Set.First();
-            return cache.HasExpired() ? Refresh() : cache;
+            var cache = Set.FirstOrDefault();
+            return cache == null || cache.HasExpired() ? Refresh() : cache;
         }
 
         public Paged<SoAnswer> Page(SoCache cache, int pageNumber, int pageSize)
         {
-            var soCaches = cache.Answers.Skip(pageNumber*pageSize).Take(pageSize).ToList();
+            var soCaches = cache.Answers.Skip(pageNumber * pageSize).Take(pageSize).ToList();
             var count = cache.Answers.Count();
-            return new Paged<SoAnswer> {Set = soCaches, NumberOfPages = count};
+            return new Paged<SoAnswer> { Set = soCaches, NumberOfPages = count };
         }
 
         #endregion

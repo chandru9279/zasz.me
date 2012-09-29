@@ -2,7 +2,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using zasz.me.Integration.EntityFramework;
 
-namespace zasz.health.IntegrationTests
+namespace zasz.health.RepositoryTests
 {
     public class TestStorageInitializer : MigrateDatabaseToLatestVersion<TestContext, TestConfiguration>
     {

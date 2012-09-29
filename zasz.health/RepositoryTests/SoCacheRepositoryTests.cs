@@ -7,7 +7,7 @@ using zasz.me.Integration.EntityFramework;
 using zasz.me.Models;
 using zasz.me.Services.Concrete;
 
-namespace zasz.health.IntegrationTests
+namespace zasz.health.RepositoryTests
 {
     public class SoCacheRepositoryTests : IDisposable
     {

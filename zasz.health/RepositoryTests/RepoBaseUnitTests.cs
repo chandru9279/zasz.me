@@ -4,7 +4,7 @@ using Xunit;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Models;
 
-namespace zasz.health.IntegrationTests
+namespace zasz.health.RepositoryTests
 {
     public class RepoBaseUnitTests
     {

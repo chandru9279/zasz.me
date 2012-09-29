@@ -5,10 +5,11 @@ using System.Data.Entity;
 using System.Linq;
 using Xunit;
 using zasz.health.UtilityTests;
+using zasz.me;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Models;
 
-namespace zasz.health.IntegrationTests
+namespace zasz.health.RepositoryTests
 {
     // TODO: This class/suite is an unholy MESS - clean it up
     public class PostAndTagRepositoryTests : IDisposable
@@ -26,8 +27,7 @@ namespace zasz.health.IntegrationTests
             var Count = posts.Count();
             if (Count != 0) return;
             var SamplePosts =
-                PostsData.GetFromFolder(
-                    ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Database\Legacy\Posts", Log);
+                new PostsData(Log).GetFromFolder(X.RepoPath + @"\Database\Legacy\Posts");
             foreach (var SamplePost in SamplePosts)
             {
                 SamplePost.Tags =

@@ -10,7 +10,8 @@ using zasz.me.Models;
 namespace zasz.health.UtilityTests
 {
     public class MaintainanceTests
-    {   private readonly FullContext fullContext;
+    {
+        private readonly FullContext fullContext;
         private readonly IPostRepository postRepository;
         private readonly ITagRepository tagRepository;
 
@@ -21,14 +22,21 @@ namespace zasz.health.UtilityTests
             postRepository = new Posts(fullContext);
         }
 
-        [Fact] 
+        [Fact]
         public void ImportLegacyPosts()
-        {       var path = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Database\Legacy\Posts";
-                foreach (var newPost in PostsData.GetFromFolder(path, Log))
-                {
-                    postRepository.Save(newPost);
-                }
-                postRepository.Commit();
+        {
+            var path = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Database\Legacy\Posts";
+            foreach (var newPost in new PostsData(Log).GetFromFolder(path))
+            {
+                postRepository.Save(newPost);
+            }
+            postRepository.Commit();
+        }
+
+        [Fact]
+        public void ExportPosts()
+        {
+            
         }
 
         private static void Log(string log)
@@ -64,7 +72,7 @@ namespace zasz.health.UtilityTests
             var algorithm = new SHA256Cng();
             var unicoding = new UnicodeEncoding();
             var hash = unicoding.GetString(algorithm.ComputeHash(unicoding.GetBytes(password)));
-            Log(hash); 
+            Log(hash);
         }
     }
 }
