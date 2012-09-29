@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -25,7 +24,7 @@ namespace zasz.health.UtilityTests
         [Fact]
         public void ImportLegacyPosts()
         {
-            var path = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Database\Legacy\Posts";
+            var path = TestX.RepoPath + @"\Database\Legacy\Posts";
             foreach (var newPost in new PostsData(Log).GetFromFolder(path))
             {
                 postRepository.Save(newPost);
@@ -36,9 +35,9 @@ namespace zasz.health.UtilityTests
         [Fact]
         public void ExportPosts()
         {
-            
+            new PostsData(Log).ExportToFolders(postRepository.Page(0, 100));
         }
-
+        
         private static void Log(string log)
         {
             Debug.WriteLine(log);
@@ -63,7 +62,7 @@ namespace zasz.health.UtilityTests
         {
             fullContext.Database.ExecuteSqlCommand("DELETE FROM Logs");
             Log("Done.");
-        }
+        } 
 
         [Fact]
         public void HashPassword()

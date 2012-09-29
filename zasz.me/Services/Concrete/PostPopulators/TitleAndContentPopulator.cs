@@ -7,11 +7,13 @@ namespace zasz.me.Services.Concrete.PostPopulators
 {
     public class TitleAndContentPopulator : IPostPopulator
     {
+        public const string ContentHtml = "*.html";
+
         #region IPostPopulator Members
 
         public void Populate(Post post, DirectoryInfo directory)
         {
-            var fileInfos = directory.GetFiles("*.html");
+            var fileInfos = directory.GetFiles(ContentHtml);
             var content = fileInfos.First();
             post.Title = content.Name;
             post.Content = new StreamReader(content.OpenRead()).ReadToEnd();

@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Linq;
+using zasz.me;
 using zasz.me.Integration.MVC;
 
 namespace zasz.health.UtilityTests
@@ -18,6 +20,11 @@ namespace zasz.health.UtilityTests
             return (from property in controllerType.GetProperties()
                     where Attribute.IsDefined(property, typeof (NaturalKeyAttribute))
                     select property).Count() == 1;
+        }
+
+        public static string RepoPath
+        {
+            get { return Directory.GetParent(X.ProjectPath).FullName; }
         }
     }
 }

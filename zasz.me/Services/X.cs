@@ -22,11 +22,6 @@ namespace zasz.me
             }
         }
 
-        public static string RepoPath
-        {
-            get { return Directory.GetParent(ProjectPath).FullName; }
-        }
-
         public static string Name<T>(Expression<Func<Post, T>> expression)
         {
             return ((MemberExpression) expression.Body).Member.Name;
@@ -80,6 +75,20 @@ namespace zasz.me
             foreach (var element in forEach)
                 action(element);
             return forEach;
+        }
+        
+        public static void Done(this Stream stream)
+        {
+            stream.Flush();
+            stream.Close();
+            stream.Dispose();
+        }
+        
+        public static void Done(this TextWriter stream)
+        {
+            stream.Flush();
+            stream.Close();
+            stream.Dispose();
         }
     }
 }

@@ -13,7 +13,7 @@ packages/*
 Out/
 _ReSharper.zasz.me/
 
-zasz.me/Uploads/
+zasz.me/App_Data/Posts
 
 Solr/logs/
 Solr/work/

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
 using zasz.me;
+using zasz.me.Controllers;
 using zasz.me.Models;
+using zasz.me.Services.Concrete.PostPopulators;
 
 namespace zasz.health.UtilityTests
 {
@@ -67,8 +70,21 @@ namespace zasz.health.UtilityTests
 
         public void ExportToFolders(List<Post> posts)
         {
-            var postsFolder = X.RepoPath + @"zasz.me\App_Data\Posts";
-
+            var postsFolder = TestX.RepoPath + @"\zasz.me" + SyncController.PostsFolder;
+            foreach (var post in posts)
+            {
+                var postDirectoryInfo = Directory.CreateDirectory(postsFolder + post.Slug);
+                var fullName = postDirectoryInfo.FullName + @"\";
+                var fileStream = File.Create(fullName + Regex.Replace(post.Title, @"[^a-zA-Z0-9.-]+", "") + ".html");
+                var bytes = System.Text.Encoding.Unicode.GetBytes(post.Content);
+                fileStream.Write(bytes, 0, bytes.Length);
+                fileStream.Done();
+                var metaWriter = new StreamWriter(File.Create(fullName + "meta.txt"));
+                metaWriter.WriteLine(post.TagsLine);
+                metaWriter.WriteLine(post.Timestamp.ToString(MetaPopulator.DateFormat));
+                metaWriter.Done();
+                log(post.Slug + " exported.");
+            }
         }
     }
 }

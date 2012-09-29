@@ -11,7 +11,9 @@ namespace zasz.me.Services.Concrete.PostPopulators
 {
     public class MetaPopulator : IPostPopulator
     {
+        public const string DateFormat = "g";
         private readonly ITagRepository repo;
+        public readonly CultureInfo IndiaCulture = CultureInfo.CreateSpecificCulture("hi-IN");
 
         public MetaPopulator(ITagRepository repo)
         {
@@ -32,9 +34,7 @@ namespace zasz.me.Services.Concrete.PostPopulators
 
         internal virtual DateTime GetTime(string timestamp)
         {
-            var india = CultureInfo.CreateSpecificCulture("hi-IN");
-            var dateTime = DateTime.ParseExact(timestamp, "g", india);
-            return dateTime;
+            return DateTime.ParseExact(timestamp, DateFormat, IndiaCulture);
         }
 
         internal virtual List<Tag> GetTags(string tags)

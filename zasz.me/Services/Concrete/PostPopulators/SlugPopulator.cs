@@ -27,7 +27,7 @@ namespace zasz.me.Services.Concrete.PostPopulators
                     decodedTitle,
                     (current, pair) => current.Replace(pair.Key, " " + pair.Value + " ")
                 );
-            var sluglets = (from object match in Regex.Matches(nearlySlug, @"[a-zA-Z0-9.-]+") select match.ToString());
+            var sluglets = (from Match match in Regex.Matches(nearlySlug, @"[a-zA-Z0-9.-]+") select match.ToString());
             return string.Join("-", sluglets);
         }
     }

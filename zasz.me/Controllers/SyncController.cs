@@ -12,6 +12,7 @@ namespace zasz.me.Controllers
     [Authorize]
     public class SyncController : BaseController
     {
+        public const string PostsFolder = @"\App_Data\Posts\";
         private readonly List<IPostPopulator> populators;
         private readonly IPostRepository posts;
 
@@ -25,7 +26,7 @@ namespace zasz.me.Controllers
         [DefaultAction]
         public ActionResult Database()
         {
-            var folders = Directory.GetDirectories(Server.MapPath(@"~\App_Data\Posts"));
+            var folders = Directory.GetDirectories(Server.MapPath("~" + PostsFolder));
             List<string> errors = null;
             foreach (var folder in folders)
             {

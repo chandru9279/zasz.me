@@ -27,7 +27,7 @@ namespace zasz.health.RepositoryTests
             var Count = posts.Count();
             if (Count != 0) return;
             var SamplePosts =
-                new PostsData(Log).GetFromFolder(X.RepoPath + @"\Database\Legacy\Posts");
+                new PostsData(Log).GetFromFolder(TestX.RepoPath + @"\Database\Legacy\Posts");
             foreach (var SamplePost in SamplePosts)
             {
                 SamplePost.Tags =
