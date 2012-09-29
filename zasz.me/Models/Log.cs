@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Elmah;
 using zasz.me.Integration.MVC;
 
 namespace zasz.me.Models
 {
+    [Table("Logs", Schema = "Manage")]
     public class Log : IModel
     {
         public Log()

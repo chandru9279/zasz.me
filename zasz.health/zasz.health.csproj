@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\XTests.cs" />
-    <Compile Include="RepositoryTests\SoCacheRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\CacheRepositoryTests.cs" />
     <Compile Include="RepositoryTests\RepoBaseUnitTests.cs" />
     <Compile Include="ServiceTests\PostPopulators\SlugPopulatorTests.cs" />
     <Compile Include="ServiceTests\PostPopulators\MetaPopulatorTests.cs" />

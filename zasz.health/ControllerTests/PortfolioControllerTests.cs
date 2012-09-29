@@ -14,7 +14,7 @@ namespace zasz.health.ControllerTests
 
         public PortfolioControllerTests()
         {
-            var mock = new Mock<ISoCacheRepository>();
+            var mock = new Mock<ICacheRepository>();
             controller = new PortfolioController(mock.Object);
         }
 

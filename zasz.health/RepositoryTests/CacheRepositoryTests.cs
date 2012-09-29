@@ -9,24 +9,24 @@ using zasz.me.Services.Concrete;
 
 namespace zasz.health.RepositoryTests
 {
-    public class SoCacheRepositoryTests : IDisposable
+    public class CacheRepositoryTests : IDisposable
     {
-        private readonly SoAnswer anotherAnswer;
+        private readonly Answer anotherAnswer;
         private readonly TestContext assertContext;
-        private readonly SoCacheRepository repo;
-        private readonly SoAnswer sampleAnswer;
+        private readonly Caches repo;
+        private readonly Answer sampleAnswer;
         private readonly TestContext testContext;
 
-        public SoCacheRepositoryTests()
+        public CacheRepositoryTests()
         {
-            sampleAnswer = new SoAnswer
+            sampleAnswer = new Answer
                                {
                                    Sort = 1,
                                    AnswerId = 8203291,
                                    QuestionId = 8203265,
                                    QuestionTitle = "First"
                                };
-            anotherAnswer = new SoAnswer
+            anotherAnswer = new Answer
                                 {
                                     Sort = 2,
                                     AnswerId = 8203291,
@@ -36,7 +36,7 @@ namespace zasz.health.RepositoryTests
             Database.SetInitializer(new TestStorageInitializer());
             testContext = new TestContext();
             assertContext = new TestContext();
-            repo = new SoCacheRepository(testContext, new JsonSofuService());
+            repo = new Caches(testContext, new JsonSofuService());
         }
 
         #region IDisposable Members
@@ -55,16 +55,16 @@ namespace zasz.health.RepositoryTests
         }
 
         [Fact]
-        public void SoCacheAndSoAnswersCanBeSavedToTheDatabase()
+        public void CachesAndAnswersCanBeSavedToTheDatabase()
         {
-            var soCache = new SoCache
+            var cache = new Cache
                               {
-                                  Answers = new List<SoAnswer> {sampleAnswer, anotherAnswer}
+                                  Answers = new List<Answer> {sampleAnswer, anotherAnswer}
                               };
 
-            repo.Save(soCache);
+            repo.Save(cache);
             repo.Commit();
-            var assertCache = assertContext.SoCaches.Include(x => x.Answers).First(x => x.Id == soCache.Id);
+            var assertCache = assertContext.Caches.Include(x => x.Answers).First(x => x.Id == cache.Id);
             Assert.NotNull(assertCache.Id);
             Assert.Equal(2, assertCache.Answers.Count);
             var first = assertCache.Answers.First(x => x.Id == sampleAnswer.Id);
@@ -73,7 +73,7 @@ namespace zasz.health.RepositoryTests
             AssertAnswer(anotherAnswer, second);
         }
 
-        private static void AssertAnswer(SoAnswer expected, SoAnswer actual)
+        private static void AssertAnswer(Answer expected, Answer actual)
         {
             Assert.NotNull(actual.Cache);
 
@@ -84,18 +84,18 @@ namespace zasz.health.RepositoryTests
         }
 
         [Fact]
-        public void ClearCacheClearsExistingSoAnswersAndCaches()
+        public void ClearCacheClearsExistingAnswersAndCaches()
         {
-            var soCache = new SoCache
+            var cache = new Cache
                               {
-                                  Answers = new List<SoAnswer> {sampleAnswer, anotherAnswer}
+                                  Answers = new List<Answer> {sampleAnswer, anotherAnswer}
                               };
-            repo.Save(soCache);
+            repo.Save(cache);
             repo.Commit();
             repo.ClearCache();
-            Assert.Equal(0, assertContext.SoCaches.Count());
-            Assert.Equal(0, assertContext.SoAnswers.Count());
-            var assertCache = assertContext.SoCaches.Include(x => x.Answers).FirstOrDefault();
+            Assert.Equal(0, assertContext.Caches.Count());
+            Assert.Equal(0, assertContext.Answers.Count());
+            var assertCache = assertContext.Caches.Include(x => x.Answers).FirstOrDefault();
             Assert.Null(assertCache);
         }
 
@@ -103,9 +103,9 @@ namespace zasz.health.RepositoryTests
         public void RefreshWillGetNewSetFromSoApi()
         {
             repo.Refresh();
-            var cacheCount = assertContext.SoCaches.Count();
+            var cacheCount = assertContext.Caches.Count();
             Assert.True(cacheCount == 1);
-            var answerCount = assertContext.SoAnswers.Count();
+            var answerCount = assertContext.Answers.Count();
             Assert.True(answerCount >= 30);
         }
     }

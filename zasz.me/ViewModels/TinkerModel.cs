@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -7,7 +7,7 @@ using System.Linq;
 using zasz.me.Controllers.Utils;
 using zasz.me.Services.TagCloud;
 
-namespace zasz.me.Models
+namespace zasz.me.ViewModels
 {
     public class TinkerModel
     {

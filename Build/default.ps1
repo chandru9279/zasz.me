@@ -60,10 +60,13 @@ task test -depends compile {
 
 task db -depends compile { 
 	$migrator = $ToolsPath + 'Migrations\migrate.exe'  
-	$migrateCommand = "$migrator zasz_me.dll /StartUpDirectory=$SolutionPath\zasz.me\bin\ /connectionStringName:FullContext /startUpConfigurationFile:$SolutionPath\zasz.me\Web.config /verbose"
+	$migrateCommand = "$migrator zasz.me.dll /StartUpDirectory=$SolutionPath\zasz.me\bin\ /connectionStringName:FullContext /startUpConfigurationFile:$SolutionPath\zasz.me\Web.config /verbose"
 	Write-Host $migrateCommand
 	exec { Invoke-Expression $migrateCommand }
-	Write-Host -ForegroundColor Green "Migrated db to the latest version."  
+	Write-Host -ForegroundColor Green "Migrated db to the latest version. Now migrating test db.. "    
+    $migrateCommand = "$migrator zasz.me.dll /StartUpDirectory=$SolutionPath\zasz.health\bin\ /connectionStringName:TestContext /startUpConfigurationFile:$SolutionPath\zasz.health\App.config /verbose"
+    exec { Invoke-Expression $migrateCommand }
+    Write-Host -ForegroundColor Green "Migrated test db also."    
 }
 
 

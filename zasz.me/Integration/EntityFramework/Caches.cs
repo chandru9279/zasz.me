@@ -8,42 +8,42 @@ using zasz.me.ViewModels;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    internal class SoCacheRepository : RepoBase<SoCache, Guid>, ISoCacheRepository
+    internal class Caches : RepoBase<Cache, Guid>, ICacheRepository
     {
         private readonly ISofuService service;
 
-        public SoCacheRepository(FullContext context, ISofuService service)
+        public Caches(FullContext context, ISofuService service)
             : base(context)
         {
             this.service = service;
         }
 
-        #region ISoCacheRepository Members
+        #region ICacheRepository Members
 
-        public SoCache Get()
+        public Cache Get()
         {
             var cache = Set.FirstOrDefault();
             return cache == null || cache.HasExpired() ? Refresh() : cache;
         }
 
-        public Paged<SoAnswer> Page(SoCache cache, int pageNumber, int pageSize)
+        public Paged<Answer> Page(Cache cache, int pageNumber, int pageSize)
         {
-            var soCaches = cache.Answers.Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            var caches = cache.Answers.Skip(pageNumber * pageSize).Take(pageSize).ToList();
             var count = cache.Answers.Count();
-            return new Paged<SoAnswer> { Set = soCaches, NumberOfPages = count };
+            return new Paged<Answer> { Set = caches, NumberOfPages = count };
         }
 
         #endregion
 
         /// <summary>
-        /// Easier ways to write this method, but this ensures no more that 30 SoAnswers are in-memory
+        /// Easier ways to write this method, but this ensures no more that 30 Answers are in-memory
         /// </summary>
         /// <returns>Latest updated cache</returns>
-        internal SoCache Refresh()
+        internal Cache Refresh()
         {
             ClearCache();
             var cache = NewCache();
-            Pair<bool, List<SoAnswer>> questionsAnswered;
+            Pair<bool, List<Answer>> questionsAnswered;
             var page = 1;
             do
             {
@@ -52,9 +52,9 @@ namespace zasz.me.Integration.EntityFramework
                 UnitOfWork(x =>
                                {
                                    // ReSharper disable AccessToModifiedClosure
-                                   var soCache = x.SoCaches.Find(cache.Id);
+                                   var soCache = x.Caches.Find(cache.Id);
                                    questionsAnswered.Other.ForEach(y => y.Cache = soCache);
-                                   questionsAnswered.Other.ForEach(y => x.SoAnswers.Add(y));
+                                   questionsAnswered.Other.ForEach(y => x.Answers.Add(y));
                                    x.SaveChanges();
                                    // ReSharper restore AccessToModifiedClosure
                                });
@@ -63,9 +63,9 @@ namespace zasz.me.Integration.EntityFramework
             return cache;
         }
 
-        private SoCache NewCache()
+        private Cache NewCache()
         {
-            var cache = new SoCache();
+            var cache = new Cache();
             Save(cache);
             Commit();
             return cache;
@@ -73,7 +73,11 @@ namespace zasz.me.Integration.EntityFramework
 
         internal void ClearCache()
         {
-            Context.Database.ExecuteSqlCommand("DELETE FROM SoCaches; DELETE FROM SoAnswers;");
+            var caches = typeof (Cache).TableAndSchemaName();
+            var answers = typeof(Answer).TableAndSchemaName();
+            var deleteQueries = string.Format("DELETE FROM [{0}].[{1}]; DELETE FROM [{2}].[{3}];", 
+                caches.Other, caches.One, answers.Other, answers.One);
+            Context.Database.ExecuteSqlCommand(deleteQueries);
         }
     }
 }

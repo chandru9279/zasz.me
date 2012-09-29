@@ -21,27 +21,27 @@ namespace zasz.me.Services.Concrete
 
         #region ISofuService Members
 
-        public void PopulateTitles(List<SoAnswer> soAnswers)
+        public void PopulateTitles(List<Answer> answers)
         {
-            var questions = Get(urls.SoQuestion(string.Join(";", soAnswers.Select(x => x.QuestionId))));
+            var questions = Get(urls.StackOverflowQuestion(string.Join(";", answers.Select(x => x.QuestionId))));
             var questionTitles = questions["items"].ToDictionary(x => (int) x["question_id"], x => (string) x["title"]);
-            soAnswers.ForEach(x => x.QuestionTitle = questionTitles[x.QuestionId]);
+            answers.ForEach(x => x.QuestionTitle = questionTitles[x.QuestionId]);
         }
 
         #endregion
 
-        public Pair<bool, List<SoAnswer>> QuestionsAnswered(int page)
+        public Pair<bool, List<Answer>> QuestionsAnswered(int page)
         {
-            var answers = Get(urls.MySoAnswers(page));
+            var response = Get(urls.MyStackOverflowAnswers(page));
             var sort = ((page - 1) * 30) + 1;
-            var soAnswers = answers["items"].Select(x => new SoAnswer
+            var answers = response["items"].Select(x => new Answer
                                                              {
                                                                  Sort = sort++,
                                                                  QuestionId = (int) x["question_id"],
                                                                  AnswerId = (int) x["answer_id"]
                                                              }).ToList();
-            var more = (bool)answers["has_more"];
-            return new Pair<bool, List<SoAnswer>>(more, soAnswers);
+            var more = (bool)response["has_more"];
+            return new Pair<bool, List<Answer>>(more, answers);
         }
 
         private static JObject Get(string url)

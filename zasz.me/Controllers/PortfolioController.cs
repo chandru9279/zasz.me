@@ -6,9 +6,9 @@ namespace zasz.me.Controllers
 {
     public class PortfolioController : BaseController
     {
-        private readonly ISoCacheRepository repository;
+        private readonly ICacheRepository repository;
 
-        public PortfolioController(ISoCacheRepository repository)
+        public PortfolioController(ICacheRepository repository)
         {
             this.repository = repository;
         }

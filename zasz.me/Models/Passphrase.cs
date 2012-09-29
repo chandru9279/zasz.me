@@ -1,11 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using zasz.me.Integration.MVC;
 
 namespace zasz.me.Models
 {
-    /* The new Creadential especially for personal sites*/
-
+    [Table("Passphrases", Schema = "Manage")]
     public class Passphrase : IModel
     {
         [Required]

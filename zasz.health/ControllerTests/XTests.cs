@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Xunit;
 using zasz.me;
+using zasz.me.Models;
 
 namespace zasz.health.ControllerTests
 {
@@ -25,6 +26,14 @@ namespace zasz.health.ControllerTests
             var directoryInfo = new DirectoryInfo(X.ProjectPath);
             Assert.True(directoryInfo.Exists);
             Assert.Equal(1, directoryInfo.GetFiles("*.csproj").Length);
+        }
+
+        [Fact]
+        public void TableAndSchemaNameGivesTheCorrectMappings()
+        {
+            var tableAndSchemaName = typeof (Post).TableAndSchemaName();
+            Assert.Equal("Posts", tableAndSchemaName.One);
+            Assert.Equal("Blog", tableAndSchemaName.Other);
         }
     }
 }

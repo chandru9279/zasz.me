@@ -127,6 +127,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\EntityFramework\FullContext.cs" />
+    <Compile Include="Migrations\201209291525495_RenamingEntities.cs" />
+    <Compile Include="Migrations\201209291525495_RenamingEntities.Designer.cs">
+      <DependentUpon>201209291525495_RenamingEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201209291609107_ReclassifiedTables.cs" />
+    <Compile Include="Migrations\201209291609107_ReclassifiedTables.Designer.cs">
+      <DependentUpon>201209291609107_ReclassifiedTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cache.cs" />
     <Compile Include="Services\Concrete\PostPopulators\OrderedPostPopulatorSet.cs" />
     <Compile Include="Services\Contracts\IConfigurationService.cs" />
     <Compile Include="Services\Contracts\IPostPopulator.cs" />
@@ -145,8 +154,8 @@
     <Compile Include="Migrations\201209231359155_SortingSoAnswers.Designer.cs">
       <DependentUpon>201209231359155_SortingSoAnswers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\SoAnswer.cs" />
-    <Compile Include="Integration\EntityFramework\SoCacheRepository.cs" />
+    <Compile Include="Models\Answer.cs" />
+    <Compile Include="Integration\EntityFramework\Caches.cs" />
     <Compile Include="Services\Contracts\IPostPopulators.cs" />
     <Compile Include="Services\X.cs" />
     <Compile Include="Controllers\BlogController.cs" />
@@ -203,7 +212,6 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
-    <Compile Include="Models\TinkerModel.cs" />
     <Compile Include="Services\Contracts\ISearchService.cs" />
     <Compile Include="Services\TagCloud\HSLColor.cs" />
     <Compile Include="Services\TagCloud\ColorStrategy.cs" />
@@ -214,6 +222,7 @@
     <Compile Include="Services\TagCloud\DisplayStrategy.cs" />
     <Compile Include="ViewModels\Paged.cs" />
     <Compile Include="ViewModels\PostListViewModel.cs" />
+    <Compile Include="ViewModels\TinkerModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BlueprintReset.css" />
@@ -733,6 +742,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201209231359155_SortingSoAnswers.resx">
       <DependentUpon>201209231359155_SortingSoAnswers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201209291525495_RenamingEntities.resx">
+      <DependentUpon>201209291525495_RenamingEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201209291609107_ReclassifiedTables.resx">
+      <DependentUpon>201209291609107_ReclassifiedTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

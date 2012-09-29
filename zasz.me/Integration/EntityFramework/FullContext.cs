@@ -22,14 +22,15 @@ namespace zasz.me.Integration.EntityFramework
 
         public DbSet<Tag> Tags { get; set; }
 
-        public DbSet<SoCache> SoCaches { get; set; }
+        public DbSet<Cache> Caches { get; set; }
 
-        public DbSet<SoAnswer> SoAnswers { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SoCache>().HasKey(x => x.Id).HasMany(x => x.Answers).WithRequired(x => x.Cache).WillCascadeOnDelete();
-            modelBuilder.Entity<SoAnswer>().HasKey(x => x.Id).HasRequired(x => x.Cache);
+            modelBuilder.Entity<Post>().HasMany(x => x.Tags).WithMany(x => x.Posts).Map(x => x.ToTable("PostTagMap", "Blog"));
+            modelBuilder.Entity<Cache>().HasKey(x => x.Id).HasMany(x => x.Answers).WithRequired(x => x.Cache).WillCascadeOnDelete();
+            modelBuilder.Entity<Answer>().HasKey(x => x.Id).HasRequired(x => x.Cache);
         }
     }
 }

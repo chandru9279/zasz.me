@@ -9,6 +9,7 @@ using zasz.me.Integration.MVC;
 
 namespace zasz.me.Models
 {
+    [Table("Posts", Schema = "Blog")]
     public class Post : IModel
     {
         [Required]

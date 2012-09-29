@@ -11,7 +11,7 @@ namespace zasz.me.Services.Concrete
         private const string soSite = "?site=stackoverflow&";
         private const string myPath = "users/626084";
 
-        public string MySoAnswers(int pageNumber)
+        public string MyStackOverflowAnswers(int pageNumber)
         {
                 
             var extra = new Dictionary<string, string>();
@@ -20,12 +20,12 @@ namespace zasz.me.Services.Concrete
             return Compose(myPath + "/answers", extra);
         }
 
-        public string SoQuestion(string whichQuestions)
+        public string StackOverflowQuestion(string whichQuestions)
         {
             return Compose(string.Format("questions/{0}", whichQuestions));
         }
 
-        public string MySoQuestions(int pageNumber)
+        public string MyStackOverflowQuestions(int pageNumber)
         {
             var extra = new Dictionary<string, string>();
             extra.Add("sort", "votes");

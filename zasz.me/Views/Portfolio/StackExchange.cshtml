@@ -1,4 +1,4 @@
-﻿@model zasz.me.ViewModels.Paged<zasz.me.Models.SoAnswer>
+﻿@model zasz.me.ViewModels.Paged<zasz.me.Models.Answer>
 
 @{
     ViewBag.Title = "StackTacks";
@@ -21,9 +21,9 @@
 @Render.Paging(Model.NumberOfPages)
 <div class="Section">
 <ul id="Threads">
-    @foreach (var soAnswer in Model.Set)
+    @foreach (var answer in Model.Set)
     {
-        <li><a data-id="@soAnswer.QuestionId ">@Html.Raw(soAnswer.QuestionTitle)</a></li>
+        <li><a data-id="@answer.QuestionId ">@Html.Raw(answer.QuestionTitle)</a></li>
     }
 </ul>    
 </div>

@@ -8,7 +8,7 @@ namespace zasz.me.Services.Contracts
     /// </summary>
     public interface ISofuService
     {
-        Pair<bool, List<SoAnswer>> QuestionsAnswered(int page);
-        void PopulateTitles(List<SoAnswer> soAnswers);
+        Pair<bool, List<Answer>> QuestionsAnswered(int page);
+        void PopulateTitles(List<Answer> answers);
     }
 }
