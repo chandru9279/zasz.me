@@ -10,7 +10,7 @@ namespace zasz.health.RepositoryTests
 
     public class TestContext : FullContext
     {
-        public TestContext() : base("TestContext")
+        public TestContext() : base(DbConstants.TestDbConnectionStringName)
         {
         }
     } 

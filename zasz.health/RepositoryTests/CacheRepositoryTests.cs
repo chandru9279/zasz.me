@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Xunit;
+using zasz.health.UtilityTests;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Models;
 using zasz.me.Services.Concrete;
@@ -19,6 +20,7 @@ namespace zasz.health.RepositoryTests
 
         public CacheRepositoryTests()
         {
+            Database.SetInitializer(new TestStorageInitializer());
             sampleAnswer = new Answer
                                {
                                    Sort = 1,
@@ -33,7 +35,6 @@ namespace zasz.health.RepositoryTests
                                     QuestionId = 8203265,
                                     QuestionTitle = "Second"
                                 };
-            Database.SetInitializer(new TestStorageInitializer());
             testContext = new TestContext();
             assertContext = new TestContext();
             repo = new Caches(testContext, new JsonSofuService());
@@ -54,7 +55,7 @@ namespace zasz.health.RepositoryTests
             repo.Refresh();
         }
 
-        [Fact]
+        [Fact, TimeTaken]
         public void CachesAndAnswersCanBeSavedToTheDatabase()
         {
             var cache = new Cache
@@ -83,7 +84,7 @@ namespace zasz.health.RepositoryTests
             Assert.Equal(expected.Sort, actual.Sort);
         }
 
-        [Fact]
+        [Fact, TimeTaken]
         public void ClearCacheClearsExistingAnswersAndCaches()
         {
             var cache = new Cache
@@ -99,14 +100,14 @@ namespace zasz.health.RepositoryTests
             Assert.Null(assertCache);
         }
 
-        [Fact]
+        [Fact, TimeTaken]
         public void RefreshWillGetNewSetFromSoApi()
         {
             repo.Refresh();
             var cacheCount = assertContext.Caches.Count();
             Assert.True(cacheCount == 1);
             var answerCount = assertContext.Answers.Count();
-            Assert.True(answerCount >= 30);
+            Assert.True(answerCount >= 30); // Magic number 30? I've anwered close to 100.
         }
     }
 }

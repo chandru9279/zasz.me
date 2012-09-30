@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using Joel.Net;
-using Xunit;
 
 namespace zasz.health.UtilityTests
 {
@@ -41,20 +39,12 @@ namespace zasz.health.UtilityTests
             if (!api.VerifyKey()) throw new Exception("Key not verified");
         }
 
-        [Fact(Skip = "Utility")]
-        public void CommentsToWxr()
-        {
-            var path = ConfigurationManager.AppSettings["ProjectRootPath"] + @"\Database\Legacy\Posts";
-            ConvertComments(path);
-            Log("Done");
-        }
-
 
         /// <summary>
         ///   Gets Comments out of XML files, which follow the BlogEngine.NET format.
         /// </summary>
         /// <param name = "folderSystemPath">Folder where XML files are located</param>
-        public void ConvertComments(string folderSystemPath)
+        public void ExportToWxr(string folderSystemPath)
         {
             Action<string> die = dieLog =>
                                      {

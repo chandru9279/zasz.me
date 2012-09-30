@@ -57,6 +57,7 @@
     <Reference Include="Joel.Net.Akismet">
       <HintPath>..\Lib\Joel.Net.Akismet.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
@@ -68,9 +69,6 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -89,15 +87,20 @@
     <Compile Include="Builders\PostBuilder.cs" />
     <Compile Include="ControllerTests\XTests.cs" />
     <Compile Include="RepositoryTests\CacheRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\TagRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\RepoBaseIntegrationTests.cs" />
+    <Compile Include="RepositoryTests\PostAndTagsTestData.cs" />
     <Compile Include="RepositoryTests\RepoBaseUnitTests.cs" />
     <Compile Include="ServiceTests\PostPopulators\SlugPopulatorTests.cs" />
     <Compile Include="ServiceTests\PostPopulators\MetaPopulatorTests.cs" />
+    <Compile Include="UtilityTests\Fixture.cs" />
+    <Compile Include="UtilityTests\TestData.cs" />
     <Compile Include="UtilityTests\TestX.cs" />
     <Compile Include="ControllerTests\PortfolioControllerTests.cs" />
     <Compile Include="ControllerTests\SyncControllerTests.cs" />
     <Compile Include="ControllerTests\RuleTests.cs" />
     <Compile Include="RepositoryTests\TestStorageInitializer.cs" />
-    <Compile Include="RepositoryTests\PostAndTagRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\PostRepositoryTests.cs" />
     <Compile Include="ModelTests\PostTests.cs" />
     <Compile Include="ModelTests\StackUrlsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="UtilityTests\CommentsExport.cs" />
     <Compile Include="UtilityTests\MaintainanceTests.cs" />
     <Compile Include="UtilityTests\PostsImportExport.cs" />
+    <Compile Include="UtilityTests\TimeTaken.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\zasz.me\zasz.me.csproj">

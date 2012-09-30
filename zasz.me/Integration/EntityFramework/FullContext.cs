@@ -6,7 +6,7 @@ namespace zasz.me.Integration.EntityFramework
     public class FullContext : DbContext
     {
         public FullContext()
-            : this("FullContext")
+            : this(DbConstants.DbConnectionStringName)
         {
         }
 
@@ -28,7 +28,7 @@ namespace zasz.me.Integration.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Post>().HasMany(x => x.Tags).WithMany(x => x.Posts).Map(x => x.ToTable("PostTagMap", "Blog"));
+            modelBuilder.Entity<Post>().HasMany(x => x.Tags).WithMany(x => x.Posts).Map(x => x.ToTable(DbConstants.PostTagMappingTable, DbConstants.PostTagMappingSchema));
             modelBuilder.Entity<Cache>().HasKey(x => x.Id).HasMany(x => x.Answers).WithRequired(x => x.Cache).WillCascadeOnDelete();
             modelBuilder.Entity<Answer>().HasKey(x => x.Id).HasRequired(x => x.Cache);
         }

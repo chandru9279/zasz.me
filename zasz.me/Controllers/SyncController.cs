@@ -52,7 +52,6 @@ namespace zasz.me.Controllers
             return View(errors);
         }
 
-        [DefaultAction]
         public ActionResult Solr()
         {
             return null;

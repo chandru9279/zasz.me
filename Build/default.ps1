@@ -51,7 +51,7 @@ task deploy -depends build {
 
 task test -depends compile { 
 	$xUnit = $ToolsPath + 'xUnit\xunit.console.clr4.x86.exe'  
-	$testCommand = "$xUnit $SolutionPath\zasz.health\bin\zasz_health.dll /html $SolutionPath\Out\TestResults.html"
+	$testCommand = "$xUnit $SolutionPath\zasz.health\bin\zasz.health.dll /html $SolutionPath\Out\TestResults.html"
 	Write-Host $testCommand
 	exec { Invoke-Expression $testCommand }
 	Write-Host -ForegroundColor Green "All tests pass."

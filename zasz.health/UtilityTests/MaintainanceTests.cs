@@ -69,6 +69,14 @@ namespace zasz.health.UtilityTests
             Log(hash);
         }
 
+        [Fact(Skip = "Utility")]
+        public void CommentsToWxr()
+        {
+            var path = TestX.RepoPath + @"\Database\Legacy\Posts";
+            new CommentsExport().ExportToWxr(path);
+            Log("Done");
+        }
+
         private static void Log(string log)
         {
             Debug.WriteLine(log);

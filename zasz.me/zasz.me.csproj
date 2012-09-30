@@ -126,6 +126,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\EntityFramework\DbConstants.cs" />
     <Compile Include="Integration\EntityFramework\FullContext.cs" />
     <Compile Include="Migrations\201209291525495_RenamingEntities.cs" />
     <Compile Include="Migrations\201209291525495_RenamingEntities.Designer.cs">
@@ -134,6 +135,10 @@
     <Compile Include="Migrations\201209291609107_ReclassifiedTables.cs" />
     <Compile Include="Migrations\201209291609107_ReclassifiedTables.Designer.cs">
       <DependentUpon>201209291609107_ReclassifiedTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201209300905254_RenameMappingTagPostTable.cs" />
+    <Compile Include="Migrations\201209300905254_RenameMappingTagPostTable.Designer.cs">
+      <DependentUpon>201209300905254_RenameMappingTagPostTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Cache.cs" />
     <Compile Include="Services\Concrete\PostPopulators\OrderedPostPopulatorSet.cs" />
@@ -748,6 +753,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201209291609107_ReclassifiedTables.resx">
       <DependentUpon>201209291609107_ReclassifiedTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201209300905254_RenameMappingTagPostTable.resx">
+      <DependentUpon>201209300905254_RenameMappingTagPostTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

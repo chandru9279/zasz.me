@@ -26,6 +26,6 @@ namespace zasz.me.Models
 
     public interface IPassphraseRepository : IRepository<Passphrase, string>
     {
-        bool Authenticate(string IncomingPassphraseDigest);
+        bool Authenticate(string incomingPassphraseDigest);
     }
 }

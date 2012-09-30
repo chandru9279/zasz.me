@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using zasz.me.Models;
+﻿using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
@@ -12,9 +10,9 @@ namespace zasz.me.Integration.EntityFramework
 
         #region IPassphraseRepository Members
 
-        public bool Authenticate(string IncomingPhraseDigest)
+        public bool Authenticate(string incomingPassphraseDigest)
         {
-            return Get(IncomingPhraseDigest) != null;
+            return Get(incomingPassphraseDigest) != null;
         }
 
         #endregion
