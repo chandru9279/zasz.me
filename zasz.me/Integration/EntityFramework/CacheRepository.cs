@@ -8,11 +8,11 @@ using zasz.me.ViewModels;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    internal class Caches : RepoBase<Cache, Guid>, ICacheRepository
+    internal class CacheRepository : RepoBase<Cache, Guid>, ICacheRepository
     {
         private readonly ISofuService service;
 
-        public Caches(FullContext context, ISofuService service)
+        public CacheRepository(FullContext context, ISofuService service)
             : base(context)
         {
             this.service = service;

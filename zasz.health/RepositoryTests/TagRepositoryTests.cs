@@ -6,17 +6,17 @@ namespace zasz.health.RepositoryTests
 {
     public class TagRepositoryTests : Fixture<PostAndTagsTestData>
     {
-        private Tags tags;
+        private TagRepository tagRepository;
 
         protected override void InitFixture()
         {
-            tags = new Tags(Context);
+            tagRepository = new TagRepository(Context);
         }
 
         [Fact]
         public void TagOneShouldFetchFirstAndSecondPost()
         {
-            var page = tags.PagePosts("tag1", 0, 100);
+            var page = tagRepository.PagePosts("tag1", 0, 100);
             Assert.Equal(2, page.Count);
             Assert.Equal(TestData.Third.Id, page[0].Id);
             Assert.Equal(TestData.First.Id, page[1].Id);
@@ -25,7 +25,7 @@ namespace zasz.health.RepositoryTests
         [Fact]
         public void TagTwoShouldFetchSecondAndThirdPost()
         {
-            var page = tags.PagePosts("tag2", 0, 100);
+            var page = tagRepository.PagePosts("tag2", 0, 100);
             Assert.Equal(2, page.Count);
             Assert.Equal(TestData.Second.Id, page[0].Id);
             Assert.Equal(TestData.First.Id, page[1].Id);
@@ -34,11 +34,11 @@ namespace zasz.health.RepositoryTests
         [Fact]
         public void TagThreeShouldFetchFirstAndThirdPostWithPageSizeLimits()
         {
-            var page = tags.PagePosts("tag3", 0, 1);
+            var page = tagRepository.PagePosts("tag3", 0, 1);
             Assert.Equal(1, page.Count);
             Assert.Equal(TestData.Third.Id, page[0].Id);
 
-            page = tags.PagePosts("tag3", 1, 1);
+            page = tagRepository.PagePosts("tag3", 1, 1);
             Assert.Equal(1, page.Count);
             Assert.Equal(TestData.Second.Id, page[0].Id);
         }

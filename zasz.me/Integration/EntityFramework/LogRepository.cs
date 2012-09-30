@@ -5,9 +5,9 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class ErrorLogs : RepoBase<Log, Guid>, ILogsRepository
+    public class LogRepository : RepoBase<Log, Guid>, ILogsRepository
     {
-        public ErrorLogs(FullContext context) : base(context)
+        public LogRepository(FullContext context) : base(context)
         {
         }
 

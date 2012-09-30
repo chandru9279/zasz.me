@@ -160,7 +160,7 @@
       <DependentUpon>201209231359155_SortingSoAnswers.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Answer.cs" />
-    <Compile Include="Integration\EntityFramework\Caches.cs" />
+    <Compile Include="Integration\EntityFramework\CacheRepository.cs" />
     <Compile Include="Services\Contracts\IPostPopulators.cs" />
     <Compile Include="Services\X.cs" />
     <Compile Include="Controllers\BlogController.cs" />
@@ -190,15 +190,15 @@
     <Compile Include="Services\Concrete\Config\SettingsConfig.cs" />
     <Compile Include="Services\Concrete\Config\BlogConfig.cs" />
     <Compile Include="Integration\EntityFramework\Ef4.cs" />
-    <Compile Include="Integration\EntityFramework\Tags.cs" />
+    <Compile Include="Integration\EntityFramework\TagRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Integration\ElmahIntegration.cs" />
-    <Compile Include="Integration\EntityFramework\ErrorLogs.cs" />
-    <Compile Include="Integration\EntityFramework\Posts.cs" />
+    <Compile Include="Integration\EntityFramework\LogRepository.cs" />
+    <Compile Include="Integration\EntityFramework\PostRepository.cs" />
     <Compile Include="Integration\EntityFramework\RepoBase.cs" />
-    <Compile Include="Integration\EntityFramework\Vault.cs" />
+    <Compile Include="Integration\EntityFramework\PassphraseRepository.cs" />
     <Compile Include="Integration\Big.cs" />
     <Compile Include="Integration\MVC\Mvc.cs" />
     <Compile Include="Integration\MVC\BaseController.cs" />

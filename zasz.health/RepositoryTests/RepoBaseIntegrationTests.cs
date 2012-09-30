@@ -6,26 +6,26 @@ namespace zasz.health.RepositoryTests
 {
     public class RepoBaseIntegrationTests : Fixture<PostAndTagsTestData>
     {
-        private Tags tags;
-        private Posts posts;
+        private TagRepository tagRepository;
+        private PostRepository postRepository;
 
         protected override void InitFixture()
         {
-            tags = new Tags(Context);
-            posts = new Posts(Context);
+            tagRepository = new TagRepository(Context);
+            postRepository = new PostRepository(Context);
         }
 
         [Fact]
         public void CountOfPostsIsThree()
         {
-            var count = posts.Count();
+            var count = postRepository.Count();
             Assert.Equal(3, count);
         }
 
         [Fact]
         public void CountOfTagsIsAlsoThree()
         {
-            var count = tags.Count();
+            var count = tagRepository.Count();
             Assert.Equal(3, count);
         }
     }

@@ -4,9 +4,9 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class Tags : RepoBase<Tag, string>, ITagRepository
+    public class TagRepository : RepoBase<Tag, string>, ITagRepository
     {
-        public Tags(FullContext context) : base(context)
+        public TagRepository(FullContext context) : base(context)
         {
         }
 

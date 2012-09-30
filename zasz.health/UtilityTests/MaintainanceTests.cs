@@ -17,8 +17,8 @@ namespace zasz.health.UtilityTests
         public MaintainanceTests()
         {
             fullContext = new FullContext();
-            tagRepository = new Tags(fullContext);
-            postRepository = new Posts(fullContext);
+            tagRepository = new TagRepository(fullContext);
+            postRepository = new PostRepository(fullContext);
         }
 
         [Fact(Skip = "Utility")]

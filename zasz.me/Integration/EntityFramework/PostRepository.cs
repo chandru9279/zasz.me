@@ -4,9 +4,9 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class Posts : RepoBase<Post, string>, IPostRepository
+    public class PostRepository : RepoBase<Post, string>, IPostRepository
     {
-        public Posts(FullContext context)
+        public PostRepository(FullContext context)
             : base(context)
         {
         }

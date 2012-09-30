@@ -14,7 +14,7 @@ namespace zasz.health.RepositoryTests
     {
         private readonly Answer anotherAnswer;
         private readonly TestContext assertContext;
-        private readonly Caches repo;
+        private readonly CacheRepository repo;
         private readonly Answer sampleAnswer;
         private readonly TestContext testContext;
 
@@ -37,7 +37,7 @@ namespace zasz.health.RepositoryTests
                                 };
             testContext = new TestContext();
             assertContext = new TestContext();
-            repo = new Caches(testContext, new JsonSofuService());
+            repo = new CacheRepository(testContext, new JsonSofuService());
         }
 
         #region IDisposable Members

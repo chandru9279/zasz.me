@@ -35,9 +35,9 @@ namespace zasz.health.Builders
 
         public Post Save(TestContext context)
         {
-            var tags = new Tags(context);
+            var tags = new TagRepository(context);
             post.Tags = post.Tags.Select(x => tags.Get(x.Name) ?? tags.Save(new Tag(x.Name))).ToList();
-            new Posts(context).Save(post);
+            new PostRepository(context).Save(post);
             tags.Commit();
             return post;
         }
