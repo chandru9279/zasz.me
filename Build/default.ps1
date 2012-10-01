@@ -14,7 +14,7 @@ task default -depends opendev
 
 task build -depends clean { 
     #Weird .net issue Any CPU vs AnyCPU
-	exec { msbuild $SolutionPath\zasz.me\zasz.me.csproj /t:Package /p:Configuration=Server /p:Platform=AnyCPU /p:_PackageTempDir=$BuildPath /v:Quiet}
+	exec { msbuild $SolutionPath\zasz.me\zasz.me.csproj /t:Package /p:Configuration=Server /p:MvcBuildViews=true /p:Platform=AnyCPU /p:_PackageTempDir=$BuildPath /v:Quiet}
 	Write-Host -ForegroundColor Green "Server build complete."
 }
 
@@ -115,13 +115,13 @@ task compile -depends clean {
 }
 
 
-task clean {     
-		@('zasz.me\bin\' 
+task clean {
+		exec { msbuild $SolutionFile /v:Quiet /t:Clean }
+        @('zasz.me\bin\' 
 		'zasz.me\obj\'
 		'zasz.health\bin\' 
 		'zasz.health\obj\'
-		'Out\') | % { Skip-Delete ("$SolutionPath\$_") }
-		exec { msbuild $SolutionFile /v:Quiet /t:Clean }
+		'Out\') | % { Remove-Item "$SolutionPath\$_\*" -Recurse -exclude .gitkeep }
 		Write-Host -ForegroundColor Green "Cleaned all bin obj. Cleaned Out folder."
 }
 
