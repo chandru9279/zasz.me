@@ -5,41 +5,25 @@ properties {
 	$PackagesPath = "$SolutionPath\packages\"
 	$SolrPath = "$SolutionPath\Solr\"
 	$DeployPath = "C:\Bin\zasz.me\"
-	$BuildPath = "$SolutionPath\Out\Build"
+	$BuildPath = "$SolutionPath\Out\Deploy"
 }
 
 
 task default -depends opendev
 
 
-task build -depends clean, packages { 
-	exec { msbuild $SolutionFile /p:Configuration=Server /p:Platform="Any CPU" /v:Quiet /t:Build }
-	$folders = @{
-	'bin'='*.*'
-	'Areas\Pro\Views'='*.*'
-	'Areas\Rest\Views'='*.*'
-	'Areas\Shared\Views'='*.*'
-	'Content'='*.*'
-	'Integration\ckeditor'='*.*'
-	'Integration\syntax-highlight'='*.*'
-	'Scripts'='*.*'
-	'Migrations'='*.resx'
-	} 
-	
-	foreach ( $folder in $folders.keys ) { 
-		Trace-Robocopy { robocopy $SolutionPath\zasz.me\$folder $BuildPath\$folder $folders.$folder /E /NJH /NJS }
-	}
-
-	Trace-Robocopy { robocopy $SolutionPath\zasz.me $BuildPath Global.asax robots.txt Web.config /NJH /NJS }
-	Write-Host -ForegroundColor Green "App server build complete."
+task build -depends clean { 
+    #Weird .net issue Any CPU vs AnyCPU
+	exec { msbuild $SolutionPath\zasz.me\zasz.me.csproj /t:Package /p:Configuration=Server /p:Platform=AnyCPU /p:_PackageTempDir=$BuildPath /v:Quiet}
+	Write-Host -ForegroundColor Green "Server build complete."
 }
 
 
 task zip -depends build {
 		$zipExe = "$ToolsPath\7z\7z.exe";
-		$arguments = "a", "-tzip", "$SolutionPath\Out\Build.zip", $BuildPath, "-r";
+		$arguments = "a", "-tzip", "$SolutionPath\Out\Deploy.zip", $BuildPath, "-r";
 		exec { &$zipExe $arguments }
-		Write-Host -ForegroundColor Green "Zip in $SolutionPath\Out\Build.zip."
+		Write-Host -ForegroundColor Green "Zip in $SolutionPath\Out\Deploy.zip."
 }
 
 
