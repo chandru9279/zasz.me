@@ -74,6 +74,4 @@
     return attachHandlers();
   });
 
-  window.statusExpanded = false;
-
 }).call(this);

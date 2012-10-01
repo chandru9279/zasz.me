@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Autofac;
+using System.Web.Mvc;
 using Elmah;
 
 using zasz.me.Models;
@@ -13,7 +13,7 @@ namespace zasz.me.Integration
 
         public ElmahAdaptor(IDictionary config)
         {
-            repo = Big.Box.Resolve<ILogsRepository>();
+            repo = DependencyResolver.Current.GetService<ILogsRepository>();
         }
 
         public override string Log(Error error)

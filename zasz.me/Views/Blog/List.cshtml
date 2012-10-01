@@ -6,7 +6,7 @@
 }
                                                                                              
 @section Head{
-    @Html.Partial("_SyntaxHighlight.cshtml")
+    @Html.Partial("_SyntaxHighlight")
     @Social.Facebook() 
     @Social.Twitter()
 }
@@ -23,7 +23,7 @@
 @foreach (var Post in Model.Set)
 {
     <div style="margin: 10px auto;">
-        @Html.Partial("~/Views/Blog/_PostShortView.cshtml", Post)
+        @Html.Partial("_PostShortView", Post)
     </div>
 }
 <div style="margin: 20px auto; padding: 10px;">
@@ -31,5 +31,5 @@
 </div>
 
 @section Bottom{
-    @Html.Partial("_DisqusCommentCount.cshtml")
+    @Html.Partial("_DisqusCommentCount")
 }

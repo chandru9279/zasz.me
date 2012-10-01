@@ -60,5 +60,3 @@ $(document).ready ->
 	addJqueryCenter()
 	addJqueryModal()
 	attachHandlers()
-
-window.statusExpanded = false

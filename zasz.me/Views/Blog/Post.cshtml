@@ -6,7 +6,7 @@
 }
                                                                                              
 @section Head{
-    @Html.Partial("_SyntaxHighlight.cshtml")
+    @Html.Partial("_SyntaxHighlight")
     @Social.Facebook() 
     @Social.Twitter()
 }
@@ -22,7 +22,7 @@
     @Html.Action("ArchiveControl")
 }
 
-@Html.Partial("~/Views/Blog/_PostFullView.cshtml", Model)
+@Html.Partial("_PostFullView", Model)
 
 <div class="Clear"></div>
 @*This div will be filled by the Disqus script in _DisqusComments.cshtml*@
@@ -49,4 +49,4 @@
         <a target="_blank" href="http://get.beetagg.com">BeeTag</a> for Windows Phone 7.</p>
 </div>
 
-@Html.Partial("_DisqusComments.cshtml", Model)
+@Html.Partial("_DisqusComments", Model)
