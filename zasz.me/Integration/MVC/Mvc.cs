@@ -16,10 +16,11 @@ namespace zasz.me.Integration.MVC
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{CustomEndpoint}.axd");
             routes.IgnoreRoute("Content/{*AnyFile}");
-            routes.IgnoreRoute("Uploads/{*AnyFile}");
-            routes.IgnoreRoute("Integration/ckeditor");
-            routes.MapRoute("Favicon", "favicon.ico",
-                            new {controller = "Home", action = "Favicon"}).DataTokens["area"] = "Shared";
+            routes.MapRoute(
+                "Favicon", 
+                "favicon.ico",
+                new {controller = "Home", action = "Favicon"}
+                );
 
             routes.MapRoute(
                 "TagRouting",

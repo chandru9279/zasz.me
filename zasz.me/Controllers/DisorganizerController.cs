@@ -7,9 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using Elmah;
-using zasz.me.Controllers.Utils;
 using zasz.me.Integration.MVC;
-using zasz.me.Models;
 using zasz.me.Services.TagCloud;
 using zasz.me.ViewModels;
 
@@ -20,16 +18,16 @@ namespace zasz.me.Controllers
         [DefaultAction]
         public ActionResult Tinker()
         {
-            var TinkerModel = new TinkerModel();
-            using (var Service = new FontsService())
+            var tinkerModel = new TinkerModel();
+            using (var service = new FontsService())
             {
-                Service.LoadFonts(Request.MapPath("~/Content/Fonts"));
-                TinkerModel.Fonts.AddRange(Service.AvailableFonts.Keys.ToArray());
+                service.LoadFonts(Request.MapPath("~/Content/Fonts"));
+                tinkerModel.Fonts.AddRange(service.AvailableFonts.Keys.ToArray());
             }
-            TinkerModel.Strategies.AddRange(Enum.GetNames(typeof (TagDisplayStrategy)));
-            TinkerModel.Themes.AddRange(Enum.GetNames(typeof (Theme)));
-            TinkerModel.Styles.AddRange(Enum.GetNames(typeof (Style)));
-            return View(TinkerModel);
+            tinkerModel.Strategies.AddRange(Enum.GetNames(typeof (TagDisplayStrategy)));
+            tinkerModel.Themes.AddRange(Enum.GetNames(typeof (Theme)));
+            tinkerModel.Styles.AddRange(Enum.GetNames(typeof (Style)));
+            return View(tinkerModel);
         }
 
         public ActionResult Links()
@@ -64,25 +62,25 @@ namespace zasz.me.Controllers
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 return File("~/Content/Images/404.png", "image/png");
             }
-            var TagCloudService = new TagCloudService(tags, int.Parse(Model.Width), int.Parse(Model.Height))
+            var tagCloudService = new TagCloudService(tags, int.Parse(Model.Width), int.Parse(Model.Height))
                                       {
                                           MaximumFontSize = float.Parse(Model.MaxFontSize),
                                           MinimumFontSize = float.Parse(Model.MinFontSize),
                                       };
 
-            if (!String.IsNullOrEmpty(Model.Angle)) TagCloudService.Angle = int.Parse(Model.Angle);
-            if (!String.IsNullOrEmpty(Model.Margin)) TagCloudService.Margin = int.Parse(Model.Margin);
+            if (!String.IsNullOrEmpty(Model.Angle)) tagCloudService.Angle = int.Parse(Model.Angle);
+            if (!String.IsNullOrEmpty(Model.Margin)) tagCloudService.Margin = int.Parse(Model.Margin);
 
             using (var Service = new FontsService())
             {
                 Service.LoadFonts(Request.MapPath("~/Content/Fonts"));
                 Model.Fonts.AddRange(Service.AvailableFonts.Keys.ToArray());
                 if (!String.IsNullOrEmpty(Model.SelectedFont))
-                    TagCloudService.SelectedFont = Service.AvailableFonts[Model.SelectedFont];
+                    tagCloudService.SelectedFont = Service.AvailableFonts[Model.SelectedFont];
             }
 
             if (!String.IsNullOrEmpty(Model.SelectedStrategy))
-                TagCloudService.DisplayChoice = DisplayStrategy.Get(Model.SelectedStrategy.Enumize<TagDisplayStrategy>());
+                tagCloudService.DisplayChoice = DisplayStrategy.Get(Model.SelectedStrategy.Enumize<TagDisplayStrategy>());
 
             var BgfgScheme = !String.IsNullOrEmpty(Model.SelectedTheme)
                                  ? Model.SelectedTheme.Enumize<Theme>()
@@ -91,23 +89,23 @@ namespace zasz.me.Controllers
                                ? Model.SelectedStyle.Enumize<Style>()
                                : Style.Varied;
 
-            TagCloudService.ColorChoice = ColorStrategy.Get(BgfgScheme, FgScheme,
+            tagCloudService.ColorChoice = ColorStrategy.Get(BgfgScheme, FgScheme,
                                                             Model.GetBackgroundColor(), Model.GetForegroundColor());
 
-            TagCloudService.VerticalTextRight = Model.VerticalTextRight;
-            TagCloudService.ShowWordBoundaries = Model.ShowBoundaries;
-            TagCloudService.Crop = Model.Crop;
-            TagCloudService.SpiralRoom = Model.SpiralRoom;
+            tagCloudService.VerticalTextRight = Model.VerticalTextRight;
+            tagCloudService.ShowWordBoundaries = Model.ShowBoundaries;
+            tagCloudService.Crop = Model.Crop;
+            tagCloudService.SpiralRoom = Model.SpiralRoom;
 
             var watch = new Stopwatch();
             watch.Start();
             Dictionary<string, RectangleF> Borders;
-            var Bitmap = TagCloudService.Construct(out Borders);
+            var Bitmap = tagCloudService.Construct(out Borders);
             watch.Stop();
 
             TempData["TinkerBorders"] = Borders;
             TempData["GenerateTime"] = watch.ElapsedMilliseconds/(float) 1000;
-            TempData["Skipped"] = string.Join("; ", TagCloudService.WordsSkipped.Select(x => x.Key));
+            TempData["Skipped"] = string.Join("; ", tagCloudService.WordsSkipped.Select(x => x.Key));
 
             var stream = new MemoryStream();
             Bitmap.Save(stream, ImageFormat.Png);
