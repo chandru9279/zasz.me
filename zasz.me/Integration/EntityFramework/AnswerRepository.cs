@@ -6,13 +6,13 @@ namespace zasz.me.Integration.EntityFramework
 {
     public class AnswerRepository : Repository<Answer, Guid>, IAnswerRepository
     {
-        protected AnswerRepository(FullContext context) : base(context)
+        public AnswerRepository(FullContext context) : base(context)
         {
         }
 
         public Paged<Answer> Page(Cache cache, int pageNumber, int pageSize)
         {
-            return PageQuery(Set.Where(x => x.Cache.Id == cache.Id), pageNumber, pageSize);
+            return PageQuery(Set.Where(x => x.Cache.Id == cache.Id).OrderBy(x => x.Sort), pageNumber, pageSize);
         }
     }
 

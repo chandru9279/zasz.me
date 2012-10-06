@@ -11,7 +11,7 @@ namespace zasz.health.ControllerTests
     {
         private PortfolioController controller;
         private readonly Mock<ICacheRepository> caches;
-        private Mock<IAnswerRepository> answers;
+        private readonly Mock<IAnswerRepository> answers;
 
         public PortfolioControllerTests()
         {

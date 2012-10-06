@@ -22,11 +22,12 @@ namespace zasz.health.ModelTests
                           };
         }
 
+        /* Last 3 characters will be dots */
+
         [Fact]
         public void GetDescriptionGetsOnlyThresholdLimitOfText()
         {
             var result = postOne.GetDescription(100);
-            // Last 3 characters will be dots
             Assert.Equal(103, result.Length);
             Assert.False(result.Contains("<"));
             Assert.False(result.Contains(">"));
@@ -36,7 +37,6 @@ namespace zasz.health.ModelTests
         public void GetDescriptionWorksForComplexStringsWithCSSComments()
         {
             var result = postTwo.GetDescription(80);
-            // Last 3 characters will be dots
             Assert.Equal(83, result.Length);
             Assert.False(result.Contains("<"));
             Assert.False(result.Contains(">"));
@@ -48,7 +48,6 @@ namespace zasz.health.ModelTests
         {
             postTwo.Content = "<p>Short<b>Content</b></p>";
             var result = postTwo.GetDescription(80);
-            // Last 3 characters will be dots
             Assert.Equal(12, result.Length);
             Assert.False(result.Contains("<"));
             Assert.False(result.Contains(">"));

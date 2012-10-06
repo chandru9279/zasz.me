@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
@@ -20,11 +19,6 @@ namespace zasz.me.Integration.EntityFramework
                 transaction.SaveChanges();
             }
             return instance;
-        }
-
-        public override Paged<Log> Page(int pageNumber, int pageSize)
-        {
-            return PageQuery(Set.OrderBy(x => x.Id), pageNumber, pageSize);
         }
 
         #endregion

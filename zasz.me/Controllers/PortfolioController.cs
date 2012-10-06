@@ -23,7 +23,7 @@ namespace zasz.me.Controllers
         }
 
 
-        public ViewResult StackExchange(int pageNumber = 1)
+        public ViewResult StackExchange([Bind(Prefix = "id")] int pageNumber = 1)
         {
             var cache = caches.Get();
             var paged = answers.Page(cache, pageNumber - 1, 10);

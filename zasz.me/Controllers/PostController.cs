@@ -24,13 +24,13 @@ namespace zasz.me.Controllers
             config = configService.Blog;
         }
 
-        public ActionResult Post([Bind(Prefix = "Id")] string slug)
+        public ActionResult Post([Bind(Prefix = "id")] string slug)
         {
             return View(Posts.Get(slug));
         }
 
         [DefaultAction]
-        public ActionResult List([Bind(Prefix = "Id")] int pageNumber = 1)
+        public ActionResult List([Bind(Prefix = "id")] int pageNumber = 1)
         {
             var paged = Posts.Page(pageNumber - 1, config.MaxPostsPerPage);
             return View(new PostListViewModel

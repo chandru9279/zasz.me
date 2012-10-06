@@ -11,12 +11,12 @@ namespace zasz.me.Integration.EntityFramework
         {
         }
 
-        #region IPostRepository Members
-
-        public override Paged<Post> Page(int pageNumber, int pageSize)
+        protected override IOrderedQueryable<Post> Ordering(IQueryable<Post> queryable)
         {
-            return PageQuery(Set.OrderByDescending(model => model.Timestamp), pageNumber, pageSize);
+            return queryable.OrderByDescending(model => model.Timestamp);
         }
+
+        #region IPostRepository Members
 
         public Paged<Post> Page(Tag tag, int pageNumber, int pageSize)
         {

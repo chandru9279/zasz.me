@@ -54,10 +54,10 @@ namespace zasz.me.Integration.EntityFramework
 
         public virtual Paged<Model> Page(int pageNumber, int pageSize)
         {
-            return PageQuery(Set, pageNumber, pageSize);
+            return PageQuery(Ordering(Set), pageNumber, pageSize);
         }
         
-        protected Paged<Model> PageQuery(IQueryable<Model> query, int pageNumber, int pageSize)
+        protected Paged<Model> PageQuery(IOrderedQueryable<Model> query, int pageNumber, int pageSize)
         {
             var caches = query.Skip(pageNumber * pageSize).Take(pageSize).ToList();
             var count = query.Count();
@@ -97,6 +97,11 @@ namespace zasz.me.Integration.EntityFramework
             var modelDotNaturalKey = Expression.Property(p, naturalKey);
             var body = Expression.MakeBinary(ExpressionType.Equal, modelDotNaturalKey, Expression.Constant(id));
             return Expression.Lambda<Func<Model, bool>>(body, p);
+        }
+
+        protected virtual IOrderedQueryable<Model> Ordering(IQueryable<Model> queryable)
+        {
+            return queryable.OrderBy(x => x.Id);
         }
     }
 }
