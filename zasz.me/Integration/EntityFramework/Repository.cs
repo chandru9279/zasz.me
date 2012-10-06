@@ -7,13 +7,13 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public abstract class RepoBase<Model, NaturalKey> : IRepository<Model, NaturalKey>
+    public class Repository<Model, NaturalKey> : IRepository<Model, NaturalKey>
         where Model : class, IModel, new()
     {
         protected readonly DbSet<Model> Set;
         protected readonly FullContext Context;
 
-        protected RepoBase(FullContext context)
+        protected Repository(FullContext context)
         {
             Context = context;
             Set = Context.Set<Model>();
@@ -50,6 +50,18 @@ namespace zasz.me.Integration.EntityFramework
         public long Count()
         {
             return Set.Count();
+        }
+
+        public virtual Paged<Model> Page(int pageNumber, int pageSize)
+        {
+            return PageQuery(Set, pageNumber, pageSize);
+        }
+        
+        protected Paged<Model> PageQuery(IQueryable<Model> query, int pageNumber, int pageSize)
+        {
+            var caches = query.Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            var count = query.Count();
+            return new Paged<Model> { Set = caches, NumberOfPages = (int)Math.Ceiling(count / (double)pageSize), PageSize = pageSize, PageNumber = pageNumber };
         }
         
         /// <summary>

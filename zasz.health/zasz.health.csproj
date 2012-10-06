@@ -88,9 +88,9 @@
     <Compile Include="ControllerTests\XTests.cs" />
     <Compile Include="RepositoryTests\CacheRepositoryTests.cs" />
     <Compile Include="RepositoryTests\TagRepositoryTests.cs" />
-    <Compile Include="RepositoryTests\RepoBaseIntegrationTests.cs" />
+    <Compile Include="RepositoryTests\RepositoryIntegrationTests.cs" />
     <Compile Include="RepositoryTests\PostAndTagsTestData.cs" />
-    <Compile Include="RepositoryTests\RepoBaseUnitTests.cs" />
+    <Compile Include="RepositoryTests\RepositoryUnitTests.cs" />
     <Compile Include="ServiceTests\PostPopulators\SlugPopulatorTests.cs" />
     <Compile Include="ServiceTests\PostPopulators\MetaPopulatorTests.cs" />
     <Compile Include="UtilityTests\Fixture.cs" />

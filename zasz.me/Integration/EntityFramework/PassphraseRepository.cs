@@ -2,7 +2,7 @@
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class PassphraseRepository : RepoBase<Passphrase, string>, IPassphraseRepository
+    public class PassphraseRepository : Repository<Passphrase, string>, IPassphraseRepository
     {
         public PassphraseRepository(FullContext context) : base(context)
         {

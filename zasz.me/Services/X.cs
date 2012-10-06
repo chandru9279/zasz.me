@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -97,6 +98,13 @@ namespace zasz.me
             stream.Flush();
             stream.Close();
             stream.Dispose();
+        }
+
+        // To be called for debugging only.
+        public static IQueryable<T> TraceSql<T>(this IQueryable<T> query)
+        {
+            Debug.WriteLine("SQL : " + ((System.Data.Objects.ObjectQuery)query).ToTraceString());
+            return query;
         }
     }
 }

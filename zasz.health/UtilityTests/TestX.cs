@@ -49,12 +49,5 @@ namespace zasz.health.UtilityTests
             }
             return self == to;
         }
-
-        public static IQueryable<T> TraceSql<T>(this IQueryable<T> query)
-        {
-            var sql = ((System.Data.Objects.ObjectQuery)query).ToTraceString();
-            Debug.WriteLine("SQL : " + sql);
-            return query;
-        }
     }
 }

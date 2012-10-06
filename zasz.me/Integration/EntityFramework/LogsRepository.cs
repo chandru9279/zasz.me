@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class LogRepository : RepoBase<Log, Guid>, ILogsRepository
+    public class LogsRepository : Repository<Log, Guid>, ILogsRepository
     {
-        public LogRepository(FullContext context) : base(context)
+        public LogsRepository(FullContext context) : base(context)
         {
         }
 
@@ -23,9 +22,9 @@ namespace zasz.me.Integration.EntityFramework
             return instance;
         }
 
-        public List<Log> Page(int pageNumber, int pageSize)
+        public override Paged<Log> Page(int pageNumber, int pageSize)
         {
-            return Set.OrderBy(x => x.Id).Skip(pageNumber*pageSize).Take(pageSize).ToList();
+            return PageQuery(Set.OrderBy(x => x.Id), pageNumber, pageSize);
         }
 
         #endregion

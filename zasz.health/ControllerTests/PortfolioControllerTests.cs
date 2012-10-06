@@ -2,8 +2,8 @@
 using Moq;
 using Xunit;
 using zasz.me.Controllers;
+using zasz.me.Integration.EntityFramework;
 using zasz.me.Models;
-using zasz.me.ViewModels;
 
 namespace zasz.health.ControllerTests
 {
@@ -11,10 +11,12 @@ namespace zasz.health.ControllerTests
     {
         private PortfolioController controller;
         private readonly Mock<ICacheRepository> caches;
+        private Mock<IAnswerRepository> answers;
 
         public PortfolioControllerTests()
         {
             caches = new Mock<ICacheRepository>();
+            answers = new Mock<IAnswerRepository>();
         }
 
         [Fact]
@@ -23,8 +25,8 @@ namespace zasz.health.ControllerTests
             var cache = new Cache();
             caches.Setup(x => x.Get()).Returns(cache);
             var returnModel = new Paged<Answer>();
-            caches.Setup(x => x.Page(cache, 1, 10)).Returns(returnModel);
-            controller = new PortfolioController(caches.Object); 
+            answers.Setup(x => x.Page(cache, 0, 10)).Returns(returnModel);
+            controller = new PortfolioController(caches.Object, answers.Object); 
             
             var stackExchange = controller.StackExchange();
             var model = (Paged<Answer>)stackExchange.Model;

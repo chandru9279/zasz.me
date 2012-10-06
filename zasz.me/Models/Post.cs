@@ -85,7 +85,7 @@ namespace zasz.me.Models
 
     public interface IPostRepository : IRepository<Post, string>
     {
-        List<Post> Page(int pageNumber, int pageSize);
+        Paged<Post> Page(Tag tag, int pageNumber, int pageSize);
 
         Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped();
 

@@ -35,7 +35,7 @@ namespace zasz.health.UtilityTests
         [Fact(Skip = "Utility")]
         public void ExportPosts()
         {
-            new PostsImportExport(Log).ExportToFolders(postRepository.Page(0, 100));
+            new PostsImportExport(Log).ExportToFolders(postRepository.Page(0, 100).Set);
         }
 
         [Fact(Skip = "Utility")]

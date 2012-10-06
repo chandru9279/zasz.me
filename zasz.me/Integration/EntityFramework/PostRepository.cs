@@ -4,7 +4,7 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class PostRepository : RepoBase<Post, string>, IPostRepository
+    public class PostRepository : Repository<Post, string>, IPostRepository
     {
         public PostRepository(FullContext context)
             : base(context)
@@ -13,11 +13,14 @@ namespace zasz.me.Integration.EntityFramework
 
         #region IPostRepository Members
 
-        public List<Post> Page(int pageNumber, int pageSize)
+        public override Paged<Post> Page(int pageNumber, int pageSize)
         {
-            return Set.OrderByDescending(model => model.Timestamp)
-                .Skip(pageNumber*pageSize)
-                .Take(pageSize).ToList();
+            return PageQuery(Set.OrderByDescending(model => model.Timestamp), pageNumber, pageSize);
+        }
+
+        public Paged<Post> Page(Tag tag, int pageNumber, int pageSize)
+        {
+            return PageQuery(Context.Entry(tag).Collection(x => x.Posts).Query().OrderByDescending(model => model.Timestamp), pageNumber, pageSize);
         }
 
         public List<Post> Archive(int year, int month)
@@ -36,21 +39,21 @@ namespace zasz.me.Integration.EntityFramework
             var groupingByYear = from date in dates
                                  orderby date.Year descending
                                  group date by date.Year
-                                 into yearGroup
-                                 select new
-                                            {
-                                                Year = yearGroup.Key,
-                                                Formatted = from date in yearGroup
-                                                            orderby date.Month descending
-                                                            group date by date.Month
-                                                            into monthGroup
-                                                            select new
-                                                                       {
-                                                                           DateString =
-                                                                string.Format("{0:MMMM yyyy}", monthGroup.First()),
-                                                                           Count = monthGroup.Count()
-                                                                       }
-                                            };
+                                     into yearGroup
+                                     select new
+                                                {
+                                                    Year = yearGroup.Key,
+                                                    Formatted = from date in yearGroup
+                                                                orderby date.Month descending
+                                                                group date by date.Month
+                                                                    into monthGroup
+                                                                    select new
+                                                                               {
+                                                                                   DateString =
+                                                                        string.Format("{0:MMMM yyyy}", monthGroup.First()),
+                                                                                   Count = monthGroup.Count()
+                                                                               }
+                                                };
 
             return groupingByYear.ToDictionary(x => x.Year,
                                                x => x.Formatted.ToDictionary(

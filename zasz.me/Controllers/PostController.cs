@@ -32,10 +32,11 @@ namespace zasz.me.Controllers
         [DefaultAction]
         public ActionResult List([Bind(Prefix = "Id")] int pageNumber = 1)
         {
+            var paged = Posts.Page(pageNumber - 1, config.MaxPostsPerPage);
             return View(new PostListViewModel
                             {
-                                Set = Posts.Page(pageNumber - 1, config.MaxPostsPerPage),
-                                NumberOfPages = (int)Math.Ceiling(Posts.Count() / (double)config.MaxPostsPerPage),
+                                Set = paged.Set,
+                                NumberOfPages = paged.NumberOfPages,
                                 DescriptionLength = config.DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
                             });
@@ -43,10 +44,12 @@ namespace zasz.me.Controllers
 
         public ActionResult Tag(string tag, int page = 1)
         {
+            var tagEntity = Tags.Get(tag);
+            var paged = Posts.Page(tagEntity, page - 1, config.MaxPostsPerPage);
             return View("List", new PostListViewModel
                                     {
-                                        Set = Tags.PagePosts(tag, page - 1, config.MaxPostsPerPage),
-                                        NumberOfPages = Tags.CountPosts(tag) / config.MaxPostsPerPage,
+                                        Set = paged.Set,
+                                        NumberOfPages = paged.NumberOfPages,
                                         DescriptionLength = config.DescriptionLength,
                                         WhatIsListed = "Posts tagged with <em>" + tag + "</em>"
                                     });

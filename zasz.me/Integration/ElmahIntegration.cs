@@ -29,10 +29,10 @@ namespace zasz.me.Integration
             return new ErrorLogEntry(this, theLog.IdString, theLog.Error);
         }
 
-        public override int GetErrors(int PageIndex, int PageSize, IList ErrorEntryList)
+        public override int GetErrors(int pageIndex, int pageSize, IList errorEntryList)
         {
-            repo.Page(PageIndex, PageSize).ForEach
-                (It => ErrorEntryList.Add(new ErrorLogEntry(this, It.IdString, It.Error)));
+            repo.Page(pageIndex, pageSize)
+                .Each(x => errorEntryList.Add(new ErrorLogEntry(this, x.IdString, x.Error)));
             return repo.Count() > int.MaxValue ? int.MaxValue : (int) repo.Count();
         }
     }

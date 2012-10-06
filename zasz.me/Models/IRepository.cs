@@ -22,6 +22,10 @@ namespace zasz.me.Models
 
         long Count();
 
+        /// <param name="pageSize">Number of entities per page</param>
+        /// <param name="pageNumber">Zero-based page number</param>
+        Paged<Model> Page(int pageSize, int pageNumber);
+
         void Commit();
     }
 

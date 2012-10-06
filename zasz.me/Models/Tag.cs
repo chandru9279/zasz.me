@@ -33,10 +33,6 @@ namespace zasz.me.Models
 
     public interface ITagRepository : IRepository<Tag, string>
     {
-        List<Post> PagePosts(string tag, int page, int postsPerPage);
-
-        int CountPosts(string tag);
-
         Dictionary<string, int> WeightedList();
     }
 }

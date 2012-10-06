@@ -6,12 +6,12 @@ using zasz.me.Models;
 
 namespace zasz.health.RepositoryTests
 {
-    public class RepoBaseUnitTests
+    public class RepositoryUnitTests
     {
         private readonly TestPosts postRepo;
         private readonly TestLogs logsRepo;
 
-        public RepoBaseUnitTests()
+        public RepositoryUnitTests()
         {
             postRepo = new TestPosts();
             logsRepo = new TestLogs();
@@ -28,7 +28,7 @@ namespace zasz.health.RepositoryTests
         }
     }
 
-    public class TestPosts : RepoBase<Post, string>
+    public class TestPosts : Repository<Post, string>
     {
         public TestPosts()
             : base(new Mock<TestContext>().Object)
@@ -36,7 +36,7 @@ namespace zasz.health.RepositoryTests
         }
     }
 
-    public class TestLogs : RepoBase<Log, Guid>
+    public class TestLogs : Repository<Log, Guid>
     {
         public TestLogs()
             : base(new Mock<TestContext>().Object)

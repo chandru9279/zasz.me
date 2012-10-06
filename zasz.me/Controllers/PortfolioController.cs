@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using zasz.me.Integration.EntityFramework;
 using zasz.me.Integration.MVC;
 using zasz.me.Models;
 
@@ -6,11 +7,13 @@ namespace zasz.me.Controllers
 {
     public class PortfolioController : BaseController
     {
-        private readonly ICacheRepository repository;
+        private readonly ICacheRepository caches;
+        private readonly IAnswerRepository answers;
 
-        public PortfolioController(ICacheRepository repository)
+        public PortfolioController(ICacheRepository caches, IAnswerRepository answers)
         {
-            this.repository = repository;
+            this.caches = caches;
+            this.answers = answers;
         }
 
         [DefaultAction]
@@ -22,8 +25,8 @@ namespace zasz.me.Controllers
 
         public ViewResult StackExchange(int pageNumber = 1)
         {
-            var cache = repository.Get();
-            var paged = repository.Page(cache, pageNumber, 10);
+            var cache = caches.Get();
+            var paged = answers.Page(cache, pageNumber - 1, 10);
             return View(paged);
         }
 

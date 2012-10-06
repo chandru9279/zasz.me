@@ -129,6 +129,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\EntityFramework\AnswerRepository.cs" />
     <Compile Include="Integration\EntityFramework\DbConstants.cs" />
     <Compile Include="Integration\EntityFramework\FullContext.cs" />
     <Compile Include="Migrations\201209291525495_RenamingEntities.cs" />
@@ -144,6 +145,7 @@
       <DependentUpon>201209300905254_RenameMappingTagPostTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Cache.cs" />
+    <Compile Include="Models\Paged.cs" />
     <Compile Include="Services\Concrete\PostPopulators\OrderedPostPopulatorSet.cs" />
     <Compile Include="Services\Contracts\IConfigurationService.cs" />
     <Compile Include="Services\Contracts\IPostPopulator.cs" />
@@ -198,9 +200,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Integration\ElmahIntegration.cs" />
-    <Compile Include="Integration\EntityFramework\LogRepository.cs" />
+    <Compile Include="Integration\EntityFramework\LogsRepository.cs" />
     <Compile Include="Integration\EntityFramework\PostRepository.cs" />
-    <Compile Include="Integration\EntityFramework\RepoBase.cs" />
+    <Compile Include="Integration\EntityFramework\Repository.cs" />
     <Compile Include="Integration\EntityFramework\PassphraseRepository.cs" />
     <Compile Include="Integration\Big.cs" />
     <Compile Include="Integration\MVC\Mvc.cs" />
@@ -228,7 +230,6 @@
     <Compile Include="Services\Concrete\SolrSearchService.cs" />
     <Compile Include="Services\TagCloud\TagCloudService.cs" />
     <Compile Include="Services\TagCloud\DisplayStrategy.cs" />
-    <Compile Include="ViewModels\Paged.cs" />
     <Compile Include="ViewModels\PostListViewModel.cs" />
     <Compile Include="ViewModels\TinkerModel.cs" />
   </ItemGroup>

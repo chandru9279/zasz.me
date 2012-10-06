@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using zasz.me.Integration.MVC;
-using zasz.me.ViewModels;
 
 namespace zasz.me.Models
 {
@@ -31,6 +30,5 @@ namespace zasz.me.Models
     public interface ICacheRepository : IRepository<Cache, Guid>
     {
         Cache Get();
-        Paged<Answer> Page(Cache cache, int pageNumber, int pageSize);
     }
 }

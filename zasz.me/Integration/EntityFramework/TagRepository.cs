@@ -4,27 +4,14 @@ using zasz.me.Models;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    public class TagRepository : RepoBase<Tag, string>, ITagRepository
+    public class TagRepository : Repository<Tag, string>, ITagRepository
     {
         public TagRepository(FullContext context) : base(context)
         {
         }
 
         #region ITagRepository Members
-
-        public List<Post> PagePosts(string tag, int page, int postsPerPage)
-        {
-            return Get(tag).Posts
-                .OrderByDescending(x => x.Timestamp)
-                .Skip(page * postsPerPage)
-                .Take(postsPerPage).ToList();
-        }
-
-        public int CountPosts(string tag)
-        {
-            return Get(tag).Posts.Count();
-        }
-
+        
         public Dictionary<string, int> WeightedList()
         {
             return (from tag in Context.Tags

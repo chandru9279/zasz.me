@@ -4,7 +4,7 @@ using zasz.me.Integration.EntityFramework;
 
 namespace zasz.health.RepositoryTests
 {
-    public class RepoBaseIntegrationTests : Fixture<PostAndTagsTestData>
+    public class RepositoryIntegrationTests : Fixture<PostAndTagsTestData>
     {
         private TagRepository tagRepository;
         private PostRepository postRepository;

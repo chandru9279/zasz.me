@@ -4,11 +4,10 @@ using System.Linq;
 using zasz.me.Models;
 using zasz.me.Services;
 using zasz.me.Services.Contracts;
-using zasz.me.ViewModels;
 
 namespace zasz.me.Integration.EntityFramework
 {
-    internal class CacheRepository : RepoBase<Cache, Guid>, ICacheRepository
+    internal class CacheRepository : Repository<Cache, Guid>, ICacheRepository
     {
         private readonly ISofuService service;
 
@@ -24,13 +23,6 @@ namespace zasz.me.Integration.EntityFramework
         {
             var cache = Set.FirstOrDefault();
             return cache == null || cache.HasExpired() ? Refresh() : cache;
-        }
-
-        public Paged<Answer> Page(Cache cache, int pageNumber, int pageSize)
-        {
-            var caches = cache.Answers.Skip(pageNumber * pageSize).Take(pageSize).ToList();
-            var count = cache.Answers.Count();
-            return new Paged<Answer> { Set = caches, NumberOfPages = count };
         }
 
         #endregion
