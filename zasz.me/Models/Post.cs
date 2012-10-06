@@ -90,5 +90,7 @@ namespace zasz.me.Models
         Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped();
 
         List<Post> Archive(int year, int month);
+
+        void DeleteAll();
     }
 }

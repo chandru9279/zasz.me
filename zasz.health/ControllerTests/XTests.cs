@@ -31,9 +31,7 @@ namespace zasz.health.ControllerTests
         [Fact]
         public void TableAndSchemaNameGivesTheCorrectMappings()
         {
-            var tableAndSchemaName = typeof (Post).TableAndSchemaName();
-            Assert.Equal("Posts", tableAndSchemaName.One);
-            Assert.Equal("Blog", tableAndSchemaName.Other);
+            Assert.Equal("[Blog].[Posts]", X.FullTableName<Post>());
         }
     }
 }

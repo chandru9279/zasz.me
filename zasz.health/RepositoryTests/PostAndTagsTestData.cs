@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using zasz.health.Builders;
 using zasz.health.UtilityTests;
-using zasz.me;
 using zasz.me.Integration.EntityFramework;
 using zasz.me.Models;
 
@@ -33,11 +32,7 @@ namespace zasz.health.RepositoryTests
 
         protected override void Cleanup()
         {
-            var posts = typeof(Post).TableAndSchemaName();
-            var tags = typeof(Tag).TableAndSchemaName();
-            var deleteQueries = string.Format("DELETE FROM {4}; DELETE FROM [{0}].[{1}]; DELETE FROM [{2}].[{3}];",
-                                              posts.Other, posts.One, tags.Other, tags.One, DbConstants.PostTagMapping);
-            Context.Database.ExecuteSqlCommand(deleteQueries);
+            new PostRepository(Context).DeleteAll();
         }
     }
 }

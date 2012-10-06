@@ -1,8 +1,8 @@
 ﻿@model zasz.me.Models.Post
 <div class="Post">
     <br />
-    <a class="Post-Title" href="/Blog/Post/@Model.Slug">@Model.Title</a>
-    <div class="Metadata">Posted by Chandru on @Model.Timestamp.ToString("f")</div>
+    <a class="Post-Title" href="@Url.Action("Post", "Blog")">@Model.Title</a>
+    <div class="Metadata">@Model.Timestamp.ToString("f")</div>
     <br />
     <div class="Post-Content">@Html.Raw(Model.Content)</div>
     @Html.Partial("_PostFooter", Model)

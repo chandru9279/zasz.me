@@ -8,9 +8,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
+using zasz.me.Controllers.Utils;
 using zasz.me.Integration.MVC;
 using zasz.me.Models;
-using zasz.me.Services;
 
 namespace zasz.me
 {
@@ -30,10 +30,11 @@ namespace zasz.me
             return ((MemberExpression)expression.Body).Member.Name;
         }
 
-        public static Pair<string, string> TableAndSchemaName(this Type type)
+        public static string FullTableName<T>()
         {
+            var type = typeof (T);
             var tableAttribute = type.GetCustomAttributes(true).OfType<TableAttribute>().First();
-            return new Pair<string, string>(tableAttribute.Name, tableAttribute.Schema);
+            return string.Format("[{0}].[{1}]", tableAttribute.Schema, tableAttribute.Name);
         }
 
         public static PropertyInfo PropertyInfo<T>(Expression<Func<Post, T>> expression)
@@ -55,7 +56,7 @@ namespace zasz.me
         {
             var action = context.Controller.ValueProvider.GetValue("action").AttemptedValue;
             return Attribute.IsDefined(context.Controller.GetType(), typeof(SidebarAttribute)) ||
-                   Attribute.IsDefined(context.Controller.GetType().GetMethod(action), typeof(SidebarAttribute));
+                   Attribute.IsDefined(context.Controller.GetType().GetMethod(action, new Type[]{}), typeof(SidebarAttribute));
         }
 
         public static void Validate(this object obj)
@@ -76,6 +77,13 @@ namespace zasz.me
                     attribute.Validate(objPropInfo.GetValue(obj, null), info.Name);
                 }
             }
+        }
+
+        public static List<string> Shred(this string wordList)
+        {
+            return String.IsNullOrEmpty(wordList)
+                       ? new List<string>()
+                       : wordList.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T> action)

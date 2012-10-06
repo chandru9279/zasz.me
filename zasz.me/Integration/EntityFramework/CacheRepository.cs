@@ -65,10 +65,9 @@ namespace zasz.me.Integration.EntityFramework
 
         internal void ClearCache()
         {
-            var caches = typeof (Cache).TableAndSchemaName();
-            var answers = typeof(Answer).TableAndSchemaName();
-            var deleteQueries = string.Format("DELETE FROM [{0}].[{1}]; DELETE FROM [{2}].[{3}];", 
-                caches.Other, caches.One, answers.Other, answers.One);
+            var caches = X.FullTableName<Cache>();
+            var answers = X.FullTableName<Answer>();
+            var deleteQueries = string.Format("DELETE FROM {0}; DELETE FROM {1};", caches, answers);
             Context.Database.ExecuteSqlCommand(deleteQueries);
         }
     }

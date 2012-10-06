@@ -30,6 +30,14 @@ namespace zasz.me.Integration.EntityFramework
                     select model).ToList();
         }
 
+        public void DeleteAll()
+        {
+            var deleteQueries = string.Format(
+                "DELETE FROM {0}; DELETE FROM {1}; DELETE FROM {2};",
+                DbConstants.PostTagMapping, X.FullTableName<Post>(), X.FullTableName<Tag>());
+            Context.Database.ExecuteSqlCommand(deleteQueries);
+        }
+
         /// <returns> A Dictionary of year as Key and the list of formatted months on which posts have been published as value</returns>
         public Dictionary<int, Dictionary<string, int>> PostedMonthsYearGrouped()
         {

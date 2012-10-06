@@ -15,13 +15,13 @@ namespace zasz.me.Controllers
     {
         protected readonly IPostRepository Posts;
         protected readonly ITagRepository Tags;
-        protected readonly BlogConfig config;
+        protected readonly BlogConfig Config;
 
         protected PostController(IPostRepository posts, ITagRepository tags, IConfigurationService configService)
         {
             Posts = posts;
             Tags = tags;
-            config = configService.Blog;
+            Config = configService.Blog;
         }
 
         public ActionResult Post([Bind(Prefix = "id")] string slug)
@@ -32,12 +32,12 @@ namespace zasz.me.Controllers
         [DefaultAction]
         public ActionResult List([Bind(Prefix = "id")] int pageNumber = 1)
         {
-            var paged = Posts.Page(pageNumber - 1, config.MaxPostsPerPage);
+            var paged = Posts.Page(pageNumber - 1, Config.MaxPostsPerPage);
             return View(new PostListViewModel
                             {
                                 Set = paged.Set,
                                 NumberOfPages = paged.NumberOfPages,
-                                DescriptionLength = config.DescriptionLength,
+                                DescriptionLength = Config.DescriptionLength,
                                 WhatIsListed = "Recent Posts.."
                             });
         }
@@ -45,12 +45,12 @@ namespace zasz.me.Controllers
         public ActionResult Tag(string tag, int page = 1)
         {
             var tagEntity = Tags.Get(tag);
-            var paged = Posts.Page(tagEntity, page - 1, config.MaxPostsPerPage);
+            var paged = Posts.Page(tagEntity, page - 1, Config.MaxPostsPerPage);
             return View("List", new PostListViewModel
                                     {
                                         Set = paged.Set,
                                         NumberOfPages = paged.NumberOfPages,
-                                        DescriptionLength = config.DescriptionLength,
+                                        DescriptionLength = Config.DescriptionLength,
                                         WhatIsListed = "Posts tagged with <em>" + tag + "</em>"
                                     });
         }
@@ -62,18 +62,18 @@ namespace zasz.me.Controllers
                                     {
                                         Set = Posts.Archive(year, Constants.Months[month]),
                                         NumberOfPages = 1,
-                                        DescriptionLength = config.DescriptionLength,
+                                        DescriptionLength = Config.DescriptionLength,
                                         WhatIsListed =
                                             string.Format("Archived for {0:MMMM, yyyy}",
                                                           new DateTime(year, Constants.Months[month], 1))
                                     });
         }
-       
-        [Authorize]
-        public ActionResult Delete(string Id)
+
+        [LoggedIn]
+        public ActionResult Delete(string id)
         {
             /* Todo : Need to figure out a way to delete without fetching */
-            var post = Posts.Get(Id);
+            var post = Posts.Get(id);
             post.Tags.Clear();
             Posts.Delete(post);
             Posts.Commit();

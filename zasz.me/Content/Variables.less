@@ -20,7 +20,7 @@
 	border-radius: @rad;
 }
 
-.shadow(@sh)
+.boxshadow(@sh)
 {
 	-moz-box-shadow: @sh;
 	-webkit-box-shadow: @sh;
@@ -33,6 +33,10 @@ transition: @prop @time;
 -moz-transition: @prop @time, -moz-transform @time;
 -webkit-transition: @prop @time, -webkit-transform @time;
 -o-transition: @prop @time, -o-transform @time;
+}
+
+.textshadow(@sh) {
+  text-shadow: @sh;
 }
 
 @placeholder: #B2B2B2;

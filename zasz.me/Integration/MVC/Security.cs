@@ -11,4 +11,14 @@ namespace zasz.me.Integration.MVC
                 base.OnAuthorization(filterContext);
         }
     }
+
+    public sealed class LoggedIn : AuthorizeAttribute
+    {
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            var skipAuthorization = filterContext.HttpContext.Request.IsLocal;
+            if (!skipAuthorization)
+                base.OnAuthorization(filterContext);
+        }
+    }
 }

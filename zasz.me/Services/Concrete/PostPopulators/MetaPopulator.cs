@@ -39,7 +39,7 @@ namespace zasz.me.Services.Concrete.PostPopulators
 
         internal virtual List<Tag> GetTags(string tags)
         {
-            return tags.Split(Constants.Shredders, StringSplitOptions.RemoveEmptyEntries)
+            return tags.Shred()
                 .Select(x => repo.Get(x) ?? repo.Save(new Tag(x)))
                 .ToList();
         }

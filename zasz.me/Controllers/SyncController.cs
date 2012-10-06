@@ -9,14 +9,14 @@ using zasz.me.Services.Contracts;
 
 namespace zasz.me.Controllers
 {
-    [Authorize]
+    [LoggedIn]
     public class SyncController : BaseController
     {
         public const string PostsFolder = @"\App_Data\Posts\";
         private readonly List<IPostPopulator> populators;
         private readonly IPostRepository posts;
 
-        protected SyncController(IPostRepository posts, IPostPopulators populators)
+        public SyncController(IPostRepository posts, IPostPopulators populators)
         {
             this.posts = posts;
             this.populators = populators.All();
@@ -26,26 +26,26 @@ namespace zasz.me.Controllers
         [DefaultAction]
         public ActionResult Database()
         {
+            posts.DeleteAll();
             var folders = Directory.GetDirectories(Server.MapPath("~" + PostsFolder));
-            List<string> errors = null;
+            var errors = new List<string>();
             foreach (var folder in folders)
             {
                 var entry = new Post();
                 var dir = new DirectoryInfo(folder);
-                errors = populators
-                    .Select(x =>
+                errors.AddRange(populators.Select(x =>
                                 {
                                     try
                                     {
                                         x.Populate(entry, dir);
-                                        return string.Format("{0} is OK.", entry.Slug);
+                                        return string.Format("{0} | {1} is OK.", entry.Slug, x.GetType().Name);
                                     }
                                     catch (Exception e)
                                     {
-                                        return string.Format("{0} | {1} | {2}", entry.Slug, e.GetType(),
-                                                             e.Message);
+                                        return string.Format("{0} | {1} | {2}", 
+                                            entry.Slug, e.GetType(), e.Message);
                                     }
-                                }).ToList();
+                                }));
                 posts.Save(entry);
                 posts.Commit();
             }
