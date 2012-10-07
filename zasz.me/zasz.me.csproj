@@ -167,6 +167,7 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Integration\EntityFramework\CacheRepository.cs" />
     <Compile Include="Services\Contracts\IPostPopulators.cs" />
+    <Compile Include="Services\Messages.cs" />
     <Compile Include="Services\X.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
@@ -250,7 +251,7 @@
     <Content Include="Content\Images\stackoverflow.ico" />
     <Content Include="Content\Images\stacktack.png" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
-    <Content Include="Content\Blog.css" />
+    <None Include="Content\Blog.less" />
     <Content Include="Content\Layout.less" />
     <Content Include="Content\Stacktack.css" />
     <Content Include="Content\SyntaxHighlighter\shCore.css" />

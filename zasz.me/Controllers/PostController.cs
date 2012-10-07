@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using zasz.me.Controllers.Utils;
 using zasz.me.Integration.MVC;
 using zasz.me.Models;
+using zasz.me.Services;
 using zasz.me.Services.Concrete.Config;
 using zasz.me.Services.Contracts;
 using zasz.me.ViewModels;
@@ -38,7 +39,7 @@ namespace zasz.me.Controllers
                                 Set = paged.Set,
                                 NumberOfPages = paged.NumberOfPages,
                                 DescriptionLength = Config.DescriptionLength,
-                                WhatIsListed = "Recent Posts.."
+                                WhatIsListed = Messages.PostsList
                             });
         }
 
@@ -51,7 +52,7 @@ namespace zasz.me.Controllers
                                         Set = paged.Set,
                                         NumberOfPages = paged.NumberOfPages,
                                         DescriptionLength = Config.DescriptionLength,
-                                        WhatIsListed = "Posts tagged with <em>" + tag + "</em>"
+                                        WhatIsListed = string.Format(Messages.PostsFromTag, tag)
                                     });
         }
 
@@ -64,7 +65,7 @@ namespace zasz.me.Controllers
                                         NumberOfPages = 1,
                                         DescriptionLength = Config.DescriptionLength,
                                         WhatIsListed =
-                                            string.Format("Archived for {0:MMMM, yyyy}",
+                                            string.Format(Messages.PostsFromArchive,
                                                           new DateTime(year, Constants.Months[month], 1))
                                     });
         }

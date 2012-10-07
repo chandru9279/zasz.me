@@ -7,8 +7,6 @@
                                                                                              
 @section Head{
     @Html.Partial("_SyntaxHighlight")
-    @Social.Facebook() 
-    @Social.Twitter()
 }
 
 @section Right{
@@ -17,18 +15,17 @@
 }
 
 
-<div class="Light-Message" style="float: left; font-size: 20px;">@Html.Raw(Model.WhatIsListed)</div>
-<div style="float: right;">@Render.Paging(Model.NumberOfPages)</div>
+<div class="Prominant">@Html.Raw(Model.WhatIsListed)</div>
+@Render.Paging(Model.NumberOfPages)
 <div class="Clear" ></div>
-@foreach (var Post in Model.Set)
+@foreach (var post in Model.Set)
 {
     <div style="margin: 10px auto;">
-        @Html.Partial("_PostShortView", Post)
+        @Html.Partial(Model.NumberOfPages > 1 ? "_PostShortView" : "_PostFullView", post)
     </div>
 }
-<div style="margin: 20px auto; padding: 10px;">
-    @Render.Paging(Model.NumberOfPages)
-</div>
+
+@Render.Paging(Model.NumberOfPages)
 
 @section Bottom{
     @Html.Partial("_DisqusCommentCount")

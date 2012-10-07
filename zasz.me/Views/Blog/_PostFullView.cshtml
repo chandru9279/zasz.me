@@ -1,7 +1,7 @@
 ﻿@model zasz.me.Models.Post
 <div class="Post">
     <br />
-    <a class="Post-Title" href="@Url.Action("Post", "Blog")">@Model.Title</a>
+    <a class="Post-Title" href="@Url.Action("Post", "Blog")/@Model.Slug">@Model.Title</a>
     <div class="Metadata">@Model.Timestamp.ToString("f")</div>
     <br />
     <div class="Post-Content">@Html.Raw(Model.Content)</div>
