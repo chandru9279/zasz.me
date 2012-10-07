@@ -20,16 +20,16 @@ task build -depends clean {
 
 
 task zip -depends build {
-		$zipExe = "$ToolsPath\7z\7z.exe";
-		$arguments = "a", "-tzip", "$SolutionPath\Out\Deploy.zip", $BuildPath, "-r";
-		exec { &$zipExe $arguments }
-		Write-Host -ForegroundColor Green "Zip in $SolutionPath\Out\Deploy.zip."
+	$zipExe = "$ToolsPath\7z\7z.exe";
+	$arguments = "a", "-tzip", "$SolutionPath\Out\Deploy.zip", $BuildPath, "-r";
+	exec { &$zipExe $arguments }
+	Write-Host -ForegroundColor Green "Zip in $SolutionPath\Out\Deploy.zip."
 }
 
 
 task deploy -depends build {
-		Trace-Robocopy { robocopy $BuildPath $DeployPath /E /NJH /NJS }
-		Write-Host -ForegroundColor Green "Deployed to $DeployPath."
+	Trace-Robocopy { robocopy $BuildPath $DeployPath /E /NJH /NJS }
+	Write-Host -ForegroundColor Green "Deployed to $DeployPath."
 }
 
 
@@ -116,13 +116,13 @@ task compile -depends clean {
 
 
 task clean {
-		exec { msbuild $SolutionFile /v:Quiet /t:Clean }
-        @('zasz.me\bin\' 
-		'zasz.me\obj\'
-		'zasz.health\bin\' 
-		'zasz.health\obj\'
-		'Out\') | % { Remove-Item "$SolutionPath\$_\*" -Recurse -exclude .gitkeep }
-		Write-Host -ForegroundColor Green "Cleaned all bin obj. Cleaned Out folder."
+	exec { msbuild $SolutionFile /v:Quiet /t:Clean }
+	@('zasz.me\bin\' 
+	'zasz.me\obj\'
+	'zasz.health\bin\' 
+	'zasz.health\obj\'
+	'Out\') | % { Remove-Item "$SolutionPath\$_\*" -Recurse -exclude .gitkeep -ErrorAction Continue}
+	Write-Host -ForegroundColor Green "Cleaned all bin obj. Cleaned Out folder."
 }
 
 
