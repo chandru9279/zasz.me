@@ -2,8 +2,8 @@
 {
     public static class Messages
     {
-        public const string PostsFromTag = "Tagged <em>{0}</em>";
-        public const string PostsFromArchive = "{0:MMMM, yyyy} Archive";
-        public const string PostsList = "Recent Posts..";
+        public const string PostsFromTag = "tagged <em>{0}</em>";
+        public const string PostsFromArchive = "{0:MMMM yyyy}";
+        public const string PostsList = "recent posts";
     }
 }

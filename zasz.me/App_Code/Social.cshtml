@@ -12,6 +12,12 @@
 }(document, 'script', 'facebook-jssdk')); </script>
 }
 
+@helper FacebookLike(string link)
+{
+    <div class="fb-like" data-href="@link" data-layout="button_count" data-send="true" data-width="290" data-show-faces="true" data-colorscheme="dark" data-font="trebuchet ms"></div>
+}
+
+@* ReSharper disable WrongExpressionStatement *@
 @helper Twitter()
 {
     <script> !function(d, s, id) {
@@ -23,6 +29,13 @@
         fjs.parentNode.insertBefore(js, fjs);
     }
 }(document, "script", "twitter-wjs"); </script>
+}
+@* ReSharper restore WrongExpressionStatement *@
+
+
+@helper Tweet(string link, string title)
+{
+    <div style="margin-left: 20px"><a href="https://twitter.com/share" class="twitter-share-button" data-url="@link" data-text="@title">Tweet</a></div>
 }
 
 @helper Flair()

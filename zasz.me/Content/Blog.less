@@ -1,6 +1,6 @@
 ﻿.Post
 {
-    margin: 30px;
+	margin: 20px 0px;
 }
 
 .Post-Title
@@ -10,22 +10,19 @@
 
 .Light-Message
 {
+	em
+	{
+		font-weight: bold;
+	}
 }
 
-.Light-Message em
-{
-    font-weight: bold;
-}
-
-.Metadata
+.Date
 {
     color: @silver;
     font-size: 18px;
-    padding-left: 20px;
 	text-transform: uppercase;
     background-position: left;
     background-repeat: no-repeat;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAuFJREFUeNp0U11IU2EYfjadTtLNqVNRpzKn0xWJf8uwzJoJJhphPyqCeFHgpRASOZSJ2oWXBmYX2YWYltoPGv6GIZgLLRUctJzW3Oa24zb3U+lRWOdMkaX2wsPL937v85yH834vw+12wzuaX1WEUOkeBSmFDAo+FOYP0CG/1UN49zO8BRS9dx75swIepMSkIZwbjTBOJBgMJjYdGyAoqNbnsU3+bmss66s7JtDQXaoQ8EUNl8+WQK2bw/rmKmwuK+h7XmAIokLjcDo2G9PLI1g1qhqbKgeaDgUedl1XxEeIG7LEFzC19A5RISlIiT2H6NAEMCkHeosGav0XrBnncSm1GIuaOWgMyy2t1W/ljPudhdH+fgG6kvMVGJvrh1RchILMShwNgiCwsD6OmeU3uCa9jWFlP35tO2KYuyRZIxGk4+v3DxBGpp9IViqVqK2tRXZiMdIS8jGrGkVi9BnQXCa5Qxax/XyhNxmRJb56Irm9vR1yuRxBQUHITMqHwWzCKbY/KO4N2oHkz54VNrsVkSHx/yUnJyd7auE8AaxbFjh3CNqBiHZAWuwm7O7sAUfehMvlApPJ9HzZO3Z3SGw5CdoBaIEVu8NBWeLAQKz90yiTyVBVVYX6+nqQJOmpbRA/qF4u7E47LaD1EUuDBf5sdq4gIgEbZh0yJHn/iAiFQuTk5IDD4XjOQx+fg8lyw2Izwmqx9tAOOnRaPVgBbswujeLl6ONjP5LP53vy4EQnxmZeIJDLhvanjnbQ4fPt85bzWX8ra9O6kVskK8f7yR6YLTqE8SIRzNkn6owaDIw9wdBUF0oKyjE+PQi7zd4y3LHed/iU86v59bwwbnNp4V1otWtYWP4E86bBcxfKC0eqJBuJohT0jzyFxWSrm+gi2o4tU14lT+HL8m0QJSZBmnoFcVH7o9ObNFAuTkKtVtHTaprqtjWeuI10XCwLiqVSDYWbFEQHZXo8r+l1nu51rnj3/xVgAILtTWuORi/NAAAAAElFTkSuQmCC);
 }
 
 .Post-Content
@@ -40,7 +37,7 @@
 		margin-left: 20px;
 		list-style-type: decimal;		
 	}
-	em
+	em, strong
 	{
 		font-weight: bold;
 	}
@@ -48,10 +45,10 @@
 	{
 		margin: 30px 0px;
 	}
-	strong
-{
-    font-weight: bold;
-}
+	a 
+	{
+		color: @sky;
+	}	
 }
 
 .Tags
@@ -62,7 +59,7 @@
 		display: inline;
 		a
 		{
-			.radius(3px);
+			.radius(1px);
 			margin: 2px;
 			padding: 2px 10px;
 			display: inline-block;
@@ -70,23 +67,36 @@
 			color: White;
 			font-size: 12px;
 			text-decoration: none;
+			font-weight: bold;
 			&:HOVER
 			{
 				cursor: pointer;
-				background-color: @bground;
+				background-color: White;
 				color: @navy;
 			}
 		}
 	}
 }
 
+.Short-Footer
+{
+	color: @sky;
+	a 
+	{
+		color: @sky;
+	}	
+	.More
+	{
+		float: right;
+	}
+}
+
 .Post-Footer
 {
-    padding: 7px;
+	background-color: @bground;
+    padding: 10px;
     margin: 20px auto;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    .radius(1px);
 }
 
 .Paging 

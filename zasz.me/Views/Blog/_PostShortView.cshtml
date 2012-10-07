@@ -1,7 +1,24 @@
 ﻿@model zasz.me.Models.Post
 <div class="Post">
-
     <a class="Post-Title" href="@Url.Action("Post", "Blog")/@Model.Slug">@Model.Title</a>
-    <div class="Metadata">@Model.Timestamp.ToString("f")</div>
-    <p>@Html.Raw(Model.GetDescription(ViewBag.DescriptionLength))  &nbsp;&nbsp; <a href="@Url.Action("Post", "Blog")">More</a></p>
+    <div class="Date">@Model.Timestamp.ToString("f")</div>
+    <div class="Post-Content">@Html.Raw(Model.GetDescription(ViewBag.DescriptionLength))  </div>
+    
+    <div class="Short-Footer">
+        @if (Model.Tags.Count == 0)
+        {
+            <span>No tags!</span>
+        }
+        else
+        {
+            <span>tagged : </span>
+            foreach (var tag in Model.Tags)
+            {
+                <a href="@Url.Action("Tag", "Blog")/@tag.Name">@tag.Name</a>
+            }
+        }
+        &nbsp;|&nbsp; <a href="@Url.Action("Post","Blog")/@Model.Slug#disqus_thread" data-disqus-identifier="@Model.Slug">Comments and Reactions</a>
+        <a class="More" href="@Url.Action("Post", "Blog")/@Model.Slug">read more</a>
+    </div>
+
 </div>

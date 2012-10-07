@@ -56,7 +56,7 @@ namespace zasz.me
         {
             var action = context.Controller.ValueProvider.GetValue("action").AttemptedValue;
             return Attribute.IsDefined(context.Controller.GetType(), typeof(SidebarAttribute)) ||
-                   Attribute.IsDefined(context.Controller.GetType().GetMethod(action, new Type[]{}), typeof(SidebarAttribute));
+                   Attribute.IsDefined(context.Controller.GetType().GetMethods().FirstOrDefault(x => x.Name == action), typeof(SidebarAttribute));
         }
 
         public static void Validate(this object obj)

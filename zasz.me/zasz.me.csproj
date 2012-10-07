@@ -691,7 +691,6 @@
     </Content>
     <Content Include="Views\Blog\_DisqusCommentCount.cshtml" />
     <Content Include="Views\Blog\_DisqusComments.cshtml" />
-    <Content Include="Views\Blog\_PostFooter.cshtml" />
     <Content Include="Views\Blog\_SyntaxHighlight.cshtml" />
     <Content Include="Views\Contact\_MessageEditor.cshtml" />
     <Content Include="Views\Portfolio\StackExchange.cshtml" />

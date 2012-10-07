@@ -13,9 +13,9 @@ namespace zasz.me.Services.Concrete
 
         public string MyStackOverflowAnswers(int pageNumber)
         {
-                
             var extra = new Dictionary<string, string>();
             extra.Add("sort", "votes");
+            /* extra.Add("min", "2"); */
             extra.Add("page", pageNumber.ToString());
             return Compose(myPath + "/answers", extra);
         }

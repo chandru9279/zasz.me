@@ -1,10 +1,9 @@
 ﻿@model zasz.me.ViewModels.PostListViewModel
-
 @{
     ViewBag.Title = "Posts";
     ViewBag.DescriptionLength = Model.DescriptionLength;
 }
-                                                                                             
+
 @section Head{
     @Html.Partial("_SyntaxHighlight")
 }
@@ -14,17 +13,13 @@
     @Html.Action("ArchiveControl", "Blog")
 }
 
-
-<div class="Prominant">@Html.Raw(Model.WhatIsListed)</div>
-@Render.Paging(Model.NumberOfPages)
-<div class="Clear" ></div>
+<div class="Clear"></div>
 @foreach (var post in Model.Set)
 {
-    <div style="margin: 10px auto;">
-        @Html.Partial(Model.NumberOfPages > 1 ? "_PostShortView" : "_PostFullView", post)
-    </div>
+    @Html.Partial("_PostShortView", post)
 }
 
+<label class="Prominant">@Html.Raw(Model.WhatIsListed)</label>
 @Render.Paging(Model.NumberOfPages)
 
 @section Bottom{

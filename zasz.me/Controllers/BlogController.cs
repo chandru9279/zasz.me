@@ -48,7 +48,7 @@ namespace zasz.me.Controllers
                                           DisplayChoice =
                                               DisplayStrategy.Get(TagDisplayStrategy.MoreHorizontalThanVertical),
                                           ColorChoice =
-                                              ColorStrategy.Get(Theme.LightBgDarkFg, Style.Grayscale,
+                                              ColorStrategy.Get(Theme.LightBgDarkFg, Style.RandomVaried,
                                                                 Color.FromArgb(0, Color.White), Color.Black),
                                           VerticalTextRight = true,
                                           Crop = true

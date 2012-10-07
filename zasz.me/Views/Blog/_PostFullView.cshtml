@@ -2,8 +2,38 @@
 <div class="Post">
     <br />
     <a class="Post-Title" href="@Url.Action("Post", "Blog")/@Model.Slug">@Model.Title</a>
-    <div class="Metadata">@Model.Timestamp.ToString("f")</div>
+    <div class="Date">@Model.Timestamp.ToString("f")</div>
     <br />
     <div class="Post-Content">@Html.Raw(Model.Content)</div>
-    @Html.Partial("_PostFooter", Model)
+
+    <div class="Post-Footer">
+        @if (Model.Tags.Count == 0)
+        {
+            <span>No tags!</span>
+        }
+        else
+        {
+            <span>Tagged </span>
+            <ul class="Tags">
+                @foreach (var tag in Model.Tags)
+                {
+                    <li><a href="@Url.Action("Tag", "Blog")/@tag.Name">@tag.Name</a></li>
+                }
+            </ul>
+        }
+        &nbsp;|&nbsp; <a href="@Model.Permalink">Permalink</a>
+        <table style="margin-top: 5px;">
+            <tr>
+                <td>@Social.FacebookLike(Model.Permalink)</td>
+                <td>@Social.Tweet(Model.Permalink, Model.Title + " -Chandru")</td>                 
+                @if (Request.IsAuthenticated)
+                {
+                    <td>
+                        <span>Manage :</span>
+                        <a href="@Url.Action("Delete", "Blog")/@Model.Slug">Hide</a>
+                    </td>
+                }            
+            </tr>
+        </table>
+    </div>
 </div>
