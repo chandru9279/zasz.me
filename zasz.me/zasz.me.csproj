@@ -238,18 +238,26 @@
     <Content Include="Content\BlueprintReset.css" />
     <Content Include="Content\favicon.png" />
     <Content Include="Content\Images\404.png" />
+    <Content Include="Content\Images\AboutRead.jpg" />
     <Content Include="Content\Images\careers.ico" />
     <Content Include="Content\Images\expand-down.png" />
     <Content Include="Content\Images\github.ico" />
     <Content Include="Content\Images\gmail.png" />
+    <Content Include="Content\Images\HeArrow.png" />
     <Content Include="Content\Images\linkedin.ico" />
+    <Content Include="Content\Images\Me.jpg" />
     <Content Include="Content\Images\Name.png" />
     <Content Include="Content\Images\Paging.png" />
+    <Content Include="Content\Images\Play.jpg" />
+    <Content Include="Content\Images\PlayArrow.png" />
+    <Content Include="Content\Images\Read.jpg" />
+    <Content Include="Content\Images\ReadArrow.png" />
     <Content Include="Content\Images\scan-qr-codes.jpg" />
     <Content Include="Content\Images\Search.png" />
     <Content Include="Content\Images\skype.png" />
     <Content Include="Content\Images\stackoverflow.ico" />
     <Content Include="Content\Images\stacktack.png" />
+    <Content Include="Content\Images\WorkArrow.png" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
     <None Include="Content\Blog.less" />
     <Content Include="Content\Layout.less" />
@@ -277,6 +285,7 @@
     <Content Include="Content\Header.less" />
     <Content Include="App_Code\Social.cshtml" />
     <Content Include="Content\Images\Name.pdn" />
+    <Content Include="Content\About.less" />
     <None Include="Content\Schemas\Solr.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -725,7 +734,6 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\Show.cshtml" />
     <Content Include="Views\Portfolio\All.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />

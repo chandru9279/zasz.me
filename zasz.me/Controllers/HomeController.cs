@@ -14,11 +14,6 @@ namespace zasz.me.Controllers
         }
 
         [DefaultAction]
-        public ViewResult Show()
-        {
-            return View();
-        }
-
         public ViewResult About()
         {
             return View();
