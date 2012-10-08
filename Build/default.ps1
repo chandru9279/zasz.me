@@ -121,7 +121,7 @@ task clean {
 	'zasz.me\obj\'
 	'zasz.health\bin\' 
 	'zasz.health\obj\'
-	'Out\') | % { Remove-Item "$SolutionPath\$_\*" -Recurse -exclude .gitkeep -ErrorAction Continue}
+	'Out\') | % { Remove-Item "$SolutionPath\$_\*" -Recurse -exclude .gitkeep -ErrorAction SilentlyContinue }
 	Write-Host -ForegroundColor Green "Cleaned all bin obj. Cleaned Out folder."
 }
 
