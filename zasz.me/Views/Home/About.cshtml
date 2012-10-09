@@ -3,73 +3,60 @@
 }
 
 <script type="text/javascript">
-    $(function() {
-        $("#he").hover(function () {
-            $('#HeArrow').show();
+    $(function () {
+        $(".Arrow").hide();
+        $(".Arrow-Link").hover(function () {
+            $($(this).data('arrow')).show();
             return false;
         }, function () {
-            $('#HeArrow').hide();
+            $($(this).data('arrow')).hide();
             return false;
         });
-        $("#works").hover(function () {
-            $('#WorkArrow').show();
-            return false;
-        }, function () {
-            $('#WorkArrow').hide();
-            return false;
-        });
-        $("#reads").hover(function () {
-            $('#ReadArrow').show();
-            return false;
-        }, function () {
-            $('#ReadArrow').hide();
-            return false;
-        });
-        $("#plays").hover(function () {
-            $('#PlayArrow').show();
-            return false;
-        }, function () {
-            $('#PlayArrow').hide();
-            return false;
-        });
-        
     });
 </script>
 
-<table>
-    <tr>
-        <td>
-            <div class="Text">
-                
-                <div class="About">
-                    <a id="he">he</a> likes
-                    <a id="works">working</a>, 
-                    <a id="reads">reading</a> and 
-                    <a id="plays">playing</a>.
-                </div> 
-            </div>
-            <img id="HeArrow" src="@Url.Content("~/Content/Images/HeArrow.png")" alt="Chandirasekar Thiagarajan" title="Chandirasekar T"/>
-            <img id="WorkArrow" src="@Url.Content("~/Content/Images/WorkArrow.png")" alt="Chandirasekar Thiagarajan" title="Chandirasekar T"/>
-            <img id="PlayArrow" src="@Url.Content("~/Content/Images/PlayArrow.png")" alt="Chandirasekar Thiagarajan" title="Chandirasekar T"/>
-            <img id="ReadArrow" src="@Url.Content("~/Content/Images/ReadArrow.png")" alt="Chandirasekar Thiagarajan" title="Chandirasekar T"/>
-        </td>
-        <td>
-            <img src="@Url.Content("~/Content/Images/Me.jpg")" alt="Chandirasekar Thiagarajan" title="Chandirasekar T"/>
-        </td>
-    </tr>
-    <tr>
-        <td style="vertical-align: top;">
-            <img src="@Url.Content("~/Content/Images/Play.jpg")" alt="Chandirasekar Thiagarajan" title="Chandirasekar T"/>
-        </td>
-        <td>
-            <a href="@Url.Content("~/Content/Images/Read.jpg")" target="_blank">
-                <img src="@Url.Content("~/Content/Images/AboutRead.jpg")" alt="Chandirasekar Thiagarajan" title="Chandirasekar T"/>
-            </a>
-        </td>
+<div class="About-Padding">
+    <div class="Left-Text">
+        <div class="About-Text">
+            <a data-arrow="#He-Arrow" class="Arrow-Link">Chandru</a> is a
+            <a data-arrow="#Work-Arrow" class="Arrow-Link">software consultant</a> from Chennai, who enjoys
+            <a data-arrow="#Read-Arrow" class="Arrow-Link">reading</a>,
+            <a data-arrow="#Play-Arrow" class="Arrow-Link">gaming</a>, and creating all kinds of software.
+        </div>
+        <p>
+            5. Tell the story of your professional journey.
+            Explain how you got to where you are today. This doesn’t have to be a chronological list. Make it interesting. Enable people to understand how you know what you know.
 
-    </tr>
-</table>
+            6. Tell people how you can help them.
+            Be specific, add links to products and services.
 
-@Social.Flair()
+            7. Demonstrate how you’ve provided solutions for others.
+            Link to your portfolio and list projects you’ve worked on.
 
+            8. Give a sense of what it’s like to work with you and show people why they can trust you.
+            Add client testimonials and stories about how you work.
+
+            9. Add a contact link.
+            Your about page should not only provide information and build trust, it must also encourage potential clients to get in touch.
+
+            10. Don’t make it all about you.
+            Share some insights about what you have in common with your audience.
+        </p>
+    </div>
+    <img id="He-Arrow" src="@Url.Content("~/Content/Images/HeArrow.png")" alt="Chandirasekar Thiagarajan" class="Arrow"/>
+    <img id="Work-Arrow" src="@Url.Content("~/Content/Images/WorkArrow.png")" alt="Chandirasekar Thiagarajan" class="Arrow"/>
+    <img id="Play-Arrow" src="@Url.Content("~/Content/Images/PlayArrow.png")" alt="Chandirasekar Thiagarajan" class="Arrow"/>
+    <img id="Read-Arrow" src="@Url.Content("~/Content/Images/ReadArrow.png")" alt="Chandirasekar Thiagarajan" class="Arrow"/>
+    <div class="Right-Image">
+        <img src="@Url.Content("~/Content/Images/Me.jpg")" alt="Chandirasekar Thiagarajan" title="T Chandirasekar" class="About-Image"/>
+    </div>
+
+    <div class="Below">
+        <img src="@Url.Content("~/Content/Images/Play.jpg")" alt="Chandirasekar Thiagarajan" title="T Chandirasekar" class="About-Image"/>
+        <a href="@Url.Content("~/Content/Images/Read.jpg")" target="_blank" style="margin-left: 8px;">
+            <img src="@Url.Content("~/Content/Images/AboutRead.jpg")" alt="Chandirasekar Thiagarajan" title="T Chandirasekar" class="About-Image"/>
+        </a>
+    </div>
+    @Social.Flair()
+</div>
 <div style="font-size: 5px">if you can read this, you're too close to the monitor.</div>

@@ -1,49 +1,72 @@
-﻿ #HeArrow
+﻿ .About-Padding
+ {
+	padding-top: 15px;
+	padding-bottom: 15px;	
+ }
+
+ .Arrow
  {
     position: absolute;
-    margin-top: -630px;
-	z-index: 1;
-	display: none;
+	display: block;
  }
  
- #WorkArrow
+ #He-Arrow
  {
-    position: absolute;
-	margin-left: 197px;
-    margin-top: -717px;
-	z-index: 1;
-	display: none;
+    margin-left: 55px;
+    margin-top: 52px;
+ }
+ 
+ #Work-Arrow
+ {
+	margin-left: 294px;
+    margin-top: -33px;
  }
 
- #PlayArrow
+ #Play-Arrow
  {
-    margin-left: 57px;
-    margin-top: -580px;
-    position: absolute;
-    z-index: 1;
-	display: none;
+    margin-left: 50px;
+    margin-top: 146px;
  }
 
- #ReadArrow 
+ #Read-Arrow 
  {
-    position: absolute;
-    margin-top: -630px;
-	margin-left: 280px;
-	z-index: 1;
-	display: none;
+    margin-left: 388px;
+    margin-top: 97px;
  }
 
-.Text 
+.Left-Text   
 {
-    width: 550px;
-    height: 717px;
+	padding: 5px;
     clear: both;
+	float: left;
+	display: block;
+    width: 520px;
+    height: 574px;
 }
 
-.About 
+.Right-Image
 {
-    padding: 0px 20px;
-    margin-top: 40px; 
+	float: left;
+	display: block;
+	margin-left: 15px;
+}
+
+.Below
+{
+	clear: left;
+	float: left;
+    height: 717px;
+}
+
+.About-Image
+{
+	border: 2px solid #C6C6C6;
+	background: @bground;
+    .boxshadow(5px 5px 5px #A0A0A0);
+}
+
+.About-Text 
+{
     display: inline-block; 
     font-size: 32px;
     .textshadow(0 2px 1px rgba(0, 0, 0, 0.15));
