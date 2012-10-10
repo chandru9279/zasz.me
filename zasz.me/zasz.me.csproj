@@ -262,7 +262,7 @@
     <Content Include="Content\Images\stacktack.png" />
     <Content Include="Content\Images\WorkArrow.png" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
-    <None Include="Content\Blog.less" />
+    <Content Include="Content\Blog.less" />
     <Content Include="Content\Layout.less" />
     <Content Include="Content\Stacktack.css" />
     <Content Include="Content\SyntaxHighlighter\shCore.css" />
@@ -717,13 +717,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Fonts\AlphaFridgeMagnets.ttf" />
-    <None Include="Content\Fonts\AlphaFridgeMagnetsAllCaps.ttf" />
-    <None Include="Content\Fonts\Gnuolane.ttf" />
-    <None Include="Content\Fonts\KenyanCoffee.ttf" />
-    <None Include="Content\Fonts\Sexsmith.ttf" />
-    <None Include="Content\Fonts\Steelfish.ttf" />
-    <None Include="Content\Fonts\VenusRising.ttf" />
+    <Content Include="Content\Fonts\AlphaFridgeMagnets.ttf" />
+    <Content Include="Content\Fonts\AlphaFridgeMagnetsAllCaps.ttf" />
+    <Content Include="Content\Fonts\Gnuolane.ttf" />
+    <Content Include="Content\Fonts\KenyanCoffee.ttf" />
+    <Content Include="Content\Fonts\Sexsmith.ttf" />
+    <Content Include="Content\Fonts\Steelfish.ttf" />
+    <Content Include="Content\Fonts\VenusRising.ttf" />
     <Content Include="Web.Dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

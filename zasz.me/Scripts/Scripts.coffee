@@ -15,10 +15,13 @@ attachHandlers = ->
 
 	$("#Search-Box").autocomplete source: "/Home/Autocomplete"
 	
-	if $("#blogTagCloud").length > 0
-		$("#blogTagCloud").load ->
+	if $("#BlogTagCloud").length > 0
+		$("#BlogTagCloud").load ->
 			$.get "/Blog/TagCloudLinks", (links) ->
-				$("#tagCloudLinks").replaceWith links	
+				$("#TagCloudLinks").replaceWith links
+				return
+			return
+		return
 
 addJqueryCenter = ->
 	jQuery.fn.center = ->

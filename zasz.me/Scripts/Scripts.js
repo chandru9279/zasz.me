@@ -18,10 +18,10 @@
     $("#Search-Box").autocomplete({
       source: "/Home/Autocomplete"
     });
-    if ($("#blogTagCloud").length > 0) {
-      return $("#blogTagCloud").load(function() {
-        return $.get("/Blog/TagCloudLinks", function(links) {
-          return $("#tagCloudLinks").replaceWith(links);
+    if ($("#BlogTagCloud").length > 0) {
+      $("#BlogTagCloud").load(function() {
+        $.get("/Blog/TagCloudLinks", function(links) {
+          $("#TagCloudLinks").replaceWith(links);
         });
       });
     }

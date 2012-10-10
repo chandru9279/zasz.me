@@ -13,7 +13,7 @@ namespace zasz.me.Services.TagCloud
         private readonly Action<string> Die = Message => { throw new Exception(Message); };
         // ReSharper restore InconsistentNaming
 
-        private PrivateFontCollection _Fonts;
+        private PrivateFontCollection fonts;
 
 
         /// <summary>
@@ -26,22 +26,22 @@ namespace zasz.me.Services.TagCloud
 
         public void Dispose()
         {
-            _Fonts.Dispose();
+            fonts.Dispose();
         }
 
         #endregion
 
-        public void LoadFonts(string FontsFolderPath)
+        public void LoadFonts(string fontsFolderPath)
         {
-            if (string.IsNullOrEmpty(FontsFolderPath)) Die("Null Fonts Path");
-            var Files = Directory.GetFiles(FontsFolderPath);
-            var FontFiles = (from AFile in Files
-                             where AFile.EndsWith(".ttf")
-                             select AFile).ToList();
-            if (FontFiles.Count() == 0) Die("No Fonts Found");
-            _Fonts = new PrivateFontCollection();
-            FontFiles.ForEach(F => _Fonts.AddFontFile(F));
-            AvailableFonts = _Fonts.Families.ToDictionary(x => x.Name);
+            if (string.IsNullOrEmpty(fontsFolderPath)) Die("Null Fonts Path");
+            var files = Directory.GetFiles(fontsFolderPath);
+            var fontFiles = (from file in files
+                             where file.EndsWith(".ttf")
+                             select file).ToList();
+            if (!fontFiles.Any()) Die("No Fonts Found");
+            fonts = new PrivateFontCollection();
+            fontFiles.ForEach(f => fonts.AddFontFile(f));
+            AvailableFonts = fonts.Families.ToDictionary(x => x.Name);
         }
     }
 }

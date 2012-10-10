@@ -55,7 +55,7 @@ namespace zasz.health.UtilityTests
         [Fact(Skip = "Utility")]
         public void ClearErrorLogs()
         {
-            fullContext.Database.ExecuteSqlCommand("DELETE FROM Logs");
+            fullContext.Database.ExecuteSqlCommand(string.Format("DELETE FROM {0}", DbConstants.Logs));
             Log("Done.");
         }
 

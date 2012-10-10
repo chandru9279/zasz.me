@@ -83,7 +83,7 @@ task solrx -precondition { return Test-Solr } {
 	Write-Host -ForegroundColor Green "Solr stopped now."
 }
 
-task reindex -depends reload { 
+task reindex -depends reload -precondition { return Test-Solr } { 
 	$url = 'http://localhost:5000/solr/dataimport?verbose=true&clean=true&commit=true&command=full-import'  
 	$xml = Get-Url $url 'Full Import with clean failed!'
 	if([string]::IsNullOrEmpty($xml)) { throw 'Returned xml is null ' } else { Write-Host "`r`n`r`n$xml" }

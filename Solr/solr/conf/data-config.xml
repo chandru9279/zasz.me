@@ -7,13 +7,13 @@
         password="zaszrespawned"
         readOnly="true"/>
     <document name="posts">
-        <entity name="post" query="select Id, Slug, Title, Content from Posts">
+        <entity name="post" query="SELECT Id, Title, Content FROM [Blog].[Posts]">
             <field column="Id" name="Id" />
             <field column="Slug" name="Post_Slug" />
             <field column="Title" name="Post_Title" />
             <field column="Content" name="Post_Content" />
 
-            <entity name="tag" query="select Name as TagName from Tags inner join TagPosts on Id = Tag_Id where Post_Id = '${post.Id}';">
+            <entity name="tag" query="SELECT Name AS TagName FROM [Blog].[Tags] INNER JOIN [Blog].[MapPostTag] ON Id = Tag_Id WHERE Post_Id = '${post.Id}';">
                 <field column="TagName" name="Post_Tags" />
             </entity>
         </entity>
