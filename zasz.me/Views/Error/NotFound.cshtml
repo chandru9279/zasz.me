@@ -21,7 +21,9 @@
             width: 225px;
         }
 
-        .Value { font-weight: bold; }
+        .Value {
+            font-weight: bold;
+        }
     </style>
 
     <script type="text/javascript">
@@ -45,41 +47,41 @@
     </script>
 }
 
+<div class="PageNotFoundImage">
+    <img id="PageNotFoundImage" src="@Url.Content("~/Content/Images/404.png")" alt="404 : Address not found xD"/>
+</div>
+
 @if (Request.IsAuthenticated || Request.IsLocal)
 {
-    <div> Error Details
+    <div>
+        Error Details
         @{
-            if (!string.IsNullOrEmpty((string) ViewBag.OriginalUrl))
-            {
-                <p>Unmatched URL : <span class="Value">@ViewBag.OriginalUrl</span></p>
-            }
-            else if (!string.IsNullOrEmpty((string) ViewBag.MissingAction))
-            {
-                <p>Unknown Action : <span class="Value">@ViewBag.MissingAction</span></p>
-            }
-            else
-            {
-                <p>Action : <span class="Value">@ViewBag.OriginalAction</span> <br /> 
-                    Controller :<span class="Value">@ViewBag.OriginalController</span> <br />
-                    Message : <span class="Value">@Model.Message</span>
-                </p>
-                <div class="Expand-Panel">
-                    <div class="Expand-Button">&darr;&nbsp; Trace &nbsp;&darr;</div>
-                    <div class="Panel">
-                        @Model.ToString()
-                    </div>
+    if (!string.IsNullOrEmpty((string)ViewBag.OriginalUrl))
+    {
+            <p>Unmatched URL : <span class="Value">@ViewBag.OriginalUrl</span></p>
+    }
+    else if (!string.IsNullOrEmpty((string)ViewBag.MissingAction))
+    {
+            <p>Unknown Action : <span class="Value">@ViewBag.MissingAction</span></p>
+    }
+    else
+    {
+            <p>
+                Action : <span class="Value">@ViewBag.OriginalAction</span>
+                <br />
+                Controller :<span class="Value">@ViewBag.OriginalController</span>
+                <br />
+                Message : <span class="Value">@Model.Message</span>
+            </p>
+            <div class="Expand-Panel">
+                <div class="Expand-Button">&darr;&nbsp; Trace &nbsp;&darr;</div>
+                <div class="Panel">
+                    @Model.ToString()
                 </div>
-            }
+            </div>
+    }
         }
     </div>
 }
 <div id="Message" class="Message">
 </div>
-
-
-@section Right
-{
-    <div class="PageNotFoundImage">
-        <img id="PageNotFoundImage" src="@Url.Content("~/Content/Images/404.png")" alt="404 : Address not found xD"/>
-    </div>
-}

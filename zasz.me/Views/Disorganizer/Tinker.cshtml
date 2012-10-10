@@ -7,8 +7,6 @@
 }
 @section Head
 {
-    <link href="@Url.Content("~/Content/jPicker/jPicker-1.1.6.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jpicker-1.1.6.js")" type="text/javascript"> </script>
     <script type="text/javascript">
         $(function() {
             var outputControlContent = $('#OutputControl').html();
@@ -28,11 +26,11 @@
             $('#ForegroundExpandable').jPicker(jPickerConfig);
             $('#BackgroundExpandable').jPicker(jPickerConfig);
             @{
-                var ForeColor = (!string.IsNullOrEmpty(Model.ForegroundColor)) ? Model.ForegroundColor : "FF0000FF";
-                var BackColor = (!string.IsNullOrEmpty(Model.BackgroundColor)) ? Model.BackgroundColor : "FFFFFFFF";
+                var foreColor = (!string.IsNullOrEmpty(Model.ForegroundColor)) ? Model.ForegroundColor : "FF0000FF";
+                var backColor = (!string.IsNullOrEmpty(Model.BackgroundColor)) ? Model.BackgroundColor : "FFFFFFFF";
             };
-            $.jPicker.List[0].color.active.val('ahex', '@ForeColor');
-            $.jPicker.List[1].color.active.val('ahex', '@BackColor');
+            $.jPicker.List[0].color.active.val('ahex', '@foreColor');
+            $.jPicker.List[1].color.active.val('ahex', '@backColor');
 
             $('#RunDisorganizer').click(function() {
                 var formValid = $("#DisorganizerTinker").valid();

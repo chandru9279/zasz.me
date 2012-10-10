@@ -1,77 +1,116 @@
-﻿@using zasz.me
+﻿@using SquishIt.Framework
+@using zasz.me
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>@ViewBag.Title</title>
-    
-        <link href="@Url.Content("~/Content/BlueprintReset.css")" rel="stylesheet" type="text/css" />
-        <link href="@Url.Content("~/Content/Layout.less")" rel="stylesheet" type="text/css" />
-        <link href="@Url.Content("~/Content/jquery-ui/jquery-ui.less")" rel="stylesheet" type="text/css" />
-        @* Order is important, 1st jQuery then other related scripts*@
-        <script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")" type="text/javascript"> </script>
-        <script src="@Url.Content("~/Scripts/jquery-ui-1.8.23.min.js")" type="text/javascript"> </script>
-        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"> </script>    
-        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"> </script>
-        <script src="@Url.Content("~/Scripts/Scripts.coffee")" type="text/javascript"> </script>    
+<head>
+    <title>@ViewBag.Title</title>
 
-        <meta name="robots" content="index, follow" />
-        <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
+    @Html.Raw(Bundle.Css()
+        .Add("~/Content/BlueprintReset.css")
+        .Add("~/Content/Layout.less")
+        .ForceRelease().Render("~/Content/combined_#.css")
+        )
 
-        @RenderSection("Head", false)
-    </head>
+    @Html.Raw(Bundle.Css().Add("~/Content/jquery-ui/jquery-ui.less").ForceRelease().Render("~/Content/jquery-ui/jquery-ui_#.css"))
+    @Html.Raw(Bundle.Css().Add("~/Content/jPicker/jPicker-1.1.6.css").ForceRelease().Render("~/Content/jPicker/jPicker_#.css"))
+    @Html.Raw(Bundle.Css().Add("~/Content/SyntaxHighlighter/shCoreDefault.css").ForceRelease().Render("~/Content/SyntaxHighlighter/shCoreDefault_#.css"))
 
-    <body class="Pro">
-        <div class="Site-In-Center">
-            <div class="Header">
-                <div class="Left">
-                    <img src="@Url.Content("~/Content/Images/Name.png")" alt="CHANDIRASEKAR THIAGARAJAN" class="Banner"/>
-                    <div class="Links">
-                        <a href="https://github.com/chandru9279" target="_blank"><img src="@Url.Content("~/Content/Images/github.ico")" alt="Chandru's Github Profile"/></a>
-                        <a href="http://stackoverflow.com/users/626084/zasz" target="_blank"><img src="@Url.Content("~/Content/Images/stackoverflow.ico")" alt="Chandru's SO Profile"/></a>
-                        <a href="http://in.linkedin.com/in/chandirasekar" target="_blank"><img src="@Url.Content("~/Content/Images/linkedin.ico")" alt="Chandru's LinkedIn Profile"></a>
-                        <a href="http://careers.stackoverflow.com/zasz" target="_blank"><img src="@Url.Content("~/Content/Images/careers.ico")" alt="Chandru's Careers 2.0 Profile"></a>
-                    </div>
+    @* Order is important, 1st jQuery then other related scripts*@
+    @Html.Raw(
+        Bundle.JavaScript()
+        .AddMinified("~/Scripts/jquery-1.8.0.min.js")
+        .AddMinified("~/Scripts/jquery-ui-1.8.23.min.js")
+        .AddMinified("~/Scripts/jquery.validate.min.js")
+        .AddMinified("~/Scripts/jquery.validate.unobtrusive.min.js")
+        .AddRemote("~/Content/skype-cached.js", "http://download.skype.com/share/skypebuttons/js/skypeCheck.js", true)
+        .Add("~/Scripts/jpicker-1.1.6.js")
+        .Add("~/Scripts/Scripts.js")
+        .ForceRelease().Render("~/Scripts/combined_#.js")
+        )
+    @Html.Raw(Bundle.JavaScript()
+        .AddMinified("~/Scripts/ckeditor/ckeditor.js")
+        .Render("~/Scripts/ckeditor/ckeditor_#.js")
+        )
+    @Html.Raw(Bundle.JavaScript()
+        .AddMinified("~/Scripts/SyntaxHighlighter/shCore.js")
+        .AddMinified("~/Scripts/SyntaxHighlighter/shAutoloader.js")
+        .Render("~/Scripts/SyntaxHighlighter/syntaxhighlighter_#.js")
+        )
+
+    <meta name="robots" content="index, follow" />
+    <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
+
+    @RenderSection("Head", false)
+</head>
+
+<body class="Pro">
+    <div class="Site-In-Center">
+        <div class="Header">
+            <div class="Left">
+                <img src="@Url.Content("~/Content/Images/Name.png")" alt="CHANDIRASEKAR THIAGARAJAN" class="Banner"/>
+                <div class="Links">
+                    <a href="https://github.com/chandru9279" target="_blank">
+                        <img src="@Url.Content("~/Content/Images/github.ico")" alt="Chandru's Github Profile"/></a>
+                    <a href="http://stackoverflow.com/users/626084/zasz" target="_blank">
+                        <img src="@Url.Content("~/Content/Images/stackoverflow.ico")" alt="Chandru's SO Profile"/></a>
+                    <a href="http://in.linkedin.com/in/chandirasekar" target="_blank">
+                        <img src="@Url.Content("~/Content/Images/linkedin.ico")" alt="Chandru's LinkedIn Profile"></a>
+                    <a href="http://careers.stackoverflow.com/zasz" target="_blank">
+                        <img src="@Url.Content("~/Content/Images/careers.ico")" alt="Chandru's Careers 2.0 Profile"></a>
                 </div>
-
-                <div class="Right">
-                    <div class="Description">
-                        <ul class="Status-History" id="Status-History">
-                            <li>i am a <div class="Focus">Software Consultant</div></li>
-                            <li>i work at <div class="Focus"><a target="_blank" href="http://www.thoughtworks.com/">ThoughtWorks</a></div></li>
-                            <li>graduated engineer at <div class="Focus"><a target="_blank" href="http://www.annauniv.edu/">Anna University</a></div></li>
-                            <li>interned at <div class="Focus"><a target="_blank" href="http://www.aveoit.com/">Aveo Infotech</a></div></li>
-                            <li>i live in <div class="Focus"><a target="_blank" href="http://maps.google.com/maps/place?ftid=0x3a5265ea4f7d3361:0x6e61a70b6863d433&q=Chennai,+Tamil+Nadu,+India&hl=en&sll=13.060422,80.249583&sspn=0.17394,0.256119&ie=UTF8&z=14">Chennai</a></div></li>
-                        </ul>
-                    </div>
-                </div>
-                <ul class="Main-Menu">
-                    <li><a href="@Url.Action("List", "Blog")">Blog</a></li>
-                    <li><a href="@Url.Action("StackExchange", "Portfolio")">Work</a></li>
-                    <li><a href="@Url.Action("About", "Home")">About</a></li>
-                    <li><a href="@Url.Action("Form", "Contact")">Contact</a></li>
-                    <li><form id="SearchForm" action="@Url.Action("Search", "Home")" method="POST">
-                        <input type="text" id="Search-Box" name="term" class="Search-Box" placeholder="Search" />
-                    </form></li>
-                </ul>
             </div>
-            <div class="Body">
-                @if(ViewContext.Sidebar())
-                {
+
+            <div class="Right">
+                <div class="Description">
+                    <ul class="Status-History" id="Status-History">
+                        <li>i am a
+                            <div class="Focus">Software Consultant</div>
+                        </li>
+                        <li>i work at
+                            <div class="Focus"><a target="_blank" href="http://www.thoughtworks.com/">ThoughtWorks</a></div>
+                        </li>
+                        <li>graduated engineer at
+                            <div class="Focus"><a target="_blank" href="http://www.annauniv.edu/">Anna University</a></div>
+                        </li>
+                        <li>interned at
+                            <div class="Focus"><a target="_blank" href="http://www.aveoit.com/">Aveo Infotech</a></div>
+                        </li>
+                        <li>i live in
+                            <div class="Focus"><a target="_blank" href="http://maps.google.com/maps/place?ftid=0x3a5265ea4f7d3361:0x6e61a70b6863d433&q=Chennai,+Tamil+Nadu,+India&hl=en&sll=13.060422,80.249583&sspn=0.17394,0.256119&ie=UTF8&z=14">Chennai</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="Main-Menu">
+                <li><a href="@Url.Action("List", "Blog")">Blog</a></li>
+                <li><a href="@Url.Action("StackExchange", "Portfolio")">Work</a></li>
+                <li><a href="@Url.Action("About", "Home")">About</a></li>
+                <li><a href="@Url.Action("Form", "Contact")">Contact</a></li>
+                <li>
+                    <form id="SearchForm" action="@Url.Action("Search", "Home")" method="POST">
+                        <input type="text" id="Search-Box" name="term" class="Search-Box" placeholder="Search" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <div class="Body">
+            @if (ViewContext.Sidebar())
+            {
                 <div class="Left">
                     <div class="Body-Min-Height">
                         @RenderBody()
                     </div>
                 </div>
-                <div class="Right">                        
+                <div class="Right">
                     @RenderSection("Right", false)
                 </div>    
-                }
-                else
-                {
-                    @RenderBody();
-                }
-            </div>
+            }
+            else
+            {
+                @RenderBody();
+            }
         </div>
-        @RenderSection("Bottom", false)
-    </body>
+    </div>
+    @RenderSection("Bottom", false)
+</body>
 </html>

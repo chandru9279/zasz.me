@@ -1,5 +1,5 @@
-﻿@model int
-
+﻿@using SquishIt.Framework
+@model int
 @{
     Layout = null;
 }
@@ -7,18 +7,31 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>StackTack - @Model</title>
-        <script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")" type="text/javascript"> </script>
-        <link href="@Url.Content("~/Content/Stacktack.css")" rel="stylesheet" />
-        <script src="@Url.Content("~/Scripts/stacktack.js")" type="text/javascript" ></script>
-        <script type="text/javascript" >
-            $(function () {
-                $('#Tackz').stacktack({ width: '900px', stylesheet: '@Url.Content("~/Content/Stacktack.css")' });
-        });
-    </script> 
-    </head>
-    <body id="Tackz">
-        <div id='stacktack-@Model'></div>
-    </body>
+<head>
+    <title>StackTack - @Model</title>
+    @Html.Raw(
+        Bundle.Css()
+        .Add("~/Content/Stacktack.css")
+        .ForceRelease()
+        .Render("~/Content/stacktack_#.css")
+        )
+
+    @* Order is important, 1st jQuery then other related scripts*@
+    @Html.Raw(
+        Bundle.JavaScript()
+        .AddMinified("~/Scripts/jquery-1.8.0.min.js")
+        .Add("~/Scripts/stacktack.js")
+        .ForceRelease()
+        .Render("~/Scripts/stacktack_#.js")
+        )
+
+    <script type="text/javascript">
+        $(function () {
+            $('#Tackz').stacktack({ width: '900px', stylesheet: '@Url.Content("~/Content/Stacktack.css")' });
+            });
+    </script>
+</head>
+<body id="Tackz">
+    <div id='stacktack-@Model'></div>
+</body>
 </html>
