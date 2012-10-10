@@ -19,3 +19,6 @@ Solr/logs/
 Solr/work/
 Solr/solr/data/
 Solr/solr/conf/dataimport.properties
+
+*_generated.js
+*_generated.css

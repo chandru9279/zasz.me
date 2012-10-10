@@ -13,7 +13,7 @@
         Bundle.Css()
         .Add("~/Content/Stacktack.css")
         .ForceRelease()
-        .Render("~/Content/stacktack_#.css")
+        .Render("~/Content/stacktack_#_generated.css")
         )
 
     @* Order is important, 1st jQuery then other related scripts*@
@@ -22,7 +22,7 @@
         .AddMinified("~/Scripts/jquery-1.8.0.min.js")
         .Add("~/Scripts/stacktack.js")
         .ForceRelease()
-        .Render("~/Scripts/stacktack_#.js")
+        .Render("~/Scripts/stacktack_#_generated.js")
         )
 
     <script type="text/javascript">
