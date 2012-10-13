@@ -28,10 +28,6 @@
         .ForceRelease().Render("~/Scripts/combined_#_generated.js")
         )
     @Html.Raw(Bundle.JavaScript()
-        .AddMinified("~/Scripts/ckeditor/ckeditor.js")
-        .Render("~/Scripts/ckeditor/ckeditor_#_generated.js")
-        )
-    @Html.Raw(Bundle.JavaScript()
         .AddMinified("~/Scripts/SyntaxHighlighter/shCore.js")
         .AddMinified("~/Scripts/SyntaxHighlighter/shAutoloader.js")
         .Render("~/Scripts/SyntaxHighlighter/syntaxhighlighter_#_generated.js")
@@ -39,7 +35,7 @@
 
     <meta name="robots" content="index, follow" />
     <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" ></script>
     @RenderSection("Head", false)
 </head>
 

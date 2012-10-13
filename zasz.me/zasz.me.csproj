@@ -278,6 +278,16 @@
     <Content Include="Content\Images\stackoverflow.ico" />
     <Content Include="Content\Images\stacktack.png" />
     <Content Include="Content\Images\WorkArrow.png" />
+    <Content Include="Content\jPicker\Images\AlphaBar.png" />
+    <Content Include="Content\jPicker\Images\bar-opacity.png" />
+    <Content Include="Content\jPicker\Images\Bars.png" />
+    <Content Include="Content\jPicker\Images\map-opacity.png" />
+    <Content Include="Content\jPicker\Images\mappoint.gif" />
+    <Content Include="Content\jPicker\Images\Maps.png" />
+    <Content Include="Content\jPicker\Images\NoColor.png" />
+    <Content Include="Content\jPicker\Images\picker.gif" />
+    <Content Include="Content\jPicker\Images\preview-opacity.png" />
+    <Content Include="Content\jPicker\Images\rangearrows.gif" />
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
     <Content Include="Content\Blog.less" />
     <Content Include="Content\Layout.less" />
