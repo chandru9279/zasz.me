@@ -25,11 +25,11 @@ namespace zasz.me.Controllers
 
         [HttpPost]
         [Secure]
-        public ActionResult Unlock(string passPhrase, string returnUrl)
+        public ActionResult Unlock(string passphrase, string returnUrl)
         {
             var algorithm = new SHA256Cng();
             var unicoding = new UnicodeEncoding();
-            var hashed = unicoding.GetString(algorithm.ComputeHash(unicoding.GetBytes(passPhrase)));
+            var hashed = unicoding.GetString(algorithm.ComputeHash(unicoding.GetBytes(passphrase)));
             if (hashed == "嘃ᥐ倹⦦듑ꈳ囬쀺诫谾臭ᰠ屯") 
             {
                 FormsAuthentication.SetAuthCookie("Manager", false);

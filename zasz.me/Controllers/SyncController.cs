@@ -10,6 +10,7 @@ using zasz.me.Services.Contracts;
 namespace zasz.me.Controllers
 {
     [LoggedIn]
+    [Secure]
     public class SyncController : BaseController
     {
         public const string PostsFolder = @"\App_Data\Posts\";
