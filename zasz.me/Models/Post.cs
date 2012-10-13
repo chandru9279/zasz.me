@@ -32,7 +32,7 @@ namespace zasz.me.Models
             get { return Tags == null ? "" : string.Join(" ", TagStrings); }
         }
 
-        [Required]
+        [RequiredDatetime]
         public DateTime Timestamp { get; set; }
 
         [NotMapped]

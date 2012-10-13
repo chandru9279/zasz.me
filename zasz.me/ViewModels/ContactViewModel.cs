@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using zasz.me.Integration.MVC;
+using zasz.me.Services;
 
 namespace zasz.me.ViewModels
 {
@@ -15,7 +16,7 @@ namespace zasz.me.ViewModels
          */
 
         [Email]
-        [Required(ErrorMessage = EmailAttribute.RequiredMessage)]
+        [Required(ErrorMessage = Messages.EmailRequiredMessage)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "You forgot to key in the message!")]

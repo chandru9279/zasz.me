@@ -1,4 +1,8 @@
-﻿using Xunit;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Xunit;
+using zasz.health.Builders;
+using zasz.me;
 using zasz.me.Models;
 
 namespace zasz.health.ModelTests
@@ -52,6 +56,37 @@ namespace zasz.health.ModelTests
             Assert.False(result.Contains("<"));
             Assert.False(result.Contains(">"));
             Assert.Equal("ShortContent", result);
+        }
+
+        [Fact]
+        public void SlugIsRequiredForPost()
+        {
+            var p = new PostBuilder().Build().Post;
+            p.Slug = "";
+            Assert.Throws<ValidationException>(() => p.Validate());
+        }
+
+        [Fact]
+        public void TitleIsRequiredForPost()
+        {
+            var p = new PostBuilder().Build().Post;
+            p.Title = "";
+            Assert.Throws<ValidationException>(() => p.Validate());
+        }
+
+        [Fact]
+        public void TimestampIsRequiredForPost()
+        {
+            var p = new PostBuilder().Build().Post;
+            p.Timestamp = default(DateTime);
+            Assert.Throws<ValidationException>(() => p.Validate());
+        }
+
+        [Fact]
+        public void PostbuilderBuildsValidPost()
+        {
+            var p = new PostBuilder().Build().Post;
+            p.Validate();
         }
     }
 }

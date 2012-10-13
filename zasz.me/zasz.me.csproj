@@ -152,6 +152,7 @@
     <Compile Include="Integration\EntityFramework\AnswerRepository.cs" />
     <Compile Include="Integration\EntityFramework\DbConstants.cs" />
     <Compile Include="Integration\EntityFramework\FullContext.cs" />
+    <Compile Include="Integration\MVC\RequiredDatetime.cs" />
     <Compile Include="Migrations\201209291525495_RenamingEntities.cs" />
     <Compile Include="Migrations\201209291525495_RenamingEntities.Designer.cs">
       <DependentUpon>201209291525495_RenamingEntities.cs</DependentUpon>
