@@ -52,7 +52,7 @@ task test -depends compile {
 task db -depends migrate, migratetest
 
 
-task migrate -depends compile { 
+task migrate -depends build { 
 	$migrator = $ToolsPath + 'Migrations\migrate.exe'  
 	$migrateCommand = "$migrator zasz.me.dll /StartUpDirectory=$SolutionPath\zasz.me\bin\ /connectionStringName:FullContext /startUpConfigurationFile:$SolutionPath\zasz.me\Web.config /verbose"
 	Write-Host $migrateCommand
