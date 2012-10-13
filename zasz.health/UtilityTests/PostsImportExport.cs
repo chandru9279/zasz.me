@@ -8,6 +8,7 @@ using System.Web;
 using System.Xml;
 using zasz.me;
 using zasz.me.Controllers;
+using zasz.me.Controllers.Utils;
 using zasz.me.Models;
 using zasz.me.Services.Concrete.PostPopulators;
 
@@ -70,7 +71,7 @@ namespace zasz.health.UtilityTests
 
         public void ExportToFolders(List<Post> posts)
         {
-            var postsFolder = TestX.RepoPath + @"\zasz.me" + SyncController.PostsFolder;
+            var postsFolder = TestX.RepoPath + @"\zasz.me" + Constants.PostsFolder;
             foreach (var post in posts)
             {
                 var postDirectoryInfo = Directory.CreateDirectory(postsFolder + post.Slug);

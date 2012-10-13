@@ -738,6 +738,7 @@
     <Content Include="App_Code\Render.cshtml" />
     <Content Include="Views\Portfolio\Tack.cshtml" />
     <Content Include="Views\Sync\Database.cshtml" />
+    <Content Include="Views\Sync\Solr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

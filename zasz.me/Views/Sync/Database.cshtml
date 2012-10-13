@@ -6,17 +6,19 @@
 
 <p class="Prominant">sync complete</p>
 <div class="Section">
-<ul id="Threads">
-    @foreach (var messageOrError in Model)
-    {
-        if(messageOrError.Other)
+    <ul id="Threads">
+        @foreach (var messageOrError in Model)
         {
-            <li>@messageOrError.One</li>
+            if(messageOrError.Other)
+            {
+                <li>@messageOrError.One</li>
+            }
+            else
+            {
+                <li class="field-validation-error">@messageOrError.One</li>
+            }
         }
-        else
-        {
-            <li class="field-validation-error">@messageOrError.One</li>
-        }
-    }
-</ul>    
+    </ul>    
 </div>
+
+<a href="@Url.Action("Unlock", "Unlocker")">Manage</a>

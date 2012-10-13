@@ -56,5 +56,8 @@ romance, 4
                 dictionary.Add(pair[0], pair[1]);
             return dictionary;
         }
+
+        public const string PostsFolder = @"\App_Data\Posts\";
+        public const string SolrReindexUrl = @"http://localhost:5000/solr/dataimport?verbose=true&clean=true&commit=true&command=full-import";
     }
 }

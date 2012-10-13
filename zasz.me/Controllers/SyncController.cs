@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using zasz.me.Controllers.Utils;
 using zasz.me.Integration.MVC;
 using zasz.me.Models;
 using zasz.me.Services;
@@ -14,7 +15,6 @@ namespace zasz.me.Controllers
     [Secure]
     public class SyncController : BaseController
     {
-        public const string PostsFolder = @"\App_Data\Posts\";
         private readonly List<IPostPopulator> populators;
         private readonly IPostRepository posts;
 
@@ -29,7 +29,7 @@ namespace zasz.me.Controllers
         public ActionResult Database()
         {
             posts.DeleteAll();
-            var folders = Directory.GetDirectories(Server.MapPath("~" + PostsFolder));
+            var folders = Directory.GetDirectories(Server.MapPath("~" + Constants.PostsFolder));
             var messagesAndErrors = new List<Pair<string, bool>>();
             foreach (var folder in folders)
             {
@@ -56,7 +56,15 @@ namespace zasz.me.Controllers
 
         public ActionResult Solr()
         {
-            return null;
+            try
+            {
+                var xml = new System.Net.WebClient().DownloadString(Constants.SolrReindexUrl);
+                return View(model: xml);
+            }
+            catch(Exception e)
+            {
+                return View(model: e.Message);
+            }
         }
     }
 }
