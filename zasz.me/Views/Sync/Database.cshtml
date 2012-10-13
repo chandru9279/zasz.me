@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model List<zasz.me.Services.Pair<string, bool>>
 
 @{
     ViewBag.Title = "Sync";
@@ -7,9 +7,16 @@
 <p class="Prominant">sync complete</p>
 <div class="Section">
 <ul id="Threads">
-    @foreach (var error in Model)
+    @foreach (var messageOrError in Model)
     {
-        <li>@error</li>
+        if(messageOrError.Other)
+        {
+            <li>@messageOrError.One</li>
+        }
+        else
+        {
+            <li class="field-validation-error">@messageOrError.One</li>
+        }
     }
 </ul>    
 </div>

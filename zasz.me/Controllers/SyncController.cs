@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using zasz.me.Integration.MVC;
 using zasz.me.Models;
+using zasz.me.Services;
 using zasz.me.Services.Contracts;
 
 namespace zasz.me.Controllers
@@ -29,28 +30,28 @@ namespace zasz.me.Controllers
         {
             posts.DeleteAll();
             var folders = Directory.GetDirectories(Server.MapPath("~" + PostsFolder));
-            var errors = new List<string>();
+            var messagesAndErrors = new List<Pair<string, bool>>();
             foreach (var folder in folders)
             {
                 var entry = new Post();
                 var dir = new DirectoryInfo(folder);
-                var postErrors = populators.Select(x =>
+                var postMessagesAndErrors = populators.Select(x =>
                                                      {
                                                          try
                                                          {
                                                              x.Populate(entry, dir);
-                                                             return string.Format("{0} | {1} is OK.", entry.Slug, x.GetType().Name);
+                                                             return new Pair<string, bool>(string.Format("{0} | {1} is OK.", entry.Slug, x.GetType().Name), true);
                                                          }
                                                          catch (Exception e)
                                                          {
-                                                             return string.Format("{0} | {1} | {2}", entry.Slug, e.GetType(), e.Message);
+                                                             return new Pair<string, bool>(string.Format("{0} | {1} | {2}", entry.Slug, e.GetType(), e.Message), false);
                                                          }
                                                      }).ToList();
-                errors.AddRange(postErrors);
-                if (!postErrors.Any()) posts.Save(entry);
+                messagesAndErrors.AddRange(postMessagesAndErrors);
+                if (postMessagesAndErrors.All(x => x.Other)) posts.Save(entry);
                 posts.Commit();
             }
-            return View(errors);
+            return View(messagesAndErrors);
         }
 
         public ActionResult Solr()
