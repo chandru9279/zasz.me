@@ -254,6 +254,7 @@
     <Compile Include="Services\TagCloud\DisplayStrategy.cs" />
     <Compile Include="ViewModels\PostListViewModel.cs" />
     <Compile Include="ViewModels\TinkerModel.cs" />
+    <Compile Include="ViewModels\UnlockerModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BlueprintReset.css" />

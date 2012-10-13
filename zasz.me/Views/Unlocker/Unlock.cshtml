@@ -1,19 +1,35 @@
 ﻿@{
     ViewBag.Title = "Unlock";
-    ViewBag.Submit = Request.RawUrl;
 }
-
-@using(Html.BeginForm("Unlock", "Unlocker"))
+@model zasz.me.ViewModels.UnlockerModel
+@if (!Request.IsAuthenticated)
 {
+    using (Html.BeginForm("Unlock", "Unlocker"))
+    {
     <div class="Login-Box">
         <div class="Prominant">Unlock</div>
 
-        @Html.Label("passphrase", "Passphrase : ")
-        @Html.Password("passphrase")
+        @Html.LabelFor(x => x.Passphrase, "Passphrase : ")
+        @Html.PasswordFor(x => x.Passphrase)
+        @Html.ValidationMessageFor(x => x.Passphrase)
         <br />
+        @Html.HiddenFor(x => x.ReturnUrl)
         <br />
     </div>
-    <div style="margin: 10px auto; text-align: center; width: 100%;">
+    <div style="margin: 10px auto; text-align: center; width: 60px;">
         <span><input type="submit" value="Unlock" class="Button" /></span>
+    </div>
+    }
+}
+else
+{
+    <div style="margin: 20px 0px; width: 100px;">
+        @(Html.ActionLink("LOCK", "Lock", null, new { @class = "Button" }))
+    </div>
+    <div style="margin: 20px 0px; width: 100px;">
+        @(Html.ActionLink("SYNC DB", "Database", "Sync", null, new { @class = "Button" }))
+    </div>
+    <div style="margin: 20px 0px; width: 100px;">
+        @(Html.ActionLink("SYNC Solr", "Solr", "Sync", null, new { @class = "Button" }))
     </div>
 }

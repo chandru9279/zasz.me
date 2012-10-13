@@ -26,14 +26,12 @@
             <tr>
                 <td>@Social.FacebookLike(Model.Permalink)</td>
                 <td>@Social.Tweet(Model.Permalink, Model.Title + " -Chandru")</td>                 
-                @if (Request.IsAuthenticated)
-                {
-                    <td>
-                        <span>Manage :</span>
-                        <a href="@Url.Action("Delete", "Blog")/@Model.Slug">Hide</a>
-                    </td>
-                }            
             </tr>
         </table>
     </div>
+    @if (Request.IsAuthenticated)
+    {
+            <div class="Prominant">manage</div>
+            <a href="@Url.Action("Delete", "Blog")/@Model.Slug">hide</a>
+    }            
 </div>
