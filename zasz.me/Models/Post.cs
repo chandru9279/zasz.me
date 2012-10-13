@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Web.Mvc;
 using HtmlAgilityPack;
 using SolrNet.Attributes;
+using zasz.me.Controllers.Utils;
 using zasz.me.Integration.MVC;
 
 namespace zasz.me.Models
@@ -35,17 +37,11 @@ namespace zasz.me.Models
         [RequiredDatetime]
         public DateTime Timestamp { get; set; }
 
-        [NotMapped]
-        public string Permalink
-        {
-            get { return string.Format("http://zasz.me/Blog/Post/{0}", Slug); }
-        }
-
         [SolrField("Post_Tags")]
         public virtual List<string> TagStrings
         {
             get { return Tags.Select(x => x.Name).ToList(); }
-            set { Tags = value.Select(x => new Tag {Name = x}).ToList(); }
+            set { Tags = value.Select(x => new Tag { Name = x }).ToList(); }
         }
 
         #region IModel Members
@@ -55,6 +51,16 @@ namespace zasz.me.Models
         public Guid Id { get; set; }
 
         #endregion
+
+        public string ThumbnailLink(UrlHelper url)
+        {
+            return string.Format("{0}{1}/{2}", Constants.BaseUrl, url.Action("Thumbnail", "Blog"), Slug);
+        }
+
+        public string Permalink(UrlHelper url)
+        {
+            return string.Format("{0}{1}/{2}", Constants.BaseUrl, url.Action("Post", "Blog"), Slug);
+        }
 
         public string GetDescription(int threshold)
         {

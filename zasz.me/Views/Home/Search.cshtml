@@ -7,7 +7,7 @@
 @Model.Spellchecking
 @foreach (var result in Model.Results)
 {
-    <a href="@result.Post.Permalink">@result.Post.Title</a>
+    <a href="@result.Post.Permalink(Url)">@result.Post.Title</a>
     <br />
     @Html.Raw(result.Snippet)<br />
     <br />

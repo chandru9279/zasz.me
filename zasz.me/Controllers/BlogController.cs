@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using Elmah;
+using zasz.me.Controllers.Utils;
 using zasz.me.Models;
 using zasz.me.Services.Contracts;
 using zasz.me.Services.TagCloud;
@@ -26,6 +27,21 @@ namespace zasz.me.Controllers
         public ActionResult ArchiveControl()
         {
             return PartialView(Posts.PostedMonthsYearGrouped());
+        }
+
+        [OutputCache(Duration = 3600)]
+        public ActionResult Thumbnail([Bind(Prefix = "id")]string slug)
+        {
+            return File(Server.MapPath("~" + Constants.PostsFolder + slug + Constants.AnchorPng),
+                Constants.PngContentType);
+        }
+
+        [OutputCache(Duration = 3600)]
+        public ActionResult PostContent(string slug, string contentName)
+        {
+            return File(Server.MapPath(
+                Server.MapPath("~" + Constants.PostsFolder + slug + Constants.PostContent + @"\" + contentName)),
+                Constants.PngContentType);
         }
 
         public FileContentResult TagCloud()
@@ -65,7 +81,7 @@ namespace zasz.me.Controllers
             TempData["TagCloudBorders"] = borders;
             var stream = new MemoryStream();
             bitmap.Save(stream, ImageFormat.Png);
-            return File(stream.ToArray(), "image/png");
+            return File(stream.ToArray(), Constants.PngContentType);
         }
 
         public ViewResult TagCloudLinks()

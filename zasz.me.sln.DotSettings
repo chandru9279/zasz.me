@@ -6,6 +6,8 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B652A23D_002D604D_002D40F7_002D9D13_002D984EEAD99B68_002Fd_003AContent/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B652A23D_002D604D_002D40F7_002D9D13_002D984EEAD99B68_002Fd_003AScripts_002Fd_003Ackeditor/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B652A23D_002D604D_002D40F7_002D9D13_002D984EEAD99B68_002Fd_003AScripts_002Fd_003ASyntaxHighlighter/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=B652A23D_002D604D_002D40F7_002D9D13_002D984EEAD99B68_002Fd_003AScripts_002Fd_003Ackeditor/@EntryIndexedValue">B652A23D-604D-40F7-9D13-984EEAD99B68/d:Scripts/d:ckeditor</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=B652A23D_002D604D_002D40F7_002D9D13_002D984EEAD99B68_002Fd_003AScripts_002Fd_003ASyntaxHighlighter/@EntryIndexedValue">B652A23D-604D-40F7-9D13-984EEAD99B68/d:Scripts/d:SyntaxHighlighter</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=AssignNullToNotNullAttribute/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=EmptyGeneralCatchClause/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantArgumentNameForLiteralExpression/@EntryIndexedValue">DO_NOT_SHOW</s:String>

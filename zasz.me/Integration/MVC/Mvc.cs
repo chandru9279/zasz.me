@@ -23,6 +23,12 @@ namespace zasz.me.Integration.MVC
                 );
 
             routes.MapRoute(
+                "ContentRouting",
+                "Blog/Post/{slug}/Content/{contentName}",
+                new {controller = "Blog", action = "PostContent"}
+                );
+            
+            routes.MapRoute(
                 "TagRouting",
                 "Blog/Tag/{tag}/{page}",
                 new {controller = "Blog", action = "Tag", page = UrlParameter.Optional}

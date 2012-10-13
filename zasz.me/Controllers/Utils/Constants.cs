@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Web;
 using zasz.me.Services;
 
 namespace zasz.me.Controllers.Utils
@@ -22,7 +24,7 @@ namespace zasz.me.Controllers.Utils
                 new[] {"J#", "f-sharp"}
             };
 
-        public static char[] Shredders = new[] {' ', ',', ';', '|'};
+        public static char[] Shredders = new[] { ' ', ',', ';', '|' };
 
         public static Pairs<string, int> Months =
             new Pairs<string, int>(
@@ -32,7 +34,7 @@ namespace zasz.me.Controllers.Utils
                         ,
                         "November", "December"
                     },
-                new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
+                new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
 
         public static string DefaultWordList = @"asp.net, 15
 games, 10
@@ -58,6 +60,19 @@ romance, 4
         }
 
         public const string PostsFolder = @"\App_Data\Posts\";
-        public const string SolrReindexUrl = @"http://localhost:5000/solr/dataimport?verbose=true&clean=true&commit=true&command=full-import";
+
+        public const string SolrReindexUrl =
+            @"http://localhost:5000/solr/dataimport?verbose=true&clean=true&commit=true&command=full-import";
+
+        public const string PngContentType = "image/png";
+        public const string PostContent = @"\Content";
+        public const string AnchorPng = PostContent + @"\Anchor.png";
+
+        public static string BaseUrl
+        {
+            get { return string.Format("http://{0}:{1}", 
+                HttpContext.Current.Request.Url.Host, 
+                HttpContext.Current.Request.Url.Port); }
+        }
     }
 }

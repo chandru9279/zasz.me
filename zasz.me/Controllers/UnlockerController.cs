@@ -2,6 +2,7 @@
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
+using zasz.me.Controllers.Utils;
 using zasz.me.Integration.MVC;
 using zasz.me.Models;
 using zasz.me.ViewModels;
@@ -34,7 +35,7 @@ namespace zasz.me.Controllers
             if (hashed == "嘃ᥐ倹⦦듑ꈳ囬쀺诫谾臭ᰠ屯")
             {
                 FormsAuthentication.SetAuthCookie("Manager", false);
-                var url = GetHttpUrl(model.ReturnUrl ?? Url.Action("Unlock"));
+                var url = Constants.BaseUrl + (model.ReturnUrl ?? Url.Action("Unlock"));
                 return Redirect(url);
             }
             ModelState.AddModelError("AuthenticationFailed", "Wrong Passphrase");
@@ -45,12 +46,7 @@ namespace zasz.me.Controllers
         public ActionResult Lock()
         {
             FormsAuthentication.SignOut();
-            return Redirect(GetHttpUrl("/Home"));
-        }
-
-        private string GetHttpUrl(string path)
-        {
-            return string.Format("http://{0}:{1}{2}", Request.Url.Host, Request.Url.Port, path);
+            return Redirect(Constants.BaseUrl + "/Home");
         }
     }
 }

@@ -5,6 +5,7 @@
 
 .Post-Title
 {
+	.stackleft();
     font-size:24px; 
 }
 
@@ -18,11 +19,24 @@
 
 .Date
 {
+	.stackleft();
     color: @silver;
     font-size: 18px;
 	text-transform: uppercase;
     background-position: left;
     background-repeat: no-repeat;
+}
+
+.Post-Present
+{
+	.stackleft();
+	.Anchor
+	{
+		.stackleft();
+		margin: 10px;
+		min-width: 150px;
+		min-height: 150px;
+	}
 }
 
 .Post-Content
@@ -80,7 +94,9 @@
 
 .Short-Footer
 {
+	.stackleft();
 	color: @sky;
+	widht: 100%;
 	a 
 	{
 		color: @sky;

@@ -2,23 +2,24 @@
 <div class="Post">
     <a class="Post-Title" href="@Url.Action("Post", "Blog")/@Model.Slug">@Model.Title</a>
     <div class="Date">@Model.Timestamp.ToString("f")</div>
-    <div class="Post-Content">@Html.Raw(Model.GetDescription(ViewBag.DescriptionLength))  </div>
-    
+    <p class="Post-Present">
+        <img src="@Model.ThumbnailLink(Url)" alt="@Model.Title" class="Anchor"/>
+        @Html.Raw(Model.GetDescription(ViewBag.DescriptionLength)) 
+    </p>
     <div class="Short-Footer">
-        @if (Model.Tags.Count == 0)
-        {
-            <span>No tags!</span>
-        }
-        else
-        {
-            <span>tagged : </span>
-            foreach (var tag in Model.Tags)
+            @if (Model.Tags.Count == 0)
             {
-                <a href="@Url.Action("Tag", "Blog")/@tag.Name">@tag.Name</a>
+                <span>No tags!</span>
             }
-        }
-        &nbsp;|&nbsp; <a href="@Url.Action("Post","Blog")/@Model.Slug#disqus_thread" data-disqus-identifier="@Model.Slug">Comments and Reactions</a>
-        <a class="More" href="@Url.Action("Post", "Blog")/@Model.Slug">read more</a>
-    </div>
-
+            else
+            {
+                <span>tagged : </span>
+                foreach (var tag in Model.Tags)
+                {
+                    <a href="@Url.Action("Tag", "Blog")/@tag.Name">@tag.Name</a>
+                }
+            }
+            &nbsp;|&nbsp; <a href="@Url.Action("Post","Blog")/@Model.Slug#disqus_thread" data-disqus-identifier="@Model.Slug">Comments and Reactions</a>
+            <a class="More" href="@Url.Action("Post", "Blog")/@Model.Slug">read more</a>
+     </div>
 </div>
