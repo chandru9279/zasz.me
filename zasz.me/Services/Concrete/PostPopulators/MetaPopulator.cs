@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using zasz.me.Controllers.Utils;
 using zasz.me.Models;
 using zasz.me.Services.Contracts;
 
@@ -34,7 +33,9 @@ namespace zasz.me.Services.Concrete.PostPopulators
 
         internal virtual DateTime GetTime(string timestamp)
         {
-            return DateTime.ParseExact(timestamp, DateFormat, IndiaCulture);
+            var dateTime = DateTime.ParseExact(timestamp, DateFormat, IndiaCulture);
+            if (dateTime == default(DateTime)) throw new Exception("Datetime parse error : " + timestamp);
+            return dateTime;
         }
 
         internal virtual List<Tag> GetTags(string tags)

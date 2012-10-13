@@ -34,6 +34,12 @@ task deploy -depends build, migrate, solrs {
 }
 
 
+task deploycode -depends build {
+	Trace-Robocopy { robocopy $BuildPath $DeployPath /E /NJH /NJS }
+	Write-Host -ForegroundColor Green "Deployed to $DeployPath."
+}
+
+
 task test -depends compile { 
 	$xUnit = $ToolsPath + 'xUnit\xunit.console.clr4.x86.exe'  
 	$testCommand = "$xUnit $SolutionPath\zasz.health\bin\zasz.health.dll /html $SolutionPath\Out\TestResults.html"
