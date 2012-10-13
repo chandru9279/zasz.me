@@ -6,6 +6,7 @@ properties {
 	$SolrPath = "$SolutionPath\Solr\"
 	$DeployPath = "C:\Bin\zasz.me\"
 	$BuildPath = "$SolutionPath\Out\Deploy"
+    $MigrateTest = $true
 }
 
 
@@ -27,7 +28,7 @@ task zip -depends build {
 }
 
 
-task deploy -depends build {
+task deploy -depends build, migrate, solrs {
 	Trace-Robocopy { robocopy $BuildPath $DeployPath /E /NJH /NJS }
 	Write-Host -ForegroundColor Green "Deployed to $DeployPath."
 }
@@ -42,15 +43,24 @@ task test -depends compile {
 }
 
 
-task db -depends compile { 
+task db -depends migrate, migratetest
+
+
+task migrate -depends compile { 
 	$migrator = $ToolsPath + 'Migrations\migrate.exe'  
 	$migrateCommand = "$migrator zasz.me.dll /StartUpDirectory=$SolutionPath\zasz.me\bin\ /connectionStringName:FullContext /startUpConfigurationFile:$SolutionPath\zasz.me\Web.config /verbose"
 	Write-Host $migrateCommand
 	exec { Invoke-Expression $migrateCommand }
-	Write-Host -ForegroundColor Green "Migrated db to the latest version. Now migrating test db.. "    
-    $migrateCommand = "$migrator zasz.me.dll /StartUpDirectory=$SolutionPath\zasz.health\bin\ /connectionStringName:TestContext /startUpConfigurationFile:$SolutionPath\zasz.health\App.config /verbose"
+	Write-Host -ForegroundColor Green "Migrated db to the latest version."        
+}
+
+
+task migratetest -depends compile { 
+	$migrator = $ToolsPath + 'Migrations\migrate.exe'  
+	$migrateCommand = "$migrator zasz.me.dll /StartUpDirectory=$SolutionPath\zasz.health\bin\ /connectionStringName:TestContext /startUpConfigurationFile:$SolutionPath\zasz.health\App.config /verbose"
+    Write-Host $migrateCommand
     exec { Invoke-Expression $migrateCommand }
-    Write-Host -ForegroundColor Green "Migrated test db also."    
+    Write-Host -ForegroundColor Green "Migrated test db."    
 }
 
 
