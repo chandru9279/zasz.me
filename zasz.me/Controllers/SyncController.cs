@@ -34,20 +34,20 @@ namespace zasz.me.Controllers
             {
                 var entry = new Post();
                 var dir = new DirectoryInfo(folder);
-                errors.AddRange(populators.Select(x =>
-                                {
-                                    try
-                                    {
-                                        x.Populate(entry, dir);
-                                        return string.Format("{0} | {1} is OK.", entry.Slug, x.GetType().Name);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        return string.Format("{0} | {1} | {2}", 
-                                            entry.Slug, e.GetType(), e.Message);
-                                    }
-                                }));
-                posts.Save(entry);
+                var postErrors = populators.Select(x =>
+                                                     {
+                                                         try
+                                                         {
+                                                             x.Populate(entry, dir);
+                                                             return string.Format("{0} | {1} is OK.", entry.Slug, x.GetType().Name);
+                                                         }
+                                                         catch (Exception e)
+                                                         {
+                                                             return string.Format("{0} | {1} | {2}", entry.Slug, e.GetType(), e.Message);
+                                                         }
+                                                     }).ToList();
+                errors.AddRange(postErrors);
+                if (!postErrors.Any()) posts.Save(entry);
                 posts.Commit();
             }
             return View(errors);
