@@ -27,9 +27,7 @@ namespace zasz.me.Controllers.Utils
 
         public static string BaseUrl()
         {
-            return String.Format("http://{0}:{1}",
-                                 HttpContext.Current.Request.Url.Host,
-                                 HttpContext.Current.Request.Url.Port);
+            return String.Format("http://{0}", HttpContext.Current.Request.Url.Host);
         }
 
         public static string ContentType(string contentName)
