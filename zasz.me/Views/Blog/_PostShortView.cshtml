@@ -2,7 +2,7 @@
 <div class="Post">
     <a class="Post-Title" href="@Url.Action("Post", "Blog")/@Model.Slug">@Model.Title</a>
     <div class="Date">@Model.Timestamp.ToString("f")</div>
-    <p class="Post-Present">
+    <p class="Post-Content">
         <img src="@Model.ThumbnailLink(Url)" alt="@Model.Title" class="Anchor"/>
         @Html.Raw(Model.GetDescription(ViewBag.DescriptionLength)) 
     </p>

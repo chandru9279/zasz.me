@@ -1,5 +1,6 @@
 ﻿.Post
 {
+	.stackleft();
 	margin: 20px 0px;
 }
 
@@ -27,9 +28,8 @@
     background-repeat: no-repeat;
 }
 
-.Post-Present
+.Post-Content
 {
-	.stackleft();
 	.Anchor
 	{
 		.stackleft();
@@ -37,32 +37,23 @@
 		min-width: 150px;
 		min-height: 150px;
 	}
-}
-
-.Post-Content
-{
+	.stackleft();
+	padding: 10px 0px;
     ul
 	{
-		margin-left: 20px;
+		margin: 10px;
 		list-style-type: disc;
 	}
 	ol
 	{
-		margin-left: 20px;
+		margin-left: 10px;
 		list-style-type: decimal;		
 	}
-	em, strong
-	{
-		font-weight: bold;
-	}
-	p
-	{
-		margin: 30px 0px;
-	}
-	a 
-	{
-		color: @sky;
-	}	
+	em, strong { font-weight: bold; }
+	p { margin-bottom: 15px; }
+	a { color: @sky; }	
+	img.Surround { .stackleft(); margin: 10px; }	
+	img.Block { display: block; margin: 10px; }	
 }
 
 .Tags
@@ -109,6 +100,8 @@
 
 .Post-Footer
 {
+	.stackleft();
+	width: 100%;
 	background-color: @bground;
     padding: 10px;
     margin: 20px auto;

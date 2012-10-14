@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Caching;
+using System.Web;
 using System.Web.Mvc;
 using Elmah;
 
@@ -22,6 +23,19 @@ namespace zasz.me.Controllers.Utils
         public static void InvalidateOutputCache()
         {
             OutputCacheAttribute.ChildActionCache = new MemoryCache("NewDefault");
+        }
+
+        public static string BaseUrl()
+        {
+            return String.Format("http://{0}:{1}",
+                                 HttpContext.Current.Request.Url.Host,
+                                 HttpContext.Current.Request.Url.Port);
+        }
+
+        public static string ContentType(string contentName)
+        {
+            var extension = contentName.Substring(contentName.LastIndexOf('.') + 1);
+            return Constants.MimeMap[extension.ToLower()];
         }
     }
 }

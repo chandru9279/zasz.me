@@ -54,12 +54,12 @@ namespace zasz.me.Models
 
         public string ThumbnailLink(UrlHelper url)
         {
-            return string.Format("{0}{1}/{2}", Constants.BaseUrl, url.Action("Thumbnail", "Blog"), Slug);
+            return string.Format("{0}{1}/{2}", Handy.BaseUrl(), url.Action("Thumbnail", "Blog"), Slug);
         }
 
         public string Permalink(UrlHelper url)
         {
-            return string.Format("{0}{1}/{2}", Constants.BaseUrl, url.Action("Post", "Blog"), Slug);
+            return string.Format("{0}{1}/{2}", Handy.BaseUrl(), url.Action("Post", "Blog"), Slug);
         }
 
         public string GetDescription(int threshold)

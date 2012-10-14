@@ -35,7 +35,7 @@ namespace zasz.me.Controllers
             if (hashed == "嘃ᥐ倹⦦듑ꈳ囬쀺诫谾臭ᰠ屯")
             {
                 FormsAuthentication.SetAuthCookie("Manager", false);
-                var url = Constants.BaseUrl + (model.ReturnUrl ?? Url.Action("Unlock"));
+                var url = Handy.BaseUrl() + (model.ReturnUrl ?? Url.Action("Unlock"));
                 return Redirect(url);
             }
             ModelState.AddModelError("AuthenticationFailed", "Wrong Passphrase");
@@ -46,7 +46,7 @@ namespace zasz.me.Controllers
         public ActionResult Lock()
         {
             FormsAuthentication.SignOut();
-            return Redirect(Constants.BaseUrl + "/Home");
+            return Redirect(Handy.BaseUrl() + "/Home");
         }
     }
 }

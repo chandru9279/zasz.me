@@ -22,7 +22,7 @@ namespace zasz.me.Services.Concrete.PostPopulators
         internal virtual string GetSlug(string title)
         {
             var decodedTitle = HttpUtility.HtmlDecode(title).ToLower();
-            var nearlySlug = Constants.GoWords().Aggregate
+            var nearlySlug = Constants.GoWords.Aggregate
                 (
                     decodedTitle,
                     (current, pair) => current.Replace(pair.Key, " " + pair.Value + " ")

@@ -23,9 +23,15 @@ namespace zasz.me.Integration.MVC
                 );
 
             routes.MapRoute(
-                "ContentRouting",
-                "Blog/Post/{slug}/Content/{contentName}",
+                "ContentRoutingForTrailingSlashUrls",
+                "Blog/Post/{slug}/PostContent/{contentName}",
                 new {controller = "Blog", action = "PostContent"}
+                );
+
+            routes.MapRoute(
+                "ContentRoutingForNoTrailingSlash",
+                "Blog/Post/PostContent/{contentName}",
+                new {controller = "Blog", action = "PostContentInferSlug"}
                 );
             
             routes.MapRoute(

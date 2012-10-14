@@ -29,19 +29,25 @@ namespace zasz.me.Controllers
             return PartialView(Posts.PostedMonthsYearGrouped());
         }
 
-        [OutputCache(Duration = 3600)]
+        //TODO: [OutputCache(Duration = 3600)]
         public ActionResult Thumbnail([Bind(Prefix = "id")]string slug)
         {
             return File(Server.MapPath("~" + Constants.PostsFolder + slug + Constants.AnchorPng),
                 Constants.PngContentType);
         }
 
-        [OutputCache(Duration = 3600)]
         public ActionResult PostContent(string slug, string contentName)
         {
-            return File(Server.MapPath(
-                Server.MapPath("~" + Constants.PostsFolder + slug + Constants.PostContent + @"\" + contentName)),
-                Constants.PngContentType);
+            return File(
+                Server.MapPath("~" + Constants.PostsFolder + slug + Constants.PostContent + @"\" + contentName),
+                Handy.ContentType(contentName));
+        }
+
+        public ActionResult PostContentInferSlug(string contentName)
+        {
+            var absolutePath = Request.UrlReferrer.AbsolutePath;
+            var slug = absolutePath.Substring(absolutePath.LastIndexOf("/") + 1);
+            return PostContent(slug, contentName);
         }
 
         public FileContentResult TagCloud()

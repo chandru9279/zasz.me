@@ -22,3 +22,4 @@ Solr/solr/conf/dataimport.properties
 
 *_generated.js
 *_generated.css
+*.less.squishit.debug.css
