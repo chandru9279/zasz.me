@@ -16,7 +16,7 @@ namespace zasz.me.Services.Concrete.PostPopulators
             var fileInfos = directory.GetFiles(ContentHtml);
             var content = fileInfos.First();
             post.Title = content.Name.Replace(".html", string.Empty);
-            post.Content = File.ReadAllText(content.FullName, System.Text.Encoding.Unicode);
+            post.Content = File.ReadAllText(content.FullName);
         }
 
         #endregion
