@@ -73,11 +73,12 @@ namespace zasz.me.Models
 
         private static void ProcessNode(HtmlNode node, ref string description, int threshold)
         {
+            if (Constants.DescriptionSkip.Contains(node.Name.ToLowerInvariant())) return;
             foreach (var childNode in node.ChildNodes)
             {
                 if (childNode is HtmlTextNode)
                 {
-                    description += childNode.InnerText.Trim();
+                    description += string.Format(" {0} ", childNode.InnerText.Trim());
                     if (description.Length >= threshold)
                     {
                         description = description.Substring(0, threshold) + "...";

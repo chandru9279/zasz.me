@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Web;
 using zasz.me.Services;
 
 namespace zasz.me.Controllers.Utils
@@ -24,6 +23,8 @@ namespace zasz.me.Controllers.Utils
             };
 
         public static char[] Shredders = new[] { ' ', ',', ';', '|' };
+        
+        public static List<string> DescriptionSkip = new List<string> { "script", "style" };
 
         public static Pairs<string, int> Months = new Pairs<string, int>(new[]
                     {
