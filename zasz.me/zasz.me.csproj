@@ -15,7 +15,7 @@
     <AssemblyName>zasz.me</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -318,6 +318,7 @@
     <Content Include="App_Code\Social.cshtml" />
     <Content Include="Content\Images\Name.pdn" />
     <Content Include="Content\About.less" />
+    <Content Include="App_Data\.gitkeep" />
     <None Include="Content\Schemas\Solr.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -740,9 +741,7 @@
     <Content Include="Views\Sync\Database.cshtml" />
     <Content Include="Views\Sync\Solr.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
@@ -823,7 +822,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>5050</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://dev.com/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
