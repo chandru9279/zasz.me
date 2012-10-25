@@ -2,86 +2,18 @@
     ViewBag.Title = "All";
 }
 
-@section Head
-{
-    <style type="text/css">
-    
-        .Tile {
-            -moz-box-shadow: 6px 6px 6px #FFAE7F; /* Firefox */
-            -webkit-box-shadow: 6px 6px 6px #FFAE7F; /* Safari, Chrome */
-            box-shadow: 6px 6px 6px #FFAE7F; /* CSS3 */
-            float: left;
-            height: 280px;
-            margin: 30px;
-            width: 288px;
-        }
-
-        .Tile-Title {
-            background-color: #7A0000;
-            color: #FFFFFF;
-            font-size: 20px;
-            height: 30px;
-            margin: 0;
-            padding: 9px 14px 7px;
-        }
-
-        .Tile-Content {
-            background-color: #FFEBE0;
-            color: #FFFFFF;
-            font-size: 20px;
-            height: 218px;
-            margin: 0;
-            padding: 9px 14px 7px;
-        }
-
-        .Tile-Content:hover { background-color: #FFBABA; }
-
-        .Slab {
-            -moz-box-shadow: 6px 6px 6px #FFAE7F; /* Firefox */
-            -webkit-box-shadow: 6px 6px 6px #FFAE7F; /* Safari, Chrome */
-            box-shadow: 6px 6px 6px #FFAE7F; /* CSS3 */
-            float: left;
-            height: 291px;
-            margin: 30px;
-            width: 173px;
-        }
-
-        .Slab-Title, .Slab-Footer {
-            background-color: #7A0000;
-            color: #FFFFFF;
-            font-size: 20px;
-            height: 30px;
-            margin: 0;
-            padding: 9px 14px 7px;
-        }
-
-        .Slab-Content {
-            background-color: #FFEBE0;
-            color: #FFFFFF;
-            font-size: 20px;
-            height: 183px;
-            margin: 0;
-            padding: 9px 14px 7px;
-        }
-
-        .Slab-Content:hover { background-color: #FFBABA; }
-    </style>
-}
-
-@for (var i = 0; i <= 5; i++)
-{
-    <div class="Tile">
-        <div class="Tile-Title"></div>
-        <div class="Tile-Content"></div>
-    </div>
-}
-
-
-@for (var i = 0; i <= 5; i++)
-{
-    <div class="Slab">
-        <div class="Slab-Title"></div>
-        <div class="Slab-Content"></div>
-        <div class="Slab-Footer"></div>
-    </div>
-}
+<div class="GapTop">
+</div>
+<div class="Tile FloatLeft">
+</div>
+<div class="Tile FloatRight">
+    <a href="@Url.Action("StackExchange")">
+        <img alt="Stack Overflow" src="@Url.Content("~/Content/Images/Portfolio/SOSnip.png")"/>
+    </a>
+</div>
+<div class="Slab FloatLeft">
+</div>
+<div class="Slab FloatLeft">
+</div>
+<div class="Slab FloatRight">
+</div>

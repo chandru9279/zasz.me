@@ -1,0 +1,51 @@
+.CommonSlabTile
+{
+	.boxshadow(6px 6px 6px #DDD);
+	border: 1px solid #C6C6C6;
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 20px;    
+	&:hover 
+	{ 
+		border: 1px solid darken(#DDD, 35%);
+		.boxshadow(6px 6px 6px darken(#C6C6C6, 25%));
+	}
+}
+
+.GapTop
+{
+	height: 20px;
+	width: @sitewidth;
+}
+
+.Tile 
+{
+    .CommonSlabTile;
+    height: 220px;
+    width: 470px;
+}
+
+.Slab 
+{
+    .CommonSlabTile;
+    height: 180px;
+    width: 308px;
+}
+
+.FloatLeft
+{
+	float: left;
+	margin-right: 15px;
+    margin-left: 0px;
+}
+
+.FloatRight
+{
+	float: right;
+	margin-right: 0px;
+}
+
+.StackOverflowBanner
+{
+	border: @panelborder;
+}

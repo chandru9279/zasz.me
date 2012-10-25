@@ -272,6 +272,8 @@
     <Content Include="Content\Images\Paging.png" />
     <Content Include="Content\Images\Play.jpg" />
     <Content Include="Content\Images\PlayArrow.png" />
+    <Content Include="Content\Images\Portfolio\SOSnip.png" />
+    <Content Include="Content\Images\Portfolio\StackOverflow.jpg" />
     <Content Include="Content\Images\Read.jpg" />
     <Content Include="Content\Images\ReadArrow.png" />
     <Content Include="Content\Images\scan-qr-codes.jpg" />
@@ -319,6 +321,7 @@
     <Content Include="Content\Images\Name.pdn" />
     <Content Include="Content\About.less" />
     <Content Include="App_Data\.gitkeep" />
+    <Content Include="Content\Portfolio.less" />
     <None Include="Content\Schemas\Solr.xsd">
       <SubType>Designer</SubType>
     </None>
