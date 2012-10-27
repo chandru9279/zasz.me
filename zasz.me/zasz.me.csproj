@@ -212,6 +212,7 @@
     <Compile Include="Services\Concrete\JsonSofuService.cs" />
     <Compile Include="Services\Contracts\ISofuService.cs" />
     <Compile Include="ViewModels\ContactViewModel.cs" />
+    <Compile Include="ViewModels\FallbackModel.cs" />
     <Compile Include="ViewModels\LinkViewModel.cs" />
     <Compile Include="Services\Concrete\Config\WebConfigService.cs" />
     <Compile Include="Services\Concrete\Config\SettingsConfig.cs" />
@@ -743,6 +744,8 @@
     <Content Include="Views\Portfolio\Tack.cshtml" />
     <Content Include="Views\Sync\Database.cshtml" />
     <Content Include="Views\Sync\Solr.cshtml" />
+    <Content Include="Views\Shared\_ScriptsCss.cshtml" />
+    <Content Include="Views\Shared\_GoogleCdnFallback.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

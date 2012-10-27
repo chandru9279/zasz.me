@@ -1,49 +1,9 @@
-﻿@using SquishIt.Framework
-@using zasz.me
+﻿@using zasz.me
 <!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
-
-    @Html.Raw(Bundle.Css()
-        .Add("~/Content/BlueprintReset.css")
-        .Add("~/Content/Layout.less")
-        //.ForceRelease()
-        .Render("~/Content/combined_#_generated.css")
-        )
-
-    @Html.Raw(Bundle.Css().Add("~/Content/jquery-ui/jquery-ui.less")
-    //.ForceRelease()
-    .Render("~/Content/jquery-ui/jquery-ui_#_generated.css"))
-    @Html.Raw(Bundle.Css().Add("~/Content/jPicker/jPicker-1.1.6.css")
-    //.ForceRelease()
-    .Render("~/Content/jPicker/jPicker_#_generated.css"))
-    @Html.Raw(Bundle.Css().Add("~/Content/SyntaxHighlighter/shCoreDefault.css")
-    //.ForceRelease()
-    .Render("~/Content/SyntaxHighlighter/shCoreDefault_#_generated.css"))
-
-    @* Order is important, 1st jQuery then other related scripts*@
-    @Html.Raw(
-        Bundle.JavaScript()
-        .AddMinified("~/Scripts/jquery-1.8.0.min.js")
-        .AddMinified("~/Scripts/jquery-ui-1.8.23.min.js")
-        .AddMinified("~/Scripts/jquery.validate.min.js")
-        .AddMinified("~/Scripts/jquery.validate.unobtrusive.min.js")
-        .AddRemote("~/Content/skype-cached.js", "http://download.skype.com/share/skypebuttons/js/skypeCheck.js", true)
-        .Add("~/Scripts/jpicker-1.1.6.js")
-        .Add("~/Scripts/Scripts.js")
-        //.ForceRelease()
-        .Render("~/Scripts/combined_#_generated.js")
-        )
-    @Html.Raw(Bundle.JavaScript()
-        .AddMinified("~/Scripts/SyntaxHighlighter/shCore.js")
-        .AddMinified("~/Scripts/SyntaxHighlighter/shAutoloader.js")
-        .Render("~/Scripts/SyntaxHighlighter/syntaxhighlighter_#_generated.js")
-        )
-
-    <meta name="robots" content="index, follow" />
-    <link type="image/png" href="@Url.Content("~/Content/favicon.png")" rel="shortcut icon" />
-    <script type="text/javascript" src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" ></script>
+    @Html.Partial("_ScriptsCss")
     @RenderSection("Head", false)
 </head>
 
