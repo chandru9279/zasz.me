@@ -49,7 +49,7 @@ namespace zasz.me.Integration.MVC
             routes.MapRoute(
                 "Usual",
                 "{controller}/{action}/{id}",
-                new {controller = "Home", action = "Default", id = UrlParameter.Optional}
+                new { controller = "Blog", action = "List", id = UrlParameter.Optional }
                 );
 
             routes.MapRoute(

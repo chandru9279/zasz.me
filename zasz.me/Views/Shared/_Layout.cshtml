@@ -75,15 +75,16 @@
             }
         </div>
     </div>
-    <div class="Footer">
-        @RenderSection("Footer", false)
-        <a href="@Url.Action("List", "Blog")">Blog</a> |
-        <a href="@Url.Action("StackExchange", "Portfolio")">Work</a> |
-        <a href="@Url.Action("About", "Home")">About</a> |
-        <a href="@Url.Action("Form", "Contact")">Contact</a>
-        <span style="float: right; font-size: 14px;">
-        Best viewed from Google Chrome or Firefox. | <a href="@Url.Action("Unlock", "Unlocker")">Manage</a>
-        </span>
+    <div class="Footer-Center">
+        <div class="Footer">
+            @RenderSection("Footer", false)
+            <a href="@Url.Action("List", "Blog")">Blog</a> |
+                <a href="@Url.Action("StackExchange", "Portfolio")">Work</a> |
+                <a href="@Url.Action("About", "Home")">About</a> |
+                <a href="@Url.Action("Form", "Contact")">Contact</a>
+            <span style="float: right; height: 100%;">Best viewed from Google Chrome or Firefox | <a href="@Url.Action("Unlock", "Unlocker")">Manage</a>
+            </span>
+        </div>
     </div>
 </body>
 </html>

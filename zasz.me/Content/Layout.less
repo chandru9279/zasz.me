@@ -39,23 +39,46 @@ a
     display: block;
 	margin: auto;
     width: @sitewidth;
-    padding: 20px 40px;
+    padding-top: 20px;
+    padding-bottom: 0px;
+    padding-left: 40px;
+    padding-right: 40px;
     min-height: 1500px;
 	background-color: White;
 	.boxshadow(0 0 75px 10px #888888);
 }
 
-.Footer
+.Footer-Center
 {
 	display: block;
 	margin: auto;
-    background-color: @navy;
-    padding: 4px 15px;
-    width: @sitewidth + 50px;
-	color: white;
+    width: @sitewidth;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+	background-color: White;
+}
+
+.Footer
+{
+	display: block;
+    background-color: @bground;
+    padding: 0px 15px;
+    width: @sitewidth - 30px;
+    height: 30px;
 	a
 	{
-		color: white;
+		display: inline-block;
+		padding: 0px 10px;
+		height: 100%;
+		.textshadow(0 2px 1px rgba(0, 0, 0, 0.15));
+		&:HOVER
+		{
+			background-color: @navy;
+			color: White;
+			text-decoration: none;
+		}
 	}
 }
 
