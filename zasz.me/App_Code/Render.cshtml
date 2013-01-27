@@ -1,6 +1,10 @@
 ﻿@helper Paging(long numberOfPages)
 {
-    var splitPath = Request.Path.Split(new[] {'/'});
+    if (numberOfPages <= 1)
+    {
+        return;
+    } 
+    var splitPath = Request.Path.Split(new[] { '/' });
     var lastSplit = splitPath[splitPath.Length - 1];
     var pagePath = Request.Path + "/";
     var previousPath = "";
@@ -16,10 +20,6 @@
         previousEnabled = currentPage > 1;
         previousPath = pagePath + (currentPage - 1);
         nextPath = pagePath + (currentPage + 1);
-    }
-    if (numberOfPages <= 1)
-    {
-        return;
     }
     <div class='Paging'>
         @if (previousEnabled)

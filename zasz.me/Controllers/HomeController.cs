@@ -24,6 +24,11 @@ namespace zasz.me.Controllers
             return new FilePathResult("~/Content/favicon.png", "image/png");
         }
 
+        public ActionResult ToBlog()
+        {
+            return RedirectToAction("List", "Blog");
+        }
+
         public ViewResult Search(string term)
         {
             var searchResults = search.Search(term);
