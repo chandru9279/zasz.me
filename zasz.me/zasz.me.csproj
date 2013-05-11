@@ -158,6 +158,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="App_Start\SquishItLess.cs" />
     <Compile Include="HtmlHelpers\Render.cs" />
     <Compile Include="HtmlHelpers\Social.cs" />
