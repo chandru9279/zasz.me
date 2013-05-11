@@ -4,7 +4,7 @@ properties {
 	$ToolsPath = "$SolutionPath\Build\Lib\"
 	$PackagesPath = "$SolutionPath\packages\"
 	$SolrPath = "$SolutionPath\Solr\"
-	$DeployPath = "C:\Bin\zasz.me\"
+	$DeployPath = "C:\Bin\"
 	$BuildPath = "$SolutionPath\Out\Deploy"
     $MigrateTest = $true
 }
@@ -13,9 +13,9 @@ properties {
 task default -depends opendev
 
 
-task build -depends clean { 
-    #Weird .net issue Any CPU vs AnyCPU
-	exec { msbuild $SolutionPath\zasz.me\zasz.me.csproj /t:Package /p:Configuration=Server /p:MvcBuildViews=true /p:Platform=AnyCPU /p:_PackageTempDir=$BuildPath /v:Quiet}
+task build -depends clean {
+	#Weird .net issue Any CPU vs AnyCPU
+	exec { msbuild $SolutionPath\zasz.me\zasz.me.csproj /p:Configuration=Server /p:MvcBuildViews=true /p:Platform=AnyCPU /p:OutputPath=$BuildPath /v:Quiet}
 	Write-Host -ForegroundColor Green "Server build complete."
 }
 
@@ -29,7 +29,7 @@ task zip -depends build {
 
 
 task deploy -depends build, migrate, solrs {
-	Trace-Robocopy { robocopy $BuildPath $DeployPath /E /NJH /NJS }
+	Trace-Robocopy { robocopy "$BuildPath\_PublishedWebsites" $DeployPath /E /NJH /NJS }
 	Write-Host -ForegroundColor Green "Deployed to $DeployPath."
 }
 
