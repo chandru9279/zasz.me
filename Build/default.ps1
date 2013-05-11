@@ -4,7 +4,7 @@ properties {
 	$ToolsPath = "$SolutionPath\Build\Lib\"
 	$PackagesPath = "$SolutionPath\packages\"
 	$SolrPath = "$SolutionPath\Solr\"
-	$DeployPath = "C:\Bin\"
+	$DeployPath = "C:\Bin\Deploy"
 	$BuildPath = "$SolutionPath\Out\Deploy"
     $MigrateTest = $true
 }
@@ -54,7 +54,7 @@ task db -depends migrate, migratetest
 
 task migrate -depends build { 
 	$migrator = $ToolsPath + 'Migrations\migrate.exe'  
-	$migrateCommand = "$migrator zasz.me.dll /StartUpDirectory=$SolutionPath\zasz.me\bin\ /connectionStringName:FullContext /startUpConfigurationFile:$SolutionPath\zasz.me\Web.config /verbose"
+	$migrateCommand = "$migrator zasz.me.dll /StartUpDirectory=$BuildPath\_PublishedWebsites\zasz.me\bin\ /connectionStringName:FullContext /startUpConfigurationFile:$SolutionPath\zasz.me\Web.config /verbose"
 	Write-Host $migrateCommand
 	exec { Invoke-Expression $migrateCommand }
 	Write-Host -ForegroundColor Green "Migrated db to the latest version."        
