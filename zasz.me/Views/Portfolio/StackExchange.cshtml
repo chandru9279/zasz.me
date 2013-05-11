@@ -1,4 +1,5 @@
-﻿@model zasz.me.Models.Paged<zasz.me.Models.Answer>
+﻿@using zasz.me.HtmlHelpers
+@model zasz.me.Models.Paged<zasz.me.Models.Answer>
 @{
     ViewBag.Title = "StackTacks";
 }
@@ -25,7 +26,7 @@
     <div style="clear: both;"></div>
 </div>
 
-@Render.Paging(Model.NumberOfPages)
+@Html.Paging(Model.NumberOfPages)
 
 <div class="Section">
     <ul id="Threads">
@@ -42,5 +43,5 @@
 
 <div style="height: 261px">
     <img style="display: block;" src="@Url.Content("~/Content/Images/Portfolio/StackOverflow.jpg")" />
-    <div style="display: block; margin-left: 650px; margin-top: -200px;">@Social.Flair()</div>
+    <div style="display: block; margin-left: 650px; margin-top: -200px;">@Html.Flair()</div>
 </div>

@@ -1,14 +1,15 @@
 ﻿@using zasz.me.Controllers.Utils
+@using zasz.me.HtmlHelpers
 @model zasz.me.Models.Post
 
 @{
     ViewBag.Title = "Post";
 }
-                                                                                             
+
 @section Head{
     @Html.Partial("_SyntaxHighlight")
-    @Social.Facebook() 
-    @Social.Twitter()
+    @Html.Facebook() 
+    @Html.Twitter()
 }
 
 @section Right{

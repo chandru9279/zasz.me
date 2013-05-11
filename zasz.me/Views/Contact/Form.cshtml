@@ -1,4 +1,5 @@
-﻿@model zasz.me.ViewModels.ContactViewModel
+﻿@using zasz.me.HtmlHelpers
+@model zasz.me.ViewModels.ContactViewModel
 
 @{
     ViewBag.Title = "Form";
@@ -75,7 +76,7 @@
 }
 <div style="margin-top: 30px;">
     <div style="float: left; margin-top: 40px;">
-        @Social.Skype(Url)
+        @Html.Skype(Url)
     </div>
     <div style="float: right;">
         <img src="@Url.Content("~/Content/Images/gmail.png")" title="To avoid spam, this is an image. You cannot select or copy." alt="Gmail to T Chandirasekar"/>

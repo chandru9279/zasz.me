@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Dev</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>
     </ProductVersion>
@@ -111,6 +111,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RazorGenerator.Mvc">
+      <HintPath>..\packages\RazorGenerator.Mvc.2.0.1\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="SolrNet">
       <HintPath>..\packages\SolrNet.0.3.1\lib\SolrNet.dll</HintPath>
     </Reference>
@@ -147,12 +150,17 @@
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.4.4\lib\net40\WebActivator.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="Yahoo.Yui.Compressor">
       <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\SquishItLess.cs" />
+    <Compile Include="HtmlHelpers\Render.cs" />
+    <Compile Include="HtmlHelpers\Social.cs" />
     <Compile Include="Integration\EntityFramework\AnswerRepository.cs" />
     <Compile Include="Integration\EntityFramework\DbConstants.cs" />
     <Compile Include="Integration\EntityFramework\FullContext.cs" />
@@ -322,7 +330,6 @@
     <Content Include="Content\Form.less" />
     <Content Include="Content\Menu.less" />
     <Content Include="Content\Header.less" />
-    <Content Include="App_Code\Social.cshtml" />
     <Content Include="Content\Images\Name.pdn" />
     <Content Include="Content\About.less" />
     <Content Include="App_Data\.gitkeep" />
@@ -747,7 +754,6 @@
     <Content Include="Views\Blog\_SyntaxHighlight.cshtml" />
     <Content Include="Views\Contact\_MessageEditor.cshtml" />
     <Content Include="Views\Portfolio\StackExchange.cshtml" />
-    <Content Include="App_Code\Render.cshtml" />
     <Content Include="Views\Portfolio\Tack.cshtml" />
     <Content Include="Views\Sync\Database.cshtml" />
     <Content Include="Views\Sync\Solr.cshtml" />

@@ -1,4 +1,5 @@
-﻿@model zasz.me.ViewModels.PostListViewModel
+﻿@using zasz.me.HtmlHelpers
+@model zasz.me.ViewModels.PostListViewModel
 @{
     ViewBag.Title = "Posts";
     ViewBag.DescriptionLength = Model.DescriptionLength;
@@ -21,7 +22,7 @@
 
 <label class="StackLeft Prominant">@Html.Raw(Model.WhatIsListed)</label>
 <div class="StackLeft" style="width: 100%;">
-    @Render.Paging(Model.NumberOfPages)
+    @Html.Paging(Model.NumberOfPages)
 </div>
 
 @section Footer{

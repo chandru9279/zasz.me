@@ -1,4 +1,5 @@
-﻿@model zasz.me.Models.Post
+﻿@using zasz.me.HtmlHelpers
+@model zasz.me.Models.Post
 <div class="Post">
     <a class="Post-Title" href="@Url.Action("Post", "Blog")/@Model.Slug">@Model.Title</a>
     <div class="Date">@Model.Timestamp.ToString("f")</div>
@@ -31,8 +32,8 @@
         &nbsp;|&nbsp; <a href="@Model.Permalink(Url)">Permalink</a>
         <table style="margin-top: 5px;">
             <tr>
-                <td>@Social.FacebookLike(Model.Permalink(Url))</td>
-                <td>@Social.Tweet(Model.Permalink(Url), Model.Title + " -Chandru")</td>
+                <td>@Html.FacebookLike(Model.Permalink(Url))</td>
+                <td>@Html.Tweet(Model.Permalink(Url), Model.Title + " -Chandru")</td>
             </tr>
         </table>
     </div>
