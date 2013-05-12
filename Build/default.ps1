@@ -15,7 +15,7 @@ task default -depends opendev
 
 task build -depends clean {
 	#Weird .net issue Any CPU vs AnyCPU
-	exec { msbuild $SolutionPath\zasz.me\zasz.me.csproj /p:Configuration=Server /p:MvcBuildViews=true /p:Platform=AnyCPU /p:OutputPath=$BuildPath /v:Quiet}
+	exec { msbuild $SolutionPath\zasz.me\zasz.me.csproj /p:Configuration=Server /p:Platform=AnyCPU /p:OutputPath=$BuildPath /nologo /verbosity:minimal}
 	Write-Host -ForegroundColor Green "Server build complete."
 }
 
