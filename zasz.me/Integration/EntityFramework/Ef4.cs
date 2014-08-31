@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Integration.Mvc;
 
 namespace zasz.me.Integration.EntityFramework
 {
@@ -8,7 +7,7 @@ namespace zasz.me.Integration.EntityFramework
         public static void Setup()
         {
             var newBuilder = new ContainerBuilder();
-            newBuilder.RegisterType<FullContext>().InstancePerHttpRequest();
+            newBuilder.RegisterType<FullContext>().InstancePerRequest();
             newBuilder.Update(Big.Box);
         }
     }
