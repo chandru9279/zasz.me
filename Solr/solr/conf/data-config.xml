@@ -2,7 +2,7 @@
     <dataSource 
         type="JdbcDataSource" 
         driver="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
-        url="jdbc:sqlserver://localhost;instance=SQLEXPRESS;databaseName=ColdStorage;"   
+        url="jdbc:sqlserver://localhost;databaseName=ColdStorage;"   
         user="zasz.me" 
         password="zaszrespawned"
         readOnly="true"/>
