@@ -30,12 +30,12 @@
 
         public static MvcHtmlString Flair(this HtmlHelper helper)
         {
-            return new MvcHtmlString(@"<a href='http://stackoverflow.com/users/626084/zasz'>
-        @*?theme=clean or ?theme=dark or ?theme=hotdog*@
-        <img src='http://stackoverflow.com/users/flair/626084.png?theme=dark' width='208' height='58' 
-             alt='Profile for Zasz at Stack Overflow, Q&A for professional and enthusiast programmers' 
-             title='Profile for Zasz at Stack Overflow, Q&A for professional and enthusiast programmers'>
-    </a>");
+            return new MvcHtmlString(@"
+<a href='http://stackoverflow.com/users/626084/zasz'>
+<img src='http://stackoverflow.com/users/flair/626084.png?theme=dark' width='208' height='58' 
+        alt='Profile for Zasz at Stack Overflow, Q&A for professional and enthusiast programmers' 
+        title='Profile for Zasz at Stack Overflow, Q&A for professional and enthusiast programmers'>
+</a>");
         }
 
         public static MvcHtmlString Skype(this HtmlHelper helper, UrlHelper url)
@@ -52,10 +52,10 @@
                 return new MvcHtmlString(string.Empty);
             }
 
-            var Request = helper.ViewContext.HttpContext.Request;
-            var splitPath = Request.Path.Split(new[] { '/' });
+            var request = helper.ViewContext.HttpContext.Request;
+            var splitPath = request.Path.Split(new[] { '/' });
             var lastSplit = splitPath[splitPath.Length - 1];
-            var pagePath = Request.Path + "/";
+            var pagePath = request.Path + "/";
             var previousPath = string.Empty;
             var currentPage = 1;
             var nextPath = pagePath + "2";
@@ -63,7 +63,7 @@
             var nextEnabled = numberOfPages > 1;
             if (lastSplit.Is<int>())
             {
-                pagePath = Request.Path.Substring(0, Request.Path.Length - lastSplit.Length);
+                pagePath = request.Path.Substring(0, request.Path.Length - lastSplit.Length);
                 currentPage = int.Parse(lastSplit);
                 nextEnabled = currentPage < numberOfPages;
                 previousEnabled = currentPage > 1;
@@ -99,7 +99,6 @@
         public static MvcHtmlString Twitter(this HtmlHelper helper)
         {
             return new MvcHtmlString(@"
-
     <script> !function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (!d.getElementById(id)) {
