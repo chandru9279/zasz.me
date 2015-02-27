@@ -6,23 +6,9 @@
 
 @section Head
 {
-    <script type="text/javascript">
-        $(function () {
-            $('#Threads li a').click(function () {
-                var id = $(this).data("id");
-                $('#Tacks').empty();
-                $('#Tacks').html("<iframe width='100%' style='width:100%; overflow:visible' src='@Url.Action("Tack")?id=" + id + "'><div id='stacktack-></div></iframe>");
-                $('iframe').height('200px');
-                $('iframe').load(function () {
-                    this.style.height = (this.contentWindow.document.body.offsetHeight + 40) + 'px';
-                });
-            });
-        });
-    </script>
 }
 
 <div>
-    
     <div style="clear: both;"></div>
 </div>
 
@@ -32,14 +18,14 @@
     <ul id="Threads">
         @foreach (var answer in Model.Set)
         {
-            <li><a data-id="@answer.QuestionId ">@Html.Raw(answer.QuestionTitle)</a></li>
+            <li>
+                <a href="http://stackoverflow.com/questions/@answer.QuestionId" target="_blank">
+                    @Html.Raw(answer.QuestionTitle)
+                </a>
+            </li>
         }
     </ul>
 </div>
-
-<div id="Tacks">
-</div>
-
 
 <div style="height: 261px">
     <img style="display: block;" src="@Url.Content("~/Content/Images/Portfolio/StackOverflow.jpg")" />

@@ -196,6 +196,7 @@
     </Compile>
     <Compile Include="Models\Cache.cs" />
     <Compile Include="Models\Paged.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\Concrete\PostPopulators\OrderedPostPopulatorSet.cs" />
     <Compile Include="Services\Contracts\IConfigurationService.cs" />
     <Compile Include="Services\Contracts\IPostPopulator.cs" />
@@ -325,7 +326,6 @@
     <Content Include="Content\jPicker\jPicker-1.1.6.css" />
     <Content Include="Content\Blog.less" />
     <Content Include="Content\Layout.less" />
-    <Content Include="Content\Stacktack.css" />
     <Content Include="Content\SyntaxHighlighter\shCore.css" />
     <Content Include="Content\SyntaxHighlighter\shCoreDefault.css" />
     <Content Include="Content\SyntaxHighlighter\shCoreDjango.css" />
@@ -718,7 +718,6 @@
     <Content Include="Scripts\Scripts.js">
       <DependentUpon>Scripts.coffee</DependentUpon>
     </Content>
-    <Content Include="Scripts\stacktack.js" />
     <Content Include="Scripts\SyntaxHighlighter\shAutoloader.js" />
     <Content Include="Scripts\SyntaxHighlighter\shBrushAppleScript.js" />
     <Content Include="Scripts\SyntaxHighlighter\shBrushAS3.js" />
@@ -771,7 +770,6 @@
     <Content Include="Views\Blog\_SyntaxHighlight.cshtml" />
     <Content Include="Views\Contact\_MessageEditor.cshtml" />
     <Content Include="Views\Portfolio\StackExchange.cshtml" />
-    <Content Include="Views\Portfolio\Tack.cshtml" />
     <Content Include="Views\Sync\Database.cshtml" />
     <Content Include="Views\Sync\Solr.cshtml" />
     <Content Include="Views\Shared\_ScriptsCss.cshtml" />
@@ -845,9 +843,9 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(SolutionDir)\Lib\WebApplications\Microsoft.WebApplication.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="AfterBuild">
   </Target> -->

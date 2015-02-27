@@ -29,10 +29,5 @@ namespace zasz.me.Controllers
             var paged = answers.Page(cache, pageNumber - 1, 10);
             return View(paged);
         }
-
-        public ViewResult Tack(int id)
-        {
-            return View(id);
-        }
     }
 }
