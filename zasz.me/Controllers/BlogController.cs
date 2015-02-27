@@ -20,8 +20,7 @@ namespace zasz.me.Controllers
         {
         }
 
-        /* Use Handy.InvalidateOutputCache() when Creating a Post to manually expire this cache*/
-
+        /* Use Handy.InvalidateOutputCache() when Creating a Post to manually expire this cache */
         [OutputCache(Duration = 3600)]
         [ChildActionOnly]
         public ActionResult ArchiveControl()
@@ -29,10 +28,11 @@ namespace zasz.me.Controllers
             return PartialView(Posts.PostedMonthsYearGrouped());
         }
 
-        //TODO: [OutputCache(Duration = 3600)]
+        // TODO: [OutputCache(Duration = 3600)]
         public ActionResult Thumbnail([Bind(Prefix = "id")]string slug)
         {
-            return File(Server.MapPath("~" + Constants.PostsFolder + slug + Constants.AnchorPng),
+            return File(
+                Server.MapPath("~" + Constants.PostsFolder + slug + Constants.AnchorPng),
                 Constants.PngContentType);
         }
 
@@ -52,8 +52,8 @@ namespace zasz.me.Controllers
 
         public FileContentResult TagCloud()
         {
-            const int width = 214;
-            const int height = 500;
+            const int Width = 214;
+            const int Height = 500;
             var weightedTags = Tags.WeightedList();
             FontFamily font;
             using (var service = new FontsService())
@@ -61,7 +61,8 @@ namespace zasz.me.Controllers
                 service.LoadFonts(Request.MapPath(@"~\Content\Fonts"));
                 font = service.AvailableFonts["Kenyan Coffee"];
             }
-            var tagCloudService = new TagCloudService(weightedTags, width, height)
+
+            var tagCloudService = new TagCloudService(weightedTags, Width, Height)
                                       {
                                           MaximumFontSize = 52f,
                                           MinimumFontSize = 18f,
@@ -70,8 +71,11 @@ namespace zasz.me.Controllers
                                           DisplayChoice =
                                               DisplayStrategy.Get(TagDisplayStrategy.MoreHorizontalThanVertical),
                                           ColorChoice =
-                                              ColorStrategy.Get(Theme.LightBgDarkFg, Style.RandomVaried,
-                                                                Color.FromArgb(0, Color.White), Color.Black),
+                                              ColorStrategy.Get(
+                                                Theme.LightBgDarkFg,
+                                                Style.RandomVaried,
+                                                Color.FromArgb(0, Color.White),
+                                                Color.Black),
                                           VerticalTextRight = true,
                                           Crop = true
                                       };
@@ -84,6 +88,7 @@ namespace zasz.me.Controllers
                           string.Join("; ", tagCloudService.WordsSkipped.Select(x => x.Key));
                 ErrorSignal.FromCurrentContext().Raise(new Exception(msg));
             }
+
             TempData["TagCloudBorders"] = borders;
             var stream = new MemoryStream();
             bitmap.Save(stream, ImageFormat.Png);

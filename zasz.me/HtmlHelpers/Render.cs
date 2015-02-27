@@ -41,8 +41,9 @@
         public static MvcHtmlString Skype(this HtmlHelper helper, UrlHelper url)
         {
             return
-                new MvcHtmlString(
-                    @"<a href='skype:tc.zasz?call'><img src='@url.Content('~/Content/Images/skype.png')' style='border: none;' title='To avoid spam, this is an image. You cannot select or copy.' alt='Skype T Chandirasekar'/></a>");
+                new MvcHtmlString(@"<a href='skype:tc.zasz?call'><img src='" +
+                    url.Content("~/Content/Images/skype.png") +
+@"' style='border: none;' title='To avoid spam, this is an image. You cannot select or copy.' alt='Skype T Chandirasekar'/></a>");
         }
 
         public static MvcHtmlString Paging(this HtmlHelper helper, long numberOfPages)

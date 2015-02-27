@@ -25,26 +25,33 @@ namespace zasz.me.Controllers
 
         public ActionResult Mail(ContactViewModel contactModel)
         {
-            if (ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                var mail = new MailMessage(new MailAddress(contactModel.Email), new MailAddress(service.Settings.MailAccount))
-                               {
-                                   Body = contactModel.Message,
-                                   IsBodyHtml = true,
-                                   Subject = "Contact - from zasz.me - Name: " + contactModel.Name
-                               };
-                if (!Request.IsLocal)
-                    try
-                    {
-                        new SmtpClient("127.0.0.1", 25).Send(mail);
-                    }
-                    catch (Exception e)
-                    {
-                        ErrorSignal.FromCurrentContext().Raise(e);
-                    }
-                return View();
+                return this.View("Form", contactModel);
             }
-            return View("Form", contactModel);
+
+            var mail = new MailMessage(new MailAddress(contactModel.Email), new MailAddress(this.service.Settings.MailAccount))
+                           {
+                               Body = contactModel.Message,
+                               IsBodyHtml = true,
+                               Subject = "Contact - from zasz.me - Name: " + contactModel.Name
+                           };
+
+            if (this.Request.IsLocal)
+            {
+                return this.View();
+            }
+
+            try
+            {
+                new SmtpClient("127.0.0.1", 25).Send(mail);
+            }
+            catch (Exception e)
+            {
+                ErrorSignal.FromCurrentContext().Raise(e);
+            }
+
+            return this.View();
         }
     }
 }
