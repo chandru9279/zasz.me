@@ -43,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Server|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -175,13 +176,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\SquishItLess.cs" />
     <Compile Include="HtmlHelpers\Render.cs" />
     <Compile Include="HtmlHelpers\Social.cs" />
     <Compile Include="Integration\EntityFramework\AnswerRepository.cs" />
     <Compile Include="Integration\EntityFramework\DbConstants.cs" />
     <Compile Include="Integration\EntityFramework\FullContext.cs" />
     <Compile Include="Integration\MVC\RequiredDatetime.cs" />
+    <Compile Include="Integration\SquishItLess.cs" />
     <Compile Include="Migrations\201209291525495_RenamingEntities.cs" />
     <Compile Include="Migrations\201209291525495_RenamingEntities.Designer.cs">
       <DependentUpon>201209291525495_RenamingEntities.cs</DependentUpon>

@@ -14,7 +14,7 @@ task default -depends opendev
 
 
 task build -depends clean {
-	exec { msbuild $SolutionPath\zasz.me\zasz.me.csproj /p:Configuration=Server /p:Platform=AnyCPU /p:OutputPath=$BuildPath /nologo /verbosity:minimal}
+	exec { msbuild $SolutionPath\zasz.me.sln /p:Configuration=Server /p:OutputPath=$BuildPath /p:DeployOnBuild=true /p:OutDir=$BuildPath /nologo /verbosity:minimal}
 	Write-Host -ForegroundColor Green "Server build complete."
 }
 
@@ -34,7 +34,7 @@ task deploy -depends build, migrate, solrs {
 
 
 task deploycode -depends build {
-	Trace-Robocopy { robocopy $BuildPath $DeployPath /E /NJH /NJS }
+	Trace-Robocopy { robocopy "$BuildPath\_PublishedWebsites" $DeployPath /E /NJH /NJS }
 	Write-Host -ForegroundColor Green "Deployed to $DeployPath."
 }
 

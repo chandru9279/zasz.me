@@ -1,5 +1,7 @@
-[assembly: WebActivator.PreApplicationStartMethod(typeof(zasz.me.SquishItLess), "Start")]
-namespace zasz.me
+using zasz.me.Integration;
+
+[assembly: WebActivator.PreApplicationStartMethod(typeof(SquishItLess), "Start")]
+namespace zasz.me.Integration
 {
     using SquishIt.Framework;
     using SquishIt.Less;
