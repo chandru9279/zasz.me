@@ -54,7 +54,10 @@ namespace zasz.me.Integration.MVC
         {
             ViewEngines.Engines.Clear();
 
-            var razor = new PrecompiledMvcEngine(typeof(Mvc).Assembly) { UsePhysicalViewsIfNewer = true };
+            var razor = new PrecompiledMvcEngine(typeof(Mvc).Assembly)
+                            {
+                                UsePhysicalViewsIfNewer = true
+                            };
 
             ViewEngines.Engines.Insert(0, razor);
 

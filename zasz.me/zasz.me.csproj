@@ -784,6 +784,7 @@
     <Content Include="Views\Sync\Solr.cshtml" />
     <Content Include="Views\Shared\_ScriptsCss.cshtml" />
     <Content Include="Views\Shared\_GoogleCdnFallback.cshtml" />
+    <Content Include="Views\Blog\_TwitterFeed.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
