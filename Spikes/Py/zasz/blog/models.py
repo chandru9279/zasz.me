@@ -5,7 +5,7 @@ class Tag(models.Model):
     name = models.SlugField()
 
     def __str__(self):
-        return self.slug
+        return self.name
 
     class Meta:
         db_tablespace = 'blog'
@@ -14,7 +14,7 @@ class Tag(models.Model):
 class Post(models.Model):
     slug = models.SlugField(unique=True)
     title = models.CharField(max_length=50)
-    content = models.CharField(max_length=10000)
+    content = models.TextField(max_length=10000)
     tags = models.ManyToManyField(Tag)
     posted_datetime = models.DateTimeField(auto_now=True)
 
