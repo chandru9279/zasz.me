@@ -1,4 +1,8 @@
+# DB and cache
 db.sqlite3
+__pycache__/
+
+# Idea
 *.iws
 .idea/workspace.xml
 .idea/tasks.xml
