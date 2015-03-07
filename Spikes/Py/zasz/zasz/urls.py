@@ -1,10 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+import blog.views
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'zasz.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
+    url(r'^$', blog.views.post_list, name='home'),
+    url(r'^post/', blog.views.post_list),
     url(r'^admin/', include(admin.site.urls)),
 )

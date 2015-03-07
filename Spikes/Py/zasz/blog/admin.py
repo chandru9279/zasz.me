@@ -4,6 +4,8 @@ from blog.models import *
 
 class PostAdmin(admin.ModelAdmin):
     pass
+
+
 class TagAdmin(admin.ModelAdmin):
     pass
 
