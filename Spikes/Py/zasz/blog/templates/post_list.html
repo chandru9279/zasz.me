@@ -1,8 +1,10 @@
-<b>Hi</b>
+{% extends "base.html" %}
 
 
-{% for post in post_list %}
-<p>{{ post.title }}</p>
-<p>By {{ post.slug }}</p>
-<p>Published {{ post.posted_datetime|date:"F j, Y" }}</p>
-{% endfor %}
+{% block content %}
+    {% for post in post_list %}
+        <p>{{ post.title }}</p>
+        <p>By {{ post.slug }}</p>
+        <p>Published {{ post.posted_datetime|date:"F j, Y" }}</p>
+    {% endfor %}
+{% endblock %}

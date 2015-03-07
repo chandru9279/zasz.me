@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <title>
+        {% block title %}
+        Default Title
+        {% endblock %}
+    </title>
+    {% include "scripts_and_styles.html" %}
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body class="Pro">
+<div class="Site-In-Center">
+    <div class="Header">
+        <div class="Left">
+            <img src="{% static 'images/Name.png' %}" alt="CHANDIRASEKAR THIAGARAJAN" class="Banner"/>
+            <div class="Links">
+                <a href="https://github.com/chandru9279" target="_blank">
+                    <img src="{% static 'images/github.ico' %}" alt="Chandru's Github Profile"/></a>
+                <a href="http://stackoverflow.com/users/626084/zasz" target="_blank">
+                    <img src="{% static 'images/stackoverflow.ico' %}" alt="Chandru's SO Profile"/></a>
+                <a href="http://in.linkedin.com/in/chandirasekar" target="_blank">
+                    <img src="{% static 'images/linkedin.ico' %}" alt="Chandru's LinkedIn Profile"></a>
+                <a href="http://careers.stackoverflow.com/zasz" target="_blank">
+                    <img src="{% static 'images/careers.ico' %}" alt="Chandru's Careers 2.0 Profile"></a>
+            </div>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+</body>
+</html>
